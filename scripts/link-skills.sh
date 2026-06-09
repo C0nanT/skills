@@ -53,6 +53,9 @@ else
   echo "injected caveman SessionStart hook -> $GLOBAL_SETTINGS"
 fi
 
+# Install git pre-push hook
+bash "$REPO/scripts/install-hooks.sh"
+
 find "$REPO/skills" -name SKILL.md -not -path '*/node_modules/*' -not -path '*/deprecated/*' -print0 |
 while IFS= read -r -d '' skill_md; do
   src="$(dirname "$skill_md")"
