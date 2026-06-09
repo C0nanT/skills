@@ -32,6 +32,7 @@ npx skills@latest add mattpocock/skills
 
 2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select `/setup-skills`**.
 
+
 3. Run `/setup-skills` in your agent. It will:
    - Ask you which issue tracker you want to use (GitHub, Linear, or local files)
    - Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
