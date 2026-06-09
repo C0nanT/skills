@@ -8,10 +8,69 @@
   },
   "plugins": [
     {
-      "name": "Conan Skills",
+      "name": "Engineering",
       "source": "./",
       "skills": [
-        "./skills/engineering/diagnose"
+        "./skills/engineering/diagnose",
+        "./skills/engineering/grill-with-docs",
+        "./skills/engineering/improve-codebase-architecture",
+        "./skills/engineering/prototype",
+        "./skills/engineering/setup-conan-skills",
+        "./skills/engineering/setup-skills",
+        "./skills/engineering/tdd",
+        "./skills/engineering/to-issues",
+        "./skills/engineering/to-prd",
+        "./skills/engineering/triage",
+        "./skills/engineering/zoom-out"
+      ]
+    },
+    {
+      "name": "Productivity",
+      "source": "./",
+      "skills": [
+        "./skills/productivity/caveman",
+        "./skills/productivity/grill-me",
+        "./skills/productivity/handoff",
+        "./skills/productivity/teach",
+        "./skills/productivity/write-a-skill"
+      ]
+    },
+    {
+      "name": "Misc",
+      "source": "./",
+      "skills": [
+        "./skills/misc/git-guardrails-claude-code",
+        "./skills/misc/migrate-to-shoehorn",
+        "./skills/misc/scaffold-exercises",
+        "./skills/misc/setup-pre-commit"
+      ]
+    },
+    {
+      "name": "Personal",
+      "source": "./",
+      "skills": [
+        "./skills/personal/edit-article",
+        "./skills/personal/obsidian-vault"
+      ]
+    },
+    {
+      "name": "In Progress",
+      "source": "./",
+      "skills": [
+        "./skills/in-progress/review",
+        "./skills/in-progress/writing-beats",
+        "./skills/in-progress/writing-fragments",
+        "./skills/in-progress/writing-shape"
+      ]
+    },
+    {
+      "name": "Deprecated",
+      "source": "./",
+      "skills": [
+        "./skills/deprecated/design-an-interface",
+        "./skills/deprecated/qa",
+        "./skills/deprecated/request-refactor-plan",
+        "./skills/deprecated/ubiquitous-language"
       ]
     }
   ]

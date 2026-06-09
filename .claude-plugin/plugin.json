@@ -1,6 +1,4 @@
 {
   "name": "conan-skills",
-  "skills": [
-    "./skills/engineering/diagnose"
-  ]
+  "description": "Engineering and productivity skills for Claude Code — diagnosis, TDD, architecture review, prototyping, issue workflow, and more."
 }
