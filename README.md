@@ -1,3 +1,5 @@
+> **Fork:** Este repositório é um fork do [repositório oficial de skills](https://github.com/total-typescript/skills). Modificações locais podem divergir do upstream.
+
 <p>
   <a href="https://www.aihero.dev/s/skills-newsletter">
     <picture>
