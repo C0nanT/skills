@@ -20,11 +20,16 @@ set -euo pipefail
 REPO="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$HOME/.claude/skills"
 SETTINGS="$HOME/.claude/settings.json"
-GUARDRAILS_SCRIPT="$HOME/.claude/hooks/conan-git-guardrails.sh"
+# Both installers' helper scripts: setup-conan-skills writes the first,
+# the git-guardrails-claude-code skill writes the second.
+GUARDRAILS_SCRIPTS=(
+  "$HOME/.claude/hooks/conan-git-guardrails.sh"
+  "$HOME/.claude/hooks/block-dangerous-git.sh"
+)
 
 # Marker used to find the hooks regardless of which installer added them.
 CAVEMAN_MATCH='conan-caveman-autostart|caveman-skill-autostart|skills/caveman/SKILL.md'
-GUARDRAILS_MATCH='conan-git-guardrails'
+GUARDRAILS_MATCH='conan-git-guardrails|block-dangerous-git'
 
 ASSUME_YES=0
 for arg in "$@"; do
@@ -118,19 +123,21 @@ else
 fi
 echo
 
-# --- 3. Remove the git-guardrails helper script -------------------------------
-echo "[3/3] Helper script $GUARDRAILS_SCRIPT"
-if [ -f "$GUARDRAILS_SCRIPT" ]; then
+# --- 3. Remove the git-guardrails helper script(s) ----------------------------
+echo "[3/3] Helper scripts in $HOME/.claude/hooks"
+any_found=0
+for GUARDRAILS_SCRIPT in "${GUARDRAILS_SCRIPTS[@]}"; do
+  [ -f "$GUARDRAILS_SCRIPT" ] || continue
+  any_found=1
   if confirm "  remove $GUARDRAILS_SCRIPT ?"; then
     rm "$GUARDRAILS_SCRIPT" && echo "  removed: $GUARDRAILS_SCRIPT"
-    # clean up ~/.claude/hooks only if it's now empty and we created it
-    rmdir "$HOME/.claude/hooks" 2>/dev/null && echo "  removed empty dir: $HOME/.claude/hooks" || true
   else
     echo "  skipped: $GUARDRAILS_SCRIPT"
   fi
-else
-  echo "  not found: $GUARDRAILS_SCRIPT (nothing to remove)"
-fi
+done
+[ "$any_found" -eq 0 ] && echo "  not found (nothing to remove)"
+# clean up ~/.claude/hooks only if it's now empty and we created it
+rmdir "$HOME/.claude/hooks" 2>/dev/null && echo "  removed empty dir: $HOME/.claude/hooks" || true
 echo
 
 echo "Done."

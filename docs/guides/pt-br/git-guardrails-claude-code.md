@@ -43,7 +43,9 @@ Torna o script executável com `chmod +x`.
 
 **3. Adiciona o hook ao settings**
 
-Adiciona uma entrada `PreToolUse` no arquivo de settings correspondente:
+O script é copiado **e verificado** antes do hook ser registrado, então o settings
+nunca aponta para um arquivo inexistente. Adiciona uma entrada `PreToolUse` no
+arquivo de settings correspondente:
 
 ```json
 {
@@ -54,7 +56,7 @@ Adiciona uma entrada `PreToolUse` no arquivo de settings correspondente:
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/block-dangerous-git.sh"
+            "command": "bash \"$HOME/.claude/hooks/block-dangerous-git.sh\""
           }
         ]
       }
@@ -63,6 +65,7 @@ Adiciona uma entrada `PreToolUse` no arquivo de settings correspondente:
 }
 ```
 
+(Escopo de projeto usa `bash "$CLAUDE_PROJECT_DIR/.claude/hooks/block-dangerous-git.sh"`.)
 Se o arquivo já existe, mergeia sem sobrescrever outras configurações.
 
 **4. Pergunta sobre customização** — quer adicionar ou remover padrões da lista de bloqueio?

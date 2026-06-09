@@ -43,7 +43,9 @@ Makes the script executable with `chmod +x`.
 
 **3. Adds the hook to settings**
 
-Adds a `PreToolUse` entry to the corresponding settings file:
+The script is copied **and verified** before the hook is registered, so the
+settings never point at a missing file. Adds a `PreToolUse` entry to the
+corresponding settings file:
 
 ```json
 {
@@ -54,7 +56,7 @@ Adds a `PreToolUse` entry to the corresponding settings file:
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/block-dangerous-git.sh"
+            "command": "bash \"$HOME/.claude/hooks/block-dangerous-git.sh\""
           }
         ]
       }
@@ -63,6 +65,7 @@ Adds a `PreToolUse` entry to the corresponding settings file:
 }
 ```
 
+(Project scope uses `bash "$CLAUDE_PROJECT_DIR/.claude/hooks/block-dangerous-git.sh"`.)
 If the file already exists, merges without overwriting other settings.
 
 **4. Asks about customisation** — want to add or remove patterns from the blocklist?
