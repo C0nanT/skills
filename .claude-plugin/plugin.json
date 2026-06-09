@@ -1,21 +1,6 @@
 {
   "name": "conan-skills",
   "skills": [
-    "./skills/engineering/diagnose",
-    "./skills/engineering/grill-with-docs",
-    "./skills/engineering/triage",
-    "./skills/engineering/improve-codebase-architecture",
-    "./skills/engineering/setup-skills",
-    "./skills/engineering/setup-conan-skills",
-    "./skills/engineering/tdd",
-    "./skills/engineering/to-issues",
-    "./skills/engineering/to-prd",
-    "./skills/engineering/zoom-out",
-    "./skills/engineering/prototype",
-    "./skills/productivity/caveman",
-    "./skills/productivity/grill-me",
-    "./skills/productivity/handoff",
-    "./skills/productivity/teach",
-    "./skills/productivity/write-a-skill"
+    "./skills/engineering/diagnose"
   ]
 }
