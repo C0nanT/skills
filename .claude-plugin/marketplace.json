@@ -44,34 +44,6 @@
         "./skills/misc/scaffold-exercises",
         "./skills/misc/setup-pre-commit"
       ]
-    },
-    {
-      "name": "Personal",
-      "source": "./",
-      "skills": [
-        "./skills/personal/edit-article",
-        "./skills/personal/obsidian-vault"
-      ]
-    },
-    {
-      "name": "In Progress",
-      "source": "./",
-      "skills": [
-        "./skills/in-progress/review",
-        "./skills/in-progress/writing-beats",
-        "./skills/in-progress/writing-fragments",
-        "./skills/in-progress/writing-shape"
-      ]
-    },
-    {
-      "name": "Deprecated",
-      "source": "./",
-      "skills": [
-        "./skills/deprecated/design-an-interface",
-        "./skills/deprecated/qa",
-        "./skills/deprecated/request-refactor-plan",
-        "./skills/deprecated/ubiquitous-language"
-      ]
     }
   ]
 }
