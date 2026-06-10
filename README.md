@@ -12,6 +12,8 @@ Funcionam com qualquer modelo. Instale só o que precisar.
 
 ## Instalação
 
+> **Use um terminal externo** (Terminal.app, iTerm, GNOME Terminal, etc.) — **não** o terminal integrado da IDE. O instalador é interativo: em terminais de IDE o menu de seleção pode não funcionar e todas as skills podem ser instaladas de uma vez, sem você escolher.
+
 ```bash
 npx skills@latest add C0nanT/skills
 ```
