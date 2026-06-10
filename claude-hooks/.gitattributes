@@ -1,0 +1,4 @@
+# Keep LF endings so scripts run correctly when cloned on WSL/Windows checkouts.
+* text=auto eol=lf
+*.sh text eol=lf
+*.json text eol=lf
