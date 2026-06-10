@@ -53,17 +53,30 @@ the hook's marker/name.
 - `matcher` (optional) — tool-name pattern, for `PreToolUse`/`PostToolUse`.
   Omit for events that don't match on a tool.
 - `command` (required) — the shell command Claude Code runs. It receives the
-  hook event JSON on stdin; exit code `2` blocks the action. You don't write
-  the marker yourself — the installer prepends it.
+  hook event JSON on stdin; exit code `2` blocks the action. You don't write the
+  marker yourself — the installer prepends it.
+
+> **Portability & live updates.** These hooks are meant to run on machines that
+> only have what `npx skills@latest` installs — no cloned repo. So a hook's
+> `command` should reference **skill assets under `~/.claude/skills/<skill>/`**
+> (a path present on every machine, symlinked to `~/.agents/skills/`), not a
+> path inside this repo. Referencing the file by path also makes the hook
+> *live*: it reads the asset at runtime, so updating the skill (via `npx` or by
+> editing it) takes effect next session with no reinstall. Self-contained
+> inline logic still works, but it's a snapshot — re-run `install.sh <name>`
+> after editing it.
 
 ## Bundled hooks
 
-- **`git-guardrails.json`** (`PreToolUse` / `Bash`) — blocks destructive git
-  commands before the agent runs them: `git push`, `git commit`,
-  `git reset --hard`, `git clean -f`, `git branch -D`, `git checkout .`,
-  `git restore .`, `push --force`, `reset --hard`. Blocked commands exit `2`
-  with a message; safe commands (`git status`, `git log`, …) pass through. Edit
-  the `grep -qE` alternation in the file to add/remove patterns.
+- **`git-guardrails.json`** (`PreToolUse` / `Bash`, **live**) — runs
+  `~/.claude/skills/git-guardrails-claude-code/scripts/block-dangerous-git.sh`
+  (installed by `npx skills`) to block destructive git commands before the agent
+  runs them: `git push`, `git commit`, `git reset --hard`, `git clean -f`,
+  `git branch -D`, `git checkout .`, `git restore .`, `push --force`,
+  `reset --hard`. Blocked commands exit `2` with a message; safe commands
+  (`git status`, `git log`, …) pass through. Edit the pattern list in that
+  installed script to customize — takes effect next session, no reinstall.
+  No-ops if that skill isn't installed.
 
 - **`caveman.json`** (`SessionStart`) — injects the caveman ruleset from
   `~/.claude/skills/caveman/SKILL.md` as hidden session context, so the agent

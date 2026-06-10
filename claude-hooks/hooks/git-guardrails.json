@@ -1,5 +1,5 @@
 {
   "event": "PreToolUse",
   "matcher": "Bash",
-  "command": "cmd=$(jq -r '.tool_input.command // empty'); [ -z \"$cmd\" ] && exit 0; if printf '%s' \"$cmd\" | grep -qE 'git push|git commit|git reset --hard|git clean -f|git branch -D|git checkout \\.|git restore \\.|push --force|reset --hard'; then echo \"BLOCKED: '$cmd' is a destructive git command the user has disabled for the agent.\" >&2; exit 2; fi; exit 0"
+  "command": "f=\"$HOME/.claude/skills/git-guardrails-claude-code/scripts/block-dangerous-git.sh\"; [ -f \"$f\" ] && exec bash \"$f\"; exit 0"
 }

@@ -52,6 +52,25 @@ scripts/list-skills.sh    # Print all SKILL.md paths in the repo
 
 Run `scripts/link-skills.sh` after adding a new skill to make it available locally without reinstalling.
 
+## Runtime Skill Layout (reference `~/.agents/skills`, not the clone)
+
+When configuring skills, hooks, or anything that points at a skill asset at
+runtime, target the **npx install location**, not this cloned repo. End users
+are not expected to clone this project — they only have what
+`npx skills@latest` downloads.
+
+- `npx skills@latest …` installs skills into `~/.agents/skills/<skill>/` (the
+  real directory), then symlinks each into `~/.claude/skills/<skill>` →
+  `../../.agents/skills/<skill>`.
+- This layout exists on every machine (Ubuntu, WSL) after an npx install; the
+  repo path (`skills/<bucket>/<skill>/`) does **not**.
+- So hooks/configs must reference assets via `~/.claude/skills/<skill>/…`
+  (e.g. `~/.claude/skills/caveman/SKILL.md`,
+  `~/.claude/skills/git-guardrails-claude-code/scripts/block-dangerous-git.sh`),
+  never a path inside the clone. This keeps them portable across machines and
+  "live" (the asset is read at runtime, so `npx` updates take effect without
+  reinstalling the hook).
+
 ## Domain Language (from CONTEXT.md)
 
 - **Issue tracker** — the tool hosting a repo's issues (GitHub Issues, Linear, local `.scratch/`). Not "backlog".
