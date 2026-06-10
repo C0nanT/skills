@@ -31,7 +31,7 @@ Depois, no agent:
 Os hooks do Claude Code são gerenciados pelo **[claude-hooks](https://github.com/C0nanT/claude-hooks)** — projeto separado e complementar a este. Os hooks referenciam os assets das skills instaladas aqui (`caveman`, `git-guardrails-claude-code`), então instale as skills antes dos hooks:
 
 ```bash
-npx claude-hooks@latest install
+npx @c0nant/claude-hooks install
 ```
 
 Isso instala dois hooks no `~/.claude/settings.json` global:
@@ -42,7 +42,7 @@ Isso instala dois hooks no `~/.claude/settings.json` global:
 Para desinstalar os hooks:
 
 ```bash
-npx claude-hooks@latest uninstall
+npx @c0nant/claude-hooks uninstall
 ```
 
 ## Desenvolvimento local
