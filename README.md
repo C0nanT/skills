@@ -21,17 +21,28 @@ npx skills@latest add C0nanT/skills
 O instalador pergunta quais skills instalar e em quais agents. **Selecione pelo menos:**
 
 - `/setup-skills` — configura issue tracker, labels de triagem e layout de docs no repositório
-- `/setup-conan-skills` — configura os hooks do Claude Code (caveman automático + git guardrails)
 
 Depois, no agent:
 
 1. Rode `/setup-skills` uma vez por repositório de projeto.
-2. Rode `/setup-conan-skills` para ativar os hooks (recomendado: escopo global).
 
-Para desinstalar tudo que este pacote instalou:
+### Hooks (caveman automático + git guardrails)
+
+Os hooks do Claude Code são gerenciados pelo **[claude-hooks](https://github.com/C0nanT/claude-hooks)** — um projeto separado instalável via npx:
 
 ```bash
-git clone https://github.com/C0nanT/skills.git && cd skills && ./uninstall.sh
+npx claude-hooks@latest install
+```
+
+Isso instala dois hooks no `~/.claude/settings.json` global:
+
+- **caveman** (`SessionStart`) — injeta o modo caveman automaticamente em toda sessão
+- **git-guardrails** (`PreToolUse/Bash`) — bloqueia comandos git destrutivos antes do agente executar
+
+Para desinstalar os hooks:
+
+```bash
+npx claude-hooks@latest uninstall
 ```
 
 ## Desenvolvimento local
@@ -55,7 +66,6 @@ Skills para trabalho com código.
 - **[triage](./skills/engineering/triage/SKILL.md)** — Triage issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Find deepening opportunities in a codebase, informed by the domain language in `CONTEXT.md` and the decisions in `docs/adr/`.
 - **[setup-skills](./skills/engineering/setup-skills/SKILL.md)** — Scaffold the per-repo config (issue tracker, triage label vocabulary, domain doc layout) that the other engineering skills consume. Run once per repo before using `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out`.
-- **[setup-conan-skills](./skills/engineering/setup-conan-skills/SKILL.md)** — Configure the Claude Code hooks the skill set depends on after install: caveman `SessionStart` (auto-injects caveman mode every session, read live from the installed symlink) and git-guardrails `PreToolUse` (blocks destructive git commands). Run after `npx skills@latest add C0nanT/skills`; undo with `./uninstall.sh`.
 - **[tdd](./skills/engineering/tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
 - **[to-issues](./skills/engineering/to-issues/SKILL.md)** — Break any plan, spec, or PRD into independently-grabbable GitHub issues using vertical slices.
 - **[to-prd](./skills/engineering/to-prd/SKILL.md)** — Turn the current conversation context into a PRD and submit it as a GitHub issue. No interview — just synthesizes what you've already discussed.
