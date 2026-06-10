@@ -28,7 +28,7 @@ Depois, no agent:
 
 ### Hooks (caveman automático + git guardrails)
 
-Os hooks do Claude Code são gerenciados pelo **[claude-hooks](https://github.com/C0nanT/claude-hooks)** — um projeto separado instalável via npx:
+Os hooks do Claude Code são gerenciados pelo **[claude-hooks](https://github.com/C0nanT/claude-hooks)** — projeto separado e complementar a este. Os hooks referenciam os assets das skills instaladas aqui (`caveman`, `git-guardrails-claude-code`), então instale as skills antes dos hooks:
 
 ```bash
 npx claude-hooks@latest install
