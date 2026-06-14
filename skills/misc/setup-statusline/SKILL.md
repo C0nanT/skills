@@ -50,7 +50,7 @@ SETTINGS="$HOME/.claude/settings.json"
 mkdir -p "$(dirname "$SETTINGS")"
 [ -s "$SETTINGS" ] && jq -e . "$SETTINGS" >/dev/null 2>&1 || echo '{}' > "$SETTINGS"
 
-jq '.statusLine = "bash ~/.claude/statusline-command.sh"' \
+jq '.statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"}' \
   "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
 ```
 
