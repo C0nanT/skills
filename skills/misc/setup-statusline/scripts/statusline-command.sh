@@ -26,18 +26,48 @@ if git -C "$cwd" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   branch=$(git -C "$cwd" -c gc.auto=0 symbolic-ref --short HEAD 2>/dev/null || git -C "$cwd" -c gc.auto=0 rev-parse --short HEAD 2>/dev/null)
 fi
 
-# Session cost (from cost.total_cost_usd)
+# Raw session metrics from Claude
 cost_raw=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
-if [ -n "$cost_raw" ]; then
-  cost=$(printf '$%.4f' "$cost_raw")
-else
-  cost=""
+dur_raw=$(echo "$input" | jq -r '.cost.total_duration_ms // empty')
+
+# Cache raw values so the /clear hook can snapshot them
+cache_file="$HOME/.claude/statusline-cache.json"
+printf '{"cost_usd":%s,"duration_ms":%s}\n' \
+  "${cost_raw:-0}" "${dur_raw:-0}" > "$cache_file" 2>/dev/null || true
+
+# Load baseline saved by /clear hook
+baseline_file="$HOME/.claude/statusline-baseline.json"
+baseline_cost=0
+baseline_dur=0
+if [ -f "$baseline_file" ]; then
+  b_cost=$(jq -r '.cost_usd // 0' "$baseline_file" 2>/dev/null)
+  b_dur=$(jq -r '.duration_ms // 0' "$baseline_file" 2>/dev/null)
+  [ -n "$b_cost" ] && baseline_cost=$b_cost
+  [ -n "$b_dur" ] && baseline_dur=$b_dur
+  # Auto-reset baseline when a new session started (cost dropped below baseline)
+  if [ -n "$cost_raw" ] && [ "$baseline_cost" != "0" ]; then
+    is_lower=$(awk "BEGIN {print ($cost_raw < $baseline_cost) ? 1 : 0}")
+    if [ "$is_lower" = "1" ]; then
+      rm -f "$baseline_file" 2>/dev/null || true
+      baseline_cost=0
+      baseline_dur=0
+    fi
+  fi
 fi
 
-# Session duration (from cost.total_duration_ms)
-dur_raw=$(echo "$input" | jq -r '.cost.total_duration_ms // empty')
+# Session cost since last /clear
+cost=""
+if [ -n "$cost_raw" ]; then
+  cost_adj=$(awk "BEGIN {v = $cost_raw - $baseline_cost; if (v < 0) v = 0; printf \"%.6f\", v}")
+  cost=$(printf '$%.4f' "$cost_adj")
+fi
+
+# Session duration since last /clear
+duration=""
 if [ -n "$dur_raw" ]; then
-  dur_total_s=$(( ${dur_raw%.*} / 1000 ))
+  dur_adj=$(( ${dur_raw%.*} - ${baseline_dur%.*} ))
+  [ "$dur_adj" -lt 0 ] && dur_adj=0
+  dur_total_s=$(( dur_adj / 1000 ))
   dur_h=$(( dur_total_s / 3600 ))
   dur_m=$(( (dur_total_s % 3600) / 60 ))
   if [ "$dur_h" -gt 0 ]; then
@@ -45,8 +75,6 @@ if [ -n "$dur_raw" ]; then
   else
     duration="${dur_m}m"
   fi
-else
-  duration=""
 fi
 
 # 5-hour rate limit

@@ -43,18 +43,32 @@ test -x "$HOME/.claude/statusline-command.sh" \
   || { echo "copy failed"; exit 1; }
 ```
 
-### 2. Register in settings.json
+### 2. Copy the reset hook
+
+```bash
+SRC_RESET="$HOME/.claude/skills/setup-statusline/scripts/statusline-reset-hook.sh"
+# Running from repo clone instead?
+#   SRC_RESET="$PWD/skills/misc/setup-statusline/scripts/statusline-reset-hook.sh"
+
+[ -f "$SRC_RESET" ] || { echo "source script not found: $SRC_RESET"; exit 1; }
+cp "$SRC_RESET" "$HOME/.claude/statusline-reset-hook.sh"
+chmod +x "$HOME/.claude/statusline-reset-hook.sh"
+```
+
+### 3. Register in settings.json
 
 ```bash
 SETTINGS="$HOME/.claude/settings.json"
 mkdir -p "$(dirname "$SETTINGS")"
 [ -s "$SETTINGS" ] && jq -e . "$SETTINGS" >/dev/null 2>&1 || echo '{}' > "$SETTINGS"
 
-jq '.statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"}' \
-  "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
+jq '
+  .statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"} |
+  .hooks.UserPromptSubmit = [{"hooks":[{"type":"command","command":"# claude-hook:statusline-reset\nf=\"$HOME/.claude/statusline-reset-hook.sh\"; [ -f \"$f\" ] && exec bash \"$f\"; exit 0"}]}]
+' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
 ```
 
-### 3. Verify
+### 4. Verify
 
 ```bash
 # Should print the formatted status line (model only populated when run inside Claude):
@@ -63,3 +77,10 @@ echo '{"model":{"display_name":"Claude Sonnet 4.6"},"context_window":{"used_perc
 ```
 
 Takes effect at next Claude Code session start (no restart needed for mid-session updates).
+
+## /clear behaviour
+
+Running `/clear` resets the cost and duration counters in the status line. Internally:
+- A `UserPromptSubmit` hook snapshots the current raw values into `~/.claude/statusline-baseline.json`
+- The statusline script subtracts the baseline from every subsequent reading
+- If a new Claude process starts (raw cost drops below baseline), the baseline auto-clears
