@@ -64,7 +64,11 @@ mkdir -p "$(dirname "$SETTINGS")"
 
 jq '
   .statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"} |
-  .hooks.UserPromptSubmit = [{"hooks":[{"type":"command","command":"# claude-hook:statusline-reset\nf=\"$HOME/.claude/statusline-reset-hook.sh\"; [ -f \"$f\" ] && exec bash \"$f\"; exit 0"}]}]
+  .hooks.UserPromptSubmit = (
+    ((.hooks.UserPromptSubmit // [])
+      | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
+    ) + [{"hooks":[{"type":"command","command":"# claude-hook:statusline-reset\nf=\"$HOME/.claude/statusline-reset-hook.sh\"; [ -f \"$f\" ] && exec bash \"$f\"; exit 0"}]}]
+  )
 ' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
 ```
 
