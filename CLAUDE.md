@@ -76,3 +76,6 @@ are not expected to clone this project — they only have what
 - **Issue tracker** — the tool hosting a repo's issues (GitHub Issues, Linear, local `.scratch/`). Not "backlog".
 - **Issue** — a single tracked unit of work. Not "ticket" unless quoting external systems.
 - **Triage role** — a state-machine label applied to an issue during triage.
+Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
+
+Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [docs/invocation.md](./docs/invocation.md).
