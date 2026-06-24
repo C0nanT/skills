@@ -19,6 +19,7 @@
     "./skills/productivity/handoff",
     "./skills/productivity/writing-great-skills",
     "./skills/misc/setup-pre-commit",
-    "./skills/misc/setup-statusline"
+    "./skills/misc/setup-statusline",
+    "./skills/misc/reset-agent-env"
   ]
 }

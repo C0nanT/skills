@@ -38,6 +38,7 @@ Skills kept around but rarely used.
 | Skill | What it does |
 |-------|-------------|
 | [setup-pre-commit](./setup-pre-commit.md) | Configures Husky + lint-staged + Prettier as pre-commit hooks |
+| [reset-agent-env](./reset-agent-env.md) | Wipes global agent skills, hooks, rules, and MCP configs across Claude Code, Cursor, Windsurf, and Antigravity (dry-run by default) |
 
 ---
 
