@@ -34,7 +34,7 @@ O agente cria um documento Markdown com:
 
 **Referências** — em vez de duplicar conteúdo que já existe em outros artefatos (PRDs, planos, ADRs, issues, commits, diffs), o documento *referencia* eles por path ou URL.
 
-**Skills sugeridas** — seção que recomenda quais skills o próximo agente deve invocar para continuar o trabalho. Por exemplo: "Invoque `/tdd` para implementar a issue #45" ou "Use `/diagnose` para investigar o bug de race condition mencionado."
+**Skills sugeridas** — seção que recomenda quais skills o próximo agente deve invocar para continuar o trabalho. Por exemplo: "Invoque `/tdd` para implementar a issue #45" ou "Use `/diagnosing-bugs` para investigar o bug de race condition mencionado."
 
 **Informações sensíveis** são redatadas automaticamente — API keys, senhas, PII não aparecem no documento.
 

@@ -2,7 +2,7 @@
 
 ## O que é
 
-Uma skill de produtividade que faz o agente entrevistar você intensamente sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma.
+Uma skill user-invoked que inicia uma sessão **`/grilling`** — entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `CONTEXT.md` nem ADRs.
 
 ## Para que serve
 
@@ -36,9 +36,11 @@ O processo continua até que *todos* os ramos da árvore de decisões estejam re
 
 ## Diferença de `/grill-with-docs`
 
-`/grill-me` é genérico — funciona para qualquer plano, dentro ou fora de código.
+Ambas delegam a **`/grilling`** por baixo.
 
-`/grill-with-docs` é a versão para engenharia: faz tudo que `/grill-me` faz, mas também lê o `CONTEXT.md` do projeto (glossário de domínio), verifica ADRs, atualiza o glossário inline conforme os termos são resolvidos, e oferece criar ADRs para decisões arquiteturais importantes.
+`/grill-me` é genérico — qualquer plano, com ou sem codebase. Não persiste documentação.
+
+`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas aciona **`/domain-modeling`** — lê e atualiza `CONTEXT.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
 
 ## Exemplo de uso
 

@@ -2,7 +2,7 @@
 
 ## O que é
 
-A versão engenharia-focada de `/grill-me`. Entrevista você sobre um plano, mas ao mesmo tempo lê e atualiza a documentação do projeto (`CONTEXT.md` e ADRs) conforme as decisões são tomadas.
+A versão engenharia-focada de `/grill-me`. Inicia **`/grilling`** usando **`/domain-modeling`**: entrevista sobre o plano e, em paralelo, lê e atualiza `CONTEXT.md` e ADRs conforme as decisões são tomadas.
 
 ## Para que serve
 

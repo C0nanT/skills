@@ -13,6 +13,8 @@ Uma skill que implementa o ciclo red-green-refactor de TDD de forma disciplinada
 
 ## Como invocar
 
+User-invoked — só você digita o nome (não é carregada automaticamente pelo modelo):
+
 ```
 /tdd
 ```
@@ -47,9 +49,10 @@ CERTO (vertical):
 ### Processo
 
 **1. Planejamento** — antes de escrever qualquer código:
+- Lê `CONTEXT.md` (se existir) e ADRs da área para alinhar nomes de teste ao vocabulário do domínio
 - Confirma com o usuário quais mudanças de interface são necessárias
-- Confirma quais comportamentos testar (prioriza)
-- Identifica oportunidades de módulos profundos (interface pequena, implementação rica)
+- Confirma quais comportamentos testar (prioriza) — você não consegue testar tudo
+- Identifica oportunidades de módulos profundos — use `/codebase-design` para vocabulário e checagens de testabilidade
 - Lista os comportamentos a testar (não os passos de implementação)
 - Pede aprovação do plano
 
@@ -71,10 +74,11 @@ Regras:
 - Não antecipa testes futuros
 - Testes focados em comportamento observável
 
-**4. Refatorar** — só depois que todos os testes passam:
+**4. Refatorar** — só depois que todos os testes passam (veja também [refactoring.md](../../../skills/engineering/tdd/refactoring.md)):
 - Extrai duplicação
 - Aprofunda módulos (move complexidade atrás de interfaces simples)
 - Aplica SOLID onde natural
+- Considera o que o código novo revela sobre código existente
 - Roda testes após cada passo de refatoração
 
 **Nunca refatora enquanto RED.** Primeiro chega ao GREEN.
@@ -98,6 +102,11 @@ Quero implementar uma função de busca de usuários por email. Pode ser exata o
 ```
 
 O agente vai planejar: "Quais comportamentos importam? Busca exata encontra um usuário. Busca parcial retorna múltiplos. Email inexistente retorna vazio. Qual interface — `findUser(email: string): User | null` ou outra coisa?" — depois vai implementar um teste por vez.
+
+## Referências no skill
+
+- [tests.md](../../../skills/engineering/tdd/tests.md) — exemplos de bons e maus testes
+- [mocking.md](../../../skills/engineering/tdd/mocking.md) — diretrizes de mock
 
 ## Dicas
 
