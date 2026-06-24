@@ -13,8 +13,7 @@ Skills para trabalho diário de código.
 | Skill | O que faz |
 |-------|-----------|
 | [ask-matt](./ask-matt.md) | Roteador: indica qual skill ou fluxo usar para a sua situação |
-| [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `CONTEXT.md` e ADRs via `/domain-modeling` |
-| [triage](./triage.md) | Move issues por state machine de triage; produz agent briefs |
+| [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `CONTEXT.md` e ADRs |
 | [improve-codebase-architecture](./improve-codebase-architecture.md) | Analisa codebase em busca de módulos rasos; relatório HTML + grilling |
 | [setup-skills](./setup-skills.md) | Configura issue tracker, labels de triage e layout de docs. Uma vez por repo |
 | [to-issues](./to-issues.md) | Quebra plano/PRD em issues independentes (fatias verticais) |
@@ -28,8 +27,6 @@ Skills para trabalho diário de código.
 |-------|-----------|
 | [diagnosing-bugs](./diagnosing-bugs.md) | Loop de feedback → reproduz → minimiza → hipóteses → instrumenta → fix → regressão |
 | [tdd](./tdd.md) | TDD red-green-refactor; fatias verticais; sem mock de internals |
-| [domain-modeling](./domain-modeling.md) | Constrói e afia glossário (`CONTEXT.md`) e ADRs durante design |
-| [codebase-design](./codebase-design.md) | Vocabulário de módulos profundos, seams e testabilidade |
 | [resolving-merge-conflicts](./resolving-merge-conflicts.md) | Resolve conflitos de merge/rebase preservando intenção |
 
 ## Productivity
@@ -42,7 +39,6 @@ Ferramentas de workflow não específicas de código.
 |-------|-----------|
 | [grill-me](./grill-me.md) | Entrevista relentless (delega a `/grilling`); stateless, sem codebase |
 | [handoff](./handoff.md) | Compacta conversa em documento de handoff para outra sessão |
-| [teach](./teach.md) | Ensina conceito em múltiplas sessões com workspace stateful |
 | [writing-great-skills](./writing-great-skills.md) | Referência: vocabulário e princípios para skills previsíveis |
 
 ### Model-invoked
@@ -57,9 +53,6 @@ Skills mantidas mas raramente usadas.
 
 | Skill | O que faz |
 |-------|-----------|
-| [git-guardrails-claude-code](./git-guardrails-claude-code.md) | Hooks que bloqueiam comandos git perigosos no Claude Code |
-| [migrate-to-shoehorn](./migrate-to-shoehorn.md) | Migra `as Type` em testes TS para `@total-typescript/shoehorn` |
-| [scaffold-exercises](./scaffold-exercises.md) | Estrutura de diretórios de exercícios (projetos com `ai-hero-cli`) |
 | [setup-pre-commit](./setup-pre-commit.md) | Husky + lint-staged + Prettier como pre-commit |
 | [setup-statusline](./setup-statusline.md) | Status line: modelo, contexto %, custo, rate limit, branch git |
 
@@ -79,7 +72,7 @@ Skills mantidas mas raramente usadas.
 9. /improve-codebase-architecture  ← periodicamente
 ```
 
-Issues externas entram por `/triage` → `/implement`.
+Issues externas entram pelo issue tracker → `/implement`.
 
 ---
 

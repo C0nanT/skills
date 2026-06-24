@@ -18,7 +18,6 @@ Skills for daily code work.
 | [tdd](./tdd.md) | TDD with red-green-refactor cycle. One test at a time, vertical slices, no mocking internals |
 | [to-issues](./to-issues.md) | Breaks a plan/PRD into independent, grabbable issues on the issue tracker using vertical slices |
 | [to-prd](./to-prd.md) | Turns the current conversation into a structured PRD and publishes it to the issue tracker |
-| [triage](./triage.md) | Manages issue workflow: evaluates, reproduces bugs, creates agent briefs, applies state labels |
 | [zoom-out](./zoom-out.md) | Steps up one abstraction level and shows the module and caller map of an unfamiliar area of the code |
 
 ## Productivity
@@ -38,9 +37,6 @@ Skills kept around but rarely used.
 
 | Skill | What it does |
 |-------|-------------|
-| [git-guardrails-claude-code](./git-guardrails-claude-code.md) | Configures Claude Code hooks to block dangerous git commands (push, reset --hard, etc.) |
-| [migrate-to-shoehorn](./migrate-to-shoehorn.md) | Migrates `as Type` assertions in TypeScript tests to `@total-typescript/shoehorn` |
-| [scaffold-exercises](./scaffold-exercises.md) | Creates exercise directory structures for courses (specific to projects using `ai-hero-cli`) |
 | [setup-pre-commit](./setup-pre-commit.md) | Configures Husky + lint-staged + Prettier as pre-commit hooks |
 
 ---
