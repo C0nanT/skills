@@ -40,7 +40,7 @@ Ambas delegam a **`/grilling`** por baixo.
 
 `/grill-me` é genérico — qualquer plano, com ou sem codebase. Não persiste documentação.
 
-`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas aciona **`/domain-modeling`** — lê e atualiza `CONTEXT.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
+`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas também trabalha os docs de domínio — lê e atualiza `CONTEXT.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
 
 ## Exemplo de uso
 

@@ -45,7 +45,7 @@ description: Brief description. Use when [specific triggers].
 ## Scripts
 
 ```bash
-scripts/link-skills.sh    # Symlink all skills into ~/.claude/skills + inject caveman SessionStart hook
+scripts/link-skills.sh    # Symlink all skills into ~/.claude/skills (caveman hook is managed by claude-hooks)
 scripts/unlink-skills.sh  # Remove symlinks (leaves non-repo entries untouched)
 scripts/list-skills.sh    # Print all SKILL.md paths in the repo
 ```
@@ -65,8 +65,7 @@ are not expected to clone this project — they only have what
 - This layout exists on every machine (Ubuntu, WSL) after an npx install; the
   repo path (`skills/<bucket>/<skill>/`) does **not**.
 - So hooks/configs must reference assets via `~/.claude/skills/<skill>/…`
-  (e.g. `~/.claude/skills/caveman/SKILL.md`,
-  `~/.claude/skills/git-guardrails-claude-code/scripts/block-dangerous-git.sh`),
+  (e.g. `~/.claude/skills/caveman/SKILL.md`),
   never a path inside the clone. This keeps them portable across machines and
   "live" (the asset is read at runtime, so `npx` updates take effect without
   reinstalling the hook).

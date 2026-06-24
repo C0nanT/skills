@@ -2,7 +2,7 @@
 
 ## O que é
 
-Uma skill user-invoked que implementa o trabalho descrito num PRD ou conjunto de issues. É o passo de execução depois de `/to-issues` ou de issues prontas vindas de `/triage`.
+Uma skill user-invoked que implementa o trabalho descrito num PRD ou conjunto de issues. É o passo de execução depois de `/to-issues` ou de issues já prontas no issue tracker.
 
 ## Para que serve
 
@@ -39,10 +39,10 @@ No fluxo principal (`/ask-matt`):
 - Build **multi-sessão**: `/to-prd` → `/to-issues` → **sessão nova por issue** → `/implement`
 - Build **single-session**: `/grill-with-docs` (e opcionalmente `/prototype`) → `/implement` na mesma janela
 
-Issues de `/triage` em `ready-for-agent` também chegam aqui.
+Issues marcadas como `ready-for-agent` no issue tracker também chegam aqui.
 
 ## Dicas
 
 - Uma issue por sessão mantém contexto limpo e focado.
 - Se o seam de teste não estiver claro, volte ao planejamento com `/tdd` antes de codar em massa.
-- `/implement` assume que a especificação já está pronta — não substitui `/grill-with-docs` ou `/triage`.
+- `/implement` assume que a especificação já está pronta — não substitui `/grill-with-docs`.

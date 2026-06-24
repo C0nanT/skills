@@ -18,7 +18,7 @@ Model-invoked — frases como "grill me", "stress-test this plan". User-invoked 
 
 ```
 /grill-me          ← sem codebase, stateless
-/grill-with-docs   ← com CONTEXT.md, ADRs, /domain-modeling
+/grill-with-docs   ← com CONTEXT.md, ADRs
 ```
 
 Ou diretamente (se você souber o nome):
@@ -40,7 +40,7 @@ Ou diretamente (se você souber o nome):
 |-------|-----------|----------------|
 | `/grilling` | model | depende do contexto |
 | `/grill-me` | user | não — stateless |
-| `/grill-with-docs` | user | sim — `CONTEXT.md`, ADRs via `/domain-modeling` |
+| `/grill-with-docs` | user | sim — `CONTEXT.md`, ADRs |
 
 ## Exemplo de uso
 

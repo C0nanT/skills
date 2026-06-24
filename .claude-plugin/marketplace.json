@@ -28,6 +28,7 @@
       "name": "Productivity",
       "source": "./",
       "skills": [
+        "./skills/productivity/caveman",
         "./skills/productivity/grill-me",
         "./skills/productivity/handoff",
         "./skills/productivity/writing-great-skills",

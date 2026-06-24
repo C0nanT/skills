@@ -52,7 +52,7 @@ CERTO (vertical):
 - Lê `CONTEXT.md` (se existir) e ADRs da área para alinhar nomes de teste ao vocabulário do domínio
 - Confirma com o usuário quais mudanças de interface são necessárias
 - Confirma quais comportamentos testar (prioriza) — você não consegue testar tudo
-- Identifica oportunidades de módulos profundos — use `/codebase-design` para vocabulário e checagens de testabilidade
+- Identifica oportunidades de módulos profundos — use o vocabulário de módulos profundos e checagens de testabilidade
 - Lista os comportamentos a testar (não os passos de implementação)
 - Pede aprovação do plano
 

@@ -1,4 +1,0 @@
-{
-  "event": "SessionStart",
-  "command": "f=\"$HOME/.claude/skills/caveman/SKILL.md\"; [ -f \"$f\" ] && cat \"$f\" | jq -Rs '{hookSpecificOutput:{hookEventName:\"SessionStart\",additionalContext:.}}'; exit 0"
-}

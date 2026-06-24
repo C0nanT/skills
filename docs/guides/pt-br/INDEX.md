@@ -45,6 +45,7 @@ Ferramentas de workflow não específicas de código.
 
 | Skill | O que faz |
 |-------|-----------|
+| [caveman](./caveman.md) | Modo de comunicação ultra-comprimido; corta artigos/filler/gentilezas, mantém substância técnica (~75% menos tokens) |
 | [grilling](./grilling.md) | Entrevista uma pergunta por vez com resposta recomendada |
 
 ## Misc
@@ -80,7 +81,6 @@ Issues externas entram pelo issue tracker → `/implement`.
 
 Guias órfãos de skills removidas do repositório (mantidos como referência histórica):
 
-- [caveman](./caveman.md) — modo de comunicação comprimido (removida)
 - [zoom-out](./zoom-out.md) — mapa de módulos de alto nível (removida)
 - [diagnose](./diagnose.md) — renomeada para [diagnosing-bugs](./diagnosing-bugs.md)
 - [write-a-skill](./write-a-skill.md) — substituída por [writing-great-skills](./writing-great-skills.md)

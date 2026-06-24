@@ -6,7 +6,7 @@ A configuration skill that prepares a repository to use the other engineering sk
 
 ## What it's for
 
-- **Run once per repo** before using any of these skills: `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, `zoom-out`
+- **Run once per repo** before using any of these skills: `to-issues`, `to-prd`, `diagnose`, `tdd`, `improve-codebase-architecture`, `zoom-out`
 - When these skills seem to be losing context about the issue tracker or labels
 - To reconfigure a repo that changed issue trackers
 

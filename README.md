@@ -10,7 +10,7 @@ npx skills@latest add C0nanT/skills
 
 ### Hooks (caveman + git guardrails)
 
-Requer as skills instaladas. Gerenciado pelo [claude-hooks](https://github.com/C0nanT/claude-hooks):
+Os hooks são gerenciados pelo projeto separado [claude-hooks](https://github.com/C0nanT/claude-hooks):
 
 ```bash
 npx @c0nant/claude-hooks install
@@ -18,8 +18,8 @@ npx @c0nant/claude-hooks install
 
 Instala dois hooks no `~/.claude/settings.json`:
 
-- **caveman** (`SessionStart`) — modo caveman automático em toda sessão
-- **git-guardrails** (`PreToolUse/Bash`) — bloqueia git destrutivo antes de executar
+- **caveman** (`SessionStart`) — modo caveman automático em toda sessão (requer a skill `caveman` instalada)
+- **git-guardrails** (`PreToolUse/Bash`) — bloqueia git destrutivo antes de executar (autossuficiente, não depende de skill)
 
 ## Desinstalar
 
@@ -164,6 +164,7 @@ General workflow tools, not code-specific.
 
 **Model-invoked**
 
+- **[caveman](./skills/productivity/caveman/SKILL.md)** — Ultra-compressed communication mode: drops articles, filler, and pleasantries while keeping full technical accuracy (~75% fewer tokens). Optionally auto-activated each session via the claude-hooks SessionStart hook.
 - **[grilling](./skills/productivity/grilling/SKILL.md)** — Interview the user relentlessly about a plan or design until every branch of the decision tree is resolved. The reusable loop behind `grill-me` and `grill-with-docs`.
 
 ### Misc

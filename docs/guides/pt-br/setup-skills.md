@@ -6,7 +6,7 @@ Uma skill de configuração que prepara um repositório para usar as outras skil
 
 ## Para que serve
 
-- **Rodar uma vez por repo** antes do primeiro fluxo de engenharia: `to-issues`, `to-prd`, `triage`, `implement`, `tdd`, `improve-codebase-architecture`, e demais skills que leem issue tracker ou docs de domínio
+- **Rodar uma vez por repo** antes do primeiro fluxo de engenharia: `to-issues`, `to-prd`, `implement`, `tdd`, `improve-codebase-architecture`, e demais skills que leem issue tracker ou docs de domínio
 - Quando essas skills parecem estar perdendo contexto sobre o issue tracker ou labels
 - Para reconfigurar um repo que mudou de issue tracker
 

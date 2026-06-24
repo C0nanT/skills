@@ -1,5 +1,0 @@
-{
-  "event": "PreToolUse",
-  "matcher": "Bash",
-  "command": "f=\"$HOME/.claude/skills/git-guardrails-claude-code/scripts/block-dangerous-git.sh\"; [ -f \"$f\" ] && exec bash \"$f\"; exit 0"
-}

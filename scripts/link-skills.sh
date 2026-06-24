@@ -10,10 +10,6 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="$HOME/.claude/skills"
-GLOBAL_SETTINGS="$HOME/.claude/settings.json"
-GLOBAL_CLAUDE_MD="$HOME/.claude/CLAUDE.md"
-CAVEMAN_HOOK_MARKER="caveman-skill-autostart"
-CAVEMAN_HOOK_CMD="# $CAVEMAN_HOOK_MARKER\ncat \"\$HOME/.claude/skills/caveman/SKILL.md\" | jq -Rs '{hookSpecificOutput: {hookEventName: \"SessionStart\", additionalContext: .}}'"
 
 # If ~/.claude/skills is a symlink that resolves into this repo, we'd end up
 # writing the per-skill symlinks back into the repo's own skills/ tree. Detect
@@ -31,31 +27,8 @@ fi
 
 mkdir -p "$DEST"
 
-# Remove legacy CLAUDE.md caveman block if present from older installs
-CAVEMAN_MD_MARKER="# caveman-mode (managed by link-skills.sh)"
-if [ -f "$GLOBAL_CLAUDE_MD" ] && grep -qF "$CAVEMAN_MD_MARKER" "$GLOBAL_CLAUDE_MD"; then
-  awk '/^# caveman-mode \(managed by link-skills\.sh\)/ { skip=1; next }
-       skip && /^$/ { skip=0; next }
-       skip { next }
-       { print }' "$GLOBAL_CLAUDE_MD" > "${GLOBAL_CLAUDE_MD}.tmp" && mv "${GLOBAL_CLAUDE_MD}.tmp" "$GLOBAL_CLAUDE_MD"
-  echo "removed legacy caveman CLAUDE.md block"
-fi
-
-# Inject SessionStart hook into ~/.claude/settings.json
-touch "$GLOBAL_SETTINGS"
-# Initialise to empty object if file is empty or missing
-if [ ! -s "$GLOBAL_SETTINGS" ] || ! jq -e . "$GLOBAL_SETTINGS" >/dev/null 2>&1; then
-  echo '{}' > "$GLOBAL_SETTINGS"
-fi
-
-if jq -e '.hooks.SessionStart[]?.hooks[]?.command | select(test("caveman-skill-autostart"))' "$GLOBAL_SETTINGS" >/dev/null 2>&1; then
-  echo "caveman SessionStart hook already present in $GLOBAL_SETTINGS"
-else
-  jq --arg cmd "$(printf '%b' "$CAVEMAN_HOOK_CMD")" '
-    .hooks.SessionStart = ((.hooks.SessionStart // []) + [{"hooks": [{"type": "command", "command": $cmd}]}])
-  ' "$GLOBAL_SETTINGS" > "${GLOBAL_SETTINGS}.tmp" && mv "${GLOBAL_SETTINGS}.tmp" "$GLOBAL_SETTINGS"
-  echo "injected caveman SessionStart hook -> $GLOBAL_SETTINGS"
-fi
+# Note: the caveman SessionStart hook is managed by the separate claude-hooks
+# project (npx @c0nant/claude-hooks install), not by this script.
 
 # Install git pre-push hook
 bash "$REPO/scripts/install-hooks.sh"

@@ -8,7 +8,7 @@ Uma skill roteadora sobre as skills **user-invoked** deste repositório. Você n
 
 - Quando não sabe qual skill invocar
 - Para entender como as skills se encaixam num workflow maior
-- Quando quer saber se deve ir para `/grill-with-docs`, `/triage`, `/implement`, etc.
+- Quando quer saber se deve ir para `/grill-with-docs`, `/implement`, etc.
 
 ## Como invocar
 
@@ -37,14 +37,6 @@ Mantenha os passos 1–3 numa **única janela** até depois de `/to-issues`. Cad
 
 Se a sessão se aproximar da [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) (~120k tokens) antes de `/to-issues`, use `/handoff` e continue numa thread nova — não empurre com contexto degradado.
 
-## On-ramps
-
-Situações que geram trabalho e depois entram no fluxo principal:
-
-- **Bugs e pedidos acumulando** → **`/triage`**. Produz issues prontas para agente; **`/implement`** pega depois.
-
-  Triagem é só para issues **que você não criou** (bugs reportados, pedidos externos). Issues de `/to-issues` já estão prontas — **não triage elas**.
-
 ## Saúde da codebase
 
 - **`/improve-codebase-architecture`** — quando tiver um tempo livre. Surfa oportunidades de aprofundamento; escolher uma gera uma ideia para levar ao `/grill-with-docs`.
@@ -59,7 +51,6 @@ Situações que geram trabalho e depois entram no fluxo principal:
 Fora do fluxo principal:
 
 - **`/grill-me`** — mesma entrevista que `/grill-with-docs`, sem codebase. Não grava `CONTEXT.md`.
-- **`/teach`** — aprender um conceito em múltiplas sessões, com o diretório atual como workspace.
 - **`/writing-great-skills`** — referência para escrever e editar skills bem.
 
 ## Pré-requisito
