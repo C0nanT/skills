@@ -20,7 +20,7 @@ This skill takes the current conversation context and codebase understanding and
 
 3. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
-Check with the user that these seams match their expectations.
+   Check with the user that these seams match their expectations.
 
 4. Write the PRD using the template below, then publish it to the destination you chose in step 1. Apply the `ready-for-agent` triage label — no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
 

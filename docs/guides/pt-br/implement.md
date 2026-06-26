@@ -29,7 +29,7 @@ Exemplo após `/to-issues`:
 1. Lê o PRD e a issue indicada
 2. Usa **`/tdd`** onde fizer sentido, nos seams já acordados
 3. Roda typecheck regularmente, testes de arquivo único durante o trabalho, suite completa no final
-4. Ao terminar, usa **`/review`** para revisar o trabalho
+4. Ao terminar, usa **[`/review`](./review.md)** para revisar o trabalho
 5. Faz commit na branch atual
 
 ## Onde entra no fluxo

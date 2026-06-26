@@ -19,7 +19,8 @@ Skills para trabalho diário de código.
 | [to-issues](./to-issues.md) | Quebra plano/PRD em issues independentes (fatias verticais) |
 | [to-prd](./to-prd.md) | Transforma a conversa em PRD no issue tracker |
 | [prototype](./prototype.md) | Protótipo descartável: terminal app ou variações de UI |
-| [implement](./implement.md) | Implementa trabalho de PRD/issues com `/tdd` e `/review` |
+| [implement](./implement.md) | Implementa trabalho de PRD/issues com `/tdd` e [`/review`](./review.md) |
+| [review](./review.md) | Revisa diff em dois eixos: Standards (padrões do repo) e Spec (issue/PRD) |
 
 ### Model-invoked
 

@@ -60,7 +60,7 @@ using it again.
 ## What it touches
 
 | Agent | Targets |
-|-------|---------|
+| --- | --- |
 | **Claude Code** | `~/.claude/skills`, `~/.claude/hooks-lib`, `~/.claude/hooks`, `~/.claude/commands`, `~/.claude/CLAUDE.md`; surgically strips `.hooks` from `settings.json` / `settings.local.json` and `.mcpServers` from `~/.claude.json` |
 | **Agent-Skills standard** | `~/.agents/skills` |
 | **Cursor** | `~/.cursor/rules`, `~/.cursor/mcp.json` |
@@ -77,6 +77,7 @@ using it again.
 - The JSON steps need `jq`. Without it, they're skipped with a warning (file-based
   removals still run).
 - After resetting, reinstall to verify a clean setup:
+
   ```bash
   npx skills@latest add C0nanT/skills
   npx @c0nant/claude-hooks install

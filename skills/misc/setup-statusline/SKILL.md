@@ -10,7 +10,7 @@ One-time install. Copies the bundled script and wires it into `~/.claude/setting
 ## Fields (left to right)
 
 | Field | Source | Color |
-|---|---|---|
+| --- | --- | --- |
 | Model name | `model.display_name` | bold cyan |
 | Effort level | `effort.level` | dim cyan, shown in parens when present |
 | Context usage | `context_window.used_percentage` | bold yellow, e.g. `ctx:14%` |
@@ -85,6 +85,7 @@ Takes effect at next Claude Code session start (no restart needed for mid-sessio
 ## /clear behaviour
 
 Running `/clear` resets the cost and duration counters in the status line. Internally:
+
 - A `UserPromptSubmit` hook snapshots the current raw values into `~/.claude/statusline-baseline.json`
 - The statusline script subtracts the baseline from every subsequent reading
 - If a new Claude process starts (raw cost drops below baseline), the baseline auto-clears
