@@ -30,7 +30,7 @@ Consulte durante revisão de um `SKILL.md` ou ao planejar uma skill nova.
 
 Use model-invoked só quando o agente (ou outra skill) precisa alcançar sozinho. Skills só por comando manual → user-invoked.
 
-Muitas skills user-invoked → use uma **router skill** (ex.: `/ask-matt`).
+Muitas skills user-invoked → use uma **router skill** (ex.: `/ask-skills`).
 
 ## Escrevendo a description
 

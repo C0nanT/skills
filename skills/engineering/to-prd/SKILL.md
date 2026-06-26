@@ -1,22 +1,36 @@
 ---
 name: to-prd
-description: Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.
+description: Turn the current conversation into a PRD and publish it as local markdown by default (or GitHub/GitLab on request) — no interview, just synthesis of what you've already discussed.
 disable-model-invocation: true
 ---
 
 This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.
 
-The issue tracker and triage label vocabulary should have been provided to you — run `/setup-matt-pocock-skills` if not.
-
 ## Process
 
-1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the PRD, and respect any ADRs in the area you're touching.
+1. **Choose where to publish.** The default is **Local markdown** — a file under `.scratch/` in this repo, no remote needed. Don't probe `git remote`; only publish to GitHub or GitLab if the user explicitly asks.
 
-2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
+   - Ask the user where to publish, with **Local markdown** pre-selected:
+     - **Local markdown** (default) — a file at `.scratch/<feature-slug>/PRD.md` in this repo
+     - **GitHub** — a GitHub issue (`gh` CLI), only if requested
+     - **GitLab** — a GitLab issue (`glab` CLI), only if requested
+   - Carry the choice into step 4. For GitHub or GitLab, follow the exact conventions and triage-label mappings in `docs/agents/issue-tracker.md` if it covers that backend; otherwise use the conventions in `<destination-conventions>` below. Run `/setup-skills` to configure those conventions and a triage-label vocabulary.
+
+2. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the PRD, and respect any ADRs in the area you're touching.
+
+3. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
 Check with the user that these seams match their expectations.
 
-3. Write the PRD using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+4. Write the PRD using the template below, then publish it to the destination you chose in step 1. Apply the `ready-for-agent` triage label — no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
+
+<destination-conventions>
+
+- **GitHub** — `gh issue create --title "..." --body "..."` (heredoc for the multi-line body). Triage labels via `--label`.
+- **GitLab** — `glab issue create --title "..." --description "..."` (heredoc for the multi-line description). Triage labels via `--label`.
+- **Local markdown** — write `.scratch/<feature-slug>/PRD.md`, creating the directory if needed. Record triage state as a `Status:` line near the top of the file instead of a label.
+
+</destination-conventions>
 
 <prd-template>
 

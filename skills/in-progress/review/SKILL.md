@@ -11,7 +11,7 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
-The issue tracker should have been provided to you — run `/setup-matt-pocock-skills` if `docs/agents/issue-tracker.md` is missing.
+Specs default to **local markdown** — a PRD/issue file under `.scratch/` or `docs/`, which needs no setup. Only when the spec lives in a remote tracker (GitHub/GitLab) do you need `docs/agents/issue-tracker.md`; run `/setup-skills` to configure it.
 
 ## Process
 
@@ -27,9 +27,9 @@ Before going further, confirm the fixed point resolves (`git rev-parse <fixed-po
 
 Look for the originating spec, in this order:
 
-1. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.) — fetch via the workflow in `docs/agents/issue-tracker.md`.
-2. A path the user passed as an argument.
-3. A PRD/spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
+1. A path the user passed as an argument.
+2. A PRD/spec file under `.scratch/`, `docs/`, or `specs/` matching the branch name or feature — the default home for local-markdown specs.
+3. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.) — fetch via the workflow in `docs/agents/issue-tracker.md` (only when a remote tracker is configured).
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 
 ### 3. Identify the standards sources

@@ -34,7 +34,7 @@ Exemplo após `/to-issues`:
 
 ## Onde entra no fluxo
 
-No fluxo principal (`/ask-matt`):
+No fluxo principal (`/ask-skills`):
 
 - Build **multi-sessão**: `/to-prd` → `/to-issues` → **sessão nova por issue** → `/implement`
 - Build **single-session**: `/grill-with-docs` (e opcionalmente `/prototype`) → `/implement` na mesma janela

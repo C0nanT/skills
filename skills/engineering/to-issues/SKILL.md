@@ -1,6 +1,6 @@
 ---
 name: to-issues
-description: Break a plan, spec, or PRD into independently-grabbable issues on the project issue tracker using tracer-bullet vertical slices.
+description: Break a plan, spec, or PRD into independently-grabbable issues — published as local markdown by default (or to GitHub/GitLab on request) — using tracer-bullet vertical slices.
 disable-model-invocation: true
 ---
 
@@ -8,21 +8,29 @@ disable-model-invocation: true
 
 Break a plan into independently-grabbable issues using vertical slices (tracer bullets).
 
-The issue tracker and triage label vocabulary should have been provided to you — run `/setup-matt-pocock-skills` if not.
-
 ## Process
 
-### 1. Gather context
+### 1. Choose where to publish
+
+The default is **Local markdown** — files under `.scratch/` in this repo, no remote needed. Don't probe `git remote`; only publish to GitHub or GitLab if the user explicitly asks.
+
+- Ask the user where to publish, with **Local markdown** pre-selected:
+  - **Local markdown** (default) — files under `.scratch/<feature-slug>/issues/` in this repo
+  - **GitHub** — GitHub issues (`gh` CLI), only if requested
+  - **GitLab** — GitLab issues (`glab` CLI), only if requested
+- Carry the choice into step 6. For GitHub or GitLab, follow the exact conventions and triage-label mappings in `docs/agents/issue-tracker.md` if it covers that backend; otherwise use the conventions in `<destination-conventions>` below. Run `/setup-matt-pocock-skills` to configure those conventions and a triage-label vocabulary.
+
+### 2. Gather context
 
 Work from whatever is already in the conversation context. If the user passes an issue reference (issue number, URL, or path) as an argument, fetch it from the issue tracker and read its full body and comments.
 
-### 2. Explore the codebase (optional)
+### 3. Explore the codebase (optional)
 
 If you have not already explored the codebase, do so to understand the current state of the code. Issue titles and descriptions should use the project's domain glossary vocabulary, and respect ADRs in the area you're touching.
 
 Look for opportunities to prefactor the code to make the implementation easier. "Make the change easy, then make the easy change."
 
-### 3. Draft vertical slices
+### 4. Draft vertical slices
 
 Break the plan into **tracer bullet** issues. Each issue is a thin vertical slice that cuts through ALL integration layers end-to-end, NOT a horizontal slice of one layer.
 
@@ -34,7 +42,7 @@ Break the plan into **tracer bullet** issues. Each issue is a thin vertical slic
 
 </vertical-slice-rules>
 
-### 4. Quiz the user
+### 5. Quiz the user
 
 Present the proposed breakdown as a numbered list. For each slice, show:
 
@@ -50,11 +58,19 @@ Ask the user:
 
 Iterate until the user approves the breakdown.
 
-### 5. Publish the issues to the issue tracker
+### 6. Publish the issues
 
-For each approved slice, publish a new issue to the issue tracker. Use the issue body template below. These issues are considered ready for AFK agents, so publish them with the correct triage label unless instructed otherwise.
+For each approved slice, publish a new issue to the destination you chose in step 1. Use the issue body template below. These issues are considered ready for AFK agents, so publish them with the correct triage label unless instructed otherwise.
 
-Publish issues in dependency order (blockers first) so you can reference real issue identifiers in the "Blocked by" field.
+Publish issues in dependency order (blockers first) so you can reference real issue identifiers in the "Blocked by" field. For **Local markdown**, the identifier is the file's number/slug, and "Blocked by" references the blocking file (e.g. `01-foo.md`).
+
+<destination-conventions>
+
+- **GitHub** — `gh issue create --title "..." --body "..."` (heredoc for the multi-line body). Triage labels via `--label`.
+- **GitLab** — `glab issue create --title "..." --description "..."` (heredoc for the multi-line description). Triage labels via `--label`.
+- **Local markdown** — write each issue as `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01`, creating the directory if needed. Record triage state as a `Status:` line near the top of each file instead of a label.
+
+</destination-conventions>
 
 <issue-template>
 ## Parent

@@ -12,7 +12,7 @@ Skills para trabalho diário de código.
 
 | Skill | O que faz |
 |-------|-----------|
-| [ask-matt](./ask-matt.md) | Roteador: indica qual skill ou fluxo usar para a sua situação |
+| [ask-skills](./ask-skills.md) | Roteador: indica qual skill ou fluxo usar para a sua situação |
 | [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `CONTEXT.md` e ADRs |
 | [improve-codebase-architecture](./improve-codebase-architecture.md) | Analisa codebase em busca de módulos rasos; relatório HTML + grilling |
 | [setup-skills](./setup-skills.md) | Configura issue tracker, labels de triage e layout de docs. Uma vez por repo |
@@ -64,7 +64,7 @@ Skills mantidas mas raramente usadas.
 
 ```
 1. /setup-skills          ← uma vez por repo
-2. /ask-matt              ← se não souber por onde começar
+2. /ask-skills            ← se não souber por onde começar
 3. /grill-with-docs       ← antes de feature nova (com codebase)
 4. /prototype             ← dúvidas que precisam de código (opcional)
 5. /to-prd                ← formaliza em PRD (multi-sessão)

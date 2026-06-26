@@ -11,7 +11,7 @@
       "name": "Engineering",
       "source": "./",
       "skills": [
-        "./skills/engineering/ask-matt",
+        "./skills/engineering/ask-skills",
         "./skills/engineering/grill-with-docs",
         "./skills/engineering/improve-codebase-architecture",
         "./skills/engineering/setup-skills",

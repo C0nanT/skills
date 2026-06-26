@@ -1,4 +1,4 @@
-# `/ask-matt` — Qual skill ou fluxo usar?
+# `/ask-skills` — Qual skill ou fluxo usar?
 
 ## O que é
 
@@ -13,7 +13,7 @@ Uma skill roteadora sobre as skills **user-invoked** deste repositório. Você n
 ## Como invocar
 
 ```
-/ask-matt
+/ask-skills
 ```
 
 Descreva o que você quer fazer na mesma mensagem ou na conversa anterior.
