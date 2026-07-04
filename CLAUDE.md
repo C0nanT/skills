@@ -48,6 +48,7 @@ description: Brief description. Use when [specific triggers].
 scripts/link-skills.sh    # Symlink all skills into ~/.claude/skills (caveman hook is managed by claude-hooks)
 scripts/unlink-skills.sh  # Remove symlinks (leaves non-repo entries untouched)
 scripts/list-skills.sh    # Print all SKILL.md paths in the repo
+scripts/sync-upstream.sh  # Merge mattpocock/skills (upstream) and strip the skills this fork excludes
 ```
 
 Run `scripts/link-skills.sh` after adding a new skill to make it available locally without reinstalling.
@@ -75,9 +76,12 @@ are not expected to clone this project — they only have what
 - **Issue tracker** — the tool hosting a repo's issues (GitHub Issues, Linear, local `.scratch/`). Not "backlog".
 - **Issue** — a single tracked unit of work. Not "ticket" unless quoting external systems.
 - **Triage role** — a state-machine label applied to an issue during triage.
+
 Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
-Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [docs/invocation.md](./docs/invocation.md).
+Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [.agents/invocation.md](./.agents/invocation.md).
+
+[`ask-skills`](./skills/engineering/ask-skills/SKILL.md) is the router that maps every user-reachable skill and how they relate. Whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-skills`'s `SKILL.md` and update it so the map stays accurate — a new skill it never mentions, or a stale one it still routes to, is a router that lies.
 
 ## Agent skills
 
@@ -91,4 +95,4 @@ Default canonical strings: `needs-triage`, `needs-info`, `ready-for-agent`, `rea
 
 ### Domain docs
 
-Single-context repo: one `CONTEXT.md` at the root, ADRs in `docs/adr/`. See `docs/agents/domain.md`.
+Single-context repo: one `CONTEXT.md` at the root, ADRs in `.agents/adr/`. See `docs/agents/domain.md`.
