@@ -1,0 +1,12 @@
+{
+  // Skill docs contain long code blocks and prose that would be impractical to wrap.
+  "MD013": false,
+  // SKILL.md files commonly place a list item directly after a blockquote (e.g. examples).
+  "MD028": false,
+  // SKILL.md frontmatter and examples rely on raw HTML (e.g. <example> tags).
+  "MD033": false,
+  // Bold text is used as a lightweight section label in several SKILL.md files, not a heading.
+  "MD036": false,
+  // SKILL.md files start with YAML frontmatter, not an H1.
+  "MD041": false
+}

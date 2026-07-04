@@ -185,7 +185,7 @@ if [[ ${#_md_files[@]} -gt 0 ]]; then
     [[ -z "$_line" ]] && continue
     fail "markdownlint: $_line"
     ((_lint_errors++)) || true
-  done < <(npx --yes markdownlint-cli "${_md_files[@]}" 2>&1 | grep -v '^npm warn' | grep -v '^$')
+  done < <(npx --yes markdownlint-cli "${_md_files[@]}" 2>&1 | grep -v '^npm ' | grep -v '^$')
   [[ $_lint_errors -eq 0 ]] && pass "all markdown files"
 fi
 
