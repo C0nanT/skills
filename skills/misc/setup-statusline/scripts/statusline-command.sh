@@ -77,6 +77,23 @@ if [ -n "$dur_raw" ]; then
   fi
 fi
 
+# Resolve the timezone for displaying clock times. Claude Code runs the
+# statusline with TZ=UTC in its environment, so we can't trust the inherited
+# TZ. Prefer an explicit override, else the machine's configured local zone.
+resolve_tz() {
+  if [ -n "$STATUSLINE_TZ" ]; then
+    printf '%s' "$STATUSLINE_TZ"; return
+  fi
+  if [ -r /etc/timezone ]; then
+    tr -d '[:space:]' < /etc/timezone; return
+  fi
+  if [ -L /etc/localtime ]; then
+    # /etc/localtime -> /usr/share/zoneinfo/America/Sao_Paulo  =>  America/Sao_Paulo
+    readlink /etc/localtime | sed 's#.*/zoneinfo/##'; return
+  fi
+}
+display_tz=$(resolve_tz)
+
 # 5-hour rate limit
 rl_pct=""
 rl_reset=""
@@ -86,7 +103,11 @@ rl_resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty'
 if [ -n "$rl_pct_raw" ]; then
   rl_pct=$(printf "limit:%.0f%%" "$rl_pct_raw")
   if [ -n "$rl_resets_at" ]; then
-    rl_reset=$(printf '↺ %s' "$(date -d "@${rl_resets_at}" +%H:%M 2>/dev/null)")
+    if [ -n "$display_tz" ]; then
+      rl_reset=$(printf '↺ %s' "$(TZ="$display_tz" date -d "@${rl_resets_at}" +%H:%M 2>/dev/null)")
+    else
+      rl_reset=$(printf '↺ %s' "$(date -d "@${rl_resets_at}" +%H:%M 2>/dev/null)")
+    fi
   fi
   # Color thresholds
   rl_int=$(printf "%.0f" "$rl_pct_raw")

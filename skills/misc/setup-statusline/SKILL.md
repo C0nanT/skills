@@ -21,6 +21,10 @@ One-time install. Copies the bundled script and wires it into `~/.claude/setting
 
 Rate limit color: green < 50%, yellow 50–79%, red ≥ 80%. Omitted when `rate_limits` absent.
 
+### Reset-time timezone
+
+The reset clock (`↺ 14:30`) is shown in the machine's local timezone. Claude Code runs the statusline with `TZ=UTC` in its environment, so the script does **not** trust the inherited `TZ` — it resolves the zone from (in order) `$STATUSLINE_TZ`, `/etc/timezone`, then the `/etc/localtime` symlink. Set `STATUSLINE_TZ` (e.g. `America/Sao_Paulo`) in `~/.claude/settings.json` `env` to override.
+
 ## Prerequisites
 
 - `jq` installed
