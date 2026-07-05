@@ -53,7 +53,7 @@ That matters for agentic development: a good interface gives tests something dur
 `to-prd` is a step in the main build chain:
 
 ```txt
-grill-with-docs → to-prd → to-issues → implement → code-review
+grill-with-docs → to-prd → to-issues → implement → review-axes
 ```
 
 Reach for it after the plan and domain language are resolved, and before you break the work into implementation tickets. Its key neighbours are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which sharpens the context so the PRD is precise, and [to-issues](https://aihero.dev/skills-to-issues), which turns the PRD into independently-grabbable issues for [implement](https://aihero.dev/skills-implement) to build. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

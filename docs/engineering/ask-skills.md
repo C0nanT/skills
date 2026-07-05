@@ -14,7 +14,7 @@ npx skills update ask-skills
 
 `ask-skills` is the router over the skills in this repo. You describe the situation you're in; it tells you which skill or flow fits and in what order to run them.
 
-It **does no work itself**. It doesn't grill, write a PRD, or fix anything — it only orients. It exists for the **user-invoked** skills above all: nothing fires those for you, so *you* have to remember they exist, and `ask-skills` is the memory you offload that to. It also points at the model-invoked skills you'd reach for by name — `/tdd`, `/diagnosing-bugs`, `/prototype`, `/code-review`. It answers "which one, and when", then hands you off to the skill that actually does the job.
+It **does no work itself**. It doesn't grill, write a PRD, or fix anything — it only orients. It exists for the **user-invoked** skills above all: nothing fires those for you, so *you* have to remember they exist, and `ask-skills` is the memory you offload that to. It also points at the model-invoked skills you'd reach for by name — `/tdd`, `/diagnosing-bugs`, `/prototype`, `/review-axes`. It answers "which one, and when", then hands you off to the skill that actually does the job.
 
 ## When to reach for it
 
