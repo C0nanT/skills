@@ -12,4 +12,4 @@ Run typechecking regularly, single test files regularly, and the full test suite
 
 Once done, use /review-axes to review the work.
 
-Commit your work to the current branch.
+Make a commit message with the changes, max 300 characters.
