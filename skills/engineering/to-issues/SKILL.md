@@ -98,3 +98,4 @@ Or "None - can start immediately" if no blockers.
 </issue-template>
 
 Do NOT close or modify any parent issue.
+The only change to the issue should be regarding its status; you can change it to "Done" if the issue has been 100% completed.
