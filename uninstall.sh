@@ -3,8 +3,14 @@ set -euo pipefail
 
 # uninstall.sh — removes everything the conan-skills set installs, leaving no residue.
 #
-# It cleans, from your GLOBAL Claude config (~/.claude):
-#   1. symlinks in ~/.claude/skills/ that point into THIS repo (other repos untouched)
+# Skills installed via `npx skills@latest add C0nanT/skills` do NOT live in this git
+# clone — they're downloaded into ~/.agents/skills/<name> and symlinked from
+# ~/.claude/skills/<name>, tracked in ~/.agents/.skill-lock.json. This script cleans:
+#   1. entries in ~/.agents/.skill-lock.json sourced from this repo, their real
+#      directories under ~/.agents/skills/, and the matching symlinks in
+#      ~/.claude/skills/ (skills from other sources, e.g. other `skills add` packages,
+#      untouched). Also falls back to removing any ~/.claude/skills symlink that
+#      resolves directly into this git clone, for local dev setups that skip npx.
 #   2. the caveman SessionStart + git-guardrails PreToolUse hooks that
 #      /setup-conan-skills added to ~/.claude/settings.json
 #      (other hooks untouched; the file is never deleted)
@@ -19,6 +25,8 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$HOME/.claude/skills"
+AGENTS_SKILLS_DIR="$HOME/.agents/skills"
+SKILL_LOCK="$HOME/.agents/.skill-lock.json"
 SETTINGS="$HOME/.claude/settings.json"
 # Both installers' helper scripts: setup-conan-skills writes the first,
 # the git-guardrails-claude-code skill writes the second.
@@ -55,8 +63,55 @@ confirm() {
 echo "conan-skills uninstall — repo: $REPO"
 echo
 
-# --- 1. Remove symlinks that point into this repo -----------------------------
-echo "[1/3] Symlinks in $SKILLS_DIR"
+# --- 1. Remove skills this repo installed --------------------------------------
+echo "[1/3] Skills from this repo"
+
+# Derive the "owner/repo" source id the lock file records, from this clone's remote.
+SOURCE_ID=""
+origin_url="$(git -C "$REPO" remote get-url origin 2>/dev/null || true)"
+if [ -n "$origin_url" ]; then
+  SOURCE_ID="$(echo "$origin_url" \
+    | sed -E 's#^git@github\.com:#https://github.com/#; s#\.git$##' \
+    | sed -E 's#^https://github\.com/##')"
+fi
+
+lock_names=""
+if [ -n "$SOURCE_ID" ] && [ -f "$SKILL_LOCK" ] && command -v jq >/dev/null 2>&1; then
+  lock_names="$(jq -r --arg src "$SOURCE_ID" \
+    '.skills // {} | to_entries[] | select(.value.source == $src) | .key' \
+    "$SKILL_LOCK" 2>/dev/null || true)"
+fi
+
+if [ -n "$lock_names" ]; then
+  count="$(echo "$lock_names" | grep -c .)"
+  echo "  found $count skill(s) sourced from $SOURCE_ID in $SKILL_LOCK:"
+  echo "$lock_names" | sed 's/^/    - /'
+  if confirm "  remove these skills (symlink + ~/.agents/skills dir + lock entry)?"; then
+    while IFS= read -r name; do
+      [ -n "$name" ] || continue
+      link="$SKILLS_DIR/$name"
+      dir="$AGENTS_SKILLS_DIR/$name"
+      [ -L "$link" ] && rm "$link" && echo "  removed symlink: $link"
+      [ -d "$dir" ] && rm -rf "$dir" && echo "  removed dir: $dir"
+    done <<< "$lock_names"
+
+    tmp="$(mktemp)"
+    jq --arg src "$SOURCE_ID" \
+      '.skills |= (with_entries(select(.value.source != $src)))' \
+      "$SKILL_LOCK" > "$tmp" && mv "$tmp" "$SKILL_LOCK"
+    echo "  removed matching entries from $SKILL_LOCK"
+  else
+    echo "  skipped lock-tracked skills"
+  fi
+elif [ -f "$SKILL_LOCK" ] && ! command -v jq >/dev/null 2>&1; then
+  echo "  warning: 'jq' is not installed — cannot read $SKILL_LOCK." >&2
+  echo "           Install jq and re-run, or remove this repo's skills from it by hand." >&2
+else
+  echo "  none found in $SKILL_LOCK (not installed via npx, or already removed)"
+fi
+
+# Fallback: symlinks that resolve straight into this git clone (local dev, no npx).
+echo "  checking for symlinks that point directly into this clone..."
 if [ -d "$SKILLS_DIR" ]; then
   found=0
   for target in "$SKILLS_DIR"/*; do
@@ -73,9 +128,7 @@ if [ -d "$SKILLS_DIR" ]; then
         ;;
     esac
   done
-  [ "$found" -eq 0 ] && echo "  none found (no symlinks point into this repo)"
-else
-  echo "  not found: $SKILLS_DIR (nothing to unlink)"
+  [ "$found" -eq 0 ] && echo "  none found"
 fi
 echo
 
