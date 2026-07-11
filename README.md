@@ -179,8 +179,6 @@ General workflow tools, not code-specific.
 ## Dev local
 
 ```bash
-./scripts/link-skills.sh    # symlink em ~/.claude/skills
-./scripts/unlink-skills.sh  # remove symlinks
 ./scripts/list-skills.sh    # lista todos os SKILL.md
 ./scripts/sync-upstream.sh  # merge upstream (mattpocock/skills) e remove as skills excluídas deste fork
 ```

@@ -12,4 +12,4 @@ Run typechecking regularly, single test files regularly, and the full test suite
 
 Once done, use /review-axes to review the work.
 
-Generate a commit message — not too long, not too short — capped at 300 characters.
+Never make a commit without, just generate a commit message — not too long, not too short — capped at 300 characters.
