@@ -12,7 +12,7 @@ For the vocabulary (deep module, interface, seam, depth), run the `/codebase-des
 
 ## The shape this enforces
 
-```
+```text
 src/packages/
   <name>/
     index.ts        ← an entry point (public). Import this from outside.

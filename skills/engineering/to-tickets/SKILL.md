@@ -68,6 +68,7 @@ Do NOT close or modify any parent issue.
 
 <local-ticket-template>
 
+```markdown
 # <NN> — <Ticket title>
 
 **What to build:** the end-to-end behaviour this ticket makes work, from the user's perspective — not a layer-by-layer implementation list.
@@ -78,6 +79,7 @@ Do NOT close or modify any parent issue.
 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
+```
 
 </local-ticket-template>
 
