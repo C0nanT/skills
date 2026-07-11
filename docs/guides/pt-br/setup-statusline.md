@@ -2,11 +2,11 @@
 
 ## O que é
 
-Uma skill de instalação única que copia scripts bundled e registra uma status line no `~/.claude/settings.json` — modelo, contexto, custo, duração, rate limit e branch git.
+Uma skill de instalação única que copia scripts bundled e registra uma status line no `~/.claude/settings.json` — modelo, contexto, duração, rate limit e branch git.
 
 ## Para que serve
 
-- Ver uso de contexto (%), custo da sessão e duração no prompt
+- Ver uso de contexto (%) e duração no prompt
 - Monitorar rate limit de 5 horas e horário de reset
 - Ver modelo, effort level e branch git atual
 - Restaurar configuração após reinstalar skills
@@ -24,7 +24,6 @@ Uma skill de instalação única que copia scripts bundled e registra uma status
 | Model name | bold cyan |
 | Effort level | `(medium)` dim cyan, se presente |
 | Context usage | `ctx:14%` bold yellow |
-| Session cost | `$0.0123` green |
 | Session duration | `23m` ou `1h05m` green |
 | Rate limit | `limit:42% ↺ 14:30` verde/amarelo/vermelho |
 | Git branch | bold magenta (omitido fora de repo git) |

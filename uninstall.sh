@@ -6,7 +6,7 @@ set -euo pipefail
 # It cleans, from your GLOBAL Claude config (~/.claude):
 #   1. symlinks in ~/.claude/skills/ that point into THIS repo (other repos untouched)
 #   2. the caveman SessionStart + git-guardrails PreToolUse hooks that
-#      /setup-conan-skills (or scripts/link-skills.sh) added to ~/.claude/settings.json
+#      /setup-conan-skills added to ~/.claude/settings.json
 #      (other hooks untouched; the file is never deleted)
 #   3. the git-guardrails helper script created by /setup-conan-skills
 #

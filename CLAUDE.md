@@ -45,13 +45,9 @@ description: Brief description. Use when [specific triggers].
 ## Scripts
 
 ```bash
-scripts/link-skills.sh    # Symlink all skills into ~/.claude/skills (caveman hook is managed by claude-hooks)
-scripts/unlink-skills.sh  # Remove symlinks (leaves non-repo entries untouched)
 scripts/list-skills.sh    # Print all SKILL.md paths in the repo
 scripts/sync-upstream.sh  # Merge mattpocock/skills (upstream) and strip the skills this fork excludes
 ```
-
-Run `scripts/link-skills.sh` after adding a new skill to make it available locally without reinstalling.
 
 ## Runtime Skill Layout (reference `~/.agents/skills`, not the clone)
 
