@@ -11,10 +11,16 @@ set -euo pipefail
 #      ~/.claude/skills/ (skills from other sources, e.g. other `skills add` packages,
 #      untouched). Also falls back to removing any ~/.claude/skills symlink that
 #      resolves directly into this git clone, for local dev setups that skip npx.
-#   2. the caveman SessionStart + git-guardrails PreToolUse hooks that
-#      /setup-conan-skills added to ~/.claude/settings.json
+#   2. the hooks added to ~/.claude/settings.json, whether installed by
+#      /setup-conan-skills or by `npx @c0nant/claude-hooks install`:
+#        - caveman          (SessionStart)
+#        - git-guardrails   (PreToolUse, matcher: Bash)
+#        - protect-dotenv   (PreToolUse, matcher: .*)
+#        - notify-attention (Notification)
+#        - notify-done      (Stop)
 #      (other hooks untouched; the file is never deleted)
-#   3. the git-guardrails helper script created by /setup-conan-skills
+#   3. the helper scripts created by /setup-conan-skills or by
+#      `npx @c0nant/claude-hooks install` (including ~/.claude/hooks-lib)
 #
 # Run it directly in your terminal, from anywhere:
 #   ./uninstall.sh            # prompts before each destructive step
@@ -28,16 +34,29 @@ SKILLS_DIR="$HOME/.claude/skills"
 AGENTS_SKILLS_DIR="$HOME/.agents/skills"
 SKILL_LOCK="$HOME/.agents/.skill-lock.json"
 SETTINGS="$HOME/.claude/settings.json"
-# Both installers' helper scripts: setup-conan-skills writes the first,
-# the git-guardrails-claude-code skill writes the second.
+# Helper scripts written by the various installers: setup-conan-skills writes
+# the first two, the git-guardrails-claude-code skill writes the third,
+# `npx @c0nant/claude-hooks install` writes everything under hooks-lib/.
 GUARDRAILS_SCRIPTS=(
   "$HOME/.claude/hooks/conan-git-guardrails.sh"
   "$HOME/.claude/hooks/block-dangerous-git.sh"
+  "$HOME/.claude/hooks-lib/git-guardrails/block-dangerous-git.sh"
+  "$HOME/.claude/hooks-lib/protect-dotenv/block-dotenv.sh"
+  "$HOME/.claude/hooks-lib/notification/notify-attention.sh"
+  "$HOME/.claude/hooks-lib/notification/notify-done.sh"
+)
+GUARDRAILS_DIRS=(
+  "$HOME/.claude/hooks-lib/git-guardrails"
+  "$HOME/.claude/hooks-lib/protect-dotenv"
+  "$HOME/.claude/hooks-lib/notification"
 )
 
-# Marker used to find the hooks regardless of which installer added them.
+# Markers used to find each hook regardless of which installer added it.
 CAVEMAN_MATCH='conan-caveman-autostart|caveman-skill-autostart|skills/caveman/SKILL.md'
 GUARDRAILS_MATCH='conan-git-guardrails|block-dangerous-git'
+DOTENV_MATCH='protect-dotenv|block-dotenv'
+NOTIFY_ATTENTION_MATCH='notify-attention'
+NOTIFY_DONE_MATCH='notify-done'
 
 ASSUME_YES=0
 for arg in "$@"; do
@@ -140,31 +159,48 @@ elif ! command -v jq >/dev/null 2>&1; then
   echo "  warning: 'jq' is not installed — cannot safely edit JSON." >&2
   echo "           Install jq and re-run, or remove the conan hooks from $SETTINGS by hand." >&2
 else
-  count="$(jq -r --arg cav "$CAVEMAN_MATCH" --arg grd "$GUARDRAILS_MATCH" '
-    [ ( (.hooks.SessionStart // [])[]?.hooks[]?.command | select(test($cav)) ),
-      ( (.hooks.PreToolUse  // [])[]?.hooks[]?.command | select(test($grd)) ) ] | length
+  # Map each event to the regex that matches conan hook commands on it.
+  # PreToolUse carries two independent hooks (git-guardrails on Bash, protect-dotenv
+  # on .*) so its regex is a union of both.
+  event_map="$(jq -n \
+    --arg cav "$CAVEMAN_MATCH" \
+    --arg pre "$GUARDRAILS_MATCH|$DOTENV_MATCH" \
+    --arg notif "$NOTIFY_ATTENTION_MATCH" \
+    --arg stop "$NOTIFY_DONE_MATCH" \
+    '{SessionStart: $cav, PreToolUse: $pre, Notification: $notif, Stop: $stop}')"
+
+  count="$(jq -r --argjson em "$event_map" '
+    [ (.hooks // {}) | to_entries[]
+      | . as $e
+      | ($em[$e.key] // null) as $re
+      | select($re != null)
+      | $e.value[]?.hooks[]?.command
+      | select(test($re)) ] | length
   ' "$SETTINGS" 2>/dev/null || echo 0)"
 
   if [ "${count:-0}" -gt 0 ]; then
-    if confirm "  remove $count conan hook(s) (caveman SessionStart / git-guardrails PreToolUse)?"; then
+    if confirm "  remove $count conan hook(s) (caveman / git-guardrails / protect-dotenv / notify-attention / notify-done)?"; then
       tmp="$(mktemp)"
-      jq --arg cav "$CAVEMAN_MATCH" --arg grd "$GUARDRAILS_MATCH" '
-        # drop matching commands from SessionStart, then drop now-empty groups
-        (if .hooks.SessionStart then
-           .hooks.SessionStart |= ( [ .[]
-             | .hooks |= map(select((.command // "") | test($cav) | not))
-             | select((.hooks | length) > 0) ] )
-         else . end)
-        # same for PreToolUse
-        | (if .hooks.PreToolUse then
-             .hooks.PreToolUse |= ( [ .[]
-               | .hooks |= map(select((.command // "") | test($grd) | not))
-               | select((.hooks | length) > 0) ] )
-           else . end)
-        # prune empty containers so we leave no dangling keys
-        | (if (.hooks.SessionStart // null) == [] then del(.hooks.SessionStart) else . end)
-        | (if (.hooks.PreToolUse  // null) == [] then del(.hooks.PreToolUse)  else . end)
-        | (if (.hooks // null) == {} then del(.hooks) else . end)
+      jq --argjson em "$event_map" '
+        (.hooks // {}) as $h
+        | .hooks = (
+            $h
+            | to_entries
+            | map(
+                . as $e
+                | ($em[$e.key] // null) as $re
+                | if $re == null then $e
+                  else $e.value |= [ .[]
+                      | .hooks |= map(select(((.command // "") | test($re)) | not))
+                      | select((.hooks | length) > 0) ]
+                  end
+              )
+            # prune events left with no hook groups
+            | map(select((.value | length) > 0))
+            | from_entries
+          )
+        # prune the hooks object itself if now empty
+        | if (.hooks | length) == 0 then del(.hooks) else . end
       ' "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS"
       echo "  removed conan hooks; preserved everything else in $SETTINGS"
     else
@@ -176,8 +212,8 @@ else
 fi
 echo
 
-# --- 3. Remove the git-guardrails helper script(s) ----------------------------
-echo "[3/3] Helper scripts in $HOME/.claude/hooks"
+# --- 3. Remove helper scripts --------------------------------------------------
+echo "[3/3] Helper scripts in $HOME/.claude/hooks and $HOME/.claude/hooks-lib"
 any_found=0
 for GUARDRAILS_SCRIPT in "${GUARDRAILS_SCRIPTS[@]}"; do
   [ -f "$GUARDRAILS_SCRIPT" ] || continue
@@ -189,8 +225,12 @@ for GUARDRAILS_SCRIPT in "${GUARDRAILS_SCRIPTS[@]}"; do
   fi
 done
 [ "$any_found" -eq 0 ] && echo "  not found (nothing to remove)"
-# clean up ~/.claude/hooks only if it's now empty and we created it
+# clean up now-empty script dirs we created
 rmdir "$HOME/.claude/hooks" 2>/dev/null && echo "  removed empty dir: $HOME/.claude/hooks" || true
+for dir in "${GUARDRAILS_DIRS[@]}"; do
+  rmdir "$dir" 2>/dev/null && echo "  removed empty dir: $dir" || true
+done
+rmdir "$HOME/.claude/hooks-lib" 2>/dev/null && echo "  removed empty dir: $HOME/.claude/hooks-lib" || true
 echo
 
 echo "Done."
