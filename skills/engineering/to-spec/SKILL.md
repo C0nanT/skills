@@ -1,12 +1,15 @@
 ---
-name: to-prd
-description: Turn the current conversation into a PRD and publish it as local markdown by default (or GitHub/GitLab on request) — no interview, just synthesis of what you've already discussed.
+
+name: to-spec
+description: Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.
+This skill takes the current conversation context and codebase understanding and produces a spec (you may know this document as a PRD). Do NOT interview the user — just synthesize what you already know.
 
 ## Process
+
+Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
 
 1. **Choose where to publish.** The default is **Local markdown** — a file under `.scratch/` in this repo, no remote needed. Don't probe `git remote`; only publish to GitHub or GitLab if the user explicitly asks.
 
@@ -32,7 +35,9 @@ This skill takes the current conversation context and codebase understanding and
 
 </destination-conventions>
 
-<prd-template>
+Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+
+<spec-template>
 
 ## Problem Statement
 
@@ -80,10 +85,10 @@ A list of testing decisions that were made. Include:
 
 ## Out of Scope
 
-A description of the things that are out of scope for this PRD.
+A description of the things that are out of scope for this spec.
 
 ## Further Notes
 
 Any further notes about the feature.
 
-</prd-template>
+</spec-template>
