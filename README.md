@@ -39,6 +39,33 @@ npx skills@latest add mattpocock/skills
 
 4. Bam - you're ready to go.
 
+## Install as a Claude Code plugin
+
+Prefer a plug-and-play install you don't maintain by hand? These skills also ship as a native [Claude Code plugin](https://code.claude.com/docs/en/plugins). Instead of copying editable files into your repo, the plugin installs the whole skill set as a managed bundle that updates when I ship a new version — you subscribe rather than fork.
+
+Inside Claude Code:
+
+```
+/plugin marketplace add mattpocock/skills
+/plugin install mattpocock-skills@mattpocock
+```
+
+Or from your shell:
+
+```bash
+claude plugin marketplace add mattpocock/skills
+claude plugin install mattpocock-skills@mattpocock
+```
+
+Then run `/setup-matt-pocock-skills` once per repo, exactly as in the quickstart above.
+
+Two ways to install, two philosophies:
+
+- **[skills.sh](https://skills.sh/mattpocock/skills)** copies the skills into your project so you can hack on them and make them your own.
+- **The plugin** keeps them as a read-only, always-current bundle you don't edit — best when you just want my set to work and follow along as it evolves.
+
+> Using Codex or another agent? The [skills.sh installer](https://skills.sh/mattpocock/skills) already installs these skills into Codex and other Agent-Skills-standard harnesses today. A native Codex plugin is on the roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+
 ## Why These Skills Exist
 
 I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
