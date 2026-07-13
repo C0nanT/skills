@@ -16,6 +16,8 @@ npx skills update improve-codebase-architecture
 
 It does **not** hand you a flat list of refactors. Every candidate has to pass the **deletion test** — would removing this module *concentrate* complexity behind a smaller interface, or just move it around? Only the "concentrates" cases earn a card. That filter is what stops the report from becoming generic cleanup advice.
 
+Unless you point it at a specific area, it also scopes itself to where development is actually landing — reading the recent commits to bias toward the code you're still changing. Deepening a module pays off by making future changes to it easier, so it puts extra weight on the parts of the repo that have recently changed.
+
 ## When to reach for it
 
 You invoke this by typing `/improve-codebase-architecture` — the agent won't reach for it on its own.
