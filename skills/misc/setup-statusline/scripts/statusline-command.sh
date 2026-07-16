@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Status line: model, context usage, git branch, cost
+# Status line: model, context usage (+ tokens), duration, rate limit, git branch
 input=$(cat)
 
 # Model display name
@@ -8,12 +8,39 @@ model=$(echo "$input" | jq -r '.model.display_name // .model.id // empty')
 # Effort level (only present when model supports reasoning effort)
 effort=$(echo "$input" | jq -r '.effort.level // empty')
 
-# Context usage percentage
+# Compact token count: 850 → 850, 15500 → 15.5k, 1200000 → 1.2M
+format_tokens() {
+  awk -v n="$1" 'BEGIN {
+    if (n >= 1000000) printf "%.1fM", n / 1000000
+    else if (n >= 1000) {
+      k = n / 1000
+      if (k == int(k)) printf "%.0fk", k
+      else printf "%.1fk", k
+    } else printf "%.0f", n
+  }'
+}
+
+# Context usage: percentage + tokens currently in the window (input-side,
+# same basis as used_percentage). e.g. ctx:14% 28k
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
-if [ -n "$used" ]; then
-  ctx=$(printf "%.0f%%" "$used")
-else
-  ctx=""
+tok_raw=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
+if [ -z "$tok_raw" ] || [ "$tok_raw" = "null" ]; then
+  tok_raw=$(echo "$input" | jq -r '
+    (.context_window.current_usage // {}) as $u
+    | ($u.input_tokens // 0)
+      + ($u.cache_creation_input_tokens // 0)
+      + ($u.cache_read_input_tokens // 0)
+    | if . == 0 then empty else . end
+  ' 2>/dev/null)
+fi
+ctx=""
+ctx_bits=()
+[ -n "$used" ] && ctx_bits+=("$(printf "%.0f%%" "$used")")
+if [ -n "$tok_raw" ] && [ "$tok_raw" != "0" ]; then
+  ctx_bits+=("$(format_tokens "$tok_raw")")
+fi
+if [ ${#ctx_bits[@]} -gt 0 ]; then
+  ctx=$(IFS=' '; echo "${ctx_bits[*]}")
 fi
 
 # Current working directory
@@ -29,14 +56,53 @@ fi
 # Raw session metrics from Claude
 cost_raw=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
 dur_raw=$(echo "$input" | jq -r '.cost.total_duration_ms // empty')
+session_id=$(echo "$input" | jq -r '.session_id // empty')
 
-# Cache raw values so the /clear hook can snapshot them
 cache_file="$HOME/.claude/statusline-cache.json"
-printf '{"cost_usd":%s,"duration_ms":%s}\n' \
-  "${cost_raw:-0}" "${dur_raw:-0}" > "$cache_file" 2>/dev/null || true
-
-# Load baseline saved by /clear hook
 baseline_file="$HOME/.claude/statusline-baseline.json"
+
+# Previous cache — used to detect /clear (new session_id, cost barely moved)
+prev_session=""
+prev_cost=0
+prev_dur=0
+if [ -f "$cache_file" ]; then
+  prev_session=$(jq -r '.session_id // empty' "$cache_file" 2>/dev/null)
+  prev_cost=$(jq -r '.cost_usd // 0' "$cache_file" 2>/dev/null)
+  prev_dur=$(jq -r '.duration_ms // 0' "$cache_file" 2>/dev/null)
+  [ -z "$prev_cost" ] && prev_cost=0
+  [ -z "$prev_dur" ] && prev_dur=0
+fi
+
+# /clear is client-local — UserPromptSubmit never fires. session_id changes while
+# process-level cost/duration keep climbing. Detect that and snapshot a baseline
+# so the displayed counters reset. (Resume to another session usually jumps cost
+# by more than $0.05 → we clear the baseline instead.)
+if [ -n "$session_id" ] && [ -n "$prev_session" ] && [ "$session_id" != "$prev_session" ]; then
+  if [ -n "$cost_raw" ]; then
+    clear_like=$(awk -v c="$cost_raw" -v p="$prev_cost" 'BEGIN {
+      d = c - p; if (d < 0) d = -d;
+      print (d < 0.05) ? 1 : 0
+    }')
+    if [ "$clear_like" = "1" ]; then
+      printf '{"cost_usd":%s,"duration_ms":%s}\n' \
+        "${cost_raw:-0}" "${dur_raw:-0}" > "$baseline_file" 2>/dev/null || true
+    else
+      rm -f "$baseline_file" 2>/dev/null || true
+    fi
+  fi
+fi
+
+# Cache raw values (+ session_id) so SessionEnd/SessionStart clear hooks can snapshot
+jq -n \
+  --arg sid "$session_id" \
+  --argjson cost "${cost_raw:-0}" \
+  --argjson dur "${dur_raw:-0}" \
+  '{session_id:$sid, cost_usd:$cost, duration_ms:$dur}' \
+  > "$cache_file" 2>/dev/null || \
+  printf '{"session_id":"","cost_usd":%s,"duration_ms":%s}\n' \
+    "${cost_raw:-0}" "${dur_raw:-0}" > "$cache_file" 2>/dev/null || true
+
+# Load baseline saved by /clear hook (or session_id detection above)
 baseline_cost=0
 baseline_dur=0
 if [ -f "$baseline_file" ]; then
@@ -44,7 +110,7 @@ if [ -f "$baseline_file" ]; then
   b_dur=$(jq -r '.duration_ms // 0' "$baseline_file" 2>/dev/null)
   [ -n "$b_cost" ] && baseline_cost=$b_cost
   [ -n "$b_dur" ] && baseline_dur=$b_dur
-  # Auto-reset baseline when a new session started (cost dropped below baseline)
+  # Auto-reset baseline when a new process started (cost dropped below baseline)
   if [ -n "$cost_raw" ] && [ "$baseline_cost" != "0" ]; then
     is_lower=$(awk "BEGIN {print ($cost_raw < $baseline_cost) ? 1 : 0}")
     if [ "$is_lower" = "1" ]; then
@@ -55,14 +121,7 @@ if [ -f "$baseline_file" ]; then
   fi
 fi
 
-# Session cost since last /clear
-cost=""
-if [ -n "$cost_raw" ]; then
-  cost_adj=$(awk "BEGIN {v = $cost_raw - $baseline_cost; if (v < 0) v = 0; printf \"%.6f\", v}")
-  cost=$(printf '$%.4f' "$cost_adj")
-fi
-
-# Session duration since last /clear
+# Session duration since last /clear (cost_raw kept only for /clear baseline detect)
 duration=""
 if [ -n "$dur_raw" ]; then
   dur_adj=$(( ${dur_raw%.*} - ${baseline_dur%.*} ))
@@ -130,7 +189,6 @@ if [ -n "$model" ]; then
   fi
 fi
 [ -n "$ctx" ]      && parts+=("$(printf '\033[01;33mctx:%s\033[00m' "$ctx")")
-[ -n "$cost" ]     && parts+=("$(printf '\033[00;32m%s\033[00m' "$cost")")
 [ -n "$duration" ] && parts+=("$(printf '\033[00;32m%s\033[00m' "$duration")")
 if [ -n "$rl_pct" ]; then
   if [ -n "$rl_reset" ]; then

@@ -1,6 +1,7 @@
 ---
 name: setup-statusline
-description: Install a Claude Code status line showing model + effort, context usage %, session cost, session duration, 5-hour rate limit usage + reset time, and current git branch. Use when user wants to set up or restore the statusline configuration.
+description: Install a Claude Code status line
+disable-model-invocation: true
 ---
 
 # Setup Status Line
@@ -13,8 +14,7 @@ One-time install. Copies the bundled script and wires it into `~/.claude/setting
 | --- | --- | --- |
 | Model name | `model.display_name` | bold cyan |
 | Effort level | `effort.level` | dim cyan, shown in parens when present |
-| Context usage | `context_window.used_percentage` | bold yellow, e.g. `ctx:14%` |
-| Session cost | `cost.total_cost_usd` | green, e.g. `$0.0123` |
+| Context usage | `context_window.used_percentage` + `total_input_tokens` | bold yellow, e.g. `ctx:14% 28k` |
 | Session duration | `cost.total_duration_ms` | green, e.g. `23m` or `1h05m` |
 | Rate limit | `rate_limits.five_hour.used_percentage` | green/yellow/red by threshold, e.g. `limit:42% ↺ 14:30` |
 | Git branch | git | bold magenta, omitted outside git repos |
@@ -66,13 +66,28 @@ SETTINGS="$HOME/.claude/settings.json"
 mkdir -p "$(dirname "$SETTINGS")"
 [ -s "$SETTINGS" ] && jq -e . "$SETTINGS" >/dev/null 2>&1 || echo '{}' > "$SETTINGS"
 
-jq '
-  .statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"} |
-  .hooks.UserPromptSubmit = (
-    ((.hooks.UserPromptSubmit // [])
+HOOK_CMD='# claude-hook:statusline-reset
+f="$HOME/.claude/statusline-reset-hook.sh"; [ -f "$f" ] && exec bash "$f"; exit 0'
+
+jq --arg cmd "$HOOK_CMD" '
+  .statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"}
+  # Drop the old UserPromptSubmit-based reset — /clear never fires that event
+  | .hooks.UserPromptSubmit = (
+      (.hooks.UserPromptSubmit // [])
       | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
-    ) + [{"hooks":[{"type":"command","command":"# claude-hook:statusline-reset\nf=\"$HOME/.claude/statusline-reset-hook.sh\"; [ -f \"$f\" ] && exec bash \"$f\"; exit 0"}]}]
-  )
+    )
+  | if (.hooks.UserPromptSubmit | length) == 0 then del(.hooks.UserPromptSubmit) else . end
+  # /clear fires SessionEnd (reason=clear) and sometimes SessionStart (source=clear)
+  | .hooks.SessionEnd = (
+      ((.hooks.SessionEnd // [])
+        | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
+      ) + [{"matcher":"clear","hooks":[{"type":"command","command":$cmd}]}]
+    )
+  | .hooks.SessionStart = (
+      ((.hooks.SessionStart // [])
+        | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
+      ) + [{"matcher":"clear","hooks":[{"type":"command","command":$cmd}]}]
+    )
 ' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
 ```
 
@@ -88,8 +103,11 @@ Takes effect at next Claude Code session start (no restart needed for mid-sessio
 
 ## /clear behaviour
 
-Running `/clear` resets the cost and duration counters in the status line. Internally:
+Running `/clear` resets the duration counter in the status line. `/clear` is a client-local slash command — it does **not** fire `UserPromptSubmit` — so reset uses:
 
-- A `UserPromptSubmit` hook snapshots the current raw values into `~/.claude/statusline-baseline.json`
-- The statusline script subtracts the baseline from every subsequent reading
-- If a new Claude process starts (raw cost drops below baseline), the baseline auto-clears
+1. `SessionEnd` / `SessionStart` hooks with matcher `clear` — snapshot raw cost/duration into `~/.claude/statusline-baseline.json` (cost is tracked only as a `/clear` signal; it is not displayed)
+2. Fallback inside the statusline script: when `session_id` changes but cost barely moved (&lt; $0.05), treat as `/clear` and snapshot the baseline automatically
+3. The statusline subtracts the duration baseline from every subsequent reading
+4. If a new Claude process starts (raw cost drops below baseline), the baseline auto-clears
+
+Context `%` + tokens come from the live window and reset naturally after `/clear`.

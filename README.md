@@ -173,7 +173,7 @@ General workflow tools, not code-specific.
 ### Misc
 
 - **[setup-pre-commit](./skills/misc/setup-pre-commit/SKILL.md)** — Set up Husky pre-commit hooks with lint-staged, Prettier, type checking, and tests.
-- **[setup-statusline](./skills/misc/setup-statusline/SKILL.md)** — Install a Claude Code status line showing model, context usage, session cost, rate limits, and git branch.
+- **[setup-statusline](./skills/misc/setup-statusline/SKILL.md)** — Install a Claude Code status line showing model, context usage (% + tokens), rate limits, and git branch.
 - **[reset-agent-env](./skills/misc/reset-agent-env/SKILL.md)** — Wipe global agent skills, hooks, rules, and MCP configs across Claude Code, Cursor, Windsurf, and Antigravity (dry-run by default; backs up before deleting) to simulate a clean machine.
 
 ## Dev local
