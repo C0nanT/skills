@@ -8,7 +8,7 @@ Coleção de agent skills (comandos `/slash`) para Claude Code. Fork do [reposit
 npx skills@latest add C0nanT/skills
 ```
 
-### Hooks (caveman + git guardrails)
+### Hooks
 
 Os hooks são gerenciados pelo projeto separado [claude-hooks](https://github.com/C0nanT/claude-hooks):
 
@@ -16,10 +16,25 @@ Os hooks são gerenciados pelo projeto separado [claude-hooks](https://github.co
 npx @c0nant/claude-hooks install
 ```
 
-Instala dois hooks no `~/.claude/settings.json`:
+Instala estes hooks no `~/.claude/settings.json`:
 
-- **caveman** (`SessionStart`) — modo caveman automático em toda sessão (requer a skill `caveman` instalada)
-- **git-guardrails** (`PreToolUse/Bash`) — bloqueia git destrutivo antes de executar (autossuficiente, não depende de skill)
+| Hook | Evento | O que faz |
+|------|--------|-----------|
+| **caveman** | `SessionStart` | Modo caveman automático em toda sessão (requer a skill `caveman` instalada) |
+| **git-guardrails** | `PreToolUse/Bash` | Bloqueia git destrutivo antes de executar (`push`, `reset --hard`, `clean -f`, etc.) |
+| **protect-dotenv** | `PreToolUse` | Bloqueia leitura/edição de `.env` (permite `.env.example`, `.env.sample`, etc.) |
+| **notify-attention** | `Notification` | Notificação desktop + som quando o agente precisa de input |
+| **notify-done** | `Stop` | Notificação desktop + som quando o agente termina a resposta |
+
+`caveman` no-op se a skill estiver ausente. Os demais são autossuficientes (scripts em `~/.claude/hooks-lib/`).
+
+Instalar/remover um hook só:
+
+```bash
+npx @c0nant/claude-hooks install protect-dotenv
+npx @c0nant/claude-hooks uninstall notify-done
+npx @c0nant/claude-hooks list
+```
 
 ## Desinstalar
 
