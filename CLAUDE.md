@@ -19,10 +19,9 @@ Skills live under `skills/`:
 
 ## Invariants
 
-- Every skill in `engineering/`, `productivity/`, or `misc/` **must** have an entry in the top-level `README.md` and in `.claude-plugin/plugin.json`.
-- Skills in `personal/`, `in-progress/`, and `deprecated/` **must not** appear in either.
-- Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
-- Each bucket folder has a `README.md` listing every skill in the bucket with a one-line description, skill name linked to its `SKILL.md`.
+Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `personal/`, `in-progress/`, and `deprecated/` must not appear in either.
+
+The repo is also its own single-plugin Claude Code marketplace: `.claude-plugin/marketplace.json` lists the one `mattpocock-skills` plugin. When bumping the release version, keep `.claude-plugin/plugin.json`'s `version` in sync with `package.json`'s — Claude uses the plugin `version` to decide when installed users see an update. Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 ## Skill Structure
 
@@ -41,6 +40,7 @@ name: skill-name
 description: Brief description. Use when [specific triggers].
 ---
 ```
+Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). See [.agents/invocation.md](./.agents/invocation.md).
 
 ## Scripts
 
