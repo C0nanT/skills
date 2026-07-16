@@ -57,7 +57,14 @@ Each smell reads _what it is_ → _how to fix_; match it against the diff:
 
 ### 4. Spawn both sub-agents in parallel
 
-Send a single message with two `Agent` tool calls. Use the `general-purpose` subagent for both, and pass `model: haiku` and `effort: medium` on each call — this review always runs on Haiku at medium reasoning effort to keep it cheap.
+Send a single message with two parallel sub-agent calls (`Agent` in Claude Code, `Task` in Cursor). Use the `general-purpose` / `generalPurpose` subagent for both.
+
+**Pick the model by host** (keep this review cheap):
+
+| Host | Model | Notes |
+| --- | --- | --- |
+| **Claude Code** | `model: haiku`, `effort: medium` | Haiku only on Claude Code. |
+| **Cursor** | Composer **2.5 or newer**, **not** Fast — or **`auto`** | Prefer `composer-2.5` (or the latest non-fast Composer slug available). Never pass `composer-*-fast` / Fast mode — it costs more. Alternatively omit `model` or pass `auto` so Cursor picks. Do **not** use Haiku on Cursor. |
 
 **Standards sub-agent prompt** — include:
 
