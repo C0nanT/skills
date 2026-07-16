@@ -20,7 +20,7 @@ Frame the document as a **discovery questionnaire**: the user lacks context, the
 
 <questionnaire-template>
 
-# <Questionnaire title>
+# [Questionnaire title]
 
 **Purpose:** why this questionnaire exists and the decision riding on it.
 
@@ -34,7 +34,7 @@ One paragraph orienting a recipient who wasn't in the user's head. Enough to ans
 
 Deadline and rough effort. Partial answers and "I don't know" are useful — flag anything you're unsure of rather than skipping it.
 
-## <Theme heading>
+## [Theme heading]
 
 One `##` section per theme. Under each, its questions, most-important-first. Every question is one idea — never compound — with an answer stub directly beneath, and a one-line _why this matters_ only where the question could be misread or invite a throwaway answer.
 
