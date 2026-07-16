@@ -64,7 +64,7 @@ Send a single message with two parallel sub-agent calls (`Agent` in Claude Code,
 | Host | Model | Notes |
 | --- | --- | --- |
 | **Claude Code** | `model: haiku`, `effort: medium` | Haiku only on Claude Code. |
-| **Cursor** | Composer **2.5 or newer**, **not** Fast — or **`auto`** | Prefer `composer-2.5` (or the latest non-fast Composer slug available). Never pass `composer-*-fast` / Fast mode — it costs more. Alternatively omit `model` or pass `auto` so Cursor picks. Do **not** use Haiku on Cursor. |
+| **Cursor** | `model: composer-2.5-fast` — or omit / **`auto`** | Pass the exact Cursor catalog slug `composer-2.5-fast` (plain `composer-2.5` is invalid and Task rejects it). Alternatively omit `model` or pass `auto` so the subagent inherits the parent. Do **not** use Haiku on Cursor. |
 
 **Standards sub-agent prompt** — include:
 
