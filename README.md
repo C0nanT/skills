@@ -19,7 +19,7 @@ npx @c0nant/claude-hooks install
 Instala estes hooks no `~/.claude/settings.json`:
 
 | Hook | Evento | O que faz |
-|------|--------|-----------|
+| ------ | -------- | ----------- |
 | **caveman** | `SessionStart` | Modo caveman automático em toda sessão (requer a skill `caveman` instalada) |
 | **git-guardrails** | `PreToolUse/Bash` | Bloqueia git destrutivo antes de executar (`push`, `reset --hard`, `clean -f`, etc.) |
 | **protect-dotenv** | `PreToolUse` | Bloqueia leitura/edição de `.env` (permite `.env.example`, `.env.sample`, etc.) |
