@@ -23,7 +23,14 @@ Rate limit color: green < 50%, yellow 50–79%, red ≥ 80%. Omitted when `rate_
 
 ### Reset-time timezone
 
-The reset clock (`↺ 14:30`) is shown in the machine's local timezone. Claude Code runs the statusline with `TZ=UTC` in its environment, so the script does **not** trust the inherited `TZ` — it resolves the zone from (in order) `$STATUSLINE_TZ`, `/etc/timezone`, then the `/etc/localtime` symlink. Set `STATUSLINE_TZ` (e.g. `America/Sao_Paulo`) in `~/.claude/settings.json` `env` to override.
+The reset clock (`↺ 10:00`) is shown in the **machine's local timezone**, never Claude's injected `TZ=UTC` (which otherwise shifts Brazil by +3h). Resolution order:
+
+1. `$STATUSLINE_TZ` override (IANA name, e.g. `America/Sao_Paulo`)
+2. Host zone via `timedatectl`, `/etc/timezone`, or `/etc/localtime` symlink (skips bare `UTC`)
+3. `env -u TZ date` so libc reads `/etc/localtime`
+4. On WSL/Windows, when Linux still reports UTC: PowerShell `LocalDateTime`
+
+Set `STATUSLINE_TZ` in `~/.claude/settings.json` `env` only if auto-detect is wrong.
 
 ## Prerequisites
 

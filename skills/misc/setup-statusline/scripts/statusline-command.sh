@@ -136,22 +136,79 @@ if [ -n "$dur_raw" ]; then
   fi
 fi
 
-# Resolve the timezone for displaying clock times. Claude Code runs the
-# statusline with TZ=UTC in its environment, so we can't trust the inherited
-# TZ. Prefer an explicit override, else the machine's configured local zone.
-resolve_tz() {
-  if [ -n "$STATUSLINE_TZ" ]; then
-    printf '%s' "$STATUSLINE_TZ"; return
+# Format an epoch as HH:MM in the *machine's* local timezone.
+# Claude Code runs the statusline with TZ=UTC — never trust that. Order:
+#   1. $STATUSLINE_TZ override (IANA name)
+#   2. host IANA zone (timedatectl / /etc/timezone / localtime symlink), skipping UTC
+#   3. env -u TZ date → libc reads /etc/localtime
+#   4. WSL/Windows: PowerShell local clock when Linux zone is UTC/missing
+is_utc_name() {
+  case "$1" in
+    UTC|Etc/UTC|Etc/GMT|GMT|UCT|Universal|Zulu) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+resolve_host_tz() {
+  local tz=""
+  if command -v timedatectl >/dev/null 2>&1; then
+    tz=$(timedatectl show -p Timezone --value 2>/dev/null | tr -d '[:space:]')
+    if [ -n "$tz" ] && [ "$tz" != "n/a" ] && ! is_utc_name "$tz"; then
+      printf '%s' "$tz"; return
+    fi
   fi
   if [ -r /etc/timezone ]; then
-    tr -d '[:space:]' < /etc/timezone; return
+    tz=$(tr -d '[:space:]' < /etc/timezone)
+    if [ -n "$tz" ] && ! is_utc_name "$tz"; then
+      printf '%s' "$tz"; return
+    fi
   fi
   if [ -L /etc/localtime ]; then
-    # /etc/localtime -> /usr/share/zoneinfo/America/Sao_Paulo  =>  America/Sao_Paulo
-    readlink /etc/localtime | sed 's#.*/zoneinfo/##'; return
+    tz=$(readlink /etc/localtime 2>/dev/null | sed 's#.*/zoneinfo/##')
+    if [ -n "$tz" ] && ! is_utc_name "$tz"; then
+      printf '%s' "$tz"; return
+    fi
   fi
 }
-display_tz=$(resolve_tz)
+
+windows_local_hm() {
+  local epoch="$1"
+  command -v powershell.exe >/dev/null 2>&1 || return 1
+  powershell.exe -NoProfile -Command \
+    "[DateTimeOffset]::FromUnixTimeSeconds($epoch).LocalDateTime.ToString('HH:mm')" \
+    2>/dev/null | tr -d '\r' | tr -d '[:space:]'
+}
+
+format_local_hm() {
+  local epoch="$1" hm="" tz="" sys_off=""
+
+  if [ -n "$STATUSLINE_TZ" ]; then
+    hm=$(TZ="$STATUSLINE_TZ" date -d "@$epoch" +%H:%M 2>/dev/null) || true
+    [ -n "$hm" ] && { printf '%s' "$hm"; return; }
+  fi
+
+  tz=$(resolve_host_tz)
+  if [ -n "$tz" ]; then
+    hm=$(TZ="$tz" date -d "@$epoch" +%H:%M 2>/dev/null) || true
+    [ -n "$hm" ] && { printf '%s' "$hm"; return; }
+  fi
+
+  # Drop Claude's TZ=UTC so date uses /etc/localtime (PC zone on Ubuntu/WSL)
+  hm=$(env -u TZ date -d "@$epoch" +%H:%M 2>/dev/null) || true
+  sys_off=$(env -u TZ date +%z 2>/dev/null) || true
+  if [ -n "$hm" ] && [ "$sys_off" != "+0000" ] && [ "$sys_off" != "-0000" ]; then
+    printf '%s' "$hm"; return
+  fi
+
+  # Linux says UTC (common misconfig on WSL) or date failed → Windows clock
+  win_hm=$(windows_local_hm "$epoch") || true
+  if [ -n "$win_hm" ]; then
+    printf '%s' "$win_hm"; return
+  fi
+
+  # Last resort: whatever we got from env -u TZ (may still be UTC)
+  [ -n "$hm" ] && printf '%s' "$hm"
+}
 
 # 5-hour rate limit
 rl_pct=""
@@ -162,11 +219,8 @@ rl_resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty'
 if [ -n "$rl_pct_raw" ]; then
   rl_pct=$(printf "limit:%.0f%%" "$rl_pct_raw")
   if [ -n "$rl_resets_at" ]; then
-    if [ -n "$display_tz" ]; then
-      rl_reset=$(printf '↺ %s' "$(TZ="$display_tz" date -d "@${rl_resets_at}" +%H:%M 2>/dev/null)")
-    else
-      rl_reset=$(printf '↺ %s' "$(date -d "@${rl_resets_at}" +%H:%M 2>/dev/null)")
-    fi
+    hm=$(format_local_hm "$rl_resets_at")
+    [ -n "$hm" ] && rl_reset=$(printf '↺ %s' "$hm")
   fi
   # Color thresholds
   rl_int=$(printf "%.0f" "$rl_pct_raw")

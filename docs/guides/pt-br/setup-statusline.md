@@ -30,6 +30,8 @@ Uma skill de instalação única que copia scripts bundled e registra uma status
 
 Rate limit: verde &lt; 50%, amarelo 50–79%, vermelho ≥ 80%.
 
+Relógio de reset (`↺ 10:00`) usa o fuso do PC — ignora o `TZ=UTC` que o Claude injeta (senão Brasil aparece +3h). Override: `STATUSLINE_TZ=America/Sao_Paulo` em `~/.claude/settings.json` `env`.
+
 ## Pré-requisitos
 
 - `jq` instalado
