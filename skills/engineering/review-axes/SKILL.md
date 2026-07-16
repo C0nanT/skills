@@ -76,7 +76,7 @@ Send a single message with two parallel sub-agent calls (`Agent` in Claude Code,
 
 - The diff command and commit list.
 - The path or fetched contents of the spec.
-- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
+- The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. If the spec has markdown checkboxes (`- [ ]` / `- [x]`), also list each checkbox criterion as **done** or **not done** based on the code in the diff — not on intent. Under 400 words."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 
@@ -85,6 +85,18 @@ If the spec is missing, skip the Spec sub-agent and note this in the final repor
 Present the two reports under `## Standards` and `## Spec` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings — the two axes are deliberately separate (see _Why two axes_).
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.
+
+### 6. Sync acceptance-criteria checkboxes
+
+After the Spec report, update the **local markdown** spec/ticket source (the file from step 2 — typically under `.scratch/`, `docs/`, or `specs/`) so its checkboxes match what the code actually did:
+
+- Flip `- [ ]` → `- [x]` only when that criterion is implemented in the diff / codebase (use the Spec sub-agent's done/not-done list; verify against the diff when unsure).
+- Leave `- [ ]` (or flip `- [x]` → `- [ ]`) when the criterion is missing, partial, or wrong per Spec.
+- Edit existing checkbox lines only — do not add, delete, or rewrite criterion text.
+- Skip this step when there is no local markdown spec, the spec has no checkboxes, or the Spec axis was skipped.
+- Do **not** commit these markdown edits unless the user asks.
+
+Tell the user briefly which boxes changed (checked / unchecked) so they can see progress at a glance.
 
 ## Why two axes
 
