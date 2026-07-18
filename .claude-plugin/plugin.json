@@ -4,6 +4,7 @@
 
   "skills": [
     "./skills/engineering/ask-skills",
+    "./skills/engineering/delegate-tickets",
     "./skills/engineering/review-axes",
     "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/grill-with-docs",

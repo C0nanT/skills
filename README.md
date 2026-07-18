@@ -153,6 +153,7 @@ Skills I use daily for code work.
 **User-invoked**
 
 - **[ask-skills](./skills/engineering/ask-skills/SKILL.md)** — Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[delegate-tickets](./skills/engineering/delegate-tickets/SKILL.md)** — Orchestrate sequential ticket implementation through fresh subagents, one ticket at a time, each required to use the `implement` skill.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.  
 - **[setup-skills](./skills/engineering/setup-skills/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
