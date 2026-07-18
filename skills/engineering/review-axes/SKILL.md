@@ -104,7 +104,9 @@ After the Spec report, update the **local markdown** spec/ticket source (the fil
 - Skip this step when there is no local markdown spec, the spec has no checkboxes, or the Spec axis was skipped.
 - Do **not** commit these markdown edits unless the user asks.
 
-Tell the user briefly which boxes changed (checked / unchecked) so they can see progress at a glance.
+If the spec/ticket file has a `Status:` line (see `docs/agents/triage-labels.md`) and, after the flip above, **every** acceptance-criteria checkbox is `- [x]`, advance `Status:` to `ready-for-human` — implementation is done and the work now needs human review before it merges. Leave `Status:` untouched when any checkbox remains unchecked, or when the file has no `Status:` line.
+
+Tell the user briefly which boxes changed (checked / unchecked) and whether `Status:` was advanced, so they can see progress at a glance.
 
 ## Why two axes
 
