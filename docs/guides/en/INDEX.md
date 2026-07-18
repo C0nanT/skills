@@ -16,8 +16,8 @@ Skills for daily code work.
 | [prototype](./prototype.md) | Builds a throwaway prototype: terminal app for logic/state, or side-by-side UI variations |
 | [setup-skills](./setup-skills.md) | Configures the repo to use the engineering skills (issue tracker, triage labels, docs layout). Run once per repo |
 | [tdd](./tdd.md) | TDD with red-green-refactor cycle. One test at a time, vertical slices, no mocking internals |
-| [to-issues](./to-issues.md) | Breaks a plan/PRD into independent, grabbable issues on the issue tracker using vertical slices |
-| [to-prd](./to-prd.md) | Turns the current conversation into a structured PRD and publishes it to the issue tracker |
+| [to-tickets](./to-tickets.md) | Breaks a plan/spec into independent, grabbable issues on the issue tracker using vertical slices |
+| [to-spec](./to-spec.md) | Turns the current conversation into a structured spec and publishes it to the issue tracker |
 | [zoom-out](./zoom-out.md) | Steps up one abstraction level and shows the module and caller map of an unfamiliar area of the code |
 
 ## Productivity
@@ -48,8 +48,8 @@ Skills kept around but rarely used.
 1. /setup-skills          ← once per repo
 2. /grill-with-docs       ← before any new feature
 3. /prototype             ← when there are design questions (optional)
-4. /to-prd                ← formalise into a PRD
-5. /to-issues             ← break into tickets
+4. /to-spec                ← formalise into a spec
+5. /to-tickets             ← break into tickets
 6. /tdd                   ← implement each ticket
 7. /diagnose              ← when bugs surface
 8. /improve-codebase-architecture  ← periodically

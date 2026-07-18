@@ -1,12 +1,12 @@
-# `/to-issues` — Converter Plano em Issues
+# `/to-tickets` — Converter Plano em Issues
 
 ## O que é
 
-Uma skill que quebra um plano, spec, ou PRD em issues independentes e grabáveis no issue tracker do projeto, usando fatias verticais (tracer bullets).
+Uma skill que quebra um plano, spec, ou spec em issues independentes e grabáveis no issue tracker do projeto, usando fatias verticais (tracer bullets).
 
 ## Para que serve
 
-- Quando você tem um plano ou PRD e quer transformá-lo em tickets concretos
+- Quando você tem um plano ou spec e quer transformá-lo em tickets concretos
 - Para quebrar trabalho grande em partes implementáveis independentemente
 - Quando quer criar issues prontas para um agente AFK pegar e executar
 - Para garantir que cada ticket seja uma fatia vertical completa, não uma camada horizontal
@@ -14,14 +14,14 @@ Uma skill que quebra um plano, spec, ou PRD em issues independentes e grabáveis
 ## Como invocar
 
 ```
-/to-issues
+/to-tickets
 ```
 
 Ou passando uma issue existente como ponto de partida:
 
 ```
-/to-issues #42
-/to-issues https://github.com/org/repo/issues/42
+/to-tickets #42
+/to-tickets https://github.com/org/repo/issues/42
 ```
 
 **Pré-requisito**: rode `/setup-skills` antes de usar pela primeira vez.
@@ -83,9 +83,9 @@ Pergunta se a granularidade está certa, se as dependências estão corretas, se
 ## Exemplo de uso
 
 ```
-Aqui está o PRD para o sistema de notificações: [cola o PRD]
+Aqui está o spec para o sistema de notificações: [cola o spec]
 
-/to-issues
+/to-tickets
 ```
 
 O agente vai propor algo como: Issue 1 (AFK) - notificação ao comentar numa tarefa; Issue 2 (AFK) - badge de não-lidas no ícone; Issue 3 (HITL) - configurações de preferência de notificação (requer decisão de design).

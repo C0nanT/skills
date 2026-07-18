@@ -70,7 +70,7 @@ are not expected to clone this project — they only have what
 ## Domain Language (from CONTEXT.md)
 
 - **Issue tracker** — the tool hosting a repo's issues (GitHub Issues, Linear, local `.scratch/`). Not "backlog".
-- **Issue** — a single tracked unit of work. Not "ticket" unless quoting external systems.
+- **Ticket** — a single tracked unit of work. Use "issue" only when naming a real object on an external tracker (a GitHub issue, a GitLab issue).
 - **Triage role** — a state-machine label applied to an issue during triage.
 
 Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
@@ -83,7 +83,7 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reach
 
 ### Issue tracker
 
-Issues live as local markdown files under `.scratch/<feature-slug>/` (no GitHub integration). See `docs/agents/issue-tracker.md`.
+Tickets live as local markdown files under `.scratch/<feature-slug>/tickets/` (no GitHub integration). See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

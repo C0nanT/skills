@@ -37,7 +37,7 @@ Lead each section with the recommended answer so the user can accept it in a wor
 
 **Section A — Issue tracker.**
 
-> Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets` and `to-spec` read from and write to it — they need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo. Note: `to-issues` and `to-prd` default to **Local markdown** each run and only publish to GitHub/GitLab when you explicitly ask — what you configure here defines the CLI conventions and triage-label mappings used when you do pick GitHub or GitLab (and is read by the fetch/triage steps).
+> Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets` and `to-spec` read from and write to it — they need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo. Note: `to-tickets` and `to-spec` default to **Local markdown** each run and only publish to GitHub/GitLab when you explicitly ask — what you configure here defines the CLI conventions and triage-label mappings used when you do pick GitHub or GitLab (and is read by the fetch/triage steps).
 
 Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. Otherwise (or if the user prefers), offer:
 

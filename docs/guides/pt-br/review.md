@@ -5,7 +5,7 @@
 Uma skill user-invoked que revisa o diff entre `HEAD` e um ponto fixo que você informa (commit, branch, tag, merge-base, etc.) em **dois eixos independentes**:
 
 - **Standards** — o código segue os padrões documentados deste repositório?
-- **Spec** — o código implementa fielmente o que a issue/PRD/spec pediu?
+- **Spec** — o código implementa fielmente o que o ticket ou a spec pediu?
 
 Os dois eixos rodam em **sub-agentes paralelos** para não contaminar o contexto um do outro; esta skill agrega os resultados lado a lado.
 
@@ -35,7 +35,7 @@ Exemplos:
 ```
 
 ```
-/review .scratch/minha-feature/PRD.md
+/review .scratch/minha-feature/SPEC.md
 ```
 
 O último caso passa o caminho da spec explicitamente; útil quando o arquivo não bate com o nome da branch.
@@ -53,7 +53,7 @@ Antes de seguir, confirma que a referência resolve (`git rev-parse`) e que o di
 Busca a spec nesta ordem:
 
 1. Caminho que você passou como argumento
-2. PRD/spec em `.scratch/`, `docs/` ou `specs/` que combine com o nome da branch ou feature (padrão para specs em markdown local)
+2. arquivo de spec em `.scratch/`, `docs/` ou `specs/` que combine com o nome da branch ou feature (padrão para specs em markdown local)
 3. Referências em mensagens de commit (`#123`, `Closes #45`, GitLab `!67`, etc.) — busca via `docs/agents/issue-tracker.md` (só quando há issue tracker remoto configurado)
 4. Se nada for encontrado, pergunta onde está a spec. Se não houver spec, o eixo **Spec** é omitido e o relatório indica “no spec available”
 
@@ -92,7 +92,7 @@ Reportar separado impede que um eixo mascare o outro.
 
 ### Depois de `/implement` (fluxo típico)
 
-Você implementou a issue na branch `feat/pipeline-improvements`. O PRD está em `.scratch/pipeline-improvements/PRD.md` e a skill acha sozinha.
+Você implementou a issue na branch `feat/pipeline-improvements`. O spec está em `.scratch/pipeline-improvements/SPEC.md` e a skill acha sozinha.
 
 ```
 /review desde main
@@ -106,7 +106,7 @@ O agente compara `main...HEAD`, roda Standards e Spec em paralelo e devolve algo
 - …
 
 ## Spec
-- PRD user story #3 pede “falhar cedo se plugin.json inconsistente”; diff só valida README — parcial
+- spec user story #3 pede “falhar cedo se plugin.json inconsistente”; diff só valida README — parcial
 - …
 
 Standards: 2 achados (pior: shell sem fail-fast). Spec: 1 achado (requisito #3 incompleto).
@@ -124,10 +124,10 @@ Mesmo efeito que `desde main` — o ponto fixo é a branch base do PR.
 
 ### Spec em caminho que a skill não adivinha
 
-Branch `fix/error-accumulation`, mas o PRD está num slug diferente:
+Branch `fix/error-accumulation`, mas o spec está num slug diferente:
 
 ```
-/review main .scratch/pipeline-improvements/issues/01-fix-error-accumulation.md
+/review main .scratch/pipeline-improvements/tickets/01-fix-error-accumulation.md
 ```
 
 O segundo argumento aponta a issue como spec; o diff ainda é `main...HEAD`.
@@ -140,11 +140,11 @@ Trabalho grande na branch; quer revisar só o que fez hoje:
 /review HEAD~3
 ```
 
-Spec: a skill ainda tenta achar PRD/issue pelo nome da branch ou pelos commits — se não achar, pergunta ou omite o eixo Spec.
+Spec: a skill ainda tenta achar spec/issue pelo nome da branch ou pelos commits — se não achar, pergunta ou omite o eixo Spec.
 
 ### Sem spec (só padrões do repo)
 
-Refatoração interna, sem issue/PRD:
+Refatoração interna, sem issue/spec:
 
 ```
 /review origin/main
@@ -173,6 +173,6 @@ No fluxo principal (`/ask-skills`):
 ## Dicas
 
 - Sempre informe o ponto fixo; sem ele a skill não sabe o que comparar.
-- Para specs locais, deixe o PRD em `.scratch/<feature>/` com nome alinhado à branch — a skill encontra sozinha.
+- Para specs locais, deixe o spec em `.scratch/<feature>/` com nome alinhado à branch — a skill encontra sozinha.
 - Se só quiser checagem de padrão ou só de spec, ainda assim rode `/review`; o eixo sem spec aparece como omitido, não como “passou”.
 - Não espere um veredito único “aprovado/reprovado”; leia os dois relatórios separadamente.

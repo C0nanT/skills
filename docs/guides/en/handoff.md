@@ -32,7 +32,7 @@ The agent creates a Markdown document with:
 
 **Current state** — where the work stands now: what's done, what's in progress, what's pending.
 
-**References** — instead of duplicating content that already exists in other artefacts (PRDs, plans, ADRs, issues, commits, diffs), the document *references* them by path or URL.
+**References** — instead of duplicating content that already exists in other artefacts (specs, plans, ADRs, issues, commits, diffs), the document *references* them by path or URL.
 
 **Suggested skills** — section that recommends which skills the next agent should invoke to continue the work. For example: "Invoke `/tdd` to implement issue #45" or "Use `/diagnose` to investigate the race condition bug mentioned."
 
@@ -50,7 +50,7 @@ Let's stop here. I need to continue tomorrow.
 
 The agent will create something like `/tmp/handoff-2026-06-08-payments.md` with:
 - Summary of what was decided about the payment integration
-- Reference to the PRD published in issue #23
+- Reference to the spec published in issue #23
 - State: "OrderService interface defined, still need to implement RefundProcessor"
 - Suggested skills: "Invoke `/tdd` to implement RefundProcessor following the defined interface"
 
@@ -58,4 +58,4 @@ The agent will create something like `/tmp/handoff-2026-06-08-payments.md` with:
 
 - The argument after `/handoff` is treated as a description of the next session's focus — the document is adjusted to be more useful for that specific goal
 - The document is saved to the temp dir and **not** to the project — if you want to preserve it permanently, copy it manually
-- Does not duplicate what's in existing commits, PRDs, or issues — only references them
+- Does not duplicate what's in existing commits, specs, or issues — only references them

@@ -28,14 +28,14 @@ O caminho que a maior parte do trabalho percorre:
    - `/prototype` para responder com código descartável,
    - `/handoff` de volta com o que aprendeu.
 3. **Branch — build multi-sessão?**
-   - **Sim** → **`/to-prd`** → **`/to-issues`**. Entre cada issue, **limpe o contexto**: sessão nova por issue e **`/implement`** com o PRD + a issue.
+   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada issue, **limpe o contexto**: sessão nova por issue e **`/implement`** com o spec + a issue.
    - **Não** → **`/implement`** na mesma janela de contexto.
 
 ### Higiene de contexto
 
-Mantenha os passos 1–3 numa **única janela** até depois de `/to-issues`. Cada `/implement` começa fresco, lendo a issue.
+Mantenha os passos 1–3 numa **única janela** até depois de `/to-tickets`. Cada `/implement` começa fresco, lendo a issue.
 
-Se a sessão se aproximar da [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) (~120k tokens) antes de `/to-issues`, use `/handoff` e continue numa thread nova — não empurre com contexto degradado.
+Se a sessão se aproximar da [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) (~120k tokens) antes de `/to-tickets`, use `/handoff` e continue numa thread nova — não empurre com contexto degradado.
 
 ## Saúde da codebase
 

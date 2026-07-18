@@ -16,11 +16,11 @@ Skills para trabalho diário de código.
 | [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `CONTEXT.md` e ADRs |
 | [improve-codebase-architecture](./improve-codebase-architecture.md) | Analisa codebase em busca de módulos rasos; relatório HTML + grilling |
 | [setup-skills](./setup-skills.md) | Configura issue tracker, labels de triage e layout de docs. Uma vez por repo |
-| [to-issues](./to-issues.md) | Quebra plano/PRD em issues independentes (fatias verticais) |
-| [to-prd](./to-prd.md) | Transforma a conversa em PRD no issue tracker |
+| [to-tickets](./to-tickets.md) | Quebra plano/spec em issues independentes (fatias verticais) |
+| [to-spec](./to-spec.md) | Transforma a conversa em spec no issue tracker |
 | [prototype](./prototype.md) | Protótipo descartável: terminal app ou variações de UI |
-| [implement](./implement.md) | Implementa trabalho de PRD/issues com `/tdd` e [`/review`](./review.md) |
-| [review](./review.md) | Revisa diff em dois eixos: Standards (padrões do repo) e Spec (issue/PRD) |
+| [implement](./implement.md) | Implementa trabalho de spec/issues com `/tdd` e [`/review`](./review.md) |
+| [review](./review.md) | Revisa diff em dois eixos: Standards (padrões do repo) e Spec (issue/spec) |
 
 ### Model-invoked
 
@@ -68,8 +68,8 @@ Skills mantidas mas raramente usadas.
 2. /ask-skills            ← se não souber por onde começar
 3. /grill-with-docs       ← antes de feature nova (com codebase)
 4. /prototype             ← dúvidas que precisam de código (opcional)
-5. /to-prd                ← formaliza em PRD (multi-sessão)
-6. /to-issues             ← quebra em issues
+5. /to-spec                ← formaliza em spec (multi-sessão)
+6. /to-tickets             ← quebra em issues
 7. /implement             ← uma issue por sessão
 8. /diagnosing-bugs       ← quando surgem bugs
 9. /improve-codebase-architecture  ← periodicamente

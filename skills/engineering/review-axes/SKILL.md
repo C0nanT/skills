@@ -1,16 +1,16 @@
 ---
 name: review-axes
-description: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/PRD asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
+description: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating ticket or spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".
 ---
 
 Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 - **Standards** — does the code conform to this repo's documented coding standards?
-- **Spec** — does the code faithfully implement the originating issue / PRD / spec?
+- **Spec** — does the code faithfully implement the originating ticket or spec?
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
-Specs default to **local markdown** — a PRD/issue file under `.scratch/` or `docs/`, which needs no setup. Only when the spec lives in a remote tracker (GitHub/GitLab) do you need `docs/agents/issue-tracker.md`; run `/setup-skills` to configure it.
+Specs default to **local markdown** — a spec or ticket file under `.scratch/` or `docs/`, which needs no setup. Only when the spec lives in a remote tracker (GitHub/GitLab) do you need `docs/agents/issue-tracker.md`; run `/setup-skills` to configure it.
 
 ## Process
 
@@ -22,12 +22,20 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 
 Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here — not inside two parallel sub-agents.
 
+**Working-tree mode.** When the fixed point is given as the *unstaged working tree* — the caller says "the unstaged working tree", "my uncommitted changes", or similar — the changes under review were never committed, so no ref can name them:
+
+- The diff command is plain `git diff` (working tree vs. index). There is no commit list.
+- Skip the `git rev-parse` check; there's no ref to resolve. Still fail on an empty diff.
+- Run `git add -N .` first so newly created files show up in `git diff` — without it they are invisible and the review silently passes over whole new files.
+
+This is the mode `/implement` and `/delegate-tickets` use, since neither commits. In `/delegate-tickets` the index deliberately holds earlier tickets' work, so `git diff` isolates exactly the current ticket. Never run `git add`, `git commit`, or `git reset` in this mode beyond the `git add -N .` above.
+
 ### 2. Identify the spec source
 
 Look for the originating spec, in this order:
 
 1. A path the user passed as an argument.
-2. A PRD/spec file under `.scratch/`, `docs/`, or `specs/` matching the branch name or feature — the default home for local-markdown specs.
+2. A spec file under `.scratch/`, `docs/`, or `specs/` matching the branch name or feature — the default home for local-markdown specs.
 3. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.) — fetch via the workflow in `docs/agents/issue-tracker.md` (only when a remote tracker is configured).
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 

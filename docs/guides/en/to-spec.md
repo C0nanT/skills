@@ -1,19 +1,19 @@
-# `/to-prd` — Create PRD from the Conversation
+# `/to-spec` — Create spec from the Conversation
 
 ## What it is
 
-A skill that turns the current conversation context into a structured PRD (Product Requirements Document) and publishes it to the project issue tracker.
+A skill that turns the current conversation context into a structured spec (also known as a PRD) and publishes it to the project issue tracker.
 
 ## What it's for
 
-- When you've already talked about a feature and want to formalise it into a PRD
-- To create a requirements document before using `/to-issues`
+- When you've already talked about a feature and want to formalise it into a spec
+- To create a requirements document before using `/to-tickets`
 - When you want a permanent record in the issue tracker of what was decided
 
 ## How to invoke
 
 ```
-/to-prd
+/to-spec
 ```
 
 **Prerequisite**: run `/setup-skills` before using for the first time.
@@ -26,9 +26,9 @@ A skill that turns the current conversation context into a structured PRD (Produ
 
 **2. Identifies test seams** — drafts the points where the feature will be tested. Prefers existing seams. Proposes new seams at the highest possible level. Confirms with you that these seams make sense.
 
-**3. Writes and publishes** — creates the PRD using the template and publishes it as an issue with the `ready-for-agent` label.
+**3. Writes and publishes** — creates the spec using the template and publishes it as an issue with the `ready-for-agent` label.
 
-### PRD template
+### spec template
 
 **Problem Statement** — the problem the user faces, from the user's perspective.
 
@@ -51,7 +51,7 @@ Should be extensive and cover all aspects of the feature.
 
 **Testing Decisions** — what makes a good test for this feature, which modules will be tested, similar examples in the codebase.
 
-**Out of Scope** — what is explicitly *not* included in this PRD.
+**Out of Scope** — what is explicitly *not* included in this spec.
 
 **Further Notes** — additional observations.
 
@@ -60,19 +60,19 @@ Should be extensive and cover all aspects of the feature.
 ```
 [After a long conversation about a notification system]
 
-Great, I think we've aligned on everything. Can you create the PRD?
+Great, I think we've aligned on everything. Can you create the spec?
 
-/to-prd
+/to-spec
 ```
 
-The agent will explore the codebase, confirm the test seams with you, and publish the structured PRD as an issue.
+The agent will explore the codebase, confirm the test seams with you, and publish the structured spec as an issue.
 
 ## Typical workflow tip
 
 ```
 1. /grill-with-docs   ← align the design
 2. /prototype         ← validate specific questions (optional)
-3. /to-prd            ← formalise into a PRD
-4. /to-issues         ← break the PRD into implementable tickets
+3. /to-spec            ← formalise into a spec
+4. /to-tickets         ← break the spec into implementable tickets
 5. /tdd               ← implement each ticket
 ```
