@@ -9,15 +9,13 @@ This skill takes the current conversation context and codebase understanding and
 
 ## Process
 
-Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
+1. **Resolve where to publish — do not ask.** Pick a destination silently and carry it into step 4:
 
-1. **Choose where to publish.** The default is **Local markdown** — a file under `.scratch/` in this repo, no remote needed. Don't probe `git remote`; only publish to GitHub or GitLab if the user explicitly asks.
+   1. If the user explicitly asked this run to publish to GitHub, GitLab, local markdown, or another tracker — use that.
+   2. Else if `docs/agents/issue-tracker.md` exists (written by `/setup-skills`) and names a tracker — use that.
+   3. Else — **Local markdown** (`.scratch/<feature-slug>/SPEC.md`). Do not probe `git remote`. Do not present a destination picker.
 
-   - Ask the user where to publish, with **Local markdown** pre-selected:
-     - **Local markdown** (default) — a file at `.scratch/<feature-slug>/SPEC.md` in this repo
-     - **GitHub** — a GitHub issue (`gh` CLI), only if requested
-     - **GitLab** — a GitLab issue (`glab` CLI), only if requested
-   - Carry the choice into step 4. For GitHub or GitLab, follow the exact conventions and triage-label mappings in `docs/agents/issue-tracker.md` if it covers that backend; otherwise use the conventions in `<destination-conventions>` below. Run `/setup-skills` to configure those conventions and a triage-label vocabulary.
+   For GitHub or GitLab, follow the conventions and triage-label mappings in `docs/agents/issue-tracker.md` when present; otherwise use `<destination-conventions>` below. Run `/setup-skills` to configure those conventions and a triage-label vocabulary.
 
 2. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.
 
@@ -25,7 +23,7 @@ Explore the repo to understand the current state of the codebase, if you haven't
 
    Check with the user that these seams match their expectations.
 
-4. Write the spec using the template below, then publish it to the destination you chose in step 1. Apply the `ready-for-agent` triage label — no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
+4. Write the spec using the template below, then publish it to the destination resolved in step 1. Apply the `ready-for-agent` triage label — no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
 
 <destination-conventions>
 
@@ -34,8 +32,6 @@ Explore the repo to understand the current state of the codebase, if you haven't
 - **Local markdown** — write `.scratch/<feature-slug>/SPEC.md`, creating the directory if needed. Record triage state as a `Status:` line near the top of the file instead of a label.
 
 </destination-conventions>
-
-Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
 
 <spec-template>
 

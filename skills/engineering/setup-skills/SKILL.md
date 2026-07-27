@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Scaffold the per-repo configuration that the engineering skills assume:
 
-- **Issue tracker** — where issues live (GitHub by default; local markdown is also supported out of the box)
+- **Issue tracker** — where issues live (Local markdown by default; GitHub / GitLab / other when you choose them here)
 - **Triage labels** — the strings used for the five canonical triage roles
 - **Domain docs** — where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
 
@@ -37,13 +37,13 @@ Lead each section with the recommended answer so the user can accept it in a wor
 
 **Section A — Issue tracker.**
 
-> Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets` and `to-spec` read from and write to it — they need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo. Note: `to-tickets` and `to-spec` default to **Local markdown** each run and only publish to GitHub/GitLab when you explicitly ask — what you configure here defines the CLI conventions and triage-label mappings used when you do pick GitHub or GitLab (and is read by the fetch/triage steps).
+> Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets` and `to-spec` read this file and publish there without asking each run — so pick the place you actually track work. If you skip setup (or haven't run it yet), those skills fall back to **Local markdown** on their own. A user can still override the destination for a single run by asking explicitly.
 
-Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. Otherwise (or if the user prefers), offer:
+Default posture: prefer **Local markdown** unless the user clearly wants a remote tracker. If a `git remote` points at GitHub and the user wants remote issues, propose GitHub. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host) and they want remote issues, propose GitLab. Otherwise offer:
 
+- **Local markdown** (recommended default) — issues live as files under `.scratch/<feature>/` in this repo (good for solo projects or when you don't want to create remote issues)
 - **GitHub** — issues live in the repo's GitHub Issues (uses the `gh` CLI)
 - **GitLab** — issues live in the repo's GitLab Issues (uses the [`glab`](https://gitlab.com/gitlab-org/cli) CLI)
-- **Local markdown** — issues live as files under `.scratch/<feature>/` in this repo (good for solo projects or repos without a remote)
 - **Other** (Jira, Linear, etc.) — ask the user to describe the workflow in one paragraph; the skill will record it as freeform prose
 
 Record the choice in `docs/agents/issue-tracker.md`. The GitHub and GitLab templates carry a "PRs as a request surface" flag, defaulted **off** — leave it off and don't raise it; a user who wants external PRs in the triage queue can flip the flag in the file later.
