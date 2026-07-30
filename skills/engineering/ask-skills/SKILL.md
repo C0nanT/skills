@@ -63,4 +63,5 @@ Off the main flow entirely.
 
 ## Precondition
 
-**`/setup-skills`** — run before your first engineering flow to configure the issue tracker, triage labels, doc layout, and project `.claude/settings.json` deny rules for destructive git. Custom issue trackers also work.
+- **`/setup-skills`** — run before your first engineering flow to configure the issue tracker, triage labels, doc layout, and project `.claude/settings.json` deny rules for destructive git. Custom issue trackers also work.
+- **`/setup-solid`** — optional, once per repo. Writes a SOLID section into `CLAUDE.md` that binds every later flow: architecture-level, language-agnostic, and scoped by the **boy scout rule** — SOLID lands on new code and on the code a change already touches, so the codebase converges a change at a time. Where `/improve-codebase-architecture` finds a refactor to *do*, this sets the standard the code is *written* to.

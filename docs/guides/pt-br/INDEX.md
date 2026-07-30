@@ -16,6 +16,7 @@ Skills para trabalho diário de código.
 | [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `CONTEXT.md` e ADRs |
 | [improve-codebase-architecture](./improve-codebase-architecture.md) | Analisa codebase em busca de módulos rasos; relatório HTML + grilling |
 | [setup-skills](./setup-skills.md) | Configura issue tracker, labels de triage e layout de docs. Uma vez por repo |
+| [setup-solid](./setup-solid.md) | Escreve uma seção SOLID no `CLAUDE.md`: nível de arquitetura, agnóstica de linguagem, só em código novo e no que a mudança já toca. Uma vez por repo |
 | [to-tickets](./to-tickets.md) | Quebra plano/spec em issues independentes (fatias verticais) |
 | [to-spec](./to-spec.md) | Transforma a conversa em spec no issue tracker |
 | [prototype](./prototype.md) | Protótipo descartável: terminal app ou variações de UI |
@@ -65,14 +66,15 @@ Skills mantidas mas raramente usadas.
 
 ```
 1. /setup-skills          ← uma vez por repo
+1b. /setup-solid          ← uma vez por repo (opcional, padrão de arquitetura)
 2. /ask-skills            ← se não souber por onde começar
 3. /grill-with-docs       ← antes de feature nova (com codebase)
 4. /prototype             ← dúvidas que precisam de código (opcional)
-5. /to-spec                ← formaliza em spec (multi-sessão)
-6. /to-tickets             ← quebra em issues
+5. /to-spec                ← formaliza em spec
+6. /to-tickets             ← quebra em issues (multi-sessão)
 7. /implement             ← uma issue por sessão
-8. /diagnosing-bugs       ← quando surgem bugs
-9. /improve-codebase-architecture  ← periodicamente
+8. /diagnosing-bugs       ← quando surgem bugs (raramente)
+9. /improve-codebase-architecture  ← periodicamente (periodicamente)
 ```
 
 Issues externas entram pelo issue tracker → `/implement`.

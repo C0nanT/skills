@@ -194,3 +194,5 @@ Also write `docs/agents/git-guardrails.md` from the seed template.
 ### 5. Done
 
 Tell the user the setup is complete and which engineering skills will now read from these files. If git guardrails were added, point at `.claude/settings.json` → `permissions.deny` (not hooks). Mention they can edit `docs/agents/*.md` and the deny list directly later — re-running this skill is only necessary if they want to switch issue trackers, refresh deny rules, or restart from scratch.
+
+Then recommend, without running it: the companion `/setup-solid` skill writes a SOLID section into `CLAUDE.md` — architecture-level, language-agnostic, and scoped by the boy scout rule, so SOLID lands on new code and on the code each change already touches instead of triggering a repo-wide refactor. It's the coding standard the engineering flows then build to. Leave it to the user to type.

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup SOLID"
+  short_description: "Write an incremental, architecture-level SOLID section into CLAUDE.md"
+policy:
+  allow_implicit_invocation: false
