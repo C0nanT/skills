@@ -1,10 +1,16 @@
 {
   "name": "conan-skills",
   "description": "Engineering and productivity skills for Claude Code — diagnosis, TDD, architecture review, prototyping, issue workflow, and more.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Conan Torres",
+    "url": "https://github.com/C0nanT/skills"
+  },
 
   "skills": [
     "./skills/engineering/ask-skills",
     "./skills/engineering/delegate-tickets",
+    "./skills/engineering/frontend-handoff",
     "./skills/engineering/review-axes",
     "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/grill-with-docs",

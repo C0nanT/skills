@@ -59,6 +59,7 @@ Off the main flow entirely.
 - **`/grill-me`** — the same relentless interview as `/grill-with-docs`, but for when you have **no codebase**. Stateless: it saves nothing locally, builds no `CONTEXT.md`. Reach for it to sharpen any plan or design that doesn't live in a repo.
 - **`/prototype`** — a small, throwaway program that answers one design question: does this state model feel right, or what should this UI look like. Throwaway from day one — keep the answer, delete the code. It's the detour in step 2 of the main flow, but reach for it any time a design question is hard to settle on paper.
 - **`/research`** — delegate reading legwork to a **background agent**: it investigates a question against **primary sources**, then leaves a cited Markdown file in the repo. Keep working while it reads. The file it produces is something to take *into* the main flow at `/grill-with-docs` — research feeds the thinking, it doesn't replace it.
+- **`/frontend-handoff`** — the change is shipped and another team consumes it. Reads the spec and diff, then emits a pasteable block whose **verdict** — must change / should change / nothing required — is the one thing the frontend dev needs first. Runs after `/implement`, and answers "does the front have to touch anything?" without a meeting. It hands over context only; the frontend work itself is a separate task in their repo.
 - **`/writing-great-skills`** — reference for writing and editing skills well.
 
 ## Precondition

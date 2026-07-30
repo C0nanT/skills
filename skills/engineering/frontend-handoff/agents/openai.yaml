@@ -1,0 +1,5 @@
+interface:
+  display_name: "Frontend Handoff"
+  short_description: "Pasteable frontend context for a backend change"
+policy:
+  allow_implicit_invocation: false
