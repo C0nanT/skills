@@ -11,7 +11,7 @@ Surface architectural friction and propose **deepening opportunities** — refac
 This command is _informed_ by the project's domain model and built on a shared design vocabulary:
 
 - Use a precise architecture vocabulary (**module**, **interface**, **depth**, **seam**, **adapter**, **leverage**, **locality**) and its principles (the deletion test, "the interface is the test surface", "one adapter = hypothetical seam, two = real"). Use these terms exactly in every suggestion — don't drift into "component," "service," "API," or "boundary."
-- A **test double counts as the second implementation**: an interface with one production adapter that a test substitutes is a real seam, not a hypothetical one. Only an interface with a single caller and *no* substitution fails the deletion test on that count. (This is the same rule `/setup-solid` writes into `CLAUDE.md` — the two must not disagree.)
+- A **test double counts as the second implementation**: an interface with one production adapter that a test substitutes is a real seam, not a hypothetical one. Only an interface with a single caller and _no_ substitution fails the deletion test on that count. (This is the same rule `/setup-solid` writes into `CLAUDE.md` — the two must not disagree.)
 - The domain language in `CONTEXT.md` gives names to good seams; ADRs in `docs/adr/` record decisions this command should not re-litigate.
 
 ## Process
