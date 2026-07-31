@@ -72,7 +72,7 @@ Send a single message with two parallel sub-agent calls (`Agent` in Claude Code,
 | Host | Model | Notes |
 | --- | --- | --- |
 | **Claude Code** | `model: haiku`, `effort: medium` | Haiku only on Claude Code. |
-| **Cursor** | `model: composer-2.5` | Pass Composer **2.5 Standard** — never `composer-2.5-fast` / Fast (same model, ~6× cost). Do **not** use Haiku on Cursor. |
+| **Cursor** | `model: claude-4.5-haiku-thinking` | Task rejects `composer-2.5` (Standard). Only Composer slug allowed is `composer-2.5-fast` (~6× cost) — skip it. Use Haiku for cheap parallel reviews when the parent chat is AUTO. |
 
 **Standards sub-agent prompt** — include:
 
