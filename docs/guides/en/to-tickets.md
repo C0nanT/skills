@@ -64,7 +64,7 @@ Prefers AFK whenever possible.
 - Blocked by (dependencies)
 - User stories covered
 
-Asks if the granularity is right, if dependencies are correct, if any should be split or merged. Iterates until you approve.
+Publishes right after showing this list — no confirmation pause — unless you explicitly ask to review the breakdown first.
 
 **5. Publishes** — creates issues in dependency order (blockers first) so it can reference real IDs in the "Blocked by" field. Uses the template:
 

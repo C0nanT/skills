@@ -64,7 +64,7 @@ Prefere AFK sempre que possível.
 - Bloqueado por (dependências)
 - User stories cobertas
 
-Pergunta se a granularidade está certa, se as dependências estão corretas, se alguma deve ser dividida ou mesclada. Itera até você aprovar.
+Publica logo após mostrar essa lista — sem pausa de confirmação — a menos que você peça explicitamente para revisar a divisão antes.
 
 **5. Publica** — cria as issues em ordem de dependência (blockers primeiro) para poder referenciar IDs reais no campo "Bloqueado por". Usa o template:
 
