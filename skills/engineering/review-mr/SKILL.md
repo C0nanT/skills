@@ -34,7 +34,7 @@ The identifier the user passes may be a full URL, a number (`!123`, `#456`, or b
 
 Fetch the branch under review, then pin the fixed point:
 
-```
+```bash
 git fetch origin <source-branch>
 git merge-base origin/<target-branch> origin/<source-branch>
 ```
