@@ -1,0 +1,5 @@
+interface:
+  display_name: "Review MR"
+  short_description: "Review someone else's merge request"
+policy:
+  allow_implicit_invocation: false

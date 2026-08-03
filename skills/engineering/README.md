@@ -17,6 +17,7 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 - **[to-spec](./to-spec/SKILL.md)** — Turn the current conversation into a spec and publish it to the issue tracker.
 - **[to-tickets](./to-tickets/SKILL.md)** — Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges — text in a local file, or native blocking links on a real tracker.
 - **[implement](./implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
+- **[review-mr](./review-mr/SKILL.md)** — Review someone else's merge request (GitLab, GitHub, or two local branches) for bugs, security, performance and design, and write the findings to a local markdown file.
 - **[wayfinder](./wayfinder/SKILL.md)** — Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
 
 ## Model-invoked

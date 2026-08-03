@@ -12,6 +12,7 @@
     "./skills/engineering/delegate-tickets",
     "./skills/engineering/frontend-handoff",
     "./skills/engineering/review-axes",
+    "./skills/engineering/review-mr",
     "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/implement",
