@@ -21,7 +21,7 @@ Skills live under `skills/`:
 
 Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`'s `skills` array (the Claude Code plugin ships exactly the promoted set). Skills in `misc/`, `personal/`, `in-progress/`, and `deprecated/` must not appear in either.
 
-The repo is also its own single-plugin Claude Code marketplace: `.claude-plugin/marketplace.json` lists the one `mattpocock-skills` plugin. When bumping the release version, keep `.claude-plugin/plugin.json`'s `version` in sync with `package.json`'s — Claude uses the plugin `version` to decide when installed users see an update. Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace — a fallback the install block explains, not the documented route. Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 ## Skill Structure
 
@@ -48,6 +48,10 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 scripts/list-skills.sh    # Print all SKILL.md paths in the repo
 scripts/sync-upstream.sh  # Merge mattpocock/skills (upstream) and strip the skills this fork excludes
 ```
+
+## Syncing with upstream
+
+This repo is a fork of [mattpocock/skills](https://github.com/mattpocock/skills). Every deliberate difference from it — renamed skills, changed behaviour, dropped paths — is recorded in [.agents/fork-divergences.md](./.agents/fork-divergences.md), and that ledger is what a sync defends. Keep it current the day you decide on a divergence; one that isn't written down is one the next merge silently reverts. Run the sync through the [sync-upstream](./skills/engineering/sync-upstream/SKILL.md) skill, which resolves conflicts against the ledger and then sweeps the cleanly-merged files for divergences the merge took back.
 
 ## Runtime Skill Layout (reference `~/.agents/skills`, not the clone)
 

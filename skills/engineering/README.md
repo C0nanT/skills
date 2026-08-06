@@ -12,11 +12,11 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 - **[grill-with-docs](./grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **[setup-skills](./setup-skills/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, `.claude` deny rules for destructive git). Run once per repo.
+- **[sync-upstream](./sync-upstream/SKILL.md)** — Merge the upstream repo this fork came from and resolve the conflicts in favour of the fork's recorded divergences, then sweep for the ones the merge overwrote without conflicting.
 - **[setup-solid](./setup-solid/SKILL.md)** — Write an architecture-level, language-agnostic SOLID section into the repo's `CLAUDE.md`, scoped by the boy scout rule: new code and the code each change already touches, never a repo-wide refactor.
-- **[implement](./implement/SKILL.md)** — Implement a piece of work based on a spec or set of tickets.
 - **[to-spec](./to-spec/SKILL.md)** — Turn the current conversation into a spec and publish it to the issue tracker.
 - **[to-tickets](./to-tickets/SKILL.md)** — Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges — text in a local file, or native blocking links on a real tracker.
-- **[implement](./implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
+- **[implement](./implement/SKILL.md)** — Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/review-axes` before committing.
 - **[review-mr](./review-mr/SKILL.md)** — Review someone else's merge request (GitLab, GitHub, or two local branches) for bugs, security, performance and design, and write the findings to a local markdown file.
 - **[wayfinder](./wayfinder/SKILL.md)** — Plan a huge chunk of work — more than one agent session can hold — as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
 

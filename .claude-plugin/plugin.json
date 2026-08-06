@@ -22,6 +22,7 @@
     "./skills/engineering/resolving-merge-conflicts",
     "./skills/engineering/setup-skills",
     "./skills/engineering/setup-solid",
+    "./skills/engineering/sync-upstream",
     "./skills/engineering/tdd",
     "./skills/productivity/caveman",
     "./skills/engineering/to-spec",
@@ -30,7 +31,7 @@
     "./skills/productivity/grill-me",
     "./skills/productivity/grilling",
     "./skills/productivity/handoff",
-    "./skills/productivity/writing-great-skills",
+    "./skills/productivity/writing-for-agents",
     "./skills/misc/setup-pre-commit",
     "./skills/misc/setup-statusline",
     "./skills/misc/reset-agent-env"
