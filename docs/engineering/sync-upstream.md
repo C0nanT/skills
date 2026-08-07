@@ -12,7 +12,7 @@ You invoke this by typing `/sync-upstream` — the agent won't reach for it on i
 | --- | --- |
 | A fork needs upstream's changes, and you have local divergences worth keeping | `sync-upstream` |
 | An ordinary merge or rebase conflict, no fork relationship involved | [resolving-merge-conflicts](https://aihero.dev/skills-resolving-merge-conflicts) |
-| The merge is done and you want the result judged as a change | [review-axes](https://aihero.dev/skills-review-axes) |
+| The merge is done and you want the result judged as a change | [review-axes](./review-axes.md) |
 
 ## Prerequisites
 
@@ -55,4 +55,4 @@ For any conflict that isn't a fork sync, yes — that skill resolves hunk by hun
 
 `sync-upstream` is **periodic maintenance** on the repo itself — reach for it each time upstream moves, and nowhere else. It sits off every build flow: nothing feeds it, and what it produces is a merge you review like any other change.
 
-Its one neighbour is [resolving-merge-conflicts](https://aihero.dev/skills-resolving-merge-conflicts), the general-purpose version of its first half — reach for that one when there is no fork relationship and no ledger to defend. [ask-skills](https://aihero.dev/skills-ask-skills) routes across the whole set when you are unsure which skill the situation wants.
+Its one neighbour is [resolving-merge-conflicts](https://aihero.dev/skills-resolving-merge-conflicts), the general-purpose version of its first half — reach for that one when there is no fork relationship and no ledger to defend. [ask-skills](./ask-skills.md) routes across the whole set when you are unsure which skill the situation wants.

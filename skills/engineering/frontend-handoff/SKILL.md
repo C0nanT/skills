@@ -9,7 +9,7 @@ A backend change lands and the frontend dev needs one answer before anything els
 
 Read the change before judging it. A verdict inferred from the branch name is the one failure mode that makes this skill worthless.
 
-Write the handoff in the language the user is speaking. Keep code, routes, field names, enum values, and HTTP statuses verbatim in the source language.
+Write the handoff in the language the user is speaking — this includes section headers, table column headers, and labels like "Yes/No", not just the prose. The template below is written in English only as a structural skeleton; translate every heading and label in it, not just the filled-in content. Keep code, routes, field names, enum values, and HTTP statuses verbatim in the source language.
 
 ## Scope
 

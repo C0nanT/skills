@@ -6,7 +6,12 @@ Most of these skills are **user-invoked**: the agent will never fire them for yo
 
 Act whenever a promoted skill is added, renamed, or has its behaviour changed: create or re-sync its docs page. A rename moves the file too (`docs/<bucket>/<old>.md` → `docs/<bucket>/<new>.md`), because the published URL tracks the name; a skill that moves between `engineering/` and `productivity/` moves its docs file to the matching folder. Skills in `misc/`, `in-progress/`, and `deprecated/` get no page — none of those buckets is promoted. A skill moving *out* of one of them into `engineering/` or `productivity/` gains a page; one moving the other way loses it.
 
-Because these pages are published on `aihero.dev`, **every link is absolute** — never a repo-relative path. A link to another skill points at `https://aihero.dev/skills-<name>`; a link into the repo points at its full `https://github.com/mattpocock/skills/...` URL. A relative link that works in the repo breaks once published.
+Upstream's pages are published on `aihero.dev`, so its docs link every other skill absolutely — `https://aihero.dev/skills-<name>` — and every repo path as a full `https://github.com/mattpocock/skills/...` URL. **This fork's own docs pages are not published anywhere**; nothing under `docs/` here renders at aihero.dev. So the rule splits in two:
+
+- **A skill this fork ships unchanged from upstream** (same name, same behaviour — `tdd`, `implement`, `grilling`, …): keep the `aihero.dev` link. Its page there is upstream's own and stays correct.
+- **A skill this fork renamed or that only exists here** (`review-axes`, `ask-skills`, `setup-skills`, `sync-upstream`, `review-mr`, …): link relatively to its `docs/<bucket>/<name>.md` in this repo instead — its `aihero.dev` slug 404s, because that page was never upstream's to begin with. Check `.agents/fork-divergences.md` for the current rename list.
+
+A link into this repo's own code (not another skill's docs page) stays a relative repo path, same as anywhere else in the repo.
 
 There is no H1 — the published page takes its title from the slug.
 
@@ -65,7 +70,7 @@ Always present. Situate the skill in the system in a sentence or two:
 
 - **Role.** Name it: a **chain step** (`grill-with-docs → to-spec → to-tickets → implement → code-review`), a **run-once setup** (`setup-matt-pocock-skills`), **periodic maintenance** (`improve-codebase-architecture`, "every few days"), or a **reach-for-it-anytime standalone** (`diagnosing-bugs`, `prototype`, `handoff`). A standalone's map is one honest sentence — far better than omitting the section.
 - **Neighbours.** The one or two siblings that matter, each with a because-clause, linked absolutely.
-- **The map.** Point to [ask-matt](https://aihero.dev/skills-ask-matt), the router over the whole set, so this page stays a node and never has to redraw the graph.
+- **The map.** Point to [ask-skills](./ask-skills.md), the router over the whole set, so this page stays a node and never has to redraw the graph.
 
 </page-template>
 
@@ -85,7 +90,7 @@ Always present. Situate the skill in the system in a sentence or two:
 - `## What it does` states the defining constraint, as plain prose rather than a labelled aside.
 - The page names no author and quotes no author — every claim stands on its own.
 - `## When to reach for it` states invocation mode and the trigger boundary.
-- `## Where it fits` names the role and links to `ask-matt`.
+- `## Where it fits` names the role and links to `ask-skills`.
 - A prerequisite (workspace, prior setup, tooling) is stated where one exists, and the section is absent where none does.
 - The middle surfaces the leading word.
 - Every AI Coding Dictionary term the page uses is spelt the dictionary's way, and its first use — and only its first use — links to the dictionary entry.

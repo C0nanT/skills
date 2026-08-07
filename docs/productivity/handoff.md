@@ -17,7 +17,7 @@ Four situations are the whole trigger:
 | Sending the work to a colleague | They need something they can read |
 | Forking a side task found mid-phase | You keep working; a second agent takes the fork |
 
-For anything else — same harness, same directory, you are done [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) and moving to implementation — `/compact` is the move. [ask-matt](https://aihero.dev/skills-ask-matt) carries the ordered tree over all five options at a phase boundary.
+For anything else — same harness, same directory, you are done [grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) and moving to implementation — `/compact` is the move. [ask-skills](../engineering/ask-skills.md) carries the ordered tree over all five options at a phase boundary.
 
 ## Branching is the use people skip
 
@@ -73,4 +73,4 @@ Both work; they suit different situations. As a skill it ships and updates throu
 
 ## Where it fits
 
-`handoff` is a **reach-for-it-anytime standalone** that lives at the seam between sessions rather than inside a build chain — but a narrow one, and the honest map is that you'll use it less often than the other four options at a phase boundary. Its closest neighbour is [prototype](https://aihero.dev/skills-prototype), because a prototype lives in its own directory and the round trip out and back is exactly the crossing this skill is for. When you're at a boundary and unsure whether to continue, clear, hand off, delegate or compact, [ask-matt](https://aihero.dev/skills-ask-matt) carries the tree that orders those five — and routes you over the rest of the set.
+`handoff` is a **reach-for-it-anytime standalone** that lives at the seam between sessions rather than inside a build chain — but a narrow one, and the honest map is that you'll use it less often than the other four options at a phase boundary. Its closest neighbour is [prototype](https://aihero.dev/skills-prototype), because a prototype lives in its own directory and the round trip out and back is exactly the crossing this skill is for. When you're at a boundary and unsure whether to continue, clear, hand off, delegate or compact, [ask-skills](../engineering/ask-skills.md) carries the tree that orders those five — and routes you over the rest of the set.

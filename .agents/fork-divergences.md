@@ -14,6 +14,8 @@ Upstream's name appears in its `SKILL.md` frontmatter, its directory, its docs p
 
 Upstream's directories for the first two still exist in the tree, unpromoted. Only the renamed copies are shipped — see `.claude-plugin/plugin.json`.
 
+**Docs-page links follow the rename.** Upstream's docs pages are published at `https://aihero.dev/skills-<name>`; this fork's own `docs/` pages are not published anywhere. A merge that brings in upstream prose reintroduces the old `aihero.dev/skills-<upstream-name>` link text and the old skill name in the same breath — fix both, and link the renamed skill relatively (`./review-axes.md`, `./ask-skills.md`, `./setup-skills.md`) rather than to an `aihero.dev` slug that 404s. See `.agents/writing-docs.md` for the full rule. Sweep for it: `grep -rn "ask-matt\|setup-matt-pocock-skills\|code-review" docs/`.
+
 ## Changed behaviour
 
 Each of these is a fork feature that an upstream rewrite would delete without conflicting. The phrase in the last column is what to grep for when checking whether the merge took upstream's version back.

@@ -19,7 +19,7 @@ You invoke this by typing `/to-tickets` — the [agent](https://www.aihero.dev/a
 Tickets that `to-tickets` produced are agent-ready by construction. Don't run [triage](https://aihero.dev/skills-triage) over them — triage is for work that arrived from someone else.
 
 ## Prerequisites
-`to-tickets` publishes into your issue tracker, so [setup-skills](https://aihero.dev/skills-setup-skills) must have configured the tracker and its triage label vocabulary for this repo first. On a real tracker it applies the ready-for-agent label as it publishes.
+`to-tickets` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and its triage label vocabulary for this repo first. On a real tracker it applies the ready-for-agent label as it publishes.
 
 ## Tracer bullets, not layers
 
@@ -91,4 +91,4 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 grill-with-docs → to-spec → to-tickets → implement → review-axes
 ```
 
-It sits between [to-spec](https://aihero.dev/skills-to-spec), which hands it a settled spec with user stories to slice against, and [implement](https://aihero.dev/skills-implement), which builds each ticket, driving [tdd](https://aihero.dev/skills-tdd) internally to write the tests test-first, before its [review-axes](https://aihero.dev/skills-review-axes) pass. Work the frontier one ticket per fresh context, clearing between them. When you're unsure which skill or flow fits, [ask-skills](https://aihero.dev/skills-ask-skills) routes you.
+It sits between [to-spec](https://aihero.dev/skills-to-spec), which hands it a settled spec with user stories to slice against, and [implement](https://aihero.dev/skills-implement), which builds each ticket, driving [tdd](https://aihero.dev/skills-tdd) internally to write the tests test-first, before its [review-axes](./review-axes.md) pass. Work the frontier one ticket per fresh context, clearing between them. When you're unsure which skill or flow fits, [ask-skills](./ask-skills.md) routes you.

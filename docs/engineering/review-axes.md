@@ -31,7 +31,7 @@ The Spec axis needs a spec to exist and be findable. It looks in this order:
 3. Issue references in the commit messages (`#123`, `Closes #45`, a GitLab `!67`), fetched through `docs/agents/issue-tracker.md`.
 4. Asking you.
 
-Specs default to **local markdown**, which needs no setup. Step 3 is the only one that needs a remote tracker, and it depends on `docs/agents/issue-tracker.md`, which [setup-skills](https://aihero.dev/skills-setup-skills) writes. With no spec at all, the Spec sub-agent is skipped and the report says "no spec available" rather than inventing requirements.
+Specs default to **local markdown**, which needs no setup. Step 3 is the only one that needs a remote tracker, and it depends on `docs/agents/issue-tracker.md`, which [setup-skills](./setup-skills.md) writes. With no spec at all, the Spec sub-agent is skipped and the report says "no spec available" rather than inventing requirements.
 
 ## The two axes
 
@@ -97,4 +97,4 @@ Yes, on a local markdown spec or ticket. After the Spec report it flips `- [ ]` 
 - [to-spec](https://aihero.dev/skills-to-spec) and [to-tickets](https://aihero.dev/skills-to-tickets) produce the document the Spec axis checks against; a vague spec makes that axis vague.
 - [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) is the whole-codebase counterpart — this skill only ever looks at one diff.
 
-[ask-skills](https://aihero.dev/skills-ask-skills) routes across the whole set when you are unsure which skill the situation wants.
+[ask-skills](./ask-skills.md) routes across the whole set when you are unsure which skill the situation wants.
