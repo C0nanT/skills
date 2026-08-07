@@ -39,17 +39,34 @@ Give each ticket its **blocking edges** — the other tickets that must complete
 
 **Wide refactors are the exception to vertical slicing.** A **wide refactor** is one mechanical change — rename a column, retype a shared symbol — whose **blast radius** fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as **expand–contract**. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own ticket blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a ticket blocked by every migrate batch. When even the batches can't stay green alone, keep the sequence but let them share an integration branch that all block a final integrate-and-verify ticket — green is promised only there.
 
-### 4. Show the breakdown
+### 4. Rate each ticket's difficulty
+
+Give every ticket a **difficulty tier** and a **suggested model** for whoever picks it up. The suggestion is a hint, never a requirement — the reader may be in Claude Code, in Cursor, or somewhere else, so name a model per tool and let them substitute.
+
+<difficulty-tiers>
+
+| Tier | What lands here | Suggested model |
+| --- | --- | --- |
+| **Heavy** | Infrastructure, deploys, migrations, architecture decisions, security boundaries, wide refactors, anything whose blast radius crosses subsystems | Opus (Claude Code) / Opus or the strongest reasoning model available (Cursor) |
+| **Standard** | Ordinary programming logic — a feature slice, an endpoint, a component, a bug fix with real branching. The default tier, and where most tickets belong | Sonnet (Claude Code) / Sonnet (Cursor) |
+| **Light** | Mechanical, low-judgement work — config bumps, copy changes, renames with a small blast radius, adding a test that mirrors an existing one | Haiku (Claude Code) / Composer or another fast cheap model (Cursor) |
+
+</difficulty-tiers>
+
+Rate on the **judgement** the ticket demands, not on the diff size — a one-line change to a deploy pipeline is Heavy, and a 400-line component that follows an existing pattern is Standard. When a ticket sits between two tiers, pick the higher one. If most tickets in a run come out Heavy, the slices are probably too wide — revisit step 3.
+
+### 5. Show the breakdown
 
 Present the proposed breakdown as a numbered list. For each ticket, show:
 
 - **Title**: short descriptive name
+- **Difficulty**: the tier and the suggested model
 - **Blocked by**: which other tickets (if any) must complete first
 - **What it delivers**: the end-to-end behaviour this ticket makes work
 
 **Do not ask for confirmation before publishing.** Publish straight after showing the list — no "does this look good?" pause. Only stop and iterate with the user first if they explicitly asked to review or approve the breakdown before publishing for this run.
 
-### 5. Publish the tickets
+### 6. Publish the tickets
 
 **Resolve where to publish — do not ask.** Pick silently:
 
@@ -71,6 +88,8 @@ Do NOT close or modify any parent issue.
 ```markdown
 # <NN> — <Ticket title>
 
+> **Difficulty:** Heavy | Standard | Light — **suggested model:** <model> (Claude Code) / <model> (Cursor). Suggestion only — use whatever model you have to hand.
+
 **What to build:** the end-to-end behaviour this ticket makes work, from the user's perspective — not a layer-by-layer implementation list.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None — can start immediately".
@@ -84,6 +103,10 @@ Do NOT close or modify any parent issue.
 </local-ticket-template>
 
 <issue-template>
+
+> **Difficulty:** Heavy | Standard | Light — **suggested model:** <model> (Claude Code) / <model> (Cursor). Suggestion only — use whatever model you have to hand.
+
+The difficulty line is the first thing in the issue body, above every section.
 
 ## Parent
 

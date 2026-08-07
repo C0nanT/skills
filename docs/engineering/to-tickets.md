@@ -53,6 +53,22 @@ One shape breaks the tracer-bullet rule. A **wide refactor** is a single mechani
 
 Where even the batches can't stay green alone, they share an integration branch and all block a final integrate-and-verify ticket. Green is promised only there.
 
+## Difficulty and the model hint
+
+Every ticket opens with one line, above everything else in the body: a **difficulty tier** and a **suggested model**.
+
+| Tier | What lands here | Suggested model |
+| --- | --- | --- |
+| **Heavy** | Infra, deploys, migrations, architecture, security boundaries, wide refactors | Opus (Claude Code) / Opus or the strongest reasoning model you have (Cursor) |
+| **Standard** | Ordinary programming logic — a feature slice, an endpoint, a bug fix. The default | Sonnet (Claude Code) / Sonnet (Cursor) |
+| **Light** | Mechanical, low-judgement work — config bumps, copy changes, small renames | Haiku (Claude Code) / Composer or another fast cheap model (Cursor) |
+
+The tier is rated on **judgement**, not diff size — a one-line change to a deploy pipeline is Heavy; a 400-line component following an existing pattern is Standard. Ties round up.
+
+It is a hint, not a gate. Nothing enforces it, and the tools name different models anyway, so the line names one per tool and expects you to substitute. Its real job is to be readable before you open a session: you can see from the board which tickets deserve your expensive model and which ones a cheap one will close.
+
+If a run comes back mostly Heavy, read that as a slicing signal rather than a model signal — the slices are probably too wide.
+
 ## Common questions
 
 **It produced twelve tickets for a three-line change.**
@@ -84,6 +100,7 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 - Every ticket has an answer to "what can I demo when this is done?" — and the answer is behaviour, not a layer.
 - The list comes back to you numbered, with a "Blocked by" line on each, before anything is published.
 - The ticket at the top has no blockers and can be started immediately.
+- Each ticket opens with a difficulty tier and a model suggestion, and most of them read Standard.
 - Nothing in a ticket body is a file path or a line number, except a snippet a prototype produced.
 - Each ticket reads like something a fresh session could finish without you in the room.
 - Prefactoring, where it found any, is at the front of the order rather than mixed into feature tickets.
