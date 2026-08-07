@@ -6,6 +6,7 @@ A collection of agent skills (slash commands and behaviors) loaded by Claude Cod
 
 **Issue tracker**:
 The tool that hosts a repo's issues — GitHub Issues, Linear, a local `.scratch/` markdown convention, or similar. Skills like `to-tickets` and `to-spec` read from and write to it.
+
 _Avoid_: backlog manager, backlog backend, issue host
 
 **Issue**:

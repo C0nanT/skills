@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sync Upstream"
+  short_description: "Merge upstream and defend the fork's divergences"
+policy:
+  allow_implicit_invocation: false
