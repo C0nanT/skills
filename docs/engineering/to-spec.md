@@ -19,7 +19,7 @@ Reach for it when the build is too big for one agent [session](https://www.aiher
 
 ## Prerequisites
 
-`to-spec` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and triage labels for this repo first. It applies the `ready-for-agent` label itself — no separate triage pass needed.
+`to-spec` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and triage labels for this repo first. Either kind works: a real tracker like GitHub or Linear, or local markdown files under `.scratch/`, which is supported out of the box. It applies the `ready-for-agent` label itself — no separate triage pass needed.
 
 ## The spec is a decision record
 
@@ -78,5 +78,4 @@ Very large specs can outgrow what a tracker issue will serve back cleanly, and t
 grill-with-docs → to-spec → to-tickets → implement → review-axes
 ```
 
-Reach for it after the plan and domain language are resolved, and before you break the work into implementation tickets. Its key neighbours are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which sharpens the context so the spec is precise, and [to-tickets](https://aihero.dev/skills-to-tickets), which turns the spec into a set of tickets for [implement](https://aihero.dev/skills-implement) to build. When you're unsure which skill or flow fits, [ask-skills](./ask-skills.md) routes you.
-
+Reach for it after the plan and domain language are resolved, and before you break the work into implementation tickets. Its neighbours upstream are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which does the deciding this skill only records, and [wayfinder](https://aihero.dev/skills-wayfinder), whose finished map merges onto the chain right here. Downstream, [to-tickets](https://aihero.dev/skills-to-tickets) cuts the spec into tracer-bullet tickets for [implement](https://aihero.dev/skills-implement) to build. When you're unsure which skill or flow fits, [ask-skills](./ask-skills.md) routes you.

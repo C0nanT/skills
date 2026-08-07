@@ -16,8 +16,6 @@ You invoke this by typing `/to-tickets` — the [agent](https://www.aihero.dev/a
 | Nothing is decided yet | [grill-with-docs](https://aihero.dev/skills-grill-with-docs), then [to-spec](https://aihero.dev/skills-to-spec) |
 | A [wayfinder](https://aihero.dev/skills-wayfinder) map has cleared | [to-spec](https://aihero.dev/skills-to-spec) first, to collapse the map, then `/to-tickets` |
 
-Tickets that `to-tickets` produced are agent-ready by construction. Don't run [triage](https://aihero.dev/skills-triage) over them — triage is for work that arrived from someone else.
-
 ## Prerequisites
 `to-tickets` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and its triage label vocabulary for this repo first. On a real tracker it applies the ready-for-agent label as it publishes.
 
@@ -25,16 +23,23 @@ Tickets that `to-tickets` produced are agent-ready by construction. Don't run [t
 
 A **horizontal** slice ships one layer of the change. Nothing works until every layer has landed, and each ticket's acceptance criteria have to reach into work that another ticket owns. A **vertical** slice — the tracer bullet — ships one thin path through all the layers at once, so it is verifiable alone and owns everything it grades.
 
+This is the rule people break most often, and the consequences are well documented. One team ran a 26-ticket stack sliced by layer — corpus, producer, aggregator, selector — and got roughly twenty agent runs per closed ticket, about three quarters of them rework. Their own post-mortem traced every failure class back to the horizontal slicing rather than to the implementations.
+
 - **Local files** → one file per ticket under `.scratch/<feature>/tickets/`, numbered blockers-first, the edges written as text. You work them top-to-bottom, by hand, staying in the loop.
 - **A real tracker (GitHub, Linear)** → one issue per ticket, the edges as native blocking links (or sub-issues). Any ticket whose blockers are all done is on the **frontier** and can be grabbed — so several agents can run at once.
 
-Two things happen before anything is published. `to-tickets` looks for prefactoring — "make the change easy, then make the easy change" — and orders that work first. Then it presents the breakdown as a numbered list and quizzes you on it: is the granularity right, are the blocking edges real, should anything merge or split. Nothing reaches the tracker until you approve, and that quiz is the place to push back.
+Two things happen before anything is published. `to-tickets` looks for prefactoring — "make the change easy, then make the easy change" — and orders that work first. It then shows you the breakdown as a numbered list — granularity, blocking edges, what to merge or split — and publishes right away, no confirmation pause, unless you explicitly ask it to hold for review first. It publishes blockers first so each ticket's "Blocked by" can reference a real ticket.
 
 ## Blocking edges
 
 The edges are the point of the artifact. They read two ways depending on the tracker:
 
-Before slicing, `to-tickets` looks for prefactoring — "make the change easy, then make the easy change" — and orders that work first. It then shows you the breakdown (granularity, blocking edges) and publishes it right away — no confirmation pause — unless you ask it to hold for review first. It publishes blockers first so each ticket's "Blocked by" can reference a real ticket.
+| Tracker | Where the edges live | How you work them |
+| --- | --- | --- |
+| Local markdown | Text in one file per ticket under `.scratch/<feature>/tickets/<NN>-<slug>.md`, numbered blockers-first | Top to bottom, by hand |
+| A real tracker (GitHub, Linear) | Native blocking links, or sub-issues where the tracker has them | Any ticket whose blockers are done is on the **frontier** and can be grabbed |
+
+The edges live in the ticket either way. The medium only decides whether anything can act on them in parallel. `to-tickets` produces the artifact; running it — one session at a time, or a fleet — is your job, not the skill's.
 
 ## The wide-refactor exception
 

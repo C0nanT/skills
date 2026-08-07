@@ -14,7 +14,6 @@ Reach for it when there is a concrete behaviour to build, with an input and an o
 | --- | --- |
 | A behaviour with defined inputs and outputs — business logic, a request/response contract, a transformation, validation | `tdd` |
 | The behaviour isn't pinned down yet | [to-spec](https://aihero.dev/skills-to-spec), which also agrees the test seams before any code is written |
-| The question is really the shape of the interface, not the tests | [codebase-design](https://aihero.dev/skills-codebase-design) |
 | You have a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) or [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and want the whole build run for you | [implement](https://aihero.dev/skills-implement), which drives `tdd` per ticket |
 | Config, wiring, glue, type annotations, straight CRUD delegation | Nothing here fits well — see the open gap below |
 
@@ -22,7 +21,7 @@ That last row is a real hole, not a stylistic preference. The skill decides *whe
 
 ## Prerequisites
 
-[codebase-design](https://aihero.dev/skills-codebase-design) needs to be installed. `tdd` used to carry its own deep-module and interface-design notes; in v1.0 those were deleted in favour of the shared skill, and `tdd` now leans on it for interface-design vocabulary. Nothing else — the skill is [stateless](https://www.aihero.dev/ai-coding-dictionary/stateless) and writes no files of its own.
+None — the skill is [stateless](https://www.aihero.dev/ai-coding-dictionary/stateless) and writes no files of its own.
 
 ## The loop, and the seam it runs at
 
@@ -68,7 +67,7 @@ No. `/tdd` documents the methodology; `/implement` is a very simple work→feedb
 
 **Where did the deep-modules and interface-design guidance go?**
 
-Into [codebase-design](https://aihero.dev/skills-codebase-design) in v1.0, generalised so several skills share one vocabulary. `refactoring.md` left at the same time; refactoring is now [review-axes](./review-axes.md)'s job, and that skill carries the Fowler smell baseline.
+Upstream generalised it into a shared `codebase-design` skill; this fork doesn't carry that skill, so `tdd` no longer leans on outside vocabulary for interface shape — agree the seams directly with the user. `refactoring.md` left `tdd` at the same time upstream; refactoring is now [review-axes](./review-axes.md)'s job, and that skill carries the Fowler smell baseline.
 
 **Does it know about my other tickets?**
 
@@ -92,4 +91,4 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 grill-with-docs → to-spec → to-tickets → implement → review-axes
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams up front, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [review-axes](./review-axes.md) checks afterwards that only the agreed seams were used — and owns the refactoring `tdd` no longer does. Its other neighbour is [codebase-design](https://aihero.dev/skills-codebase-design), the shared source of the seam and deep-module vocabulary `tdd` speaks. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-skills](./ask-skills.md) routes you.
+[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams up front, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [review-axes](./review-axes.md) checks afterwards that only the agreed seams were used — and owns the refactoring `tdd` no longer does. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-skills](./ask-skills.md) routes you.

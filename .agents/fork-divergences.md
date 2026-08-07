@@ -28,6 +28,8 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 | `review-axes` | **Model-by-host table** for the two sub-agents (Haiku on Claude Code; `claude-4.5-haiku-thinking` on Cursor, never `composer-2.5`) | `### 4. Spawn both sub-agents in parallel` followed straight by the Standards prompt |
 | `implement` | Hands `/review-axes` **the unstaged working tree**, and leaves checkbox syncing to it | `does not tick the` |
 | `wayfinder` | Grilling tickets are worked **one question at a time** | `Conversation. The default case.` |
+| `wayfinder` | Grilling ticket type invokes only `/grilling` — this fork carries no `domain-modeling` skill to pair it with | `/grilling and /domain-modeling` |
+| `tdd` | Doesn't lean on an external skill for interface/seam vocabulary — this fork carries no `codebase-design` skill | `use the /codebase-design skill for the vocabulary` |
 
 ## Domain language
 
@@ -45,5 +47,6 @@ Upstream has never seen these, so they never conflict — but they do go stale w
 
 - **Dropped upstream paths** live in `scripts/sync-upstream.sh` (`EXCLUDED_PATHS`) — that list is the ledger for deletions; add to it there, not here.
 - `.claude-plugin/plugin.json` is this fork's own manifest (`conan-skills`, own author, own promoted set) and never takes upstream's. `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace, which upstream does differently.
-- Install commands come from `.agents/install-block.md`, verbatim.
+- **`skills/misc/` is partially promoted, unlike upstream.** `setup-pre-commit`, `setup-statusline`, and `reset-agent-env` all appear in `.claude-plugin/plugin.json`'s `skills` array and in the top-level `README.md`'s Misc section, even though `CLAUDE.md`'s Invariants section currently only names `engineering/` and `productivity/` as promoted buckets. This predates this sync (not introduced by a merge) — `CLAUDE.md`'s wording just hasn't caught up. Flagged here rather than silently "fixed" either direction; a human should decide whether to update the invariant text or un-promote those three.
+- Install commands come from `.agents/install-block.md`, verbatim — **except this is currently untrue for `README.md`'s own `## Instalar` section**, which uses a from-scratch, Portuguese, single-command flow (`npx skills@latest add C0nanT/skills` + a separate `claude-hooks` install) instead of the plugin/skills.sh split `install-block.md` documents. `install-block.md` itself still names upstream's plugin (`mattpocock-skills`) and repo (`mattpocock/skills`) verbatim, so it does not describe this fork's actual install story either. Both predate this sync; flagged for a human decision (rewrite `install-block.md` to match the fork's real flow, or drop the "copied verbatim" claim from `CLAUDE.md`) rather than resolved unilaterally.
 - The Portuguese guides under `docs/guides/pt-br/` are fork-only.
