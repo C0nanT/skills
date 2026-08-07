@@ -30,7 +30,7 @@ Exemplo após `/to-tickets`:
 2. Usa **`/tdd`** onde fizer sentido, nos seams já acordados
 3. Roda typecheck regularmente, testes de arquivo único durante o trabalho, suite completa no final
 4. Ao terminar, usa **[`/review`](./review.md)** para revisar o trabalho
-5. Faz commit na branch atual
+5. Gera mensagem Conventional Commits (`type(scope): …`) — não faz `git commit`
 
 ## Onde entra no fluxo
 

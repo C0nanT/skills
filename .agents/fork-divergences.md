@@ -27,6 +27,7 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 | `review-axes` | **Step 6**: syncs `- [ ]` / `- [x]` acceptance criteria on the local spec, advances `Status:` to `ready-for-human` when all are checked | a Process that ends at `### 5. Aggregate` |
 | `review-axes` | **Model-by-host table** for the two sub-agents (Haiku on Claude Code; `claude-4.5-haiku-thinking` on Cursor, never `composer-2.5`) | `### 4. Spawn both sub-agents in parallel` followed straight by the Standards prompt |
 | `implement` | Hands `/review-axes` **the unstaged working tree**, and leaves checkbox syncing to it | `does not tick the` |
+| `implement` | **Never commits** — only generates a Conventional Commits message (`type(scope): …` + why-body, ≤300 chars) for the user | `Commit your work to the current branch.` |
 | `wayfinder` | Grilling tickets are worked **one question at a time** | `Conversation. The default case.` |
 | `wayfinder` | Grilling ticket type invokes only `/grilling` — this fork carries no `domain-modeling` skill to pair it with | `/grilling and /domain-modeling` |
 | `tdd` | Doesn't lean on an external skill for interface/seam vocabulary — this fork carries no `codebase-design` skill | `use the /codebase-design skill for the vocabulary` |
