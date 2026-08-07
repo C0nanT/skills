@@ -9,7 +9,7 @@ Work the tree in **rounds**. The **frontier** is every decision whose prerequisi
 
 Each question should be formatted like so:
 
-```
+```markdown
 ❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
 
 ➡️ <your recommended answer>
