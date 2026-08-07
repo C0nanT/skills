@@ -23,7 +23,9 @@ Rate limit color: green < 50%, yellow 50–79%, red ≥ 80%. Omitted when `rate_
 
 ### Reset-time timezone
 
-The reset clock (`↺ 10:00`) is shown in the **machine's local timezone**, never Claude's injected `TZ=UTC` (which otherwise shifts Brazil by +3h). Resolution order:
+Claude Code sends `rate_limits.five_hour.resets_at` as an **ISO 8601 string** (`2026-08-07T18:30:00.000Z`); older builds sent epoch seconds. The script normalizes ISO strings, epoch seconds, and epoch milliseconds to one epoch before formatting — an ISO string with no zone designator is read as UTC, which is what the server means.
+
+The reset clock (`↺ 10:00`) is then shown in the **machine's local timezone**, never Claude's injected `TZ=UTC` (which otherwise shifts Brazil by +3h). Resolution order:
 
 1. `$STATUSLINE_TZ` override (IANA name, e.g. `America/Sao_Paulo`)
 2. Host zone via `timedatectl`, `/etc/timezone`, or `/etc/localtime` symlink (skips bare `UTC`)
@@ -104,6 +106,11 @@ jq --arg cmd "$HOOK_CMD" '
 # Should print the formatted status line (model only populated when run inside Claude):
 echo '{"model":{"display_name":"Claude Sonnet 4.6"},"context_window":{"used_percentage":14}}' \
   | bash "$HOME/.claude/statusline-command.sh"
+
+# Reset clock: TZ=UTC mimics how Claude invokes the script. In GMT-3 this must
+# print `↺ 15:30`, not `↺ 18:30`.
+echo '{"rate_limits":{"five_hour":{"used_percentage":42,"resets_at":"2026-08-07T18:30:00.000Z"}}}' \
+  | TZ=UTC bash "$HOME/.claude/statusline-command.sh"
 ```
 
 Takes effect at next Claude Code session start (no restart needed for mid-session updates).

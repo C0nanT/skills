@@ -142,6 +142,38 @@ fi
 #   2. host IANA zone (timedatectl / /etc/timezone / localtime symlink), skipping UTC
 #   3. env -u TZ date → libc reads /etc/localtime
 #   4. WSL/Windows: PowerShell local clock when Linux zone is UTC/missing
+
+# Normalize a reset timestamp to epoch seconds. Claude Code sends an ISO 8601
+# string ("2026-08-07T18:30:00.000Z"); older builds sent epoch seconds, and
+# epoch milliseconds show up too. Returns non-zero when unparseable.
+to_epoch_seconds() {
+  local v="$1" s e
+  case "$v" in
+    ''|null) return 1 ;;
+  esac
+
+  # Numeric: epoch seconds (10 digits) or milliseconds (13). Drop any fraction.
+  if [[ "$v" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+    v="${v%%.*}"
+    if [ "${#v}" -ge 12 ]; then
+      printf '%s' "$(( v / 1000 ))"
+    else
+      printf '%s' "$v"
+    fi
+    return 0
+  fi
+
+  # ISO 8601. A bare timestamp with no zone designator would be read in the
+  # *local* zone by date(1) — the server means UTC, so pin it.
+  s="$v"
+  if ! [[ "$s" =~ (Z|z|[+-][0-9]{2}:?[0-9]{2})$ ]]; then
+    s="${s}Z"
+  fi
+  e=$(date -d "$s" +%s 2>/dev/null) || return 1
+  [ -n "$e" ] || return 1
+  printf '%s' "$e"
+}
+
 is_utc_name() {
   case "$1" in
     UTC|Etc/UTC|Etc/GMT|GMT|UCT|Universal|Zulu) return 0 ;;
@@ -219,8 +251,11 @@ rl_resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty'
 if [ -n "$rl_pct_raw" ]; then
   rl_pct=$(printf "limit:%.0f%%" "$rl_pct_raw")
   if [ -n "$rl_resets_at" ]; then
-    hm=$(format_local_hm "$rl_resets_at")
-    [ -n "$hm" ] && rl_reset=$(printf '↺ %s' "$hm")
+    rl_epoch=$(to_epoch_seconds "$rl_resets_at") || rl_epoch=""
+    if [ -n "$rl_epoch" ]; then
+      hm=$(format_local_hm "$rl_epoch")
+      [ -n "$hm" ] && rl_reset=$(printf '↺ %s' "$hm")
+    fi
   fi
   # Color thresholds
   rl_int=$(printf "%.0f" "$rl_pct_raw")
