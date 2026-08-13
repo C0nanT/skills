@@ -42,7 +42,7 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 
 ## Fork-only skills
 
-Upstream has never seen these, so they never conflict — but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `sync-upstream`, `reset-agent-env`, `setup-statusline`.
+Upstream has never seen these, so they never conflict — but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `sync-upstream`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
 
 ## Repo-level
 

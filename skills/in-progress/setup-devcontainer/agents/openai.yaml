@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup Devcontainer"
+  short_description: "Compose-based devcontainer that inherits the host's identity"
+policy:
+  allow_implicit_invocation: false
