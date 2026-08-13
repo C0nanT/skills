@@ -29,9 +29,11 @@ Read the repo and the host before asking anything. Every question you can answer
 
 - Is there already a Compose file (`compose.yaml`, `docker-compose.yml`) and an override? → add the `workspace` service to the override. If not → create the pair.
 - Is there a `Dockerfile`? Does it have stages you can add a `workspace` stage beside, reusing the same base image?
+- **Greenfield — no application service exists yet.** Expected, since this runs first. The stack you create is infrastructure-only: `workspace` plus what it talks to (database, cache, tracing). Application services get added as they gain an entrypoint; don't invent placeholders for them. Same in the Dockerfile — write a `base` stage that `workspace` builds on, so the app's stages have something to inherit later.
 - Language and toolchain — `go.mod`, `composer.json`, `package.json`, `pyproject.toml`, `Cargo.toml`, `*.csproj`, `Gemfile`. Read them for the *version* too, not just the language.
 - Working-directory convention — an existing `WORKDIR` in the Dockerfile, or the framework's own (`/var/www/html`, `/app`, `/workspace`).
 - Extra tooling the project actually invokes: code generators (`protoc`, `sqlc`, `buf`), migration tools, database clients, linters. Look in the Makefile / task runner / scripts, not at what the language "usually" needs.
+- **Database clients: match the major to the running service, not to what the distro ships.** The distro package lags — bookworm's `postgresql-client` is 15, and `pg_dump` refuses a 17 server outright. Read the version off the Compose service, then add the vendor repository (PGDG and its equivalents) when the distro can't reach it.
 - Existing `.devcontainer/` — if one exists, this is a migration, not a greenfield setup. Say so and show the diff before replacing it.
 - How the project's tests reach infrastructure. If they already run inside the Compose network, do **not** pull in testcontainers.
 
@@ -43,6 +45,7 @@ Read the repo and the host before asking anything. Every question you can answer
 | Docker socket group | `getent group docker` — the GID varies per machine, so parameterise it |
 | Which host configs exist | Test each path in REFERENCE.md's mount map; a missing path means the mount is skipped, not defaulted |
 | Where a CLI keeps its token | Plain config file → mount it. System keyring → it can't cross into the container; carries by environment variable only |
+| …without reading the secret | `test -f`, `ls -l`, `grep -l oauth_token` — you need the *location and shape*, never the value. `cat` on a credential file can be denied by the permission layer, and a denial there must not stall the setup: fall back to the file's existence and size, or ask |
 
 Done when you can name the base image, the working directory, every host path that exists, and every service the workspace must depend on.
 
@@ -83,7 +86,7 @@ Let the user edit the draft. Name explicitly, in one line each: which host paths
 
 Follow this order — each step depends on the one before it:
 
-1. `workspace` service in the override + image stage with a real uid-1000 user and the toolchain.
+1. `workspace` service in the override + image stage with a real uid-1000 user and the toolchain — `PATH` written both as `ENV` and as a `/etc/profile.d` drop-in.
 2. `.devcontainer/devcontainer.json` pointing at the Compose files.
 3. Named home volume + `CLAUDE_CONFIG_DIR` (and any equivalent for other agent CLIs).
 4. Direct read-only mounts.
@@ -96,16 +99,25 @@ Every construct here — why the home volume must be named, why `useradd` runs i
 
 Build, start, and run the acceptance script from *inside* the container. Report the actual output — a step you couldn't run is reported as not run.
 
+Every step has to be runnable non-interactively — a check that needs a TUI is a check that never runs.
+
 ```
-id                            # host uid/gid
-git config user.email         # host email
-git ls-remote                 # credentials work (read)
-ls ~/.claude/skills           # skills visible
-claude  → /model              # writes without EBUSY
-touch <file> in the repo      # on the host, owner is your user
-curl <service>:<port>         # Compose network reachable
-docker compose ps             # only if the socket was mounted
+id                              # host uid/gid
+git config user.email           # host email
+git ls-remote                   # credentials work (read)
+ls ~/.claude/skills             # skills visible
+cp F F.tmp && mv F.tmp F        # for each seeded file F: the atomic rename itself
+findmnt -T F                    # …and F is not a mount point → no EBUSY
+bash -lc 'go version'           # login shell, not exec — catches the /etc/profile PATH reset
+touch <file> in the repo        # on the host, owner is your user
+curl <service>:<port>           # Compose network reachable
+docker compose ps               # only if the socket was mounted
 ```
+
+Two of them need a fallback:
+
+- **`git ls-remote` presupposes a remote.** A greenfield repo has none. Then prove the helper instead: `git credential fill` fed the host and protocol, piped straight into `grep '^username='`. Never print its raw output — it contains the password line.
+- **The rename test replaces "open the CLI and run `/model`".** It exercises the same mechanic (the atomic rename that `EBUSY`s over a single-file bind mount) without a human at a TUI.
 
 Then the real test — the one that proves the persistence layer, and the one most likely to be skipped:
 

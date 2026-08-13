@@ -50,7 +50,7 @@ The two failures that force mechanic B — neither message points at the cause:
 | Skills | `~/.claude/skills` | ro | `$HOME/.claude/skills` |
 | Agents | `~/.agents` | ro | `$HOME/.agents` |
 | Hooks | `~/.claude/hooks-lib` | ro | `$HOME/.claude/hooks-lib` |
-| Statusline | `~/.claude/statusline-*.sh` | ro | same path |
+| Statusline | `~/.claude/statusline-command.sh`, `~/.claude/statusline-reset-hook.sh` — **each file, enumerated** | ro | same path |
 | Claude settings | `~/.claude/settings.json` | seed → copy | `$HOME/.claude/settings.json` |
 | Claude login | `~/.claude/.credentials.json` | seed → copy, `chmod 600` | `$HOME/.claude/.credentials.json` |
 
@@ -58,6 +58,7 @@ A host path that doesn't exist means the mount is **skipped**, not defaulted. Te
 
 ### Details that aren't obvious
 
+- **Compose does not expand globs in a volume path.** No shell runs over it: `~/.claude/statusline-*.sh` is taken literally, doesn't exist on the host, and Docker helpfully creates a *directory* by that name. Enumerate every file — and since mounting all of `~/.claude` is an anti-pattern, enumerating is the only way in.
 - **`credential.helper = store --file=$HOME/.config/git/credentials`** in the host gitconfig works unchanged inside the container, because `$HOME` expands at runtime and resolves to the container's home. That's what makes mechanic B land on the right destination.
 - **A remote tracker CLI (`gh`, `glab`) is optional and must be a question.** A project with issues in local markdown has no tracker to authenticate: keep it out of the image and out of the mounts. Install it only when the workflow really leaves the repository.
 - **Cursor is two distinct products.** The **editor** runs on the host and enters the container through the devcontainer extension — there is nothing to authenticate inside. Only the **`cursor-agent` CLI** needs auth, and it lives in `~/.cursor/cli-config.json` (key `authInfo`), a file the CLI itself rewrites (model, permissions) → mechanic B. Do **not** mount all of `~/.cursor`: `projects/`, `chats/` and `extensions/` are state indexed by host path.
@@ -72,6 +73,7 @@ A **named** volume mounted at the container's `$HOME` — not a bind mount.
 - Login, sessions and history survive `docker compose down`.
 - `CLAUDE_CONFIG_DIR` **must** point inside that volume; otherwise Claude writes to the image's home (outside the volume) and loses the login on every recreate. The same reasoning applies to any other agent CLI with a configurable state directory.
 - The image creates the user and `chown`s the home **before** the volume is mounted: a named volume inherits owner and permissions from the directory at first initialisation.
+- **The toolchain's caches belong inside it too.** Their defaults already do (`$HOME/go`, `$HOME/.cache/go-build`, `~/.npm`, `~/.cache/pip`) — but the official images *relocate* them out of `$HOME`: `golang` sets `GOPATH=/go`, `rust` sets `CARGO_HOME=/usr/local/cargo`. Left there they live in the container layer, and every recreate re-downloads the whole dependency set. Check what the base image sets and point it back inside the home volume (or give that path its own named volume).
 
 ## 5. User identity and permissions
 
@@ -89,15 +91,42 @@ Needed only if the developer or agent will run `docker compose` from **inside**.
 - **Trade-off to state out loud:** socket access is equivalent to root on the host. Fine on a personal machine, not fine on a shared runner.
 - Without the socket the workspace still reaches every service over the network — it just can't control them.
 
-## 7. Self-updating globally-installed CLIs
+## 7. `PATH` has to survive a login shell
 
-Applies to Claude Code and any global npm CLI:
+`ENV PATH=...` in the Dockerfile only covers **non-login** shells. The editor's terminal opens `bash -l`, which sources `/etc/profile` — and on Debian bookworm, the base of the official `golang`, `node` and `rust` images, that file **assigns** `PATH` instead of prefixing it:
 
-- `npm install -g` in the image creates **root-owned** files; uid 1000 can't update them (`claude update` → `no_permissions`) and the CLI goes stale **silently**.
-- Fix: the entrypoint provisions a native build into the persistent home once (`claude install latest`), and the image's `PATH` prefers `$HOME/.local/bin`.
-- Idempotent (no-op if already there) and best-effort: offline on first boot, `PATH` falls through to the baked-in global.
+```sh
+# /etc/profile — debian bookworm
+if [ "`id -u`" -eq 0 ]; then PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+else PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"; fi
+export PATH
+```
 
-## 8. Entrypoint responsibilities
+Everything outside those directories is gone: `/usr/local/go/bin`, `$GOPATH/bin`, and `$HOME/.local/bin` — which is where §8 puts the self-updating CLI.
+
+| Symptom | Real cause |
+|---|---|
+| `go: command not found` in the editor's terminal, while the same binary runs fine under `docker compose exec` | The editor's shell is a login shell. `/etc/profile` overwrote the `PATH` that `ENV` set. |
+
+Ship it both ways — `ENV` for `exec` and the entrypoint, a `profile.d` drop-in for the login shell (`/etc/profile` sources `profile.d/*.sh` *after* the assignment above, so the drop-in wins):
+
+```dockerfile
+ENV PATH=/home/dev/.local/bin:/usr/local/go/bin:$PATH
+RUN printf 'export PATH=/home/dev/.local/bin:/usr/local/go/bin:$PATH\n' \
+      > /etc/profile.d/10-workspace-path.sh
+```
+
+## 8. Self-updating CLIs installed in the image
+
+Applies to Claude Code and any CLI the user expects to update itself:
+
+- `npm install -g` fails this twice. It creates **root-owned** files, so uid 1000 can't update them (`claude update` → `no_permissions`) and the CLI goes stale **silently** — and it presupposes Node, which a Go / Rust / PHP base image doesn't have. Adding a whole runtime to host one CLI is the wrong trade.
+- Fix: the entrypoint provisions the **native** build into the persistent home once — `curl -fsSL https://claude.ai/install.sh | bash`, the recommended install path, which works on any base image and lands in `$HOME/.local/bin`. Files are uid-1000-owned inside the volume, so self-update keeps working.
+- `claude install latest` is the *upgrade* command of an existing native install, not a way to bootstrap one. Don't reach for it as the first step.
+- Idempotent (no-op if the binary is already in the volume) and best-effort: offline on the first boot must not fail the boot.
+- The install is worth nothing if `$HOME/.local/bin` isn't on the login shell's `PATH` — see §7.
+
+## 9. Entrypoint responsibilities
 
 Only this, then `exec "$@"`:
 
@@ -116,7 +145,7 @@ seed() {  # seed_path dest_path [mode]
 
 The service command is `sleep infinity` — the container exists to be inhabited, not to run a process.
 
-## 9. Worked example — the service
+## 10. Worked example — the service
 
 Adapt paths, base image and dependencies; the shape is the point.
 
@@ -127,9 +156,14 @@ Adapt paths, base image and dependencies; the shape is the point.
       context: .
       target: workspace
     env_file:
-      - .env
-      # Optional: a token for a CLI whose auth lives in the host keyring and so
-      # cannot be mounted. required:false → its absence never blocks the up.
+      # Always the guarded form. This skill runs *before* the rest of the
+      # project, so .env frequently doesn't exist yet — and the bare `- .env`
+      # form fails the up with a file-not-found the user has no way to read as
+      # "you haven't written this file yet".
+      - path: .env
+        required: false
+      # Same guard, other reason: a token for a CLI whose auth lives in the host
+      # keyring and so cannot be mounted.
       - path: ${HOME}/.config/<cli>/token.env
         required: false
     # Match the host user so anything written into the bind-mounted checkout
@@ -165,7 +199,7 @@ volumes:
   workspace_home:
 ```
 
-## 10. Anti-patterns
+## 11. Anti-patterns
 
 What this skill exists to prevent:
 
@@ -176,4 +210,6 @@ What this skill exists to prevent:
 - Running as root → root-owned files in the checkout, `sudo` to edit them afterwards.
 - Baking a secret into the image → everything comes in by mount at runtime.
 - Home on a bind mount inside the checkout → container state polluting the repo.
+- `PATH` set only via `ENV` → works under `exec`, broken in the editor's terminal.
+- The toolchain's cache left where the base image put it (`/go`, `/usr/local/cargo`) → every recreate re-downloads everything.
 - Pulling in testcontainers when the tests already run inside the Compose network.
