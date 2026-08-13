@@ -34,7 +34,7 @@ The whole identity-inheritance story reduces to picking between two:
 The two failures that force mechanic B — neither message points at the cause:
 
 | Symptom | Real cause |
-|---|---|
+| --- | --- |
 | `EBUSY` when saving config | The write is an **atomic rename** over a single-file bind mount. The mount is itself a mount point, so the rename can't replace it. (Claude Code does this on `/model`, `/effort`.) |
 | `unable to get credential storage lock` | `git credential approve` (on push) creates a `.lock` **in the file's directory**. A read-only directory forbids it. |
 
@@ -43,7 +43,7 @@ The two failures that force mechanic B — neither message points at the cause:
 ## 3. Mount map
 
 | What | Host | Mechanic | Destination in container |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Git identity | `~/.gitconfig` | ro | `$HOME/.gitconfig` |
 | Git credentials | `~/.config/git/credentials` | seed → copy, `chmod 600` | `$HOME/.config/git/credentials` |
 | `cursor-agent` auth | `~/.cursor/cli-config.json` | seed → copy | `$HOME/.cursor/cli-config.json` |
@@ -105,7 +105,7 @@ export PATH
 Everything outside those directories is gone: `/usr/local/go/bin`, `$GOPATH/bin`, and `$HOME/.local/bin` — which is where §8 puts the self-updating CLI.
 
 | Symptom | Real cause |
-|---|---|
+| --- | --- |
 | `go: command not found` in the editor's terminal, while the same binary runs fine under `docker compose exec` | The editor's shell is a login shell. `/etc/profile` overwrote the `PATH` that `ENV` set. |
 
 Ship it both ways — `ENV` for `exec` and the entrypoint, a `profile.d` drop-in for the login shell (`/etc/profile` sources `profile.d/*.sh` *after* the assignment above, so the drop-in wins):
@@ -205,6 +205,7 @@ The profile that hides `workspace` solves one problem and creates another. It so
 
 Without it the cost lands on the first day of whoever clones the repo: `docker compose up -d`, everything starts, the devcontainer doesn't, and nothing in the output says why.
 
+<!-- markdownlint-disable MD010 -->
 ```make
 COMPOSE := docker compose --profile dev-tools
 # The Compose default ${DOCKER_UID:-1000} is right on the machine that wrote the
@@ -230,6 +231,7 @@ shell:
 		|| $(COMPOSE) up -d workspace --wait
 	@$(COMPOSE) exec workspace bash -l
 ```
+<!-- markdownlint-enable MD010 -->
 
 Each piece answers a failure whose message names something else:
 

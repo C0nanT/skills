@@ -41,7 +41,7 @@ Read the repo and the host before asking anything. Every question you can answer
 **On the host:**
 
 | What | How |
-|---|---|
+| --- | --- |
 | UID / GID | `id -u`, `id -g` — if not 1000, the defaults must be passed |
 | Docker socket group | `getent group docker` — the GID varies per machine, so parameterise it |
 | Which host configs exist | Test each path in REFERENCE.md's mount map; a missing path means the mount is skipped, not defaulted |
@@ -106,7 +106,7 @@ Build, start, and run the acceptance script from *inside* the container. Report 
 
 Every step has to be runnable non-interactively — a check that needs a TUI is a check that never runs.
 
-```
+```sh
 id                              # host uid/gid
 git config user.email           # host email
 git ls-remote                   # credentials work (read)
