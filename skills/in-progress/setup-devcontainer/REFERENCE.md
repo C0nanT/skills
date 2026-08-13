@@ -121,7 +121,7 @@ RUN printf 'export PATH=/home/dev/.local/bin:/usr/local/go/bin:$PATH\n' \
 Applies to Claude Code and any CLI the user expects to update itself:
 
 - `npm install -g` fails this twice. It creates **root-owned** files, so uid 1000 can't update them (`claude update` → `no_permissions`) and the CLI goes stale **silently** — and it presupposes Node, which a Go / Rust / PHP base image doesn't have. Adding a whole runtime to host one CLI is the wrong trade.
-- Fix: the entrypoint provisions the **native** build into the persistent home once — `curl -fsSL https://claude.ai/install.sh | bash`, the recommended install path, which works on any base image and lands in `$HOME/.local/bin`. Files are uid-1000-owned inside the volume, so self-update keeps working.
+- Fix: the entrypoint provisions the **native** build into the persistent home once — `curl -fsSL https://claude.ai/install.sh | bash`, the recommended install path, which works on any base image and lands in `$HOME/.local/bin`. Files are uid-1000-owned inside the volume, so self-update keeps working. Other agent CLIs ship the same shape of installer (`curl -fsSL https://cursor.com/install | bash` for `cursor-agent`), landing in the same directory, and the same reasoning applies to each.
 - `claude install latest` is the *upgrade* command of an existing native install, not a way to bootstrap one. Don't reach for it as the first step.
 - Idempotent (no-op if the binary is already in the volume) and best-effort: offline on the first boot must not fail the boot.
 - The install is worth nothing if `$HOME/.local/bin` isn't on the login shell's `PATH` — see §7.
@@ -199,7 +199,50 @@ volumes:
   workspace_home:
 ```
 
-## 11. Anti-patterns
+## 11. The Makefile is the entry point to the environment
+
+The profile that hides `workspace` solves one problem and creates another. It solves: `docker compose up` no longer starts a tooling container with the host's credentials mounted. It creates: there are now **two environments** — the system, and the system plus the tooling — and the difference between them is a flag nobody memorises. The Makefile gives that difference a name: `make up` is the system, `make dev` is the working environment.
+
+Without it the cost lands on the first day of whoever clones the repo: `docker compose up -d`, everything starts, the devcontainer doesn't, and nothing in the output says why.
+
+```make
+COMPOSE := docker compose --profile dev-tools
+# The Compose default ${DOCKER_UID:-1000} is right on the machine that wrote the
+# setup and silently wrong on a uid-1001 machine — and the symptom (root-owned
+# files in the checkout) points nowhere near the cause. Exporting makes the value
+# always come from id -u; the Compose default degrades to a safety net for whoever
+# calls `docker compose` by hand.
+export DOCKER_UID := $(shell id -u)
+export DOCKER_GID := $(shell id -g)
+
+# Targets that talk to Docker refuse to run from inside the workspace, and say why.
+IN_CONTAINER := $(shell [ -f /.dockerenv ] && echo 1)
+define require_host
+	@if [ -n "$(IN_CONTAINER)" ]; then \
+		echo "This target controls containers and must run on the host."; \
+		echo "The workspace has no Docker socket mounted."; \
+		exit 1; \
+	fi
+endef
+
+shell:
+	@$(COMPOSE) ps --status running --services | grep -qx workspace \
+		|| $(COMPOSE) up -d workspace --wait
+	@$(COMPOSE) exec workspace bash -l
+```
+
+Each piece answers a failure whose message names something else:
+
+- **`--wait` on every target that starts things.** `up -d` returns when the containers are **created**, not when they're usable. `make dev && make shell` without it drops the developer into the container while Postgres is still initialising; the first migration or test fails with `connection refused` and the error blames the code. `--wait` blocks until the healthchecks pass — which makes the healthchecks in `compose.yaml` **structural load, not decoration**: a service without one is considered ready the moment it runs.
+- **`--build` on the dev target.** The workspace `Dockerfile` changes every time a tool is added. Without `--build`, `up` reuses the existing image and the developer enters a container missing the tool they just added — no warning, and the natural conclusion is that the Dockerfile is wrong. With it, adding a tool is: edit the stage, run `make dev`.
+- **`--profile` on `down` is mandatory, not extra care.** Verified with `docker compose down --dry-run`: **`down` without the profile does not remove the profiled container.** It tears the infrastructure down and leaves `workspace` running, now attached to a network that was removed and recreated. Two consequences, both with misleading diagnostics: a "clean" `down`/`up` leaves the workspace carrying mounts and environment from the previous incarnation (including a stale `.env`); and any recreation test run with a bare `down` is **vacuous** — the container never died, so the following `up` recreates nothing. Rule: every target that tears down names the profile that brought things up.
+- **The host guard is the corollary of question 2A.** Answering "no" to the socket produces an environment where half the targets work from inside (`test`, `lint`, `proto`) and half only from outside (`dev`, `up`, `down`). Without the guard, the wrong one fails with `docker: command not found` — a message that mentions neither socket nor profile nor any decision, and sends the person to install Docker inside the container. If 2A was "yes", the guard goes away: the targets work from both sides.
+- **`shell` starts before entering, and enters with a login shell.** Idempotent, because "I want a shell" should never turn into "first work out which command starts the hidden container". And `-l`, because the login shell is what sources `/etc/profile.d` — where the `PATH` fix from §7 lives. `exec workspace bash` without `-l` reproduces the very `command not found` the drop-in exists to prevent.
+- **`clean` asks, because the volume holds credentials, not just data.** `down -v` in an ordinary project deletes disposable data. Here it also deletes the named home — **the agent's login and its sessions**. Recoverable (the entrypoint re-seeds from the host), but the history doesn't come back. It's the only destructive target and the only one that asks for confirmation; the confirmation exists because `clean` sounds harmless and in this pattern isn't.
+
+**What varies by stack.** The lifecycle targets (`dev`, `up`, `down`, `shell`, `ps`, `logs`, `clean`) are the pattern and hold in any project. The code targets (`test`, `lint`, `proto`, `e2e`) belong to the project and **must not be created by this skill while there is no code**: a `make test` that fails because no module exists teaches distrust of the Makefile on its first use.
+
+## 12. Anti-patterns
 
 What this skill exists to prevent:
 
@@ -212,4 +255,8 @@ What this skill exists to prevent:
 - Home on a bind mount inside the checkout → container state polluting the repo.
 - `PATH` set only via `ENV` → works under `exec`, broken in the editor's terminal.
 - The toolchain's cache left where the base image put it (`/go`, `/usr/local/cargo`) → every recreate re-downloads everything.
+- `docker compose down` without `--profile` → the workspace survives, and any recreation test built on it proves nothing.
+- Leaving the profile flag as tribal knowledge instead of naming it in a Makefile target → `docker compose up` starts everything except the devcontainer, silently.
+- Writing `test` / `lint` / `proto` targets before the code they run exists → the Makefile's first use is a failure.
 - Pulling in testcontainers when the tests already run inside the Compose network.
+- Pinning an image tag you never verified exists → the failure surfaces at `up`, after everything else is written.

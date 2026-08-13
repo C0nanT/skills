@@ -33,6 +33,7 @@ Read the repo and the host before asking anything. Every question you can answer
 - Language and toolchain — `go.mod`, `composer.json`, `package.json`, `pyproject.toml`, `Cargo.toml`, `*.csproj`, `Gemfile`. Read them for the *version* too, not just the language.
 - Working-directory convention — an existing `WORKDIR` in the Dockerfile, or the framework's own (`/var/www/html`, `/app`, `/workspace`).
 - Extra tooling the project actually invokes: code generators (`protoc`, `sqlc`, `buf`), migration tools, database clients, linters. Look in the Makefile / task runner / scripts, not at what the language "usually" needs.
+- Is there a Makefile or task runner? → the lifecycle targets go **into it**; a second entry point is worse than none. If not, you'll create one (REFERENCE.md §11) — the profile that hides `workspace` is unusable without a named command.
 - **Database clients: match the major to the running service, not to what the distro ships.** The distro package lags — bookworm's `postgresql-client` is 15, and `pg_dump` refuses a 17 server outright. Read the version off the Compose service, then add the vendor repository (PGDG and its equivalents) when the distro can't reach it.
 - Existing `.devcontainer/` — if one exists, this is a migration, not a greenfield setup. Say so and show the diff before replacing it.
 - How the project's tests reach infrastructure. If they already run inside the Compose network, do **not** pull in testcontainers.
@@ -67,7 +68,7 @@ Present what you found first, then ask. Lead with the recommended answer so the 
 
 **C — Extra tools in the image.** Confirm the list exploration produced, and ask what it missed. This is a checklist to accept, not an open question.
 
-**D — Agent CLIs to carry in.** Confirm which of the ones found on the host should be wired in (Claude Code, `cursor-agent`, others). Each one only costs its mounts; a CLI the user doesn't use is noise in the config.
+**D — Agent CLIs to carry in.** Confirm which of the ones found on the host should be wired in (Claude Code, `cursor-agent`, others). Each one only costs its mounts; a CLI the user doesn't use is noise in the config. Ask it — a list assumed here and merely *announced* in the draft is the easiest question in this skill to skip, and its mounts and installer are the parts hardest to unpick later.
 
 Anything exploration left genuinely ambiguous — two plausible base images, an unclear working directory — is asked here too, with your recommendation first.
 
@@ -79,6 +80,9 @@ Show the full set of files before writing any of them:
 - The `workspace` image stage.
 - `.devcontainer/devcontainer.json`.
 - The entrypoint script.
+- The Makefile lifecycle targets (`dev`, `up`, `down`, `shell`, `ps`, `logs`, `clean`) — added to the existing Makefile, or a new one.
+
+**Verify every pinned image tag before it goes into the draft** — `docker manifest inspect <image>:<tag>` or the registry's tag list. A plausible-looking tag is not a tag: `jaegertracing/all-in-one:1.62` doesn't exist, only `1.62.0` does, and unverified it fails at `up` — after the whole stack is written and the failure looks like a Compose problem.
 
 Let the user edit the draft. Name explicitly, in one line each: which host paths you're mounting, whether the socket is in, and which services `depends_on` will drag up.
 
@@ -92,6 +96,7 @@ Follow this order — each step depends on the one before it:
 4. Direct read-only mounts.
 5. Entrypoint + writable seeds.
 6. Docker socket, only if step 2A said yes.
+7. Makefile lifecycle targets — every start with `--wait`, the dev target with `--build`, every teardown naming the profile, and the `/.dockerenv` host guard on the Docker-facing ones unless 2A said yes. Lifecycle only: no `test` / `lint` / `proto` target while there's no code for it to run.
 
 Every construct here — why the home volume must be named, why `useradd` runs in the image, why some files are seeded instead of mounted — is in REFERENCE.md. Do not improvise a variant of one without reading its rationale; each is there because the obvious alternative fails in a way whose error message doesn't name the cause.
 
@@ -122,16 +127,22 @@ Two of them need a fallback:
 Then the real test — the one that proves the persistence layer, and the one most likely to be skipped:
 
 ```bash
-docker compose down && docker compose up -d workspace
+docker compose ps -q workspace                                   # note the container ID
+docker compose --profile dev-tools down                          # the profile is not optional
+docker compose --profile dev-tools up -d workspace --wait
+docker compose ps -q workspace                                   # must be a *different* ID
 ```
 
-Agent login and sessions must still be there. If they aren't, the home volume isn't named, isn't mounted at the container's `$HOME`, or the CLI is configured to write outside it.
+**Without `--profile`, `down` leaves the profiled container running** — the following `up` recreates nothing and the test proves nothing while appearing to pass. The changed container ID is the evidence that it really died; if the ID is the same, you tested nothing. Run it through the Makefile targets instead once they exist — that's what the targets are for.
+
+Agent login and sessions must still be there afterwards. If they aren't, the home volume isn't named, isn't mounted at the container's `$HOME`, or the CLI is configured to write outside it.
 
 ### 6. Done
 
 Tell the user:
 
 - Which files you created or changed, and which host paths are now mounted into the container.
+- The two commands that are now the entry point: `make dev` for the working environment, `make up` for the system alone — and that `make shell` is how you get in.
 - Whether the Docker socket is mounted — and if it is, restate the trade-off once so the decision is on record.
 - Which acceptance checks passed, and any that failed or you couldn't run.
 - That the toolchain now belongs to the container: new tools go into the image stage, not onto the host.
