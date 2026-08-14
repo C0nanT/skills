@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Standing context for every harness lives here. `AGENTS.md` is a versioned pointer that tells Cursor, Codex, and other `AGENTS.md` readers to load this file — edit `CLAUDE.md` only. Shared domain material (`CONTEXT.md`, `.agents/`, `docs/agents/`) is already harness-neutral — do not copy it into `.cursor/rules/` or a second agent markdown file.
+
 ## Repo Purpose
 
 A collection of agent skills (slash commands) for Claude Code, organized into bucket folders and distributed via `npx skills@latest`. Skills are plain markdown files (`SKILL.md`) that Claude reads at invocation time.
