@@ -1,6 +1,6 @@
 # Git guardrails
 
-Destructive git is denied for Claude Code in this repo via `permissions.deny` in `.claude/settings.json` — not via a hook. Global hooks (if any) are separate; this file only documents the project deny list.
+Destructive git is denied for Claude Code in this repo via `permissions.deny` in `.claude/settings.json`, not via a hook. Global hooks (if any) are separate; this file only documents the project deny list.
 
 ## Denied prefixes
 

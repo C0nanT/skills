@@ -1,4 +1,4 @@
-# `/implement` — Implementar trabalho de um spec ou issues
+# `/implement`: Implementar trabalho de um spec ou issues
 
 ## O que é
 
@@ -16,7 +16,7 @@ Uma skill user-invoked que implementa o trabalho descrito num spec ou conjunto d
 /implement
 ```
 
-Forneça o spec e/ou a(s) issue(s) a implementar — por link, número, ou colando o conteúdo.
+Forneça o spec e/ou a(s) issue(s) a implementar: por link, número, ou colando o conteúdo.
 
 Exemplo após `/to-tickets`:
 
@@ -30,7 +30,7 @@ Exemplo após `/to-tickets`:
 2. Usa **`/tdd`** onde fizer sentido, nos seams já acordados
 3. Roda typecheck regularmente, testes de arquivo único durante o trabalho, suite completa no final
 4. Ao terminar, usa **[`/review`](./review.md)** para revisar o trabalho
-5. Gera mensagem Conventional Commits (`type(scope): …`) — não faz `git commit`
+5. Gera mensagem Conventional Commits (`type(scope): …`), não faz `git commit`
 
 ## Onde entra no fluxo
 
@@ -45,4 +45,4 @@ Issues marcadas como `ready-for-agent` no issue tracker também chegam aqui.
 
 - Uma issue por sessão mantém contexto limpo e focado.
 - Se o seam de teste não estiver claro, volte ao planejamento com `/tdd` antes de codar em massa.
-- `/implement` assume que a especificação já está pronta — não substitui `/grill-with-docs`.
+- `/implement` assume que a especificação já está pronta: não substitui `/grill-with-docs`.

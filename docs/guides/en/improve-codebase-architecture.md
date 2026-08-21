@@ -1,8 +1,8 @@
-# `/improve-codebase-architecture` — Codebase Architecture Improvement
+# `/improve-codebase-architecture`: Codebase Architecture Improvement
 
 ## What it is
 
-A skill that analyses your codebase looking for "deepening" opportunities — refactorings that transform shallow modules into deep modules, making the code more testable and navigable by AIs.
+A skill that analyses your codebase looking for "deepening" opportunities: refactorings that transform shallow modules into deep modules, making the code more testable and navigable by AIs.
 
 ## What it's for
 
@@ -24,10 +24,10 @@ A skill that analyses your codebase looking for "deepening" opportunities — re
 
 The skill uses specific, consistent terminology:
 
-- **Module** — anything with an interface and an implementation
-- **Depth** — how much behaviour is hidden behind a small interface. Deep module = lots of behaviour behind a simple interface. Shallow module = interface almost as complex as the implementation
-- **Seam** — where an interface lives; a place where behaviour can be changed without directly editing code
-- **Leverage** — what callers gain from a module's depth
+- **Module**: anything with an interface and an implementation
+- **Depth**: how much behaviour is hidden behind a small interface. Deep module = lots of behaviour behind a simple interface. Shallow module = interface almost as complex as the implementation
+- **Seam**: where an interface lives; a place where behaviour can be changed without directly editing code
+- **Leverage**: what callers gain from a module's depth
 
 **Deletion test**: imagine deleting the module. If the complexity disappears, it was a useless pass-through. If the complexity reappears spread across N callers, the module was earning its place.
 
@@ -51,7 +51,7 @@ Generates a visual HTML file with Tailwind and Mermaid, saved to `/tmp/architect
 - Before/after diagram drawn visually
 - Recommendation strength: `Strong`, `Worth exploring`, or `Speculative`
 
-The report ends with a "Top recommendation" section — which candidate to tackle first and why.
+The report ends with a "Top recommendation" section, which candidate to tackle first and why.
 
 **3. Grilling loop**
 
@@ -74,6 +74,6 @@ The agent will explore, generate the HTML report, you open it in the browser, pi
 ## Tips
 
 - Run periodically, not only when the project is already problematic
-- The report opens automatically in the browser — look for the path in the output if it doesn't open
-- The skill doesn't propose new interfaces until you choose a candidate — avoids wasting tokens
+- The report opens automatically in the browser: look for the path in the output if it doesn't open
+- The skill doesn't propose new interfaces until you choose a candidate: avoids wasting tokens
 - Contradictions with existing ADRs are flagged in the report with a warning, not silently ignored

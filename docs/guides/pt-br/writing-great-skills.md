@@ -1,8 +1,8 @@
-# `/writing-great-skills` — Referência para escrever skills bem
+# `/writing-great-skills`: Referência para escrever skills bem
 
 ## O que é
 
-Uma skill user-invoked de **referência** (não um wizard de criação) sobre vocabulário e princípios que tornam uma skill **previsível** — o agente segue o mesmo *processo* a cada execução.
+Uma skill user-invoked de **referência** (não um wizard de criação) sobre vocabulário e princípios que tornam uma skill **previsível**: o agente segue o mesmo *processo* a cada execução.
 
 Termos em negrito no `SKILL.md` estão definidos em [GLOSSARY.md](../../../skills/productivity/writing-great-skills/GLOSSARY.md).
 
@@ -25,8 +25,8 @@ Consulte durante revisão de um `SKILL.md` ou ao planejar uma skill nova.
 
 | Tipo | Mecânica | Custo |
 |------|----------|-------|
-| **Model-invoked** | Omitir `disable-model-invocation`; description rica com gatilhos | **Context load** — description sempre na janela |
-| **User-invoked** | `disable-model-invocation: true`; description só para humanos | **Cognitive load** — você precisa lembrar que existe |
+| **Model-invoked** | Omitir `disable-model-invocation`; description rica com gatilhos | **Context load**: description sempre na janela |
+| **User-invoked** | `disable-model-invocation: true`; description só para humanos | **Cognitive load**, você precisa lembrar que existe |
 
 Use model-invoked só quando o agente (ou outra skill) precisa alcançar sozinho. Skills só por comando manual → user-invoked.
 
@@ -37,23 +37,23 @@ Muitas skills user-invoked → use uma **router skill** (ex.: `/ask-skills`).
 Para model-invoked, a description faz invocação:
 
 - **Leading word** na frente
-- **Um gatilho por branch** — sinônimos da mesma branch são duplicação
+- **Um gatilho por branch**: sinônimos da mesma branch são duplicação
 - Corte identidade que já está no corpo
 
 ## Hierarquia de informação
 
-1. **In-skill step** — ação ordenada com **completion criterion** checkável (e exaustivo quando importa)
-2. **In-skill reference** — definições consultadas sob demanda no `SKILL.md`
-3. **External reference** — arquivo separado via **context pointer** (ex.: `GLOSSARY.md`)
+1. **In-skill step**: ação ordenada com **completion criterion** checkável (e exaustivo quando importa)
+2. **In-skill reference**: definições consultadas sob demanda no `SKILL.md`
+3. **External reference**: arquivo separado via **context pointer** (ex.: `GLOSSARY.md`)
 
-**Progressive disclosure** — empurra referência para baixo na escala. **Branching**: inline o que todo branch precisa; pointer só para o que alguns branches usam.
+**Progressive disclosure**: empurra referência para baixo na escala. **Branching**: inline o que todo branch precisa; pointer só para o que alguns branches usam.
 
-**Co-location** — definição, regras e caveats sob o mesmo heading.
+**Co-location**: definição, regras e caveats sob o mesmo heading.
 
 ## Quando dividir (granularity)
 
-- **Por invocação** — novo leading word que deve disparar sozinho, ou outra skill precisa alcançar → paga context load
-- **Por sequência** — passos futuros tentam o agente a **premature completion** → esconda post-completion steps
+- **Por invocação**: novo leading word que deve disparar sozinho, ou outra skill precisa alcançar → paga context load
+- **Por sequência**: passos futuros tentam o agente a **premature completion** → esconda post-completion steps
 
 ## Pruning
 
@@ -78,8 +78,8 @@ Conceito compacto do pré-treino (_lesson_, _tight_, _red_) repetido para ancora
 
 Depois de escrever, escolha o bucket em `skills/`:
 
-- `engineering/`, `productivity/`, `misc/` — promovidas (README + plugin.json)
-- `personal/`, `in-progress/` — não promovidas
+- `engineering/`, `productivity/`, `misc/`: promovidas (README + plugin.json)
+- `personal/`, `in-progress/`: não promovidas
 
 Estrutura típica:
 
@@ -94,4 +94,4 @@ skill-name/
 
 - Previsibilidade de *processo* > mesma saída literal
 - Completion criteria vagos convidam premature completion
-- Description de model-invoked: cada palavra paga context load — poda agressivamente
+- Description de model-invoked: cada palavra paga context load, poda agressivamente

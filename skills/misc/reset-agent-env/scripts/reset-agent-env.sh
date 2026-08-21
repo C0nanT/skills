@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # reset-agent-env.sh
-# Reset GLOBAL agent environments — skills, hooks, rules, MCP configs — across
+# Reset GLOBAL agent environments: skills, hooks, rules, MCP configs: across
 # Claude Code, the Agent-Skills standard dir, Cursor, Windsurf, and Antigravity.
 # Use it to simulate a clean machine before testing a from-scratch install.
 #
 # SAFE BY DEFAULT: a dry run unless you pass --apply or --hard.
-#   (no flag)        inventory only — prints what WOULD be removed, changes nothing
+#   (no flag)        inventory only: prints what WOULD be removed, changes nothing
 #   --apply          move every target into a timestamped backup dir (reversible)
 #   --hard           delete every target outright (no backup)
 #   --agent <name>   limit to one agent (repeatable). One of:
@@ -56,8 +56,8 @@ BACKUP_ROOT="$HOME/.cache/agent-env-reset/$TS"
 
 # ---- target tables -----------------------------------------------------------
 # Each line: kind|path|detail|description
-#   dir  / file  — a directory or file to remove (detail empty)
-#   jqdel        — delete a key (detail = jq path, e.g. .hooks) from a JSON file
+#   dir  / file: a directory or file to remove (detail empty)
+#   jqdel: delete a key (detail = jq path, e.g. .hooks) from a JSON file
 emit_targets() {
   case "$1" in
     claude)
@@ -128,8 +128,8 @@ strip_json_key() { # file jqpath
 
 # ---- scan (inventory) --------------------------------------------------------
 declare -a MATCHES=()
-echo "agent-env reset — mode: $MODE — agents: ${SELECTED[*]}"
-have_jq || echo "note: jq not found — JSON (.hooks / .mcpServers) steps will be skipped."
+echo "agent-env reset: mode: $MODE, agents: ${SELECTED[*]}"
+have_jq || echo "note: jq not found, JSON (.hooks / .mcpServers) steps will be skipped."
 
 for a in "${SELECTED[@]}"; do
   printf '\n▸ %s\n' "$a"
@@ -147,7 +147,7 @@ done
 
 echo
 if [ "${#MATCHES[@]}" -eq 0 ]; then
-  echo "Environment already clean — nothing to remove."
+  echo "Environment already clean: nothing to remove."
   exit 0
 fi
 echo "Found ${#MATCHES[@]} target(s)."
@@ -155,7 +155,7 @@ echo "Found ${#MATCHES[@]} target(s)."
 # ---- dry run stops here ------------------------------------------------------
 if [ "$MODE" = "dry" ]; then
   echo
-  echo "Dry run — nothing changed. Re-run with:"
+  echo "Dry run: nothing changed. Re-run with:"
   echo "  --apply   move the above into $HOME/.cache/agent-env-reset/<ts>/ (reversible)"
   echo "  --hard    delete the above outright"
   exit 0

@@ -1,8 +1,8 @@
-# `/grill-me` — Entrevista Relentless sobre seu Plano
+# `/grill-me`: Entrevista Relentless sobre seu Plano
 
 ## O que é
 
-Uma skill user-invoked que inicia uma sessão **`/grilling`** — entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `CONTEXT.md` nem ADRs.
+Uma skill user-invoked que inicia uma sessão **`/grilling`**: entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `CONTEXT.md` nem ADRs.
 
 ## Para que serve
 
@@ -24,13 +24,13 @@ Descreva o que você quer construir, ou traga a conversa que já teve. A skill v
 
 O agente assume o papel de entrevistador implacável. Para cada aspecto do plano:
 
-1. **Faz uma pergunta por vez** — não despeja 10 perguntas de uma vez. Espera sua resposta antes de continuar.
+1. **Faz uma pergunta por vez**: não despeja 10 perguntas de uma vez. Espera sua resposta antes de continuar.
 
-2. **Propõe uma resposta recomendada** — para cada pergunta, o agente já diz o que *ele* acha que é a melhor resposta. Você pode concordar, discordar, ou refinar.
+2. **Propõe uma resposta recomendada**: para cada pergunta, o agente já diz o que *ele* acha que é a melhor resposta. Você pode concordar, discordar, ou refinar.
 
-3. **Explora a codebase quando necessário** — se uma pergunta pode ser respondida lendo o código existente, o agente faz isso em vez de perguntar.
+3. **Explora a codebase quando necessário**: se uma pergunta pode ser respondida lendo o código existente, o agente faz isso em vez de perguntar.
 
-4. **Desce a árvore de decisões** — resolve dependências entre decisões. Só pergunta sobre uma coisa depois que a anterior estiver resolvida.
+4. **Desce a árvore de decisões**: resolve dependências entre decisões. Só pergunta sobre uma coisa depois que a anterior estiver resolvida.
 
 O processo continua até que *todos* os ramos da árvore de decisões estejam resolvidos e exista um entendimento compartilhado completo.
 
@@ -38,9 +38,9 @@ O processo continua até que *todos* os ramos da árvore de decisões estejam re
 
 Ambas delegam a **`/grilling`** por baixo.
 
-`/grill-me` é genérico — qualquer plano, com ou sem codebase. Não persiste documentação.
+`/grill-me` é genérico: qualquer plano, com ou sem codebase. Não persiste documentação.
 
-`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas também trabalha os docs de domínio — lê e atualiza `CONTEXT.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
+`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas também trabalha os docs de domínio, lê e atualiza `CONTEXT.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
 
 ## Exemplo de uso
 
@@ -50,7 +50,7 @@ Quero criar um sistema de notificações em tempo real para o app. Os usuários 
 /grill-me
 ```
 
-O agente vai começar a fazer perguntas: "Por qual canal: WebSockets, SSE, ou polling? Minha recomendação é SSE porque..." — e assim por diante até cobrir transporte, autenticação, persistência, leitura de notificações, etc.
+O agente vai começar a fazer perguntas: "Por qual canal: WebSockets, SSE, ou polling? Minha recomendação é SSE porque...", e assim por diante até cobrir transporte, autenticação, persistência, leitura de notificações, etc.
 
 ## Por que usar
 

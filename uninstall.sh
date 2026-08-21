@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# uninstall.sh — removes everything the conan-skills set installs, leaving no residue.
+# uninstall.sh: removes everything the conan-skills set installs, leaving no residue.
 #
 # Skills installed via `npx skills@latest add C0nanT/skills` do NOT live in this git
-# clone — they're downloaded into ~/.agents/skills/<name> and symlinked from
+# clone: they're downloaded into ~/.agents/skills/<name> and symlinked from
 # ~/.claude/skills/<name>, tracked in ~/.agents/.skill-lock.json. This script cleans:
 #   1. entries in ~/.agents/.skill-lock.json sourced from this repo, their real
 #      directories under ~/.agents/skills/, and the matching symlinks in
@@ -27,7 +27,7 @@ set -euo pipefail
 #   ./uninstall.sh --yes      # no prompts (for automation)
 #
 # Safe to run multiple times (idempotent). If a project was set up with project scope,
-# remove that project's ./.claude hooks by hand — this script only touches ~/.claude.
+# remove that project's ./.claude hooks by hand: this script only touches ~/.claude.
 
 REPO="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$HOME/.claude/skills"
@@ -79,7 +79,7 @@ confirm() {
   case "$reply" in [yY]|[yY][eE][sS]) return 0 ;; *) return 1 ;; esac
 }
 
-echo "conan-skills uninstall — repo: $REPO"
+echo "conan-skills uninstall: repo: $REPO"
 echo
 
 # --- 1. Remove skills this repo installed --------------------------------------
@@ -123,7 +123,7 @@ if [ -n "$lock_names" ]; then
     echo "  skipped lock-tracked skills"
   fi
 elif [ -f "$SKILL_LOCK" ] && ! command -v jq >/dev/null 2>&1; then
-  echo "  warning: 'jq' is not installed — cannot read $SKILL_LOCK." >&2
+  echo "  warning: 'jq' is not installed, cannot read $SKILL_LOCK." >&2
   echo "           Install jq and re-run, or remove this repo's skills from it by hand." >&2
 else
   echo "  none found in $SKILL_LOCK (not installed via npx, or already removed)"
@@ -156,7 +156,7 @@ echo "[2/3] Hooks in $SETTINGS"
 if [ ! -f "$SETTINGS" ]; then
   echo "  not found: $SETTINGS (nothing to clean)"
 elif ! command -v jq >/dev/null 2>&1; then
-  echo "  warning: 'jq' is not installed — cannot safely edit JSON." >&2
+  echo "  warning: 'jq' is not installed, cannot safely edit JSON." >&2
   echo "           Install jq and re-run, or remove the conan hooks from $SETTINGS by hand." >&2
 else
   # Map each event to the regex that matches conan hook commands on it.

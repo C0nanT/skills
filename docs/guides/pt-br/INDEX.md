@@ -1,4 +1,4 @@
-# Guia de Skills — Índice
+# Guia de Skills: Índice
 
 Documentação em português das skills promovidas (`engineering/`, `productivity/`, `misc/`).
 
@@ -85,6 +85,6 @@ Issues externas entram pelo issue tracker → `/implement`.
 
 Guias órfãos de skills removidas do repositório (mantidos como referência histórica):
 
-- [zoom-out](./zoom-out.md) — mapa de módulos de alto nível (removida)
-- [diagnose](./diagnose.md) — renomeada para [diagnosing-bugs](./diagnosing-bugs.md)
-- [write-a-skill](./write-a-skill.md) — substituída por [writing-great-skills](./writing-great-skills.md)
+- [zoom-out](./zoom-out.md): mapa de módulos de alto nível (removida)
+- [diagnose](./diagnose.md): renomeada para [diagnosing-bugs](./diagnosing-bugs.md)
+- [write-a-skill](./write-a-skill.md): substituída por [writing-great-skills](./writing-great-skills.md)

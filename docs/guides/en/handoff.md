@@ -1,4 +1,4 @@
-# `/handoff` — Handoff Document for the Next Session
+# `/handoff`: Handoff Document for the Next Session
 
 ## What it is
 
@@ -28,17 +28,17 @@ With an argument (describes the focus of the next session):
 
 The agent creates a Markdown document with:
 
-**Conversation context** — summary of what was discussed, decided, and built.
+**Conversation context**: summary of what was discussed, decided, and built.
 
-**Current state** — where the work stands now: what's done, what's in progress, what's pending.
+**Current state**: where the work stands now: what's done, what's in progress, what's pending.
 
-**References** — instead of duplicating content that already exists in other artefacts (specs, plans, ADRs, issues, commits, diffs), the document *references* them by path or URL.
+**References**: instead of duplicating content that already exists in other artefacts (specs, plans, ADRs, issues, commits, diffs), the document *references* them by path or URL.
 
-**Suggested skills** — section that recommends which skills the next agent should invoke to continue the work. For example: "Invoke `/tdd` to implement issue #45" or "Use `/diagnose` to investigate the race condition bug mentioned."
+**Suggested skills**: section that recommends which skills the next agent should invoke to continue the work. For example: "Invoke `/tdd` to implement issue #45" or "Use `/diagnose` to investigate the race condition bug mentioned."
 
-**Sensitive information** is automatically redacted — API keys, passwords, PII do not appear in the document.
+**Sensitive information** is automatically redacted: API keys, passwords, PII do not appear in the document.
 
-The file is saved to the system temp directory (`/tmp` on Linux/Mac, `%TEMP%` on Windows) — not in the workspace, to avoid polluting the repository.
+The file is saved to the system temp directory (`/tmp` on Linux/Mac, `%TEMP%` on Windows), not in the workspace, to avoid polluting the repository.
 
 ## Usage example
 
@@ -56,6 +56,6 @@ The agent will create something like `/tmp/handoff-2026-06-08-payments.md` with:
 
 ## Tips
 
-- The argument after `/handoff` is treated as a description of the next session's focus — the document is adjusted to be more useful for that specific goal
-- The document is saved to the temp dir and **not** to the project — if you want to preserve it permanently, copy it manually
-- Does not duplicate what's in existing commits, specs, or issues — only references them
+- The argument after `/handoff` is treated as a description of the next session's focus: the document is adjusted to be more useful for that specific goal
+- The document is saved to the temp dir and **not** to the project: if you want to preserve it permanently, copy it manually
+- Does not duplicate what's in existing commits, specs, or issues: only references them

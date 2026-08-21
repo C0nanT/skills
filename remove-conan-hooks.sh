@@ -55,7 +55,7 @@ if [ -f "$SETTINGS" ] && jq -e . "$SETTINGS" >/dev/null 2>&1; then
     echo "  settings.json: hooks removidos. Backup em $SETTINGS.bak"
   fi
 else
-  echo "  settings.json: não existe ou não é JSON válido — nada a fazer."
+  echo "  settings.json: não existe ou não é JSON válido, nada a fazer."
 fi
 
 # ---- 2/3: apaga o script auxiliar do guardrails ----------------------------

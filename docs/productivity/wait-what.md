@@ -22,7 +22,7 @@ The skill says re-pitch **that**, not "that last message". What lost you is usua
 
 The body reuses the leading words already in your global `CLAUDE.md` and your project's `CONTEXT.md`. ASD-STE100 Simplified Technical English sets the register. The ubiquitous language supplies the nouns. The skill, `CLAUDE.md` and `CONTEXT.md` reach for the same [tokens](https://www.aihero.dev/ai-coding-dictionary/token), so invoking it is not a new instruction. It is a reminder of one the agent already agreed to.
 
-If you have no `CONTEXT.md`, the skill still works. You lose only the domain-vocabulary half.
+If you have no `CONTEXT.md` (and no `CONTEXT-MAP.md` pointing to one for the context at hand), the skill still works. You lose only the domain-vocabulary half.
 
 ## It's working if
 

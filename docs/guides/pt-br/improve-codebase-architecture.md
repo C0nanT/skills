@@ -1,8 +1,8 @@
-# `/improve-codebase-architecture` — Melhoria Arquitetural da Codebase
+# `/improve-codebase-architecture`: Melhoria Arquitetural da Codebase
 
 ## O que é
 
-Uma skill que analisa sua codebase em busca de oportunidades de "aprofundamento" — refatorações que transformam módulos rasos (shallow) em módulos profundos (deep), tornando o código mais testável e navegável por IAs.
+Uma skill que analisa sua codebase em busca de oportunidades de "aprofundamento": refatorações que transformam módulos rasos (shallow) em módulos profundos (deep), tornando o código mais testável e navegável por IAs.
 
 ## Para que serve
 
@@ -24,10 +24,10 @@ Uma skill que analisa sua codebase em busca de oportunidades de "aprofundamento"
 
 A skill usa terminologia específica e consistente:
 
-- **Módulo** — qualquer coisa com uma interface e uma implementação
-- **Profundidade (Depth)** — quanto comportamento fica escondido atrás de uma interface pequena. Módulo profundo = muito comportamento por interface simples. Módulo raso = interface quase tão complexa quanto a implementação
-- **Seam** — onde uma interface vive; lugar onde comportamento pode ser alterado sem editar o código diretamente
-- **Leverage** — o que os callers ganham com a profundidade de um módulo
+- **Módulo**: qualquer coisa com uma interface e uma implementação
+- **Profundidade (Depth)**: quanto comportamento fica escondido atrás de uma interface pequena. Módulo profundo = muito comportamento por interface simples. Módulo raso = interface quase tão complexa quanto a implementação
+- **Seam**: onde uma interface vive; lugar onde comportamento pode ser alterado sem editar o código diretamente
+- **Leverage**: o que os callers ganham com a profundidade de um módulo
 
 **Teste da deleção**: imagine deletar o módulo. Se a complexidade desaparece, era um pass-through inútil. Se a complexidade reaparece espalhada em N callers, o módulo estava ganhando seu lugar.
 
@@ -51,7 +51,7 @@ Gera um arquivo HTML visual com Tailwind e Mermaid, salvo em `/tmp/architecture-
 - Diagrama antes/depois desenhado visualmente
 - Força da recomendação: `Strong`, `Worth exploring`, ou `Speculative`
 
-O relatório termina com uma seção "Top recommendation" — qual candidato atacar primeiro e por quê.
+O relatório termina com uma seção "Top recommendation": qual candidato atacar primeiro e por quê.
 
 **3. Loop de grilling**
 
@@ -74,6 +74,6 @@ O agente vai explorar, gerar o relatório HTML, você abre no browser, escolhe u
 ## Dicas
 
 - Rode periodicamente, não só quando o projeto já está problemático
-- O relatório abre automaticamente no browser — procure o path no output caso não abra
-- A skill não propõe interfaces novas até você escolher um candidato — evita desperdício de tokens
+- O relatório abre automaticamente no browser: procure o path no output caso não abra
+- A skill não propõe interfaces novas até você escolher um candidato: evita desperdício de tokens
 - Contradições com ADRs existentes são marcadas no relatório com um aviso, não ignoradas silenciosamente

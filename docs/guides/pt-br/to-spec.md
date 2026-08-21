@@ -1,4 +1,4 @@
-# `/to-spec` — Criar spec a partir da Conversa
+# `/to-spec`: Criar spec a partir da Conversa
 
 ## O que é
 
@@ -22,25 +22,25 @@ Uma skill que transforma o contexto da conversa atual em uma spec (também conhe
 
 ## Como funciona
 
-**1. Explora a codebase** — lê o estado atual do código, usando o glossário de domínio para vocabulário consistente, respeitando ADRs na área em questão.
+**1. Explora a codebase**: lê o estado atual do código, usando o glossário de domínio para vocabulário consistente, respeitando ADRs na área em questão.
 
-**2. Identifica seams de teste** — rascunha os pontos onde a feature será testada. Prefere seams existentes. Propõe novos seams no nível mais alto possível. Confirma com você que esses seams fazem sentido.
+**2. Identifica seams de teste**: rascunha os pontos onde a feature será testada. Prefere seams existentes. Propõe novos seams no nível mais alto possível. Confirma com você que esses seams fazem sentido.
 
-**3. Escreve e publica** — cria o spec usando o template e publica como issue com o label `ready-for-agent`.
+**3. Escreve e publica**: cria o spec usando o template e publica como issue com o label `ready-for-agent`.
 
 ### Template do spec
 
-**Problem Statement** — o problema que o usuário enfrenta, da perspectiva do usuário.
+**Problem Statement**: o problema que o usuário enfrenta, da perspectiva do usuário.
 
-**Solution** — a solução, da perspectiva do usuário.
+**Solution**: a solução, da perspectiva do usuário.
 
-**User Stories** — lista longa e numerada no formato:
+**User Stories**: lista longa e numerada no formato:
 ```
 1. Como [ator], quero [feature], para que [benefício]
 ```
 Deve ser extensa e cobrir todos os aspectos da feature.
 
-**Implementation Decisions** — decisões técnicas tomadas:
+**Implementation Decisions**: decisões técnicas tomadas:
 - Módulos que serão construídos/modificados
 - Interfaces que serão modificadas
 - Decisões arquiteturais
@@ -49,11 +49,11 @@ Deve ser extensa e cobrir todos os aspectos da feature.
 
 *Sem file paths ou code snippets* (ficam desatualizados rápido). Exceção: snippets de protótipos que codificam uma decisão mais precisamente que prosa.
 
-**Testing Decisions** — o que torna um bom teste para essa feature, quais módulos serão testados, exemplos similares na codebase.
+**Testing Decisions**: o que torna um bom teste para essa feature, quais módulos serão testados, exemplos similares na codebase.
 
-**Out of Scope** — o que explicitamente *não* está incluso neste spec.
+**Out of Scope**: o que explicitamente *não* está incluso neste spec.
 
-**Further Notes** — observações adicionais.
+**Further Notes**: observações adicionais.
 
 ## Exemplo de uso
 

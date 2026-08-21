@@ -42,7 +42,7 @@ done
 
 cat <<'EOF'
 
-Next steps (not run automatically — this script never stages or commits):
+Next steps (not run automatically: this script never stages or commits):
   1. git status                 # see remaining conflicts and the removed paths
   2. Resolve any conflicts, then `git add` the resolutions and the removals
   3. Review with `git diff --cached`

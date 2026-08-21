@@ -1,4 +1,4 @@
-# Skills Guide — Index
+# Skills Guide: Index
 
 English documentation for all available skills.
 

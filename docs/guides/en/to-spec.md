@@ -1,4 +1,4 @@
-# `/to-spec` — Create spec from the Conversation
+# `/to-spec`: Create spec from the Conversation
 
 ## What it is
 
@@ -22,25 +22,25 @@ A skill that turns the current conversation context into a structured spec (also
 
 ## How it works
 
-**1. Explores the codebase** — reads the current state of the code, using the domain glossary for consistent vocabulary, respecting ADRs in the relevant area.
+**1. Explores the codebase**: reads the current state of the code, using the domain glossary for consistent vocabulary, respecting ADRs in the relevant area.
 
-**2. Identifies test seams** — drafts the points where the feature will be tested. Prefers existing seams. Proposes new seams at the highest possible level. Confirms with you that these seams make sense.
+**2. Identifies test seams**: drafts the points where the feature will be tested. Prefers existing seams. Proposes new seams at the highest possible level. Confirms with you that these seams make sense.
 
-**3. Writes and publishes** — creates the spec using the template and publishes it as an issue with the `ready-for-agent` label.
+**3. Writes and publishes**: creates the spec using the template and publishes it as an issue with the `ready-for-agent` label.
 
 ### spec template
 
-**Problem Statement** — the problem the user faces, from the user's perspective.
+**Problem Statement**: the problem the user faces, from the user's perspective.
 
-**Solution** — the solution, from the user's perspective.
+**Solution**: the solution, from the user's perspective.
 
-**User Stories** — long numbered list in the format:
+**User Stories**: long numbered list in the format:
 ```
 1. As a [actor], I want [feature], so that [benefit]
 ```
 Should be extensive and cover all aspects of the feature.
 
-**Implementation Decisions** — technical decisions made:
+**Implementation Decisions**: technical decisions made:
 - Modules that will be built/modified
 - Interfaces that will be modified
 - Architectural decisions
@@ -49,11 +49,11 @@ Should be extensive and cover all aspects of the feature.
 
 *No file paths or code snippets* (they go stale quickly). Exception: prototype snippets that encode a decision more precisely than prose.
 
-**Testing Decisions** — what makes a good test for this feature, which modules will be tested, similar examples in the codebase.
+**Testing Decisions**: what makes a good test for this feature, which modules will be tested, similar examples in the codebase.
 
-**Out of Scope** — what is explicitly *not* included in this spec.
+**Out of Scope**: what is explicitly *not* included in this spec.
 
-**Further Notes** — additional observations.
+**Further Notes**: additional observations.
 
 ## Usage example
 

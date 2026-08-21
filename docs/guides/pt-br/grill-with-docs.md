@@ -1,4 +1,4 @@
-# `/grill-with-docs` — Grilling com Documentação de Domínio
+# `/grill-with-docs`: Grilling com Documentação de Domínio
 
 ## O que é
 
@@ -24,17 +24,17 @@ Descreva o que você quer fazer. A skill vai explorar a codebase e a documentaç
 
 ### Durante a sessão, o agente:
 
-**Desafia contra o glossário** — se você usa um termo que conflita com o `CONTEXT.md`, ele chama atenção na hora: *"Seu glossário define 'cancelamento' como X, mas você parece querer dizer Y — qual é?"*
+**Desafia contra o glossário**: se você usa um termo que conflita com o `CONTEXT.md`, ele chama atenção na hora: *"Seu glossário define 'cancelamento' como X, mas você parece querer dizer Y, qual é?"*
 
-**Afina linguagem vaga** — quando você usa termos ambíguos ou sobrecarregados, propõe um termo canônico preciso: *"Você está dizendo 'conta' — você quer dizer Customer ou User? São coisas diferentes."*
+**Afina linguagem vaga**: quando você usa termos ambíguos ou sobrecarregados, propõe um termo canônico preciso: *"Você está dizendo 'conta', você quer dizer Customer ou User? São coisas diferentes."*
 
-**Testa com cenários concretos** — inventa cenários para forçar você a ser preciso sobre as bordas entre conceitos.
+**Testa com cenários concretos**: inventa cenários para forçar você a ser preciso sobre as bordas entre conceitos.
 
-**Cruza com o código** — quando você afirma como algo funciona, verifica se o código concorda. Se encontrar contradição, expõe: *"Seu código cancela Orders inteiras, mas você acabou de dizer que cancelamento parcial é possível — qual é o correto?"*
+**Cruza com o código**: quando você afirma como algo funciona, verifica se o código concorda. Se encontrar contradição, expõe: *"Seu código cancela Orders inteiras, mas você acabou de dizer que cancelamento parcial é possível, qual é o correto?"*
 
-**Atualiza `CONTEXT.md` inline** — quando um termo é resolvido, atualiza o glossário imediatamente, sem acumular.
+**Atualiza `CONTEXT.md` inline**: quando um termo é resolvido, atualiza o glossário imediatamente, sem acumular.
 
-**Oferece ADRs com parcimônia** — só propõe criar um ADR quando a decisão é: difícil de reverter, surpreendente sem contexto, e resultado de um trade-off real entre alternativas reais.
+**Oferece ADRs com parcimônia**: só propõe criar um ADR quando a decisão é: difícil de reverter, surpreendente sem contexto, e resultado de um trade-off real entre alternativas reais.
 
 ## Estrutura de arquivos esperada
 
@@ -51,7 +51,7 @@ O agente procura pela documentação aqui:
 
 Para monorepos com múltiplos contextos, cria um `CONTEXT-MAP.md` na raiz apontando para os contextos de cada módulo.
 
-Os arquivos são criados de forma lazy — só quando há algo para escrever.
+Os arquivos são criados de forma lazy: só quando há algo para escrever.
 
 ## Diferença de `/grill-me`
 
@@ -67,7 +67,7 @@ Quero adicionar um sistema de permissões baseado em roles ao projeto. Usuários
 /grill-with-docs
 ```
 
-O agente vai primeiro ler `CONTEXT.md` para ver se "Role", "Permission", "User" já estão definidos, ler os ADRs para ver se já houve decisões sobre autenticação/autorização, e então começar a entrevistar — atualizando o glossário a cada termo novo que for resolvido.
+O agente vai primeiro ler `CONTEXT.md` para ver se "Role", "Permission", "User" já estão definidos, ler os ADRs para ver se já houve decisões sobre autenticação/autorização, e então começar a entrevistar: atualizando o glossário a cada termo novo que for resolvido.
 
 ## Por que usar
 

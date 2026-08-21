@@ -1,9 +1,9 @@
-# `/reset-agent-env` — Reset Global Agent Environments
+# `/reset-agent-env`: Reset Global Agent Environments
 
 ## What it is
 
 A user-invoked maintenance skill that wipes the **global** agent config on this
-machine — installed skills, hooks, rules, and MCP servers — across every agent
+machine: installed skills, hooks, rules, and MCP servers: across every agent
 harness. Use it to simulate a clean machine before testing a from-scratch install.
 
 It's destructive, so the bundled script defaults to a **dry run**: it prints what
@@ -23,18 +23,18 @@ would be removed and changes nothing until you pick a mode.
 
 ## How it works
 
-1. **Inventory (dry run)** — runs the bundled script with no flags and shows you,
+1. **Inventory (dry run)**: runs the bundled script with no flags and shows you,
    grouped by agent, exactly which paths exist and would be removed. Nothing changes.
-2. **Confirm scope and mode** — you choose which agents and whether to back up or
+2. **Confirm scope and mode**: you choose which agents and whether to back up or
    hard-delete.
-3. **Execute** — runs the script with your flags.
-4. **Report** — lists what was removed and, for `--apply`, the backup path.
+3. **Execute**: runs the script with your flags.
+4. **Report**: lists what was removed and, for `--apply`, the backup path.
 
 ## Modes and flags
 
 | Flag | Effect |
 |------|--------|
-| *(none)* | Dry run — inventory only, nothing removed |
+| *(none)* | Dry run: inventory only, nothing removed |
 | `--apply` | Moves targets into `~/.cache/agent-env-reset/<timestamp>/` (reversible) |
 | `--hard` | Deletes targets outright (no backup) |
 | `--agent <name>` | Limit to one agent (repeatable): `claude` · `agents` · `cursor` · `windsurf` · `antigravity` |
@@ -62,11 +62,11 @@ bash ~/.claude/skills/reset-agent-env/scripts/reset-agent-env.sh --hard --agent 
 ## Notes
 
 - Coverage is complete for **Claude Code** and the **`~/.agents/skills`** dir;
-  best-effort for Cursor / Windsurf / Antigravity — only existing paths are touched.
-- JSON edits are surgical (`del(.hooks)`, `del(.mcpServers)`) — model, theme, and
+  best-effort for Cursor / Windsurf / Antigravity: only existing paths are touched.
+- JSON edits are surgical (`del(.hooks)`, `del(.mcpServers)`): model, theme, and
   other preferences in `settings.json` are preserved. These steps need `jq`.
 - The skill lives under `~/.claude/skills`, so a full Claude Code reset **removes
-  the skill itself** — reinstall with `npx skills@latest add C0nanT/skills` after.
+  the skill itself**: reinstall with `npx skills@latest add C0nanT/skills` after.
 - Reinstall to verify a clean setup:
   ```bash
   npx skills@latest add C0nanT/skills

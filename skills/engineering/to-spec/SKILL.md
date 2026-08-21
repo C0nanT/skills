@@ -1,19 +1,19 @@
 ---
 
 name: to-spec
-description: Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.
+description: "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user — just synthesize what you already know.
+This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
 ## Process
 
-1. **Resolve where to publish — do not ask.** Pick a destination silently and carry it into step 4:
+1. **Resolve where to publish: do not ask.** Pick a destination silently and carry it into step 4:
 
-   1. If the user explicitly asked this run to publish to GitHub, GitLab, local markdown, or another tracker — use that.
-   2. Else if `docs/agents/issue-tracker.md` exists (written by `/setup-skills`) and names a tracker — use that.
-   3. Else — **Local markdown** (`.scratch/<feature-slug>/SPEC.md`). Do not probe `git remote`. Do not present a destination picker.
+   1. If the user explicitly asked this run to publish to GitHub, GitLab, local markdown, or another tracker: use that.
+   2. Else if `docs/agents/issue-tracker.md` exists (written by `/setup-skills`) and names a tracker: use that.
+   3. Else: **Local markdown** (`.scratch/<feature-slug>/SPEC.md`). Do not probe `git remote`. Do not present a destination picker.
 
    For GitHub or GitLab, follow the conventions and triage-label mappings in `docs/agents/issue-tracker.md` when present; otherwise use `<destination-conventions>` below. Run `/setup-skills` to configure those conventions and a triage-label vocabulary.
 
@@ -23,13 +23,13 @@ This skill takes the current conversation context and codebase understanding and
 
    Check with the user that these seams match their expectations.
 
-4. Write the spec using the template below, then publish it to the destination resolved in step 1. Apply the `ready-for-agent` triage label — no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
+4. Write the spec using the template below, then publish it to the destination resolved in step 1. Apply the `ready-for-agent` triage label: no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
 
 <destination-conventions>
 
-- **GitHub** — `gh issue create --title "..." --body "..."` (heredoc for the multi-line body). Triage labels via `--label`.
-- **GitLab** — `glab issue create --title "..." --description "..."` (heredoc for the multi-line description). Triage labels via `--label`.
-- **Local markdown** — write `.scratch/<feature-slug>/SPEC.md`, creating the directory if needed. Record triage state as a `Status:` line near the top of the file instead of a label.
+- **GitHub**: `gh issue create --title "..." --body "..."` (heredoc for the multi-line body). Triage labels via `--label`.
+- **GitLab**: `glab issue create --title "..." --description "..."` (heredoc for the multi-line description). Triage labels via `--label`.
+- **Local markdown**: write `.scratch/<feature-slug>/SPEC.md`, creating the directory if needed. Record triage state as a `Status:` line near the top of the file instead of a label.
 
 </destination-conventions>
 
@@ -69,7 +69,7 @@ A list of implementation decisions that were made. This can include:
 
 Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
 
-Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it within the relevant decision and note briefly that it came from a prototype. Trim to the decision-rich parts — not a working demo, just the important bits.
+Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it within the relevant decision and note briefly that it came from a prototype. Trim to the decision-rich parts, not a working demo, just the important bits.
 
 ## Testing Decisions
 

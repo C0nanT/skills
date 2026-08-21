@@ -1,4 +1,4 @@
-# `/diagnose` — Disciplined Bug Diagnosis
+# `/diagnose`: Disciplined Bug Diagnosis
 
 ## What it is
 
@@ -23,9 +23,9 @@ Describe the bug in the same message or a prior message. The skill will drive th
 
 The skill operates in **6 phases**:
 
-### Phase 1 — Build a feedback loop
+### Phase 1: Build a feedback loop
 
-**This is the most important part.** The goal is to create an automatic, fast, and deterministic way to reproduce the bug — a script, test, or command that results in "passed" or "failed".
+**This is the most important part.** The goal is to create an automatic, fast, and deterministic way to reproduce the bug: a script, test, or command that results in "passed" or "failed".
 
 Examples of what can be used:
 - An automated test (unit, integration, e2e)
@@ -36,23 +36,23 @@ Examples of what can be used:
 
 If it's not possible to build this loop, the skill stops and asks the user for help (environment access, captured logs, etc.).
 
-### Phase 2 — Reproduce
+### Phase 2: Reproduce
 
 Confirms that the loop actually reproduces the described bug, not a similar different bug.
 
-### Phase 3 — Hypotheses
+### Phase 3: Hypotheses
 
-Generates 3–5 ranked hypotheses before testing any of them. Each hypothesis must be falsifiable: "if X is the cause, then changing Y will make the bug disappear". Shows the list to the user before testing — someone with domain context often re-ranks on the spot.
+Generates 3–5 ranked hypotheses before testing any of them. Each hypothesis must be falsifiable: "if X is the cause, then changing Y will make the bug disappear". Shows the list to the user before testing, someone with domain context often re-ranks on the spot.
 
-### Phase 4 — Instrument
+### Phase 4: Instrument
 
 Tests hypotheses one at a time. Prefers debugger/REPL over logs. All debug logs are tagged with a unique prefix (e.g. `[DEBUG-a4f2]`) for easy cleanup later.
 
-### Phase 5 — Fix + regression test
+### Phase 5: Fix + regression test
 
 Writes the regression test *before* the fix, if there's a good seam. Applies the fix. Verifies that the original loop passes.
 
-### Phase 6 — Cleanup + post-mortem
+### Phase 6: Cleanup + post-mortem
 
 Removes all debug logs, deletes temporary prototypes, documents what caused the bug in the commit/PR. Asks: what would have prevented this bug? If the answer involves architectural change, forwards to `/improve-codebase-architecture`.
 
@@ -69,4 +69,4 @@ The skill will guide you through building a feedback loop (perhaps replaying a c
 ## Tips
 
 - Don't skip Phase 1. A 2-second feedback loop is a superpower. Without it, you're flying blind.
-- For non-deterministic bugs, the goal isn't a clean reproduction — it's a *higher reproduction rate*. Run 100 times, add stress, parallelise.
+- For non-deterministic bugs, the goal isn't a clean reproduction: it's a *higher reproduction rate*. Run 100 times, add stress, parallelise.

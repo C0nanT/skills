@@ -1,4 +1,4 @@
-# `/grill-with-docs` — Grilling with Domain Documentation
+# `/grill-with-docs`: Grilling with Domain Documentation
 
 ## What it is
 
@@ -24,17 +24,17 @@ Describe what you want to do. The skill will explore the codebase and existing d
 
 ### During the session, the agent:
 
-**Challenges against the glossary** — if you use a term that conflicts with `CONTEXT.md`, it calls it out immediately: *"Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"*
+**Challenges against the glossary**: if you use a term that conflicts with `CONTEXT.md`, it calls it out immediately: *"Your glossary defines 'cancellation' as X, but you seem to mean Y, which is it?"*
 
-**Sharpens vague language** — when you use ambiguous or overloaded terms, proposes a precise canonical term: *"You're saying 'account' — do you mean Customer or User? They're different things."*
+**Sharpens vague language**: when you use ambiguous or overloaded terms, proposes a precise canonical term: *"You're saying 'account', do you mean Customer or User? They're different things."*
 
-**Tests with concrete scenarios** — invents scenarios to force you to be precise about the edges between concepts.
+**Tests with concrete scenarios**: invents scenarios to force you to be precise about the edges between concepts.
 
-**Cross-checks with the code** — when you claim how something works, verifies the code agrees. If it finds a contradiction, exposes it: *"Your code cancels entire Orders, but you just said partial cancellation is possible — which is correct?"*
+**Cross-checks with the code**: when you claim how something works, verifies the code agrees. If it finds a contradiction, exposes it: *"Your code cancels entire Orders, but you just said partial cancellation is possible, which is correct?"*
 
-**Updates `CONTEXT.md` inline** — when a term is resolved, updates the glossary immediately, without accumulating.
+**Updates `CONTEXT.md` inline**: when a term is resolved, updates the glossary immediately, without accumulating.
 
-**Offers ADRs sparingly** — only proposes creating an ADR when the decision is: hard to reverse, surprising without context, and the result of a real trade-off between real alternatives.
+**Offers ADRs sparingly**: only proposes creating an ADR when the decision is: hard to reverse, surprising without context, and the result of a real trade-off between real alternatives.
 
 ## Expected file structure
 
@@ -51,7 +51,7 @@ The agent looks for documentation here:
 
 For monorepos with multiple contexts, creates a `CONTEXT-MAP.md` at the root pointing to each module's contexts.
 
-Files are created lazily — only when there's something to write.
+Files are created lazily: only when there's something to write.
 
 ## Difference from `/grill-me`
 
@@ -67,7 +67,7 @@ I want to add a role-based permissions system to the project. Admin users can do
 /grill-with-docs
 ```
 
-The agent will first read `CONTEXT.md` to see if "Role", "Permission", "User" are already defined, read the ADRs to see if there have been decisions about authentication/authorisation, and then start interviewing — updating the glossary with each new term that gets resolved.
+The agent will first read `CONTEXT.md` to see if "Role", "Permission", "User" are already defined, read the ADRs to see if there have been decisions about authentication/authorisation, and then start interviewing: updating the glossary with each new term that gets resolved.
 
 ## Why use it
 

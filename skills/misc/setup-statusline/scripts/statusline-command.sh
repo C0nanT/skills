@@ -61,7 +61,7 @@ session_id=$(echo "$input" | jq -r '.session_id // empty')
 cache_file="$HOME/.claude/statusline-cache.json"
 baseline_file="$HOME/.claude/statusline-baseline.json"
 
-# Previous cache — used to detect /clear (new session_id, cost barely moved)
+# Previous cache: used to detect /clear (new session_id, cost barely moved)
 prev_session=""
 prev_cost=0
 prev_dur=0
@@ -73,7 +73,7 @@ if [ -f "$cache_file" ]; then
   [ -z "$prev_dur" ] && prev_dur=0
 fi
 
-# /clear is client-local — UserPromptSubmit never fires. session_id changes while
+# /clear is client-local: UserPromptSubmit never fires. session_id changes while
 # process-level cost/duration keep climbing. Detect that and snapshot a baseline
 # so the displayed counters reset. (Resume to another session usually jumps cost
 # by more than $0.05 → we clear the baseline instead.)
@@ -137,7 +137,7 @@ if [ -n "$dur_raw" ]; then
 fi
 
 # Format an epoch as HH:MM in the *machine's* local timezone.
-# Claude Code runs the statusline with TZ=UTC — never trust that. Order:
+# Claude Code runs the statusline with TZ=UTC, never trust that. Order:
 #   1. $STATUSLINE_TZ override (IANA name)
 #   2. host IANA zone (timedatectl / /etc/timezone / localtime symlink), skipping UTC
 #   3. env -u TZ date → libc reads /etc/localtime
@@ -164,7 +164,7 @@ to_epoch_seconds() {
   fi
 
   # ISO 8601. A bare timestamp with no zone designator would be read in the
-  # *local* zone by date(1) — the server means UTC, so pin it.
+  # *local* zone by date(1): the server means UTC, so pin it.
   s="$v"
   if ! [[ "$s" =~ (Z|z|[+-][0-9]{2}:?[0-9]{2})$ ]]; then
     s="${s}Z"

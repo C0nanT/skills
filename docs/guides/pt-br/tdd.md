@@ -1,4 +1,4 @@
-# `/tdd` — Desenvolvimento Orientado a Testes (TDD)
+# `/tdd`: Desenvolvimento Orientado a Testes (TDD)
 
 ## O que é
 
@@ -13,7 +13,7 @@ Uma skill que implementa o ciclo red-green-refactor de TDD de forma disciplinada
 
 ## Como invocar
 
-User-invoked — só você digita o nome (não é carregada automaticamente pelo modelo):
+User-invoked: só você digita o nome (não é carregada automaticamente pelo modelo):
 
 ```
 /tdd
@@ -33,7 +33,7 @@ Mau teste: mocka colaboradores internos, testa métodos privados, ou verifica at
 
 ### Anti-padrão: fatias horizontais
 
-**NÃO** escreva todos os testes primeiro, depois toda a implementação. Isso produz testes ruins escritos para comportamento imaginado — não real.
+**NÃO** escreva todos os testes primeiro, depois toda a implementação. Isso produz testes ruins escritos para comportamento imaginado: não real.
 
 ```
 ERRADO (horizontal):
@@ -48,21 +48,21 @@ CERTO (vertical):
 
 ### Processo
 
-**1. Planejamento** — antes de escrever qualquer código:
+**1. Planejamento**: antes de escrever qualquer código:
 - Lê `CONTEXT.md` (se existir) e ADRs da área para alinhar nomes de teste ao vocabulário do domínio
 - Confirma com o usuário quais mudanças de interface são necessárias
-- Confirma quais comportamentos testar (prioriza) — você não consegue testar tudo
-- Identifica oportunidades de módulos profundos — use o vocabulário de módulos profundos e checagens de testabilidade
+- Confirma quais comportamentos testar (prioriza): você não consegue testar tudo
+- Identifica oportunidades de módulos profundos: use o vocabulário de módulos profundos e checagens de testabilidade
 - Lista os comportamentos a testar (não os passos de implementação)
 - Pede aprovação do plano
 
-**2. Tracer bullet** — escreve UM teste que confirma UMA coisa:
+**2. Tracer bullet**: escreve UM teste que confirma UMA coisa:
 ```
 RED:   Escreve teste para o primeiro comportamento → teste falha
 GREEN: Escreve o mínimo de código para passar → teste passa
 ```
 
-**3. Loop incremental** — para cada comportamento restante:
+**3. Loop incremental**: para cada comportamento restante:
 ```
 RED:   Escreve próximo teste → falha
 GREEN: Código mínimo para passar → passa
@@ -74,7 +74,7 @@ Regras:
 - Não antecipa testes futuros
 - Testes focados em comportamento observável
 
-**4. Refatorar** — só depois que todos os testes passam (veja também [refactoring.md](../../../skills/engineering/tdd/refactoring.md)):
+**4. Refatorar**: só depois que todos os testes passam (veja também [refactoring.md](../../../skills/engineering/tdd/refactoring.md)):
 - Extrai duplicação
 - Aprofunda módulos (move complexidade atrás de interfaces simples)
 - Aplica SOLID onde natural
@@ -101,15 +101,15 @@ Quero implementar uma função de busca de usuários por email. Pode ser exata o
 /tdd
 ```
 
-O agente vai planejar: "Quais comportamentos importam? Busca exata encontra um usuário. Busca parcial retorna múltiplos. Email inexistente retorna vazio. Qual interface — `findUser(email: string): User | null` ou outra coisa?" — depois vai implementar um teste por vez.
+O agente vai planejar: "Quais comportamentos importam? Busca exata encontra um usuário. Busca parcial retorna múltiplos. Email inexistente retorna vazio. Qual interface (`findUser(email: string): User | null` ou outra coisa?") depois vai implementar um teste por vez.
 
 ## Referências no skill
 
-- [tests.md](../../../skills/engineering/tdd/tests.md) — exemplos de bons e maus testes
-- [mocking.md](../../../skills/engineering/tdd/mocking.md) — diretrizes de mock
+- [tests.md](../../../skills/engineering/tdd/tests.md): exemplos de bons e maus testes
+- [mocking.md](../../../skills/engineering/tdd/mocking.md): diretrizes de mock
 
 ## Dicas
 
-- Você não consegue testar tudo — confirme com o agente quais comportamentos são mais críticos
-- Testes de integração são preferíveis a testes unitários com mocks pesados — exercitam o comportamento real
+- Você não consegue testar tudo: confirme com o agente quais comportamentos são mais críticos
+- Testes de integração são preferíveis a testes unitários com mocks pesados: exercitam o comportamento real
 - Use o glossário do domínio do projeto nos nomes dos testes para manter consistência

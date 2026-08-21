@@ -6,4 +6,4 @@ Before any other repo work, **Read `CLAUDE.md` in full** and follow it. Do not t
 
 Cursor: `@CLAUDE.md`
 
-Edit `CLAUDE.md` only. Shared domain material (`CONTEXT.md`, `.agents/`, `docs/agents/`) is already harness-neutral — do not copy standing context into `.cursor/rules/` or another agent markdown file.
+Edit `CLAUDE.md` only. Shared domain material (`CONTEXT.md`, `.agents/`, `docs/agents/`) is already harness-neutral: do not copy standing context into `.cursor/rules/` or another agent markdown file.

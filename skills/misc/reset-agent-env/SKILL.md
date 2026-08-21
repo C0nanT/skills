@@ -1,13 +1,13 @@
 ---
 name: reset-agent-env
-description: Reset global agent environments — wipe installed skills, hooks, rules, and MCP configs across Claude Code, Cursor, Windsurf, Antigravity, and the Agent-Skills standard dir, to simulate a clean machine.
+description: Reset global agent environments, wipe installed skills, hooks, rules, and MCP configs across Claude Code, Cursor, Windsurf, Antigravity, and the Agent-Skills standard dir, to simulate a clean machine.
 disable-model-invocation: true
 ---
 
 # Reset Agent Environment
 
-Wipe the **global** agent config on this machine — skills, hooks, rules, and MCP
-servers — across every agent harness, so you can test a from-scratch install or
+Wipe the **global** agent config on this machine: skills, hooks, rules, and MCP
+servers: across every agent harness, so you can test a from-scratch install or
 hand off a clean environment.
 
 Destructive. The script defaults to a **dry run**; nothing is removed until you
@@ -18,7 +18,7 @@ confirm a mode.
 ### 1. Inventory (dry run)
 
 Run the bundled script with no flags. It lists exactly what exists and would be
-removed, grouped by agent — and changes nothing:
+removed, grouped by agent, and changes nothing:
 
 ```bash
 bash ~/.claude/skills/reset-agent-env/scripts/reset-agent-env.sh
@@ -33,8 +33,8 @@ Ask the user two things:
 - **Which agents?** All (default), or a subset via repeatable `--agent`:
   `claude` · `agents` (the `~/.agents/skills` standard dir) · `cursor` · `windsurf` · `antigravity`.
 - **Backup or hard delete?**
-  - `--apply` (recommended) — moves everything into `~/.cache/agent-env-reset/<timestamp>/`, so it's reversible.
-  - `--hard` — deletes outright, no backup.
+  - `--apply` (recommended): moves everything into `~/.cache/agent-env-reset/<timestamp>/`, so it's reversible.
+  - `--hard`: deletes outright, no backup.
 
 ### 3. Execute
 
@@ -54,7 +54,7 @@ Tell the user what was removed. For `--apply`, give the backup path and the
 restore hint (move files back out of the backup dir).
 
 This skill lives under `~/.claude/skills`, so a full Claude Code reset **removes
-the skill itself** — reinstall with `npx skills@latest add C0nanT/skills` before
+the skill itself**: reinstall with `npx skills@latest add C0nanT/skills` before
 using it again.
 
 ## What it touches
@@ -70,9 +70,9 @@ using it again.
 ## Notes
 
 - Coverage is complete for **Claude Code** and the **`~/.agents/skills`** dir;
-  best-effort for Cursor / Windsurf / Antigravity — only paths that already exist
+  best-effort for Cursor / Windsurf / Antigravity: only paths that already exist
   are ever touched.
-- JSON edits are **surgical** — `settings.json` keeps your model, theme, and other
+- JSON edits are **surgical**: `settings.json` keeps your model, theme, and other
   preferences; only the `.hooks` key is removed.
 - The JSON steps need `jq`. Without it, they're skipped with a warning (file-based
   removals still run).

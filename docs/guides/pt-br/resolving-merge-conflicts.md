@@ -1,4 +1,4 @@
-# `/resolving-merge-conflicts` — Resolver conflitos de merge/rebase
+# `/resolving-merge-conflicts`: Resolver conflitos de merge/rebase
 
 ## O que é
 
@@ -20,15 +20,15 @@ Model-invoked quando você menciona conflito de merge/rebase. Também:
 
 ## Como funciona
 
-1. **Estado atual** — inspeciona merge/rebase, histórico git e arquivos em conflito.
+1. **Estado atual**: inspeciona merge/rebase, histórico git e arquivos em conflito.
 
-2. **Fontes primárias** — para cada conflito, entende a intenção original: mensagens de commit, PRs, issues.
+2. **Fontes primárias**: para cada conflito, entende a intenção original: mensagens de commit, PRs, issues.
 
-3. **Resolve cada hunk** — preserva ambas as intenções quando compatível. Se incompatível, escolhe o lado alinhado ao objetivo do merge e documenta o trade-off. **Não inventa comportamento novo.** Sempre resolve; nunca `--abort`.
+3. **Resolve cada hunk**: preserva ambas as intenções quando compatível. Se incompatível, escolhe o lado alinhado ao objetivo do merge e documenta o trade-off. **Não inventa comportamento novo.** Sempre resolve; nunca `--abort`.
 
-4. **Checks automatizados** — descobre e roda (typecheck, testes, format). Corrige o que o merge quebrou.
+4. **Checks automatizados**: descobre e roda (typecheck, testes, format). Corrige o que o merge quebrou.
 
-5. **Finaliza** — stage tudo, commit. Em rebase, continua até rebasar todos os commits.
+5. **Finaliza**: stage tudo, commit. Em rebase, continua até rebasar todos os commits.
 
 ## Exemplo de uso
 
@@ -43,4 +43,4 @@ O agente mapeia as mudanças de cada lado, propõe resoluções, roda os checks 
 ## Dicas
 
 - Quanto mais contexto sobre o objetivo do merge (feature branch, hotfix), melhor a resolução.
-- Se um lado for claramente obsoleto, diga — mas o agente ainda deve justificar a escolha.
+- Se um lado for claramente obsoleto, diga: mas o agente ainda deve justificar a escolha.

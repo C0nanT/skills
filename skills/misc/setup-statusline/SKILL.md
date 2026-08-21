@@ -23,7 +23,7 @@ Rate limit color: green < 50%, yellow 50–79%, red ≥ 80%. Omitted when `rate_
 
 ### Reset-time timezone
 
-Claude Code sends `rate_limits.five_hour.resets_at` as an **ISO 8601 string** (`2026-08-07T18:30:00.000Z`); older builds sent epoch seconds. The script normalizes ISO strings, epoch seconds, and epoch milliseconds to one epoch before formatting — an ISO string with no zone designator is read as UTC, which is what the server means.
+Claude Code sends `rate_limits.five_hour.resets_at` as an **ISO 8601 string** (`2026-08-07T18:30:00.000Z`); older builds sent epoch seconds. The script normalizes ISO strings, epoch seconds, and epoch milliseconds to one epoch before formatting: an ISO string with no zone designator is read as UTC, which is what the server means.
 
 The reset clock (`↺ 10:00`) is then shown in the **machine's local timezone**, never Claude's injected `TZ=UTC` (which otherwise shifts Brazil by +3h). Resolution order:
 
@@ -37,7 +37,7 @@ Set `STATUSLINE_TZ` in `~/.claude/settings.json` `env` only if auto-detect is wr
 ## Prerequisites
 
 - `jq` installed
-- `bash` (Linux — uses `date -d @EPOCH` for reset time)
+- `bash` (Linux: uses `date -d @EPOCH` for reset time)
 
 ## Steps
 
@@ -80,7 +80,7 @@ f="$HOME/.claude/statusline-reset-hook.sh"; [ -f "$f" ] && exec bash "$f"; exit 
 
 jq --arg cmd "$HOOK_CMD" '
   .statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"}
-  # Drop the old UserPromptSubmit-based reset — /clear never fires that event
+  # Drop the old UserPromptSubmit-based reset: /clear never fires that event
   | .hooks.UserPromptSubmit = (
       (.hooks.UserPromptSubmit // [])
       | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
@@ -117,9 +117,9 @@ Takes effect at next Claude Code session start (no restart needed for mid-sessio
 
 ## /clear behaviour
 
-Running `/clear` resets the duration counter in the status line. `/clear` is a client-local slash command — it does **not** fire `UserPromptSubmit` — so reset uses:
+Running `/clear` resets the duration counter in the status line. `/clear` is a client-local slash command (it does **not** fire `UserPromptSubmit`) so reset uses:
 
-1. `SessionEnd` / `SessionStart` hooks with matcher `clear` — snapshot raw cost/duration into `~/.claude/statusline-baseline.json` (cost is tracked only as a `/clear` signal; it is not displayed)
+1. `SessionEnd` / `SessionStart` hooks with matcher `clear`: snapshot raw cost/duration into `~/.claude/statusline-baseline.json` (cost is tracked only as a `/clear` signal; it is not displayed)
 2. Fallback inside the statusline script: when `session_id` changes but cost barely moved (&lt; $0.05), treat as `/clear` and snapshot the baseline automatically
 3. The statusline subtracts the duration baseline from every subsequent reading
 4. If a new Claude process starts (raw cost drops below baseline), the baseline auto-clears

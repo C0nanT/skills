@@ -1,4 +1,4 @@
-# `/to-tickets` — Convert Plan into Issues
+# `/to-tickets`: Convert Plan into Issues
 
 ## What it is
 
@@ -30,7 +30,7 @@ Or passing an existing issue as a starting point:
 
 ### What vertical slices are
 
-Each issue is a **tracer bullet slice** — a thin cut that goes through *all* integration layers end-to-end, not a horizontal layer of a single layer.
+Each issue is a **tracer bullet slice**: a thin cut that goes through *all* integration layers end-to-end, not a horizontal layer of a single layer.
 
 ```
 WRONG (horizontal by layer):
@@ -48,25 +48,25 @@ Each correct slice is demonstrable or verifiable on its own.
 
 ### Process
 
-**1. Collects context** — reads what's in the conversation. If an issue number was passed, fetches the full body and comments.
+**1. Collects context**: reads what's in the conversation. If an issue number was passed, fetches the full body and comments.
 
-**2. Explores the codebase** — uses the project's domain glossary so issue titles and descriptions use consistent vocabulary.
+**2. Explores the codebase**: uses the project's domain glossary so issue titles and descriptions use consistent vocabulary.
 
-**3. Drafts slices** — breaks the plan into issues. Each issue can be:
+**3. Drafts slices**: breaks the plan into issues. Each issue can be:
 - **HITL** (Human In The Loop): requires human interaction (architectural decision, design review)
 - **AFK** (Away From Keyboard): can be implemented and merged without human interaction
 
 Prefers AFK whenever possible.
 
-**4. Presents and refines** — shows the numbered list with:
+**4. Presents and refines**: shows the numbered list with:
 - Title
 - Type (HITL/AFK)
 - Blocked by (dependencies)
 - User stories covered
 
-Publishes right after showing this list — no confirmation pause — unless you explicitly ask to review the breakdown first.
+Publishes right after showing this list: no confirmation pause, unless you explicitly ask to review the breakdown first.
 
-**5. Publishes** — creates issues in dependency order (blockers first) so it can reference real IDs in the "Blocked by" field. Uses the template:
+**5. Publishes**: creates issues in dependency order (blockers first) so it can reference real IDs in the "Blocked by" field. Uses the template:
 
 ```
 ## What to build
@@ -77,7 +77,7 @@ Publishes right after showing this list — no confirmation pause — unless you
 - [ ] Criterion 2
 
 ## Blocked by
-- #XYZ or "None — can start immediately"
+- #XYZ or "None: can start immediately"
 ```
 
 ## Usage example

@@ -1,8 +1,8 @@
-# `/setup-statusline` — Barra de status do Claude Code
+# `/setup-statusline`: Barra de status do Claude Code
 
 ## O que é
 
-Uma skill de instalação única que copia scripts bundled e registra uma status line no `~/.claude/settings.json` — modelo, contexto (% + tokens), duração, rate limit e branch git.
+Uma skill de instalação única que copia scripts bundled e registra uma status line no `~/.claude/settings.json`: modelo, contexto (% + tokens), duração, rate limit e branch git.
 
 ## Para que serve
 
@@ -30,12 +30,12 @@ Uma skill de instalação única que copia scripts bundled e registra uma status
 
 Rate limit: verde &lt; 50%, amarelo 50–79%, vermelho ≥ 80%.
 
-Relógio de reset (`↺ 10:00`) usa o fuso do PC — ignora o `TZ=UTC` que o Claude injeta (senão Brasil aparece +3h). Override: `STATUSLINE_TZ=America/Sao_Paulo` em `~/.claude/settings.json` `env`.
+Relógio de reset (`↺ 10:00`) usa o fuso do PC: ignora o `TZ=UTC` que o Claude injeta (senão Brasil aparece +3h). Override: `STATUSLINE_TZ=America/Sao_Paulo` em `~/.claude/settings.json` `env`.
 
 ## Pré-requisitos
 
 - `jq` instalado
-- `bash` (Linux — `date -d @EPOCH` para reset time)
+- `bash` (Linux: `date -d @EPOCH` para reset time)
 
 ## O que a skill faz
 
@@ -48,7 +48,7 @@ Scripts fonte em runtime: `~/.claude/skills/setup-statusline/scripts/` (após `n
 
 ## Comportamento do `/clear`
 
-`/clear` zera a duração na barra. É um comando local do cliente — **não** dispara `UserPromptSubmit` — então o reset usa:
+`/clear` zera a duração na barra. É um comando local do cliente (**não** dispara `UserPromptSubmit`) então o reset usa:
 
 - Hooks `SessionEnd` / `SessionStart` (matcher `clear`) → gravam baseline em `~/.claude/statusline-baseline.json` (custo USD só como sinal de `/clear`, não aparece na barra)
 - Fallback no script: `session_id` muda e custo quase igual (&lt; $0.05) → trata como `/clear` e grava baseline
@@ -60,4 +60,4 @@ Scripts fonte em runtime: `~/.claude/skills/setup-statusline/scripts/` (após `n
 ## Dicas
 
 - Efeito na próxima sessão Claude Code (ou imediato para updates mid-session).
-- Fora do escopo de um repo — configuração global em `~/.claude/`.
+- Fora do escopo de um repo: configuração global em `~/.claude/`.

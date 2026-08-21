@@ -1,8 +1,8 @@
-# `/caveman` — Ultra-Compressed Communication Mode
+# `/caveman`: Ultra-Compressed Communication Mode
 
 ## What it is
 
-A productivity skill that activates ultra-compressed communication mode. The agent talks like a "smart caveman" — keeps all technical substance, but drops articles, filler, pleasantries, and hedging. Reduces token usage by ~75%.
+A productivity skill that activates ultra-compressed communication mode. The agent talks like a "smart caveman": keeps all technical substance, but drops articles, filler, pleasantries, and hedging. Reduces token usage by ~75%.
 
 ## What it's for
 

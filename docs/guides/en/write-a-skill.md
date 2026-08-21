@@ -1,4 +1,4 @@
-# `/write-a-skill` — Create a New Skill
+# `/write-a-skill`: Create a New Skill
 
 ## What it is
 
@@ -20,18 +20,18 @@ A skill that helps you create new skills for Claude Code with proper structure, 
 
 ### Process
 
-**1. Collects requirements** — asks:
+**1. Collects requirements**: asks:
 - What task/domain does the skill cover?
 - What specific use cases should it handle?
 - Does it need executable scripts or just instructions?
 - Are there reference materials to include?
 
-**2. Drafts the skill** — creates:
+**2. Drafts the skill**: creates:
 - `SKILL.md` with concise instructions
 - Additional reference files if content exceeds 500 lines
 - Utility scripts if deterministic operations are needed
 
-**3. Reviews with the user** — presents the draft and asks:
+**3. Reviews with the user**: presents the draft and asks:
 - Does it cover the use cases?
 - Anything missing or unclear?
 - Does any section need more/less detail?
@@ -98,10 +98,10 @@ Scripts save tokens and improve reliability vs. code generated on the fly.
 ## Where to place the new skill
 
 After creating, place it in the correct bucket:
-- `skills/engineering/` — daily code work
-- `skills/productivity/` — non-code-specific workflow tools
-- `skills/misc/` — kept around but rarely used
-- `skills/personal/` — tied to your specific setup, not promoted
-- `skills/in-progress/` — drafts not yet ready
+- `skills/engineering/`: daily code work
+- `skills/productivity/`: non-code-specific workflow tools
+- `skills/misc/`: kept around but rarely used
+- `skills/personal/`: tied to your specific setup, not promoted
+- `skills/in-progress/`: drafts not yet ready
 
 Skills in `engineering/`, `productivity/`, and `misc/` need an entry in the root `README.md` and in `.claude-plugin/plugin.json`. Skills in `personal/` and `in-progress/` don't appear in either.

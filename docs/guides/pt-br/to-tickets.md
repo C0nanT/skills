@@ -1,4 +1,4 @@
-# `/to-tickets` — Converter Plano em Issues
+# `/to-tickets`: Converter Plano em Issues
 
 ## O que é
 
@@ -30,7 +30,7 @@ Ou passando uma issue existente como ponto de partida:
 
 ### O que são fatias verticais
 
-Cada issue é uma **fatia tracer bullet** — um corte fino que atravessa *todas* as camadas de integração de ponta a ponta, não uma camada horizontal de uma única camada.
+Cada issue é uma **fatia tracer bullet**: um corte fino que atravessa *todas* as camadas de integração de ponta a ponta, não uma camada horizontal de uma única camada.
 
 ```
 ERRADO (horizontal por camada):
@@ -48,25 +48,25 @@ Cada fatia correta é demonstrável ou verificável sozinha.
 
 ### Processo
 
-**1. Coleta contexto** — lê o que está na conversa. Se foi passado um número de issue, busca o corpo completo e comentários.
+**1. Coleta contexto**: lê o que está na conversa. Se foi passado um número de issue, busca o corpo completo e comentários.
 
-**2. Explora a codebase** — usa o glossário de domínio do projeto para que os títulos e descrições das issues usem vocabulário consistente.
+**2. Explora a codebase**: usa o glossário de domínio do projeto para que os títulos e descrições das issues usem vocabulário consistente.
 
-**3. Rascunha fatias** — quebra o plano em issues. Cada issue pode ser:
+**3. Rascunha fatias**: quebra o plano em issues. Cada issue pode ser:
 - **HITL** (Human In The Loop): requer interação humana (decisão arquitetural, design review)
 - **AFK** (Away From Keyboard): pode ser implementada e mergeada sem interação humana
 
 Prefere AFK sempre que possível.
 
-**4. Apresenta e refina** — mostra a lista numerada com:
+**4. Apresenta e refina**: mostra a lista numerada com:
 - Título
 - Tipo (HITL/AFK)
 - Bloqueado por (dependências)
 - User stories cobertas
 
-Publica logo após mostrar essa lista — sem pausa de confirmação — a menos que você peça explicitamente para revisar a divisão antes.
+Publica logo após mostrar essa lista: sem pausa de confirmação: a menos que você peça explicitamente para revisar a divisão antes.
 
-**5. Publica** — cria as issues em ordem de dependência (blockers primeiro) para poder referenciar IDs reais no campo "Bloqueado por". Usa o template:
+**5. Publica**: cria as issues em ordem de dependência (blockers primeiro) para poder referenciar IDs reais no campo "Bloqueado por". Usa o template:
 
 ```
 ## O que construir
@@ -77,7 +77,7 @@ Publica logo após mostrar essa lista — sem pausa de confirmação — a menos
 - [ ] Critério 2
 
 ## Bloqueado por
-- #XYZ ou "Nenhum — pode começar imediatamente"
+- #XYZ ou "Nenhum: pode começar imediatamente"
 ```
 
 ## Exemplo de uso

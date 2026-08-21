@@ -1,4 +1,4 @@
-# `/diagnose` — Documentação movida
+# `/diagnose`: Documentação movida
 
 Esta skill foi renomeada para **`diagnosing-bugs`**.
 

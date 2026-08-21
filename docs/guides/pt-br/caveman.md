@@ -1,8 +1,8 @@
-# `/caveman` — Modo de Comunicação Ultra-Comprimido
+# `/caveman`: Modo de Comunicação Ultra-Comprimido
 
 ## O que é
 
-Uma skill de produtividade que ativa um modo de comunicação ultra-comprimido. O agente passa a falar como um "caveman esperto" — mantém toda a substância técnica, mas corta artigos, preenchimentos, gentilezas e hedging. Reduz o uso de tokens em ~75%.
+Uma skill de produtividade que ativa um modo de comunicação ultra-comprimido. O agente passa a falar como um "caveman esperto": mantém toda a substância técnica, mas corta artigos, preenchimentos, gentilezas e hedging. Reduz o uso de tokens em ~75%.
 
 ## Para que serve
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Fires on SessionEnd / SessionStart with matcher "clear".
-# /clear is client-local — UserPromptSubmit never sees it — so we snapshot
+# /clear is client-local: UserPromptSubmit never sees it, so we snapshot
 # cost/duration here for the statusline to subtract from that point forward.
 input=$(cat)
 reason=$(echo "$input" | jq -r '.reason // .source // empty' 2>/dev/null)

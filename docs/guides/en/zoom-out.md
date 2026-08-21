@@ -1,4 +1,4 @@
-# `/zoom-out` — High-Level Context View
+# `/zoom-out`: High-Level Context View
 
 ## What it is
 
@@ -43,4 +43,4 @@ The agent will respond with something like: "The cancellation flow involves 3 mo
 
 ## Note
 
-This skill has `disable-model-invocation: true` — meaning it's an instruction passed directly to the agent's context, with no additional processing logic. It is intentionally simple: one sentence that reorients the agent toward the high-level view.
+This skill has `disable-model-invocation: true`, meaning it's an instruction passed directly to the agent's context, with no additional processing logic. It is intentionally simple: one sentence that reorients the agent toward the high-level view.

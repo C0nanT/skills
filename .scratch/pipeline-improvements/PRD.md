@@ -4,7 +4,7 @@ Status: ready-for-agent
 
 ## Problem Statement
 
-The CI pipeline currently runs a single structural validation script (`scripts/validate.sh`) that catches only a subset of consistency errors. Skills can exist on disk but be absent from `plugin.json`, bucket `README.md` files can omit skills without any error, `SKILL.md` files can contain broken internal links or malformed markdown, and there is no automated release process — publishing to npm requires manual intervention after every merge.
+The CI pipeline currently runs a single structural validation script (`scripts/validate.sh`) that catches only a subset of consistency errors. Skills can exist on disk but be absent from `plugin.json`, bucket `README.md` files can omit skills without any error, `SKILL.md` files can contain broken internal links or malformed markdown, and there is no automated release process: publishing to npm requires manual intervention after every merge.
 
 ## Solution
 
@@ -27,33 +27,33 @@ Extend `scripts/validate.sh` with two new checks (plugin.json consistency, bucke
 
 ## Implementation Decisions
 
-- **plugin.json validation added to `validate.sh`** — two sub-checks:
+- **plugin.json validation added to `validate.sh`**: two sub-checks:
   1. Every path listed in `plugin.json#skills` must resolve to a directory containing a `SKILL.md`.
   2. Every `SKILL.md` under a public bucket (`engineering/`, `productivity/`, `misc/`) must appear in `plugin.json#skills`.
   Private buckets (`personal/`, `in-progress/`, `deprecated/`) must *not* appear in `plugin.json`.
-- **Bucket README content check added to `validate.sh`** — for each public and private bucket, every skill directory with a `SKILL.md` must have its `SKILL.md` path linked in the bucket's `README.md`, and every linked path must exist.
-- **Markdownlint added to `validate.sh`** — use `markdownlint-cli` (installed via `npm exec` or as a CI step pre-requisite) against all `SKILL.md`, `README.md`, and `REFERENCE.md` files. Config lives at `.markdownlint.json` in the repo root.
-- **Internal link check added to `validate.sh`** — scan all `SKILL.md` files for markdown links with relative paths and verify each target exists on disk.
-- **publish.yml** — new GitHub Actions workflow:
+- **Bucket README content check added to `validate.sh`**: for each public and private bucket, every skill directory with a `SKILL.md` must have its `SKILL.md` path linked in the bucket's `README.md`, and every linked path must exist.
+- **Markdownlint added to `validate.sh`**: use `markdownlint-cli` (installed via `npm exec` or as a CI step pre-requisite) against all `SKILL.md`, `README.md`, and `REFERENCE.md` files. Config lives at `.markdownlint.json` in the repo root.
+- **Internal link check added to `validate.sh`**: scan all `SKILL.md` files for markdown links with relative paths and verify each target exists on disk.
+- **publish.yml**: new GitHub Actions workflow:
   - Trigger: `push` to `main` branch only.
   - Steps: checkout → Node setup → `npm ci` (if needed) → version-change guard (`git diff HEAD~1 -- package.json | grep '"version"'`) → `npm publish --access public` using `NODE_AUTH_TOKEN` from `secrets.NPM_TOKEN`.
   - Skips publish (exit 0) if version unchanged.
-- **No new dependencies in the repo itself** — markdownlint-cli invoked via `npx` in CI so contributors don't need a local install.
+- **No new dependencies in the repo itself**: markdownlint-cli invoked via `npx` in CI so contributors don't need a local install.
 
 ## Testing Decisions
 
-- **What makes a good test here:** validate the observable output of the script (exit code, stderr lines) given a controlled fixture directory — not the internal bash logic. Tests should create minimal skill trees (a few directories with known good/bad states) and assert that `validate.sh` exits 1 with the expected error message, or exits 0 with no errors.
+- **What makes a good test here:** validate the observable output of the script (exit code, stderr lines) given a controlled fixture directory, not the internal bash logic. Tests should create minimal skill trees (a few directories with known good/bad states) and assert that `validate.sh` exits 1 with the expected error message, or exits 0 with no errors.
 - **Modules under test:**
   - `scripts/validate.sh` (all new sections + existing ones for regression)
-  - `.github/workflows/publish.yml` — no unit test; validate via a dry-run flag or by asserting the workflow YAML is syntactically valid (`actionlint`).
-- **Prior art:** no existing test suite — this project's tests are the validate script itself. New tests for the script can live in `scripts/test-validate.sh`, using `bash` subshells and fixture directories created with `mktemp -d`.
+  - `.github/workflows/publish.yml`: no unit test; validate via a dry-run flag or by asserting the workflow YAML is syntactically valid (`actionlint`).
+- **Prior art:** no existing test suite: this project's tests are the validate script itself. New tests for the script can live in `scripts/test-validate.sh`, using `bash` subshells and fixture directories created with `mktemp -d`.
 
 ## Out of Scope
 
 - Migrating from bash to a Node.js/Python test framework.
 - Automated changelog generation or semantic-version bumping.
 - PR templates or CODEOWNERS configuration.
-- Checking `SKILL.md` content quality (descriptions, trigger phrasing) — that's a human review concern.
+- Checking `SKILL.md` content quality (descriptions, trigger phrasing): that's a human review concern.
 - Any changes to the runtime install layout (`~/.agents/skills/`) or `scripts/link-skills.sh`.
 
 ## Further Notes

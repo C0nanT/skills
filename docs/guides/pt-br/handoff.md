@@ -1,4 +1,4 @@
-# `/handoff` — Documento de Handoff para Próxima Sessão
+# `/handoff`: Documento de Handoff para Próxima Sessão
 
 ## O que é
 
@@ -28,17 +28,17 @@ Com argumento (descreve o foco da próxima sessão):
 
 O agente cria um documento Markdown com:
 
-**Contexto da conversa** — resumo do que foi discutido, decidido, e construído.
+**Contexto da conversa**: resumo do que foi discutido, decidido, e construído.
 
-**Estado atual** — onde o trabalho está agora: o que está pronto, o que está em progresso, o que está pendente.
+**Estado atual**: onde o trabalho está agora: o que está pronto, o que está em progresso, o que está pendente.
 
-**Referências** — em vez de duplicar conteúdo que já existe em outros artefatos (specs, planos, ADRs, issues, commits, diffs), o documento *referencia* eles por path ou URL.
+**Referências**: em vez de duplicar conteúdo que já existe em outros artefatos (specs, planos, ADRs, issues, commits, diffs), o documento *referencia* eles por path ou URL.
 
-**Skills sugeridas** — seção que recomenda quais skills o próximo agente deve invocar para continuar o trabalho. Por exemplo: "Invoque `/tdd` para implementar a issue #45" ou "Use `/diagnosing-bugs` para investigar o bug de race condition mencionado."
+**Skills sugeridas**: seção que recomenda quais skills o próximo agente deve invocar para continuar o trabalho. Por exemplo: "Invoque `/tdd` para implementar a issue #45" ou "Use `/diagnosing-bugs` para investigar o bug de race condition mencionado."
 
-**Informações sensíveis** são redatadas automaticamente — API keys, senhas, PII não aparecem no documento.
+**Informações sensíveis** são redatadas automaticamente: API keys, senhas, PII não aparecem no documento.
 
-O arquivo é salvo no diretório temporário do sistema (`/tmp` no Linux/Mac, `%TEMP%` no Windows) — não na workspace, para não poluir o repositório.
+O arquivo é salvo no diretório temporário do sistema (`/tmp` no Linux/Mac, `%TEMP%` no Windows): não na workspace, para não poluir o repositório.
 
 ## Exemplo de uso
 
@@ -56,6 +56,6 @@ O agente vai criar algo como `/tmp/handoff-2026-06-08-payments.md` com:
 
 ## Dicas
 
-- O argumento após `/handoff` é tratado como descrição do foco da próxima sessão — o documento é ajustado para ser mais útil para aquele objetivo específico
-- O documento é salvo no temp dir e **não** no projeto — se quiser preservar permanentemente, copie manualmente
-- Não duplica o que está em commits, specs ou issues existentes — apenas referencia
+- O argumento após `/handoff` é tratado como descrição do foco da próxima sessão: o documento é ajustado para ser mais útil para aquele objetivo específico
+- O documento é salvo no temp dir e **não** no projeto: se quiser preservar permanentemente, copie manualmente
+- Não duplica o que está em commits, specs ou issues existentes: apenas referencia

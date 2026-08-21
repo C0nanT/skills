@@ -1,4 +1,4 @@
-# `/zoom-out` — Visão de Contexto de Alto Nível
+# `/zoom-out`: Visão de Contexto de Alto Nível
 
 ## O que é
 
@@ -43,4 +43,4 @@ O agente vai responder com algo como: "O fluxo de cancelamento envolve 3 módulo
 
 ## Nota
 
-Esta skill tem `disable-model-invocation: true` — significa que é uma instrução passada diretamente ao contexto do agente, sem lógica adicional de processamento. É intencionalmente simples: uma frase que reorienta o agente para a visão de alto nível.
+Esta skill tem `disable-model-invocation: true`, significa que é uma instrução passada diretamente ao contexto do agente, sem lógica adicional de processamento. É intencionalmente simples: uma frase que reorienta o agente para a visão de alto nível.

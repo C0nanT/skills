@@ -1,12 +1,12 @@
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, runs [review-axes](./review-axes.md) at the end, and hands you a Conventional Commits message — it does **not** commit.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, runs [review-axes](./review-axes.md) at the end, and hands you a Conventional Commits message: it does **not** commit.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a ready-to-commit diff plus a message. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which will happily redesign the work while it builds it.
 
 ## When to reach for it
 
-You invoke this by typing `/implement` — the agent won't reach for it on its own. It ships with `disable-model-invocation: true`, so no other skill can call it either. Wherever [ask-skills](./ask-skills.md) or [to-tickets](https://aihero.dev/skills-to-tickets) says "then `/implement` per ticket", that is an instruction to you, not something the agent will do unprompted.
+You invoke this by typing `/implement`: the agent won't reach for it on its own. It ships with `disable-model-invocation: true`, so no other skill can call it either. Wherever [ask-skills](./ask-skills.md) or [to-tickets](https://aihero.dev/skills-to-tickets) says "then `/implement` per ticket", that is an instruction to you, not something the agent will do unprompted.
 
 Where the work currently lives decides whether this is the right skill:
 
@@ -24,7 +24,7 @@ The same-session case is worth naming because the skill's own first line doesn't
 
 ## Prerequisites
 
-Upstream `implement` commits to the branch you are on. This fork never commits — it only generates a Conventional Commits message (`type(scope): …` plus a short why-body, capped at 300 characters) for you to paste. Check you are on the branch you want the work on before you start, so the diff lands where you intend when you commit it yourself.
+Upstream `implement` commits to the branch you are on. This fork never commits: it only generates a Conventional Commits message (`type(scope): …` plus a short why-body, capped at 300 characters) for you to paste. Check you are on the branch you want the work on before you start, so the diff lands where you intend when you commit it yourself.
 
 If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the tracker they live on was configured by [setup-skills](./setup-skills.md). `review-axes` reads the same configuration to find the originating spec at close-out.
 
@@ -36,7 +36,7 @@ A run is five beats, in order:
 2. Drive [tdd](https://aihero.dev/skills-tdd) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Run [review-axes](./review-axes.md), then generate a Conventional Commits message — no `git commit`.
+5. Run [review-axes](./review-axes.md), then generate a Conventional Commits message: no `git commit`.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, you commit from the message it wrote, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
@@ -50,7 +50,7 @@ The word "pre-agreed" is doing real work, and it is also the skill's weakest joi
 
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
-Half expected. `implement` has no completion step: it ends at a commit *message* (you still commit) and never closes the work item, on GitHub Issues or on the local markdown tracker, so it is not a tracker integration problem. It also does not act on the findings `review-axes` produced. The checkboxes are different here — this fork moved that job into `review-axes`, which after its Spec review flips the `- [ ]` boxes on a **local markdown** spec or ticket to match what the code actually did, and advances `Status:` to `ready-for-human` once they are all checked. On a remote tracker, and for closing the ticket itself, reconcile it yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
+Half expected. `implement` has no completion step: it ends at a commit *message* (you still commit) and never closes the work item, on GitHub Issues or on the local markdown tracker, so it is not a tracker integration problem. It also does not act on the findings `review-axes` produced. The checkboxes are different here, this fork moved that job into `review-axes`, which after its Spec review flips the `- [ ]` boxes on a **local markdown** spec or ticket to match what the code actually did, and advances `Status:` to `ready-for-human` once they are all checked. On a remote tracker, and for closing the ticket itself, reconcile it yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
@@ -58,11 +58,11 @@ No. One invocation, one ticket. Batch dispatch across a ticket queue and [subage
 
 **Can it open a pull request instead of committing?**
 
-Not built in. This fork already refuses to commit — it only writes the message — so the eager-commit complaint from upstream does not apply here. There is still no PR mode; open one yourself after you commit.
+Not built in. This fork already refuses to commit: it only writes the message, so the eager-commit complaint from upstream does not apply here. There is still no PR mode; open one yourself after you commit.
 
 **`review-axes` says it cannot see my changes.**
 
-Given a ref, `review-axes` reviews `git diff <fixed-point>...HEAD`, which excludes staged and working-tree changes — so upstream, where `implement` runs the review before committing, there is nothing in that diff to review unless an interim commit already exists. This fork fixes it from both ends: `review-axes` has a working-tree mode, and `implement` hands it **the unstaged working tree** as the fixed point instead of a ref. If you see an empty review, check that the run really passed working-tree mode; otherwise commit first and review against the point you branched from.
+Given a ref, `review-axes` reviews `git diff <fixed-point>...HEAD`, which excludes staged and working-tree changes, so upstream, where `implement` runs the review before committing, there is nothing in that diff to review unless an interim commit already exists. This fork fixes it from both ends: `review-axes` has a working-tree mode, and `implement` hands it **the unstaged working tree** as the fixed point instead of a ref. If you see an empty review, check that the run really passed working-tree mode; otherwise commit first and review against the point you branched from.
 
 Separately, some people deliberately do not want the review inside the run at all, because an agent reviewing the code it just wrote is biased toward its own solution. Running [review-axes](./review-axes.md) in a fresh session against a fixed point is a legitimate alternative, and is the same reason that skill runs its two axes in separate sub-agents.
 

@@ -1,8 +1,8 @@
-# `/setup-pre-commit` — Configure Pre-commit Hooks
+# `/setup-pre-commit`: Configure Pre-commit Hooks
 
 ## What it is
 
-A skill that configures pre-commit hooks in the repository using Husky, lint-staged, and Prettier — with optional type checking and tests in the hook.
+A skill that configures pre-commit hooks in the repository using Husky, lint-staged, and Prettier, with optional type checking and tests in the hook.
 
 ## What it's for
 
@@ -19,15 +19,15 @@ A skill that configures pre-commit hooks in the repository using Husky, lint-sta
 
 ## What gets configured
 
-- **Husky** — pre-commit hook manager for Node.js
-- **lint-staged** — runs Prettier only on staged files (fast)
-- **Prettier** — code formatting (creates `.prettierrc` if it doesn't exist)
-- **typecheck** — runs `npm run typecheck` in the hook (if the script exists)
-- **test** — runs `npm run test` in the hook (if the script exists)
+- **Husky**: pre-commit hook manager for Node.js
+- **lint-staged**: runs Prettier only on staged files (fast)
+- **Prettier**: code formatting (creates `.prettierrc` if it doesn't exist)
+- **typecheck**: runs `npm run typecheck` in the hook (if the script exists)
+- **test**: runs `npm run test` in the hook (if the script exists)
 
 ## How it works
 
-**1. Detects the package manager** — checks which lockfile exists:
+**1. Detects the package manager**: checks which lockfile exists:
 - `package-lock.json` → npm
 - `pnpm-lock.yaml` → pnpm
 - `yarn.lock` → yarn
@@ -73,9 +73,9 @@ Adapts to the detected package manager. Omits `typecheck` and `test` if the scri
 }
 ```
 
-**7. Verifies** — checks that all files were created correctly and runs `npx lint-staged` to confirm it works.
+**7. Verifies**: checks that all files were created correctly and runs `npx lint-staged` to confirm it works.
 
-**8. Commits** — commits everything with the message: `Add pre-commit hooks (husky + lint-staged + prettier)`. This first commit goes through the hooks themselves — it's a natural smoke test.
+**8. Commits**: commits everything with the message: `Add pre-commit hooks (husky + lint-staged + prettier)`. This first commit goes through the hooks themselves, it's a natural smoke test.
 
 ## Verification checklist
 

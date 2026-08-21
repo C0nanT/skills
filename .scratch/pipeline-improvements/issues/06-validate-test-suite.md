@@ -2,7 +2,7 @@ Status: ready-for-agent
 
 ## What to build
 
-Create `scripts/test-validate.sh` — a fixture-based test suite for `scripts/validate.sh` that verifies observable behavior (exit code + stderr) without testing internal bash logic.
+Create `scripts/test-validate.sh`: a fixture-based test suite for `scripts/validate.sh` that verifies observable behavior (exit code + stderr) without testing internal bash logic.
 
 Each test:
 1. Creates a minimal skill tree under `mktemp -d`
@@ -29,7 +29,7 @@ The test script should print `ok` / `FAIL` per test and exit 1 if any test fails
 - [ ] All tests listed above are present
 - [ ] Suite exits 0 when all tests pass, 1 when any fail
 - [ ] Each failing test prints which assertion failed and what was observed
-- [ ] No reliance on the real repo's skill tree — all fixtures are self-contained temp dirs
+- [ ] No reliance on the real repo's skill tree: all fixtures are self-contained temp dirs
 - [ ] Suite can be run locally with `bash scripts/test-validate.sh`
 
 ## Blocked by

@@ -1,8 +1,8 @@
-# `/prototype` — Construção de Protótipo Descartável
+# `/prototype`: Construção de Protótipo Descartável
 
 ## O que é
 
-Uma skill que constrói protótipos descartáveis para validar um design antes de se comprometer com a implementação real. O protótipo responde uma pergunta específica — e depois é deletado.
+Uma skill que constrói protótipos descartáveis para validar um design antes de se comprometer com a implementação real. O protótipo responde uma pergunta específica: e depois é deletado.
 
 ## Para que serve
 
@@ -24,7 +24,7 @@ Descreva o que você quer explorar. A skill vai identificar qual tipo de protót
 
 A skill escolhe entre dois ramos:
 
-### Ramo 1: Lógica/Estado — `LOGIC.md`
+### Ramo 1: Lógica/Estado, `LOGIC.md`
 
 **Pergunta sendo respondida**: "Esse modelo de dados / state machine faz sentido?"
 
@@ -32,33 +32,33 @@ Constrói um **app terminal interativo e minimalista** que permite navegar pelo 
 
 Características:
 - Roda com um comando (ex: `pnpm prototype`)
-- Sem persistência — estado vive na memória
+- Sem persistência: estado vive na memória
 - Exibe o estado completo após cada ação
 - Descartável do dia um
 
-### Ramo 2: UI — `UI.md`
+### Ramo 2: UI, `UI.md`
 
 **Pergunta sendo respondida**: "Como isso deve parecer?"
 
 Gera **várias variações radicalmente diferentes** de UI numa única rota, alternáveis via parâmetro de URL e uma barra flutuante na tela.
 
 Características:
-- Sem banco de dados, sem autenticação — só UI
+- Sem banco de dados, sem autenticação: só UI
 - Múltiplas variações visualmente distintas na mesma rota
 - Obedece a estrutura de roteamento do projeto existente
 - Não inventa estrutura nova de pastas
 
 ### Regras comuns a ambos
 
-1. **Código claramente marcado como protótipo** — nome que avisa que não é produção
-2. **Um comando para rodar** — sem configuração
-3. **Sem polimento** — sem testes, sem error handling além do necessário para rodar, sem abstrações
-4. **Exibe o estado** — após cada ação (lógica) ou em cada troca de variante (UI)
-5. **Deletar ou absorver quando pronto** — não deixar apodrecendo no repo
+1. **Código claramente marcado como protótipo**: nome que avisa que não é produção
+2. **Um comando para rodar**: sem configuração
+3. **Sem polimento**: sem testes, sem error handling além do necessário para rodar, sem abstrações
+4. **Exibe o estado**: após cada ação (lógica) ou em cada troca de variante (UI)
+5. **Deletar ou absorver quando pronto**: não deixar apodrecendo no repo
 
 ### Quando terminar
 
-O único artefato que vale manter é a **resposta** à pergunta que o protótipo estava respondendo. Captura isso num commit message, ADR, issue, ou num `NOTES.md` ao lado do protótipo — e então deleta o protótipo.
+O único artefato que vale manter é a **resposta** à pergunta que o protótipo estava respondendo. Captura isso num commit message, ADR, issue, ou num `NOTES.md` ao lado do protótipo: e então deleta o protótipo.
 
 ## Exemplo de uso
 
