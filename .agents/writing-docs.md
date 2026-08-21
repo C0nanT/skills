@@ -9,7 +9,7 @@ Act whenever a promoted skill is added, renamed, or has its behaviour changed: c
 Upstream's pages are published on `aihero.dev`, so its docs link every other skill absolutely (`https://aihero.dev/skills-<name>`) and every repo path as a full `https://github.com/mattpocock/skills/...` URL. **This fork's own docs pages are not published anywhere**; nothing under `docs/` here renders at aihero.dev. So the rule splits in two:
 
 - **A skill this fork ships unchanged from upstream** (same name, same behaviour: `tdd`, `implement`, `grilling`, …): keep the `aihero.dev` link. Its page there is upstream's own and stays correct.
-- **A skill this fork renamed or that only exists here** (`review-axes`, `ask-skills`, `setup-skills`, `sync-upstream`, `review-mr`, …): link relatively to its `docs/<bucket>/<name>.md` in this repo instead, its `aihero.dev` slug 404s, because that page was never upstream's to begin with. Check `.agents/fork-divergences.md` for the current rename list.
+- **A skill this fork renamed or that only exists here** (`review-axes`, `ask-skills`, `setup-skills`, `review-mr`, …): link relatively to its `docs/<bucket>/<name>.md` in this repo instead, its `aihero.dev` slug 404s, because that page was never upstream's to begin with. Check `.agents/fork-divergences.md` for the current rename list.
 
 A link into this repo's own code (not another skill's docs page) stays a relative repo path, same as anywhere else in the repo.
 

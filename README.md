@@ -158,7 +158,6 @@ Skills I use daily for code work.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **[setup-skills](./skills/engineering/setup-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, `.claude` deny rules for destructive git). Run once per repo before using the other engineering skills.
-- **[sync-upstream](./skills/engineering/sync-upstream/SKILL.md)**: Merge the upstream repo this fork came from and resolve the conflicts in favour of the fork's recorded divergences, then sweep for the ones the merge overwrote without conflicting.
 - **[setup-solid](./skills/engineering/setup-solid/SKILL.md)**: Write an architecture-level, language-agnostic SOLID section into the repo's `CLAUDE.md`, scoped by the boy scout rule: new code and the code each change already touches, never a repo-wide refactor.
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
@@ -205,3 +204,5 @@ General workflow tools, not code-specific.
 ./scripts/list-skills.sh    # lista todos os SKILL.md
 ./scripts/sync-upstream.sh  # merge upstream (mattpocock/skills) e remove as skills excluídas deste fork
 ```
+
+Skills que só servem para manter este repositório ficam em `.agents/local-skills/` e são expostas ao Claude Code por um symlink em `.claude/skills/`. Elas não entram no `npx skills@latest add C0nanT/skills`: quem instala as skills não recebe as ferramentas de manutenção do fork. Hoje isso vale para `sync-upstream`.

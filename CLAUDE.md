@@ -24,6 +24,16 @@ Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must
 
 Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace (a fallback the install block explains, not the documented route). Run `claude plugin validate . --strict` after touching either manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
+## Dev-only skills (`.agents/local-skills/`)
+
+Skills that only make sense inside this clone (repo maintenance, not end-user work) live in `.agents/local-skills/<skill-name>/`, **not** under `skills/`. `sync-upstream` is the one that lives there today.
+
+Why that path: `npx skills@latest add C0nanT/skills` scans the GitHub tree for `SKILL.md` files under `skills/`, `.claude/skills/`, `.agents/skills/`, and the other agents' skill directories, so anything sitting in one of those is offered to people installing this repo. `.agents/local-skills/` is on none of those lists, so the installer never sees it.
+
+To make it usable while working in this clone, `.claude/skills/<skill-name>` is a **symlink** into `.agents/local-skills/<skill-name>`. Claude Code follows it and loads the skill as a project skill; git stores it as a single symlink blob whose path does not end in `SKILL.md`, so the installer still sees nothing. `.gitignore` ignores `.claude/` except for those symlinks.
+
+Rules for a dev-only skill: no entry in `.claude-plugin/plugin.json`, no reference in the top-level `README.md` or a bucket `README.md`, no docs page under `docs/`, and no mention in `ask-skills` (the router ships to users, who do not have it).
+
 ## Skill Structure
 
 ```
@@ -58,7 +68,7 @@ scripts/sync-upstream.sh  # Merge mattpocock/skills (upstream) and strip the ski
 
 ## Syncing with upstream
 
-This repo is a fork of [mattpocock/skills](https://github.com/mattpocock/skills). Every deliberate difference from it (renamed skills, changed behaviour, dropped paths) is recorded in [.agents/fork-divergences.md](./.agents/fork-divergences.md), and that ledger is what a sync defends. Keep it current the day you decide on a divergence; one that isn't written down is one the next merge silently reverts. Run the sync through the [sync-upstream](./skills/engineering/sync-upstream/SKILL.md) skill, which resolves conflicts against the ledger and then sweeps the cleanly-merged files for divergences the merge took back.
+This repo is a fork of [mattpocock/skills](https://github.com/mattpocock/skills). Every deliberate difference from it (renamed skills, changed behaviour, dropped paths) is recorded in [.agents/fork-divergences.md](./.agents/fork-divergences.md), and that ledger is what a sync defends. Keep it current the day you decide on a divergence; one that isn't written down is one the next merge silently reverts. Run the sync through the [sync-upstream](./.agents/local-skills/sync-upstream/SKILL.md) skill (dev-only, see below), which resolves conflicts against the ledger and then sweeps the cleanly-merged files for divergences the merge took back.
 
 ## Runtime Skill Layout (reference `~/.agents/skills`, not the clone)
 

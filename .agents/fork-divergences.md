@@ -52,11 +52,12 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 
 ## Fork-only skills
 
-Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `sync-upstream`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
+Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
 
 ## Repo-level
 
 - **`AGENTS.md` is a versioned pointer to `CLAUDE.md`, not a symlink and not a second copy.** Cursor, Codex, and other `AGENTS.md` readers must `Read` `CLAUDE.md` for standing context. Upstream may ship a full copy or only one name: restore the pointer file if a merge inlines the body or deletes `AGENTS.md`.
+- **`sync-upstream` is dev-only and lives outside `skills/`.** It sits in `.agents/local-skills/sync-upstream/`, reachable in this clone through the tracked symlink `.claude/skills/sync-upstream`, and deliberately absent from `.claude-plugin/plugin.json`, `README.md`, `skills/engineering/README.md`, `docs/`, and `ask-skills`: it maintains this repo, so nobody installing the skills should receive it. A merge that moves it back under `skills/`, re-lists it anywhere, or restores `.gitignore`'s blanket `.claude` line (which would untrack the symlink) is undoing this.
 - **Dropped upstream paths** live in `scripts/sync-upstream.sh` (`EXCLUDED_PATHS`): that list is the ledger for deletions; add to it there, not here.
 - `.claude-plugin/plugin.json` is this fork's own manifest (`conan-skills`, own author, own promoted set) and never takes upstream's. `.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace, which upstream does differently.
 - **`skills/misc/` is partially promoted, unlike upstream.** `setup-pre-commit`, `setup-statusline`, and `reset-agent-env` all appear in `.claude-plugin/plugin.json`'s `skills` array and in the top-level `README.md`'s Misc section, even though `CLAUDE.md`'s Invariants section currently only names `engineering/` and `productivity/` as promoted buckets. This predates this sync (not introduced by a merge): `CLAUDE.md`'s wording just hasn't caught up. Flagged here rather than silently "fixed" either direction; a human should decide whether to update the invariant text or un-promote those three.
