@@ -69,13 +69,20 @@ Two guardrails. New behaviour under an unchanged contract caps at **Should chang
 
 Done when the verdict names the one condition that decided it.
 
-### 5. Emit the block
+### 5. Fill the block
 
-Fill the template below. In chat, lead with the verdict line, then the block, nothing else. Mark a section `N/A` rather than inflating it: an invented route or field is worse than a gap.
+Fill the template below. Mark a section `N/A` rather than inflating it: an invented route or field is worse than a gap.
 
 ### 6. Save the handoff
 
-Save the filled block to `.scratch/<feature-slug>/frontend-handoff.md`, creating the directory if it doesn't exist yet (see `docs/agents/issue-tracker.md` for the `.scratch/` layout). Derive `<feature-slug>` from the feature folder pinned in step 1 when there is one; otherwise slugify the short feature name from the template's title. If a handoff already exists at that path, overwrite it: it describes the same change, not a new one. After saving, tell the user the path in one line; do not ask permission first.
+Save the filled block to `.scratch/<feature-slug>/frontend-handoff.md`, creating the directory if it doesn't exist yet (see `docs/agents/issue-tracker.md` for the `.scratch/` layout). Derive `<feature-slug>` from the feature folder pinned in step 1 when there is one; otherwise slugify the short feature name from the template's title. If a handoff already exists at that path, overwrite it: it describes the same change, not a new one. Save without asking permission first.
+
+### 7. Deliver it
+
+Check the host first: `printenv CLAUDECODE` returns `1` in Claude Code, empty elsewhere.
+
+- **Claude Code**: the file is the copy, so don't reprint it. Answer with the verdict line and the saved path, nothing else.
+- **Elsewhere**: verdict line, the whole block, then the saved path in one line.
 
 ## Output template
 
