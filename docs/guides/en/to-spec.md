@@ -20,6 +20,8 @@ A skill that turns the current conversation context into a structured spec (also
 
 **Important**: the skill *does not interview*. It synthesises what has already been discussed in the conversation. If you haven't discussed the feature in detail yet, use `/grill-me` or `/grill-with-docs` first.
 
+It will still ask about a gap it genuinely cannot close from the thread, the codebase, or your docs, batched into one round with its own best guess attached, rather than inventing a decision you never made.
+
 ## How it works
 
 **1. Explores the codebase**: reads the current state of the code, using the domain glossary for consistent vocabulary, respecting ADRs in the relevant area.

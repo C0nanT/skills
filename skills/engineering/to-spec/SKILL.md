@@ -1,15 +1,24 @@
 ---
 
 name: to-spec
-description: "Turn the current conversation into a spec and publish it to the project issue tracker: no interview, just synthesis of what you've already discussed."
+description: "Turn the current conversation into a spec and publish it to the project issue tracker: synthesis of what you've already discussed, asking only about the gaps you genuinely can't fill."
 disable-model-invocation: true
 ---
 
-This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
+This skill takes the current conversation context and codebase understanding and produces a spec. Default to synthesizing what you already know: by the time this skill runs, the deciding is usually done, so do not reopen it as an interview.
+
+**You may ask questions when you genuinely need to.** The bar is a gap you cannot close from the conversation, the codebase, `CONTEXT.md`, or the ADRs, and that would otherwise force you to invent a decision the user never made. When you hit that bar:
+
+- Ask in one batch, before writing the spec, not question by question.
+- Keep it to the few that actually change what the spec says.
+- Carry your best guess with each one, so the user can answer by confirming.
+- Then write the spec. Never stall waiting on answers you could have assumed and flagged.
+
+If nothing clears that bar, write the spec without asking anything.
 
 ## Process
 
-1. **Resolve where to publish: do not ask.** Pick a destination silently and carry it into step 4:
+1. **Resolve where to publish.** This one never needs a question: the chain below always lands somewhere, so pick a destination silently and carry it into step 4 rather than presenting a picker.
 
    1. If the user explicitly asked this run to publish to GitHub, GitLab, local markdown, or another tracker: use that.
    2. Else if `docs/agents/issue-tracker.md` exists (written by `/setup-skills`) and names a tracker: use that.

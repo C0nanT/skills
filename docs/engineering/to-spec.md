@@ -4,6 +4,8 @@
 
 It does not interview you. By the time you reach for it the deciding is already done, so it synthesises what is known (from the thread, from the codebase, from your `CONTEXT.md` and ADRs) rather than opening a fresh round of questions. The spec is a record of decisions already made, not a place where new ones get made.
 
+What it will do, in this fork, is ask about a gap it cannot close on its own: something the thread never settled and the codebase does not answer, where writing the spec anyway would mean inventing a decision you never made. Those come as one short batch before the spec is written, each with the answer it would otherwise have assumed, so confirming is usually enough. If nothing clears that bar you get the spec with no questions at all.
+
 ## When to reach for it
 
 You invoke this by typing `/to-spec`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.
