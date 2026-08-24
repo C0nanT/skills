@@ -34,7 +34,6 @@
     "./skills/productivity/to-questionnaire",
     "./skills/productivity/wait-what",
     "./skills/productivity/writing-for-agents",
-    "./skills/misc/setup-pre-commit",
     "./skills/misc/setup-statusline",
     "./skills/misc/reset-agent-env"
   ]

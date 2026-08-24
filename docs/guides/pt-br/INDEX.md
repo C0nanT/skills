@@ -56,7 +56,6 @@ Skills mantidas mas raramente usadas.
 
 | Skill | O que faz |
 |-------|-----------|
-| [setup-pre-commit](./setup-pre-commit.md) | Husky + lint-staged + Prettier como pre-commit |
 | [setup-statusline](./setup-statusline.md) | Status line: modelo, contexto %, custo, rate limit, branch git |
 | [reset-agent-env](./reset-agent-env.md) | Limpa skills, hooks, rules e MCP globais de Claude Code, Cursor, Windsurf e Antigravity (dry-run por padrão) |
 

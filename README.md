@@ -38,6 +38,18 @@ npx @c0nant/claude-hooks list
 
 ## Desinstalar
 
+`npx skills add` só instala o que você escolhe; não remove o que já estava na máquina. Para tirar skills:
+
+```bash
+npx skills@latest remove              # menu interativo
+npx skills@latest remove <name>       # uma skill
+npx skills@latest remove --all -g     # todas (escopo global)
+```
+
+Sem `-g`, o comando age no projeto atual. Com `-g`, em `~/.agents/skills/` (e nos symlinks de cada agente).
+
+Hooks:
+
 ```bash
 npx @c0nant/claude-hooks uninstall
 ```
@@ -144,6 +156,8 @@ Fundamentos de engenharia de software importam mais do que nunca. Estas skills c
 
 ## Skills disponíveis
 
+Algumas skills dependem de outras por baixo dos panos (ex.: `grill-me` chama `grilling`). Antes de instalar seletivamente, veja o [mapa de dependências](./docs/guides/pt-br/mapa-dependencias.md).
+
 These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
 
 ### Engineering
@@ -194,7 +208,6 @@ General workflow tools, not code-specific.
 
 ### Misc
 
-- **[setup-pre-commit](./skills/misc/setup-pre-commit/SKILL.md)**: Set up Husky pre-commit hooks with lint-staged, Prettier, type checking, and tests.
 - **[setup-statusline](./skills/misc/setup-statusline/SKILL.md)**: Install a Claude Code status line showing model, context usage (% + tokens), rate limits, and git branch.
 - **[reset-agent-env](./skills/misc/reset-agent-env/SKILL.md)**: Wipe global agent skills, hooks, rules, and MCP configs across Claude Code, Cursor, Windsurf, and Antigravity (dry-run by default; backs up before deleting) to simulate a clean machine.
 
