@@ -15,7 +15,6 @@ EXCLUDED_PATHS=(
   "skills/misc/git-guardrails-claude-code"
   "skills/misc/migrate-to-shoehorn"
   "skills/misc/scaffold-exercises"
-  "skills/misc/setup-pre-commit"
   "skills/personal/edit-article"
   "skills/personal/obsidian-vault"
   "skills/in-progress/setup-ts-deep-modules"

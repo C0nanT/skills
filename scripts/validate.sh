@@ -8,6 +8,19 @@ README="$REPO/README.md"
 PUBLIC_BUCKETS=(engineering productivity misc)
 PRIVATE_BUCKETS=(personal in-progress deprecated)
 
+# Finished skills that stay in a public bucket but are not shipped in the
+# plugin or the top-level README. Install with --skill=<name>.
+UNPROMOTED_SKILLS=(setup-pre-commit)
+
+is_unpromoted() {
+  local name="$1"
+  local s
+  for s in "${UNPROMOTED_SKILLS[@]}"; do
+    [[ "$s" == "$name" ]] && return 0
+  done
+  return 1
+}
+
 errors=0
 fail() { echo "  FAIL: $*" >&2; ((errors++)) || true; }
 pass() { echo "  ok:   $*"; }
@@ -35,7 +48,13 @@ for bucket in "${PUBLIC_BUCKETS[@]}"; do
     [[ -f "$skill_dir/SKILL.md" ]] || continue
     skill_name="$(basename "$skill_dir")"
     rel_path="skills/$bucket/$skill_name/SKILL.md"
-    if grep -qF "$rel_path" "$README"; then
+    if is_unpromoted "$skill_name"; then
+      if grep -qF "$rel_path" "$README"; then
+        fail "$bucket/$skill_name is unpromoted but appears in README"
+      else
+        pass "$bucket/$skill_name not in README (unpromoted, correct)"
+      fi
+    elif grep -qF "$rel_path" "$README"; then
       pass "$bucket/$skill_name in README"
     else
       fail "$bucket/$skill_name not referenced in README (expected path: $rel_path)"
@@ -118,7 +137,13 @@ else
       [[ -f "$skill_dir/SKILL.md" ]] || continue
       skill_name="$(basename "$skill_dir")"
       expected_path="./skills/$bucket/$skill_name"
-      if echo "$plugin_paths" | grep -qxF "$expected_path"; then
+      if is_unpromoted "$skill_name"; then
+        if echo "$plugin_paths" | grep -qxF "$expected_path"; then
+          fail "plugin.json: unpromoted skill must not appear: $expected_path"
+        else
+          pass "disk → plugin.json: $bucket/$skill_name absent (unpromoted, correct)"
+        fi
+      elif echo "$plugin_paths" | grep -qxF "$expected_path"; then
         pass "disk → plugin.json: $bucket/$skill_name present (public)"
       else
         fail "plugin.json: missing public skill: $expected_path"
