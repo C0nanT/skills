@@ -27,7 +27,6 @@ Skills para trabalho diário de código.
 
 | Skill | O que faz |
 |-------|-----------|
-| [diagnosing-bugs](./diagnosing-bugs.md) | Loop de feedback → reproduz → minimiza → hipóteses → instrumenta → fix → regressão |
 | [tdd](./tdd.md) | TDD red-green-refactor; fatias verticais; sem mock de internals |
 | [resolving-merge-conflicts](./resolving-merge-conflicts.md) | Resolve conflitos de merge/rebase preservando intenção |
 
@@ -59,6 +58,7 @@ Skills mantidas mas raramente usadas.
 | [setup-pre-commit](./setup-pre-commit.md) | Husky + lint-staged + Prettier como pre-commit |
 | [setup-statusline](./setup-statusline.md) | Status line: modelo, contexto %, custo, rate limit, branch git |
 | [reset-agent-env](./reset-agent-env.md) | Limpa skills, hooks, rules e MCP globais de Claude Code, Cursor, Windsurf e Antigravity (dry-run por padrão) |
+| [diagnosing-bugs](./diagnosing-bugs.md) | Loop de feedback → reproduz → minimiza → hipóteses → instrumenta → fix → regressão |
 
 ---
 

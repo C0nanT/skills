@@ -18,6 +18,8 @@ EXCLUDED_PATHS=(
   "skills/personal/edit-article"
   "skills/personal/obsidian-vault"
   "skills/in-progress/setup-ts-deep-modules"
+  "skills/engineering/diagnosing-bugs"
+  "docs/engineering/diagnosing-bugs.md"
   "docs/engineering/triage.md"
   "docs/engineering/domain-modeling.md"
   "docs/engineering/codebase-design.md"

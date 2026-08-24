@@ -128,8 +128,6 @@ Para testes automatizados, o loop red-green-refactor é crítico. O agente escre
 
 A skill **[`/tdd`](./skills/engineering/tdd/SKILL.md)** encaixa em qualquer projeto. Encoraja red-green-refactor e dá ao agente orientação sobre testes bons e ruins.
 
-Para debugging, a skill **[`/diagnosing-bugs`](./skills/engineering/diagnosing-bugs/SKILL.md)** encapsula boas práticas de debugging num loop disciplinado, com portões por fase: só pula uma fase quando isso for explicitamente justificado.
-
 ### #4: Construímos uma bola de lama
 
 > "Invest in the design of the system _every day_."
@@ -182,7 +180,6 @@ Skills I use daily for code work.
 **Model-invoked**
 
 - **[prototype](./skills/engineering/prototype/SKILL.md)**: Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic questions, or several radically different UI variations toggleable from one route.
-- **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)**: Disciplined diagnosis loop for hard bugs and performance regressions: build a feedback loop that goes red on this bug → minimise → hypothesise → instrument → fix → regression-test.
 - **[research](./skills/engineering/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
 - **[tdd](./skills/engineering/tdd/SKILL.md)**: Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
 - **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)**: Use when you need to resolve an in-progress git merge/rebase conflict.
@@ -209,7 +206,6 @@ General workflow tools, not code-specific.
 ### Misc
 
 - **[setup-statusline](./skills/misc/setup-statusline/SKILL.md)**: Install a Claude Code status line showing model, context usage (% + tokens), rate limits, and git branch.
-- **[reset-agent-env](./skills/misc/reset-agent-env/SKILL.md)**: Wipe global agent skills, hooks, rules, and MCP configs across Claude Code, Cursor, Windsurf, and Antigravity (dry-run by default; backs up before deleting) to simulate a clean machine.
 
 ## Dev local
 

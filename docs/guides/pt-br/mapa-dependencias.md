@@ -72,4 +72,4 @@ Estas menções aparecem no texto de uma `SKILL.md`, mas não exigem instalar a 
 
 ## Buckets sem dependências entre si
 
-Todas as skills de `misc/` (`reset-agent-env`, `setup-pre-commit`, `setup-statusline`) e a maioria de `engineering/` e `productivity/` não citadas acima são independentes: instalam e funcionam sozinhas.
+Todas as skills de `misc/` (`reset-agent-env`, `setup-pre-commit`, `setup-statusline`, `diagnosing-bugs`) e a maioria de `engineering/` e `productivity/` não citadas acima são independentes: instalam e funcionam sozinhas.

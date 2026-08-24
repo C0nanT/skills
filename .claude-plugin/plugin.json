@@ -13,7 +13,6 @@
     "./skills/engineering/frontend-handoff",
     "./skills/engineering/review-axes",
     "./skills/engineering/review-mr",
-    "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/implement",
     "./skills/engineering/improve-codebase-architecture",
@@ -34,7 +33,6 @@
     "./skills/productivity/to-questionnaire",
     "./skills/productivity/wait-what",
     "./skills/productivity/writing-for-agents",
-    "./skills/misc/setup-statusline",
-    "./skills/misc/reset-agent-env"
+    "./skills/misc/setup-statusline"
   ]
 }

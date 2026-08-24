@@ -10,7 +10,7 @@ PRIVATE_BUCKETS=(personal in-progress deprecated)
 
 # Finished skills that stay in a public bucket but are not shipped in the
 # plugin or the top-level README. Install with --skill=<name>.
-UNPROMOTED_SKILLS=(setup-pre-commit)
+UNPROMOTED_SKILLS=(setup-pre-commit reset-agent-env diagnosing-bugs)
 
 is_unpromoted() {
   local name="$1"
