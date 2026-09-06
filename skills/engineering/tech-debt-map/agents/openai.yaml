@@ -1,0 +1,5 @@
+interface:
+  display_name: "Tech Debt Map"
+  short_description: "Rank a codebase's worst debt and plan the cleanup"
+policy:
+  allow_implicit_invocation: false

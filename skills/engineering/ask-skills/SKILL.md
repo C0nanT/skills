@@ -48,6 +48,8 @@ Not feature work, just upkeep.
 
 - **`/improve-codebase-architecture`**: run whenever you have a spare moment to keep the codebase good for agents to operate in. It surfaces **deepening opportunities**; picking one *generates an idea* you can take into the main flow at `/grill-with-docs`.
 
+- **`/tech-debt-map`**: the wider, colder survey. Sweeps a codebase that grew organically across every axis (architecture, code, business rules, maintainability, testability, performance, security) and leaves a **debt map**: at most 15 evidence-backed findings ranked by payoff-per-effort, then a four-phase incremental plan. It is a **diagnosis, not a refactor**, and changes no code. Where `/improve-codebase-architecture` hunts one class of problem and ends in a grilling session about a single candidate, this one ends in a file you work through over weeks and re-run against to see what moved. Its top rows feed `/to-tickets`; its structural rows feed `/improve-codebase-architecture`.
+
 ## Phase boundaries
 
 A **phase** is a chunk of work inside a session: the grilling, the implementation, the QA. At the **boundary** between two of them you have five options, and picking between them is the fuzziest decision in this whole map:

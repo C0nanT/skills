@@ -22,6 +22,7 @@
     "./skills/engineering/setup-skills",
     "./skills/engineering/setup-solid",
     "./skills/engineering/tdd",
+    "./skills/engineering/tech-debt-map",
     "./skills/productivity/caveman",
     "./skills/engineering/to-spec",
     "./skills/engineering/to-tickets",
