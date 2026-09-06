@@ -42,6 +42,8 @@ Talking your way through an ungrillable question is where sessions balloon. The 
 - Questions arrive in a few rounds rather than one long drip, and later rounds clearly build on what you said earlier.
 - You end up somewhere you didn't expect, because a question surfaced a decision you had been making implicitly.
 - At the end you could defend each choice to someone who wasn't there.
+- The questions read like plain speech, and any term you had not used yourself arrives with a one-line explanation.
+- The session ends on the idea, pointing you at [to-spec](https://aihero.dev/skills-to-spec) or [to-tickets](https://aihero.dev/skills-to-tickets), rather than drafting either one itself.
 
 ## Common questions
 
