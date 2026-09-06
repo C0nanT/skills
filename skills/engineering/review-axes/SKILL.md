@@ -1,6 +1,6 @@
 ---
 name: review-axes
-description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating ticket or spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
+description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's documented coding standards, plus baselines for code smells, duplicated code, and N+1 or otherwise repeated work?) and Spec (does the code match what the originating ticket or spec asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to \"review since X\"."
 ---
 
 Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
@@ -43,15 +43,17 @@ Look for the originating spec, in this order:
 
 Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md` or `CONTRIBUTING.md`.
 
-On top of whatever the repo documents, the Standards axis always carries the **smell baseline** below: a fixed set of Fowler code smells (*Refactoring*, ch.3) that applies even when a repo documents nothing. Two rules bind it:
+On top of whatever the repo documents, the Standards axis always carries two fixed baselines below, which apply even when a repo documents nothing: the **smell baseline** (Fowler code smells, *Refactoring*, ch.3) and the **performance baseline** (repeated-work patterns, N+1 chief among them). Two rules bind both:
 
-- **The repo overrides.** A documented repo standard always wins; where it endorses something the baseline would flag, suppress the smell.
-- **Always a judgement call.** Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation. Like any standard here, skip anything tooling already enforces.
+- **The repo overrides.** A documented repo standard always wins; where it endorses something a baseline would flag, suppress the finding.
+- **Always a judgement call.** Each entry is a labelled heuristic ("possible Feature Envy", "possible N+1"), never a hard violation. Like any standard here, skip anything tooling already enforces.
+
+#### Smell baseline
 
 Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 - **Mysterious Name**: a function, variable, or type whose name doesn't reveal what it does or holds. → rename it; if no honest name comes, the design's murky.
-- **Duplicated Code**: the same logic shape appears in more than one hunk or file in the change. → extract the shared shape, call it from both.
+- **Duplicated Code**: the same logic shape appears in more than one hunk or file in the change, or the diff re-implements something the codebase already has. → extract the shared shape and call it from both, or call the existing implementation. Look for all three shapes: (a) copy-paste between the diff's own hunks; (b) a near-copy with one value or branch changed, which wants a parameter, not a second copy; (c) a helper, validator, mapper, query, or constant that already exists elsewhere in the repo. For (c), search the codebase for the new function's name and for a distinctive line of its body before calling it new.
 - **Feature Envy**: a method that reaches into another object's data more than its own. → move the method onto the data it envies.
 - **Data Clumps**: the same few fields or params keep travelling together (a type wanting to be born). → bundle them into one type, pass that.
 - **Primitive Obsession**: a primitive or string standing in for a domain concept that deserves its own type. → give the concept its own small type.
@@ -62,6 +64,19 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 - **Message Chains**: long `a.b().c().d()` navigation the caller shouldn't depend on. → hide the walk behind one method on the first object.
 - **Middle Man**: a class or function that mostly just delegates onward. → cut it, call the real target direct.
 - **Refused Bequest**: a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.
+
+#### Performance baseline
+
+The same *what it is* → *how to fix* shape, aimed at work the change repeats once per row instead of once per request. The tell is always the same: an expensive call (a query, an HTTP request, a file read, a hash or crypto op) sitting inside a loop or a per-item callback whose length is data, not a constant.
+
+- **N+1 queries**: one query fetches N rows, then each row triggers another query. → fetch the related rows in one round trip (a join, an `IN (...)`, an ORM eager-load such as `include` / `select_related` / `with` / `JOIN FETCH`) or batch the second query by collected keys. Look for a DB call inside `for`/`forEach`/`map`/comprehension, a lazy relation touched inside a loop or inside a serializer/template/resolver rendering a list, and a GraphQL field resolver that queries per parent instead of going through a batching loader.
+- **N+1 network calls**: the same shape with an HTTP/RPC/queue call per item. → use the bulk endpoint if one exists, otherwise bound the concurrency and gather the results in one pass.
+- **Missing index for a new access path**: the diff filters, joins, sorts, or enforces uniqueness on a column with no supporting index, or adds one migration without the other. → add the index in the same migration, and say which columns and in which order.
+- **Unbounded result set**: a query, scan, or fetch-all with no limit, pagination, or projection, driven by data that grows. → paginate, or select only the columns actually used.
+- **Repeated work in a loop**: a value that doesn't depend on the iteration (a compiled regex, a config lookup, a client construction, a sort, a `length` query) recomputed each pass. → hoist it above the loop.
+- **Accidentally quadratic lookup**: a nested scan (`find`/`includes`/`indexOf` inside a loop over the same collection) where a map or set would do. → build the index once, look up in constant time.
+
+Each finding must name where the multiplier comes from: which collection is iterated, and what runs per element. A per-item call over a list whose size is a fixed small constant is not a finding.
 
 ### 4. Spawn both sub-agents in parallel
 
@@ -77,8 +92,8 @@ Send a single message with two parallel sub-agent calls (`Agent` in Claude Code,
 **Standards sub-agent prompt** should include:
 
 - The full diff command and commit list.
-- The list of standards-source files you found in step 3, **plus the smell baseline from step 3** pasted in full (the sub-agent has no other access to it).
-- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."
+- The list of standards-source files you found in step 3, **plus both baselines from step 3 (smell and performance)** pasted in full (the sub-agent has no other access to them).
+- The brief: "Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); (b) any baseline smell you spot: name it and quote the hunk; and (c) any performance-baseline finding: name it, quote the hunk, and say which collection drives the multiplier and what runs per element. For duplication and for reuse of something that already exists, grep the repo before claiming a hunk is new, and cite the existing implementation's path. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline findings are always judgement calls, and a documented repo standard overrides the baselines. Skip anything tooling enforces. Under 500 words."
 
 **Spec sub-agent prompt** should include:
 

@@ -38,15 +38,21 @@ Specs default to **local markdown**, which needs no setup. Step 3 is the only on
 | | Standards | Spec |
 | --- | --- | --- |
 | Question | Is it built right? | Is it the right thing? |
-| Reads | The repo's documented standards, plus the smell baseline | The originating issue or spec |
-| Reports | Documented breaches (can be hard), and smells (always judgement calls) | Missing or partial requirements, scope creep, requirements implemented wrongly |
-| Every finding cites | The standards file and the rule, or the named smell plus the hunk | The line of the spec |
+| Reads | The repo's documented standards, plus the smell and performance baselines | The originating issue or spec |
+| Reports | Documented breaches (can be hard), smells and performance findings (always judgement calls) | Missing or partial requirements, scope creep, requirements implemented wrongly |
+| Every finding cites | The standards file and the rule, or the named smell or performance pattern plus the hunk | The line of the spec |
 
 A generic review skill that does not know your standards is the thing this design is trying to avoid: it flags what is deliberate in your codebase and misses the invariants your codebase actually depends on. So the repo's own documentation is the [primary source](https://www.aihero.dev/ai-coding-dictionary/primary-source) on the Standards axis, and **the repo always overrides**.
 
 The **smell baseline** is the floor underneath it, twelve Fowler code smells from _Refactoring_ ch.3: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest. Each is a labelled heuristic ("possible Feature Envy"), never a hard violation, and each is stated as *what it is* → *how to fix*, so a finding arrives with a move attached rather than a complaint. Anything your linter already enforces is skipped by both axes.
 
+Under that sits a second floor, the **performance baseline**, six patterns for work a change repeats once per row instead of once per request: N+1 queries, N+1 network calls, a missing index for a new access path, an unbounded result set, repeated work hoistable out of a loop, and an accidentally quadratic lookup. The tell is the same in every case, an expensive call inside a loop or a per-item callback whose length is data rather than a constant, so each finding has to name which collection drives the multiplier and what runs per element. A per-item call over a fixed small list is not a finding.
+
 ## Common questions
+
+**Does it catch N+1 queries and copy-pasted code?**
+
+Both, on the Standards axis, and neither depends on your repo documenting anything. Duplication is checked in three shapes: copy-paste between the diff's own hunks, a near-copy with one value or branch changed (which wants a parameter, not a second copy), and a hunk that re-implements a helper, validator, mapper, query, or constant the repo already has. That third shape is why the sub-agent is told to grep the repo and cite the existing implementation's path before calling a hunk new. N+1 comes from the performance baseline above and covers both the DB and the HTTP flavour, along with the missing index a new access path usually needs. All of it is judgement-call output: read the cited hunk before acting, the same as any other finding here.
 
 **Why is it called `review-axes` and not `code-review`?**
 
@@ -84,7 +90,8 @@ Yes, on a local markdown spec or ticket. After the Spec report it flips `- [ ]` 
 
 - It refuses to start on a bad ref or an empty diff, before any sub-agent is spawned.
 - The report arrives as two separate blocks under `## Standards` and `## Spec`, not one merged list.
-- Every Standards finding names either a rule in one of your repo's files or one of the twelve smells, with the hunk quoted; every Spec finding quotes a line of the spec.
+- Every Standards finding names either a rule in one of your repo's files, one of the twelve smells, or one of the six performance patterns, with the hunk quoted; every Spec finding quotes a line of the spec.
+- A performance finding says which collection drives the multiplier and what runs per element, and a duplication finding cites the path of the code it duplicates.
 - The closing summary gives a worst issue per axis and declines to pick an overall winner.
 - With no spec available, the Spec block says so instead of listing requirements it inferred from the code.
 - On a local markdown spec with checkboxes, it tells you which boxes it flipped and whether `Status:` advanced.
