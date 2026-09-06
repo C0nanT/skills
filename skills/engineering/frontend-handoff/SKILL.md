@@ -75,7 +75,9 @@ Fill the template below. Mark a section `N/A` rather than inflating it: an inven
 
 ### 6. Save the handoff
 
-Save the filled block to `.scratch/<feature-slug>/frontend-handoff.md`, creating the directory if it doesn't exist yet (see `docs/agents/issue-tracker.md` for the `.scratch/` layout). Derive `<feature-slug>` from the feature folder pinned in step 1 when there is one; otherwise slugify the short feature name from the template's title. If a handoff already exists at that path, overwrite it: it describes the same change, not a new one. Save without asking permission first.
+If the verdict is **Nothing required**, skip saving: no file, no template block. Answer in chat with just the verdict line and the one sentence reason, and stop there.
+
+Otherwise, save the filled block to `.scratch/<feature-slug>/frontend-handoff.md`, creating the directory if it doesn't exist yet (see `docs/agents/issue-tracker.md` for the `.scratch/` layout). Derive `<feature-slug>` from the feature folder pinned in step 1 when there is one; otherwise slugify the short feature name from the template's title. If a handoff already exists at that path, overwrite it: it describes the same change, not a new one. Save without asking permission first.
 
 ### 7. Deliver it
 
