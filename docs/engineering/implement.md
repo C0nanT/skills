@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, runs [review-axes](./review-axes.md) at the end, and hands you a Conventional Commits message: it does **not** commit.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, runs [review-axes](./review-axes.md) at the end, and hands you a one-line verdict plus a Conventional Commits message: it does **not** commit.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a ready-to-commit diff plus a message. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which will happily redesign the work while it builds it.
 
@@ -36,7 +36,7 @@ A run is five beats, in order:
 2. Drive [tdd](https://aihero.dev/skills-tdd) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Run [review-axes](./review-axes.md), then generate a Conventional Commits message: no `git commit`.
+5. Run [review-axes](./review-axes.md), then give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message: no `git commit`.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, you commit from the message it wrote, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
@@ -51,6 +51,10 @@ The word "pre-agreed" is doing real work, and it is also the skill's weakest joi
 **It finished, but my ticket is still open and the acceptance criteria are still unchecked.**
 
 Half expected. `implement` has no completion step: it ends at a commit *message* (you still commit) and never closes the work item, on GitHub Issues or on the local markdown tracker, so it is not a tracker integration problem. It also does not act on the findings `review-axes` produced. The checkboxes are different here, this fork moved that job into `review-axes`, which after its Spec review flips the `- [ ]` boxes on a **local markdown** spec or ticket to match what the code actually did, and advances `Status:` to `ready-for-human` once they are all checked. On a remote tracker, and for closing the ticket itself, reconcile it yourself. This bites hardest on a dependency chain, because `to-tickets` defines the frontier as tickets whose blockers are all closed. If nothing gets closed, nothing ever becomes visibly unblocked.
+
+**What do the coloured circles at the end mean?**
+
+That is the verdict, a fork addition that sits directly above the Conventional Commits message. 🟢 is printed bare, with no text after it: the run went exactly as planned and you can commit and move to the next ticket. 🟡 means it is implemented but something was adjusted mid-flight, a planned piece of logic changed or a spec detail was interpreted, and the reason is on the same line. 🔴 means either something did not land or you have to act before moving on, for example a decision only you can make, a migration, or a credential. The worst applicable colour wins, so one red condition makes the whole run 🔴. It is a signal to read, not a gate: nothing stops you committing a 🔴 run.
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
@@ -79,7 +83,8 @@ Probably the ticket is too big rather than the skill being misused. A run does c
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
 - You can see an actual `/tdd` invocation in the trace, not just tests appearing in the diff.
 - Typechecks and single test files run repeatedly during the run, and the full suite runs once near the end.
-- The run ends with a Conventional Commits message (`type(scope): …` plus a short why-body) and no `git commit` of its own.
+- The run ends with a verdict line and a Conventional Commits message (`type(scope): …` plus a short why-body), and no `git commit` of its own.
+- The verdict colour matches what actually happened: a bare 🟢 when nothing deviated, 🟡 with the adjustment named, 🔴 with the thing you have to do spelled out.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.
 
 ## Where it fits
