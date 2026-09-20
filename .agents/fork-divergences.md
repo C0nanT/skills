@@ -56,7 +56,9 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 
 ## Fork-only skills
 
-Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
+Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `tech-debt-map`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
+
+`tech-debt-map` is the one with state outside itself: it keeps a committed review index at `docs/tech-debt/README.md` in the audited project (not in this repo), which holds the module partition every past review was measured against. It shares `AXES.md` with nothing, but its handoff names `/to-spec`, `/to-tickets`, and `/improve-codebase-architecture`, so an upstream rewrite of any of those three dates its closing step.
 
 ## Repo-level
 

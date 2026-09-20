@@ -104,8 +104,16 @@ Cues:
 | 🟡 | Medium | Real cost, in code that rarely moves. |
 | 🟢 | Low | Convention or clarity. Worth doing while passing through. |
 
-**Effort**, for one person: **Low** a sitting, **Medium** a few days, **High** needs a design decision or a coordinated change.
+**Blast radius**, how many places have to move together:
+
+| | |
+| - | - |
+| Contained | The fix fits inside the module's own files. |
+| Module+ | Callers or callees have to change with it. |
+| Systemic | Needs a design decision, or a change coordinated across teams. |
+
+Rate this by reading the code, not by guessing how long someone would take. How many places move is a fact the repo can answer; how many days it costs depends on who is doing it and what else is on fire.
 
 **Payoff**, what fixing it buys: **High** removes a class of bug or unblocks a whole area, **Medium** makes one area meaningfully easier, **Low** local improvement.
 
-Order the map by payoff-per-effort, not by severity: a 🟠 with Low effort and High payoff outranks a 🔴 that needs a quarter.
+Order the map by payoff against blast radius, not by severity: a 🟠 that is Contained with High payoff outranks a 🔴 that is Systemic. That ordering deliberately sinks the biggest problems, so the map's closing line names the rows to clear before the next feature lands, which is where a sunk 🔴 comes back up.
