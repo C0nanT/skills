@@ -17,6 +17,8 @@ Where the host cannot set effort per spawn and the subagent would inherit a `hig
 
 Use /tdd where possible, at pre-agreed seams. Run typechecking regularly and single test files regularly.
 
+Anything you write that outlives the run (docblocks, code comments, READMEs, docs, ADRs) never points into `.scratch/`: that folder is wiped periodically, so the reference would dangle. State the needed fact inline, or cite a permanent file in the repo instead.
+
 Done when: every piece of the spec or tickets is written.
 
 ## 2. Test

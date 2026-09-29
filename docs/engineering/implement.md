@@ -79,6 +79,10 @@ Probably the ticket is too big rather than the skill being misused. A run does c
 
 This fork caps subagent effort. Any subagent spawned during a run, including the ones [review-axes](./review-axes.md) spawns for its two axes, runs at `effort: medium`, whatever model it uses and whatever effort you picked for your own session. Your session's effort stays yours: choosing `high` for the main model does not hand `high` to every spawn. A subagent at `high`, `xhigh` or `max` needs your explicit yes first, so the agent asks, names the model and effort, and says why medium is not enough. Silence is a no, and one yes covers only that one spawn.
 
+**Why don't the comments and docs it writes link to the ticket or spec?**
+
+On purpose. Tickets and specs live under `.scratch/`, which gets wiped from time to time, so a docblock or README that says "see `.scratch/…`" turns into a dead link. This fork tells the run to state the needed fact inline, or cite a permanent file in the repo, instead.
+
 **`/implement #2` in a fresh session worked on something completely unrelated.**
 
 `#2` is resolved against whatever numbered list the agent can see, which in a fresh session may be a todo file, a checklist, or another work list rather than the configured tracker. The resolution is confident rather than fail-closed, so the mistake is not obvious until it has started. Pass the full reference, the issue URL or `owner/repo#2`, and ask it to confirm the title back before it begins.
