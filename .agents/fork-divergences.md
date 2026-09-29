@@ -31,6 +31,7 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 | `implement` | Hands `/review-axes` **the unstaged working tree**, and leaves checkbox syncing to it | `does not tick the` |
 | `implement` | **Never commits**: only generates a Conventional Commits message (`type(scope): …` + why-body, ≤300 chars) for the user | `Commit your work to the current branch.` |
 | `implement` | **Numbered steps with completion criteria**, and `/review-axes` is a gated step 3 the Verdict is built from (upstream's one-line "Once done" was skipped in most runs) | `Once done, use /code-review to review the work.` |
+| `implement` | **Subagent effort cap**: every subagent spawned in the run (directly or via `/tdd`, `/review-axes`) runs at `effort: medium`; `high` or above needs the user's explicit yes before the spawn | an `implement` `SKILL.md` with no `## Subagent effort` heading |
 | `implement` | **Verdict section** above the commit message: 🟢 / 🟡 / 🔴 plus the reason, worst applicable colour wins | a run that ends straight at the commit message with no `## Verdict` heading |
 | `wayfinder` | Grilling tickets are worked **one question at a time** | `Conversation. The default case.` |
 | `wayfinder` | Grilling ticket type invokes only `/grilling`: this fork carries no `domain-modeling` skill to pair it with | `/grilling and /domain-modeling` |

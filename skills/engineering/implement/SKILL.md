@@ -5,6 +5,14 @@ description: "Implement a piece of work based on a spec or set of tickets."
 
 Implement the work described by the user in the spec or tickets, in four steps. Each step is done only when its completion criterion holds.
 
+## Subagent effort
+
+Every subagent spawned during this run, whether you spawn it or a skill you invoke does (`/tdd`, `/review-axes`), runs at **`effort: medium`**, whatever its model. The user's effort level belongs to this session only and never carries over to a spawn.
+
+`high` or above (`high`, `xhigh`, `max`) needs the user's explicit yes **before** the spawn: ask, name the subagent, the model, the effort and why medium is not enough, then wait. No answer is a no. One yes covers only the spawn it was asked for.
+
+Where the host cannot set effort per spawn and the subagent would inherit a `high` or higher level from this session, that inheritance counts as spawning at `high`: ask first, or do the work inline.
+
 ## 1. Build
 
 Use /tdd where possible, at pre-agreed seams. Run typechecking regularly and single test files regularly.

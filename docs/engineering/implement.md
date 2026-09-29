@@ -75,6 +75,10 @@ Separately, some people deliberately do not want the review inside the run at al
 
 Probably the ticket is too big rather than the skill being misused. A run does codebase exploration, a red-green loop per seam, a full suite, and a review, so a non-trivial ticket exceeding 100k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) is normal rather than a sign something broke. The lever is upstream: right-size the tickets in [to-tickets](https://aihero.dev/skills-to-tickets) so each fits one fresh window. If a single ticket keeps blowing out, split it rather than raising the [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level.
 
+**Why did it stop and ask before spawning a subagent?**
+
+This fork caps subagent effort. Any subagent spawned during a run, including the ones [review-axes](./review-axes.md) spawns for its two axes, runs at `effort: medium`, whatever model it uses and whatever effort you picked for your own session. Your session's effort stays yours: choosing `high` for the main model does not hand `high` to every spawn. A subagent at `high`, `xhigh` or `max` needs your explicit yes first, so the agent asks, names the model and effort, and says why medium is not enough. Silence is a no, and one yes covers only that one spawn.
+
 **`/implement #2` in a fresh session worked on something completely unrelated.**
 
 `#2` is resolved against whatever numbered list the agent can see, which in a fresh session may be a todo file, a checklist, or another work list rather than the configured tracker. The resolution is confident rather than fail-closed, so the mistake is not obvious until it has started. Pass the full reference, the issue URL or `owner/repo#2`, and ask it to confirm the title back before it begins.
