@@ -6,15 +6,15 @@
 
 **Blocked by:** 02 (modo e descrição do `implement`), 03 (nome da spec)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] `ask-skills` cita `tickets/`, nunca `issues/`
-- [ ] `ask-skills` diz que o `/implement` nunca commita
-- [ ] Entrada de "Something's broken" / `/diagnosing-bugs` removida
-- [ ] Descrição do `ask-skills` diz "skills", não "user-invoked skills"
-- [ ] Grep do ledger para `issues/` aceita qualquer placeholder
-- [ ] Nota sobre `diagnosing-bugs` removida do ledger
-- [ ] `validate.sh` falha se `.scratch/<...>/issues/` reaparecer nas engineering skills ou se `/diagnosing-bugs` reaparecer no `ask-skills`
-- [ ] Docs e guias do `ask-skills` atualizados
-- [ ] Linha 7 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] `ask-skills` cita `tickets/`, nunca `issues/`
+- [x] `ask-skills` diz que o `/implement` nunca commita
+- [x] Entrada de "Something's broken" / `/diagnosing-bugs` removida
+- [x] Descrição do `ask-skills` diz "skills", não "user-invoked skills"
+- [x] Grep do ledger para `issues/` aceita qualquer placeholder
+- [x] Nota sobre `diagnosing-bugs` removida do ledger
+- [x] `validate.sh` falha se `.scratch/<...>/issues/` reaparecer nas engineering skills ou se `/diagnosing-bugs` reaparecer no `ask-skills`
+- [x] Docs e guias do `ask-skills` atualizados
+- [x] Linha 7 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

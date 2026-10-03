@@ -2,7 +2,7 @@
 
 ## O que é
 
-Uma skill roteadora sobre as skills **user-invoked** deste repositório. Você não precisa memorizar cada skill: descreva a situação e o agente indica o fluxo certo.
+Uma skill roteadora sobre as skills deste repositório. Você não precisa memorizar cada skill: descreva a situação e o agente indica o fluxo certo.
 
 ## Para que serve
 
@@ -28,12 +28,12 @@ O caminho que a maior parte do trabalho percorre:
    - `/prototype` para responder com código descartável,
    - `/handoff` de volta com o que aprendeu.
 3. **Branch: build multi-sessão?**
-   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada issue, **limpe o contexto**: sessão nova por issue e **`/implement`** com o spec + a issue.
+   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada ticket, **limpe o contexto**: sessão nova por ticket e **`/implement`** com o spec + o ticket. O `/implement` nunca commita: ele entrega a mensagem de commit e você commita.
    - **Não** → **`/implement`** na mesma janela de contexto.
 
 ### Higiene de contexto
 
-Mantenha os passos 1–3 numa **única janela** até depois de `/to-tickets`. Cada `/implement` começa fresco, lendo a issue.
+Mantenha os passos 1–3 numa **única janela** até depois de `/to-tickets`. Cada `/implement` começa fresco, lendo o ticket.
 
 Se a sessão se aproximar da [smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone) (~120k tokens) antes de `/to-tickets`, use `/handoff` e continue numa thread nova: não empurre com contexto degradado.
 

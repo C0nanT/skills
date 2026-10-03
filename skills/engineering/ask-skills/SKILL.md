@@ -1,6 +1,6 @@
 ---
 name: ask-skills
-description: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+description: Ask which skill or flow fits your situation. A router over the skills in this repo.
 disable-model-invocation: true
 ---
 
@@ -20,11 +20,11 @@ The route most work travels. You have an idea and want it built.
    - **`/prototype`** to answer the question with throwaway code,
    - **`/handoff`** back what you learned, and reference it from the original idea thread.
 3. **Branch: is this a multi-session build?**
-   - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed: kick off **`/implement`** per ticket, **`/clear`ing context between each one**. Each ticket is self-contained, so the last one's context is disposable.
+   - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. On a local tracker that's one file per ticket under `.scratch/<feature>/tickets/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed: kick off **`/implement`** per ticket, **`/clear`ing context between each one**. Each ticket is self-contained, so the last one's context is disposable.
 
    - **No** → **`/implement`** right here, in the same context window.
 
-   Either way, **`/implement`** builds each issue by driving **`/tdd`** internally: one red-green slice at a time, then closes out by running **`/review-axes`**, a two-axis review (Standards + Spec) of the diff, before committing. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/review-axes`** on its own whenever you want to review a branch against a fixed point. `/review-axes` is for **your own** work, it judges the diff against the standards you follow and the spec you were given. Reviewing **someone else's** merge request is a different job: see `/review-mr` under Standalone.
+   Either way, **`/implement`** builds each ticket by driving **`/tdd`** internally: one red-green slice at a time, then closes out by running **`/review-axes`**, a two-axis review (Standards + Spec) of the diff, and ends by handing you a commit message. `/implement` never commits: you do. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/review-axes`** on its own whenever you want to review a branch against a fixed point. `/review-axes` is for **your own** work, it judges the diff against the standards you follow and the spec you were given. Reviewing **someone else's** merge request is a different job: see `/review-mr` under Standalone.
 
 ### Context hygiene
 
@@ -35,8 +35,6 @@ The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-diction
 ## On-ramps
 
 A starting situation that generates work, then merges onto the main flow.
-
-- **Something's broken** → **`/diagnosing-bugs`**. For the hard ones: the bug that resists a first glance, the intermittent flake, the regression that crept in between two known-good states. It refuses to theorise until it has a **tight feedback loop** (one command that already goes red on *this* bug), then fixes with a regression test. When it reports that no good seam exists to lock the bug down, that absence is the finding: take it to **`/improve-codebase-architecture`** yourself, after the fix is in.
 
 - **A huge, foggy effort: a greenfield project or a huge feature build, too big for one session** → **`/wayfinder`**, the most cognitively demanding flow here. When the way from here to the destination isn't visible yet, it charts a **shared map** of **decision tickets** on the issue tracker and resolves them one at a time, producing **decisions, not deliverables**, until the fog is pushed back and the way is clear. Where **`/grill-with-docs`** sharpens an idea you can hold in one session, wayfinder is for the idea you can't, and it's slower and denser, so save it for exactly that, never a well-scoped feature.
 

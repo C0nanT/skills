@@ -164,7 +164,7 @@ Skills I use daily for code work.
 
 **User-invoked**
 
-- **[ask-skills](./skills/engineering/ask-skills/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[ask-skills](./skills/engineering/ask-skills/SKILL.md)**: Ask which skill or flow fits your situation. A router over the skills in this repo.
 - **[frontend-handoff](./skills/engineering/frontend-handoff/SKILL.md)**: Turn a shipped backend change into a pasteable block for the frontend team: verdict first (must change / should change / nothing required), then contract table, payload examples, and checklist.
 - **[delegate-tickets](./skills/engineering/delegate-tickets/SKILL.md)**: Orchestrate sequential ticket implementation through fresh subagents, one ticket at a time, each required to use the `implement` skill.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
