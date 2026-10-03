@@ -68,7 +68,7 @@ Offer **multi-context** (a root `CONTEXT-MAP.md` pointing to per-context `CONTEX
 
 > Add project `permissions.deny` rules that block destructive git in Claude Code? (recommended: **yes**)
 
-> Explainer: Merges deny rules into **this repo's** `.claude/settings.json` only, no hooks, no scripts. Claude Code refuses `git commit`, `git push`, `git reset`, `git clean`, `git rebase`, force branch deletes, discard-all checkouts/restores, stash drop/clear, and force-delete tags. Read-only git still works. Your existing global hooks stay untouched. Say **no** only if you want the agent free to mutate git history in this repo.
+> Explainer: Merges deny rules into **this repo's** `.claude/settings.json` only, no hooks, no scripts. Claude Code refuses `git commit`, `git push`, `git reset`, `git clean`, `git rebase` (also in the `git -C <dir> …` form), force branch deletes, discard-all checkouts/restores, stash drop/clear, and force-delete tags. Read-only git still works. Your existing settings (allow rules, hooks, env) are kept, a timestamped backup is written before the file is replaced, and the merge stops without touching anything if `jq` is missing or the file is not valid JSON. Your existing global hooks stay untouched. Say **no** only if you want the agent free to mutate git history in this repo.
 
 If the user says **no**, omit the deny merge, `docs/agents/git-guardrails.md`, and the `### Git guardrails` sub-block. Do not remove existing deny rules when they say no.
 
@@ -135,9 +135,11 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 
 Write **only** into the target project's `.claude/settings.json`. Do **not** create `.claude/hooks/`, do **not** register `PreToolUse`, do **not** copy scripts, do **not** touch `~/.claude/settings.json`.
 
-Requires `jq` (`command -v jq`).
+Requires `jq`. Run the merge below as one Bash call. It only appends the rules that are missing, keeps everything else in the file (allow rules, hooks, env, existing deny entries and their order), and writes a timestamped backup next to the file before replacing it. It seeds `{}` only when the file is missing or empty.
 
-Seed deny list (merge these strings into `permissions.deny`; keep any existing entries the project already has):
+If the snippet exits non-zero (no `jq`, or the file is not a JSON object), relay its message to the user and stop Section D there: do **not** recreate the file, seed `{}`, or hand-edit the deny list as a workaround. The user fixes the cause and re-runs.
+
+Seed deny list (merge these strings into `permissions.deny`; keep any existing entries the project already has). Each `git -C` rule comes in two shapes because a trailing space-plus-`*` matches the bare command only when it is the rule's sole wildcard: `Bash(git -C * push *)` alone would miss `git -C . push`.
 
 ```text
 Bash(git push *)
@@ -145,6 +147,16 @@ Bash(git commit *)
 Bash(git reset *)
 Bash(git clean *)
 Bash(git rebase *)
+Bash(git -C * push)
+Bash(git -C * push *)
+Bash(git -C * commit)
+Bash(git -C * commit *)
+Bash(git -C * reset)
+Bash(git -C * reset *)
+Bash(git -C * clean)
+Bash(git -C * clean *)
+Bash(git -C * rebase)
+Bash(git -C * rebase *)
 Bash(git branch -D *)
 Bash(git branch --delete --force *)
 Bash(git checkout . *)
@@ -158,24 +170,44 @@ Bash(git tag -D *)
 Idempotent merge:
 
 ```bash
+# setup-skills: merge git deny rules
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-$PWD}"
 SETTINGS="$PROJECT_ROOT/.claude/settings.json"
 
-mkdir -p "$(dirname "$SETTINGS")"
-if [ ! -s "$SETTINGS" ] || ! jq -e . "$SETTINGS" >/dev/null 2>&1; then
-  echo '{}' > "$SETTINGS"
+if ! command -v jq >/dev/null 2>&1; then
+  echo "setup-skills: jq is required to merge deny rules. Install jq and re-run. $SETTINGS was not touched." >&2
+  exit 1
 fi
 
-jq '
+mkdir -p "$(dirname "$SETTINGS")"
+if [ ! -e "$SETTINGS" ] || [ -z "$(tr -d '[:space:]' < "$SETTINGS")" ]; then
+  echo '{}' > "$SETTINGS"
+elif ! jq -e 'type == "object"' "$SETTINGS" >/dev/null; then
+  echo "setup-skills: $SETTINGS is not a valid JSON object (see the jq error above, if any). Fix it and re-run. The file was not touched." >&2
+  exit 1
+fi
+
+TMP="$(mktemp "$SETTINGS.XXXXXX")"
+if ! jq --indent 2 '
   .permissions //= {}
   | .permissions.deny //= []
-  | .permissions.deny = (
-      .permissions.deny + [
+  | reduce (
+      [
         "Bash(git push *)",
         "Bash(git commit *)",
         "Bash(git reset *)",
         "Bash(git clean *)",
         "Bash(git rebase *)",
+        "Bash(git -C * push)",
+        "Bash(git -C * push *)",
+        "Bash(git -C * commit)",
+        "Bash(git -C * commit *)",
+        "Bash(git -C * reset)",
+        "Bash(git -C * reset *)",
+        "Bash(git -C * clean)",
+        "Bash(git -C * clean *)",
+        "Bash(git -C * rebase)",
+        "Bash(git -C * rebase *)",
         "Bash(git branch -D *)",
         "Bash(git branch --delete --force *)",
         "Bash(git checkout . *)",
@@ -184,9 +216,23 @@ jq '
         "Bash(git stash clear *)",
         "Bash(git tag -d *)",
         "Bash(git tag -D *)"
-      ] | unique
-    )
-' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
+      ][]
+    ) as $rule (.; if (.permissions.deny | index([$rule])) then . else .permissions.deny += [$rule] end)
+' "$SETTINGS" > "$TMP"; then
+  rm -f "$TMP"
+  echo "setup-skills: jq could not merge into $SETTINGS. The file was not touched." >&2
+  exit 1
+fi
+
+if cmp -s "$TMP" "$SETTINGS"; then
+  rm -f "$TMP"
+  echo "setup-skills: deny rules already present, $SETTINGS unchanged."
+else
+  BACKUP="$SETTINGS.bak-$(date +%Y%m%d%H%M%S)"
+  cp -p "$SETTINGS" "$BACKUP"
+  mv "$TMP" "$SETTINGS"
+  echo "setup-skills: merged deny rules into $SETTINGS (backup: $BACKUP)."
+fi
 ```
 
 Also write `docs/agents/git-guardrails.md` from the seed template.

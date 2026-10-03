@@ -48,6 +48,13 @@ Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
 - Contexto único: um `CONTEXT.md` + `docs/adr/` na raiz
 - Multi-contexto: `CONTEXT-MAP.md` apontando para contextos por módulo (monorepos)
 
+**Seção D: Git guardrails**: Bloquear git destrutivo no Claude Code deste repo? (recomendado: sim)
+- Acrescenta regras em `permissions.deny` do `.claude/settings.json` do projeto: `commit`, `push`, `reset`, `clean`, `rebase` (também na forma `git -C <dir> …`), delete forçado de branch e tag, `checkout .`/`restore .`, `stash drop`/`clear`
+- Precisa de `jq`. Sem `jq`, o setup para e avisa, e o arquivo não é tocado
+- Com `settings.json` inválido, para e mostra o erro do `jq`; você corrige e roda de novo
+- Com arquivo válido, só acrescenta as regras que faltam: allow rules, hooks, env e deny já existentes continuam lá. Antes de substituir, grava um backup ao lado (`settings.json.bak-<timestamp>`)
+- Sem arquivo, ou com arquivo vazio, cria um com as regras. Rodar de novo não duplica nada
+
 **3. Confirma**: mostra um rascunho de tudo que vai ser escrito antes de escrever.
 
 **4. Escreve**: cria os arquivos:
@@ -55,6 +62,7 @@ Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
 - Cria `docs/agents/issue-tracker.md`
 - Cria `docs/agents/triage-labels.md`
 - Cria `docs/agents/domain.md`
+- Se a Seção D foi sim: faz o merge das deny rules no `.claude/settings.json` e cria `docs/agents/git-guardrails.md`
 
 **5. Confirma conclusão**: lista quais skills agora têm o contexto necessário.
 
@@ -67,8 +75,11 @@ Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
     └── agents/
         ├── issue-tracker.md   ← onde ficam as issues e como criar
         ├── triage-labels.md   ← mapeamento das 5 labels canônicas
-        └── domain.md          ← onde fica CONTEXT.md e ADRs
+        ├── domain.md          ← onde fica CONTEXT.md e ADRs
+        └── git-guardrails.md  ← lista de deny (só se a Seção D foi sim)
 ```
+
+Com a Seção D, também muda `.claude/settings.json` (só `permissions.deny` ganha entradas) e aparece um `settings.json.bak-<timestamp>` quando o arquivo existente é substituído.
 
 ## Dicas
 

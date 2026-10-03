@@ -48,6 +48,13 @@ If the repo already uses other strings (e.g. `bug:triage`), maps them here.
 - Single context: one `CONTEXT.md` + `docs/adr/` at the root
 - Multi-context: `CONTEXT-MAP.md` pointing to per-module contexts (monorepos)
 
+**Section D: Git guardrails**: Block destructive git for Claude Code in this repo? (recommended: yes)
+- Appends rules to `permissions.deny` in the project's `.claude/settings.json`: `commit`, `push`, `reset`, `clean`, `rebase` (also in the `git -C <dir> …` form), force branch and tag deletes, `checkout .`/`restore .`, `stash drop`/`clear`
+- Needs `jq`. Without it, setup stops and says so, and the file is not touched
+- With an invalid `settings.json`, it stops and shows the `jq` error; you fix the file and re-run
+- With a valid file, it only appends the missing rules: existing allow rules, hooks, env and deny entries stay. Before replacing the file it writes a backup next to it (`settings.json.bak-<timestamp>`)
+- With no file, or an empty one, it creates one with the rules. Re-running never duplicates anything
+
 **3. Confirms**: shows a draft of everything that will be written before writing.
 
 **4. Writes**: creates the files:
@@ -55,6 +62,7 @@ If the repo already uses other strings (e.g. `bug:triage`), maps them here.
 - Creates `docs/agents/issue-tracker.md`
 - Creates `docs/agents/triage-labels.md`
 - Creates `docs/agents/domain.md`
+- When Section D is yes: merges the deny rules into `.claude/settings.json` and creates `docs/agents/git-guardrails.md`
 
 **5. Confirms completion**: lists which skills now have the context they need.
 
@@ -67,8 +75,11 @@ If the repo already uses other strings (e.g. `bug:triage`), maps them here.
     └── agents/
         ├── issue-tracker.md   ← where issues live and how to create them
         ├── triage-labels.md   ← mapping of the 5 canonical labels
-        └── domain.md          ← where CONTEXT.md and ADRs are
+        ├── domain.md          ← where CONTEXT.md and ADRs are
+        └── git-guardrails.md  ← the deny list (only when Section D is yes)
 ```
+
+With Section D, `.claude/settings.json` changes too (only `permissions.deny` gains entries), and a `settings.json.bak-<timestamp>` appears whenever an existing file is replaced.
 
 ## Tips
 

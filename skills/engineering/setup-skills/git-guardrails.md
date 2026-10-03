@@ -9,6 +9,16 @@ Destructive git is denied for Claude Code in this repo via `permissions.deny` in
 - `Bash(git reset *)`
 - `Bash(git clean *)`
 - `Bash(git rebase *)`
+- `Bash(git -C * push)`
+- `Bash(git -C * push *)`
+- `Bash(git -C * commit)`
+- `Bash(git -C * commit *)`
+- `Bash(git -C * reset)`
+- `Bash(git -C * reset *)`
+- `Bash(git -C * clean)`
+- `Bash(git -C * clean *)`
+- `Bash(git -C * rebase)`
+- `Bash(git -C * rebase *)`
 - `Bash(git branch -D *)`
 - `Bash(git branch --delete --force *)`
 - `Bash(git checkout . *)`
@@ -19,5 +29,7 @@ Destructive git is denied for Claude Code in this repo via `permissions.deny` in
 - `Bash(git tag -D *)`
 
 Read-only git (`status`, `diff`, `log`, `show`, …) is not denied.
+
+The `git -C <dir>` rules come in pairs because a trailing space-plus-`*` matches the bare command only when it is the rule's sole wildcard. Their middle `*` can span any text, so a read-only command that merely mentions a denied subcommand later on (`git -C . log --grep push`) is denied too; run it without `-C` instead.
 
 To change the list, edit `.claude/settings.json` → `permissions.deny`.

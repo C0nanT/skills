@@ -6,16 +6,16 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Sem `jq` no PATH, o snippet sai com erro e o `settings.json` existente fica byte a byte igual
-- [ ] Com `settings.json` inválido, o snippet sai com erro, mostra o problema e não altera o arquivo
-- [ ] Com `settings.json` válido contendo allow rules, hooks e env, tudo continua lá depois do merge e as deny rules aparecem
-- [ ] Um backup do arquivo anterior é criado antes da substituição
-- [ ] Sem arquivo ou com arquivo vazio, o settings é criado com as deny rules
-- [ ] A segunda execução não duplica regras
-- [ ] As variantes `git -C` estão nas duas cópias da lista, e o formato do glob foi conferido contra a documentação de permissões do Claude Code
-- [ ] O `validate.sh` tem a seção que roda os cenários acima e falha se algum quebrar
-- [ ] A página de docs do `setup-skills` e os guias en/pt-br do setup-skills refletem o novo comportamento
-- [ ] Linha 1 marcada como resolvida no Findings ledger de `docs/tech-debt/README.md`
-- [ ] `scripts/validate.sh` passa
+- [x] Sem `jq` no PATH, o snippet sai com erro e o `settings.json` existente fica byte a byte igual
+- [x] Com `settings.json` inválido, o snippet sai com erro, mostra o problema e não altera o arquivo
+- [x] Com `settings.json` válido contendo allow rules, hooks e env, tudo continua lá depois do merge e as deny rules aparecem
+- [x] Um backup do arquivo anterior é criado antes da substituição
+- [x] Sem arquivo ou com arquivo vazio, o settings é criado com as deny rules
+- [x] A segunda execução não duplica regras
+- [x] As variantes `git -C` estão nas duas cópias da lista, e o formato do glob foi conferido contra a documentação de permissões do Claude Code
+- [x] O `validate.sh` tem a seção que roda os cenários acima e falha se algum quebrar
+- [x] A página de docs do `setup-skills` e os guias en/pt-br do setup-skills refletem o novo comportamento
+- [x] Linha 1 marcada como resolvida no Findings ledger de `docs/tech-debt/README.md`
+- [x] `scripts/validate.sh` passa
