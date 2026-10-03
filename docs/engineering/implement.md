@@ -6,7 +6,7 @@ It never reopens the plan. There is no interview, no clarifying round, no propos
 
 ## When to reach for it
 
-You invoke this by typing `/implement`: the agent won't reach for it on its own. It ships with `disable-model-invocation: true`, so no other skill can call it either. Wherever [ask-skills](./ask-skills.md) or [to-tickets](https://aihero.dev/skills-to-tickets) says "then `/implement` per ticket", that is an instruction to you, not something the agent will do unprompted.
+Type `/implement`, or let the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reach for it when a spec or ticket is ready to build. It is model-invoked in both Claude Code and Codex, so other skills such as `delegate-tickets` can call it too. Wherever [ask-skills](./ask-skills.md) or [to-tickets](https://aihero.dev/skills-to-tickets) says "then `/implement` per ticket", that is still the step to take per ticket.
 
 Where the work currently lives decides whether this is the right skill:
 

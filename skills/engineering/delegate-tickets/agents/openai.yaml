@@ -1,0 +1,5 @@
+interface:
+  display_name: "Delegate Tickets"
+  short_description: "Run tickets through fresh subagents, one at a time"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup Statusline"
+  short_description: "Install a Claude Code status line"
+policy:
+  allow_implicit_invocation: false

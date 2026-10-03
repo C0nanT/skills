@@ -34,6 +34,8 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 | `implement` | **Subagent effort cap**: every subagent spawned in the run (directly or via `/tdd`, `/review-axes`) runs at `effort: medium`; `high` or above needs the user's explicit yes before the spawn | an `implement` `SKILL.md` with no `## Subagent effort` heading |
 | `implement` | **No `.scratch/` references** in anything the run writes that outlives it (docblocks, comments, READMEs, docs): `.scratch/` is wiped periodically, so the fact goes inline or cites a permanent file | an `implement` `SKILL.md` with no `never points into` line |
 | `implement` | **Verdict section** above the commit message: 🟢 / 🟡 / 🔴 plus the reason, worst applicable colour wins | a run that ends straight at the commit message with no `## Verdict` heading |
+| `implement` | **Model-invoked in both harnesses**: no `disable-model-invocation` in `SKILL.md`, no `policy` block in `agents/openai.yaml`, so `delegate-tickets` and other skills can reach it. Upstream makes it user-invoked in both (`tdd` and `research` match upstream: model-invoked) | `disable-model-invocation: true` in `implement/SKILL.md`, or `allow_implicit_invocation: false` in its `openai.yaml` |
+| `implement` | Calls `tdd` with the **"Call the Skill tool with"** form, per `.agents/invocation.md` | `Use /tdd where possible` |
 | `wayfinder` | Grilling tickets are worked **one question at a time** | `Conversation. The default case.` |
 | `wayfinder` | Grilling ticket type invokes only `/grilling`: this fork carries no `domain-modeling` skill to pair it with | `/grilling and /domain-modeling` |
 | `tdd` | Doesn't lean on an external skill for interface/seam vocabulary: this fork carries no `codebase-design` skill | `use the /codebase-design skill for the vocabulary` |
@@ -60,6 +62,8 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 ## Fork-only skills
 
 Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `tech-debt-map`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
+
+Every fork-only skill carries an `agents/openai.yaml`; the user-invoked ones carry `allow_implicit_invocation: false`. `scripts/validate.sh` enforces both.
 
 `tech-debt-map` is the one with state outside itself: it keeps a committed review index at `docs/tech-debt/README.md` in the audited project (not in this repo), which holds the module partition every past review was measured against. It shares `AXES.md` with nothing, but its handoff names `/to-spec`, `/to-tickets`, and `/improve-codebase-architecture`, so an upstream rewrite of any of those three dates its closing step.
 

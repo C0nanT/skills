@@ -6,17 +6,17 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] `tdd` e `research` sem `disable-model-invocation`
-- [ ] `implement` sem bloco de política no `openai.yaml`
-- [ ] `delegate-tickets` e `setup-skills` com `agents/openai.yaml` e `allow_implicit_invocation: false`
-- [ ] `implement` chama o `tdd` pela forma "Call the Skill tool with"
-- [ ] README do bucket e README raiz com `implement`, `tdd` e `research` em Model-invoked, e a descrição do `implement` dizendo que entrega mensagem de commit e nunca commita
-- [ ] Ledger de divergências registra cada modo que difere do upstream, conferido contra o upstream
-- [ ] `validate.sh` falha quando `SKILL.md` e `openai.yaml` discordam sobre o modo
-- [ ] `validate.sh` falha quando uma skill não tem `agents/openai.yaml`
-- [ ] `validate.sh` falha quando uma skill chama pela Skill tool outra skill que não existe ou é user-invoked
-- [ ] Páginas de docs e guias de `implement`, `tdd` e `research` sem contradição com o novo modo
-- [ ] Linha 3 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] `tdd` e `research` sem `disable-model-invocation`
+- [x] `implement` sem bloco de política no `openai.yaml`
+- [x] `delegate-tickets` e `setup-skills` com `agents/openai.yaml` e `allow_implicit_invocation: false`
+- [x] `implement` chama o `tdd` pela forma "Call the Skill tool with"
+- [x] README do bucket e README raiz com `implement`, `tdd` e `research` em Model-invoked, e a descrição do `implement` dizendo que entrega mensagem de commit e nunca commita
+- [x] Ledger de divergências registra cada modo que difere do upstream, conferido contra o upstream
+- [x] `validate.sh` falha quando `SKILL.md` e `openai.yaml` discordam sobre o modo
+- [x] `validate.sh` falha quando uma skill não tem `agents/openai.yaml`
+- [x] `validate.sh` falha quando uma skill chama pela Skill tool outra skill que não existe ou é user-invoked
+- [x] Páginas de docs e guias de `implement`, `tdd` e `research` sem contradição com o novo modo
+- [x] Linha 3 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

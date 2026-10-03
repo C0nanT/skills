@@ -13,7 +13,7 @@ Uma skill que implementa o ciclo red-green-refactor de TDD de forma disciplinada
 
 ## Como invocar
 
-User-invoked: só você digita o nome (não é carregada automaticamente pelo modelo):
+Model-invoked: o modelo pode carregá-la sozinho (outras skills, como `/implement`, a chamam), e você também pode digitar o nome:
 
 ```
 /tdd

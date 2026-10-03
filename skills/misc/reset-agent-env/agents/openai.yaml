@@ -1,0 +1,5 @@
+interface:
+  display_name: "Reset Agent Env"
+  short_description: "Wipe agent configs to simulate a clean machine"
+policy:
+  allow_implicit_invocation: false

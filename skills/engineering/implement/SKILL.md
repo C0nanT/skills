@@ -1,6 +1,6 @@
 ---
 name: implement
-description: "Implement a piece of work based on a spec or set of tickets."
+description: "Implement a piece of work based on a spec or set of tickets. Use when the user wants a ready spec, ticket, or agreed plan built, or says to implement it."
 ---
 
 Implement the work described by the user in the spec or tickets, in four steps. Each step is done only when its completion criterion holds.
@@ -15,7 +15,7 @@ Where the host cannot set effort per spawn and the subagent would inherit a `hig
 
 ## 1. Build
 
-Use /tdd where possible, at pre-agreed seams. Run typechecking regularly and single test files regularly.
+Call the Skill tool with "tdd" where possible, working at pre-agreed seams. Run typechecking regularly and single test files regularly.
 
 Anything you write that outlives the run (docblocks, code comments, READMEs, docs, ADRs) never points into `.scratch/`: that folder is wiped periodically, so the reference would dangle. State the needed fact inline, or cite a permanent file in the repo instead.
 

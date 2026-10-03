@@ -2,7 +2,7 @@
 
 ## O que é
 
-Uma skill user-invoked que implementa o trabalho descrito num spec ou conjunto de issues. É o passo de execução depois de `/to-tickets` ou de issues já prontas no issue tracker.
+Uma skill model-invoked (você também pode digitá-la) que implementa o trabalho descrito num spec ou conjunto de issues. É o passo de execução depois de `/to-tickets` ou de issues já prontas no issue tracker.
 
 ## Para que serve
 
