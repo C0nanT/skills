@@ -36,7 +36,7 @@ A run is six beats, in order:
 2. Drive [tdd](https://aihero.dev/skills-tdd) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Run [review-axes](./review-axes.md) against the unstaged working tree. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
+5. Run [review-axes](./review-axes.md) against the unstaged working tree, passing it the path of the spec or ticket you gave `implement` so it ticks the right checkboxes. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
 6. Give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message: no `git commit`.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, you commit from the message it wrote, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.

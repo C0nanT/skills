@@ -31,7 +31,7 @@ Done when: the suite has run and you know its result.
 
 ## 3. Review
 
-Invoke the /review-axes skill now, as a real Skill call. Since nothing here is committed, give it **the unstaged working tree** as its fixed point: a ref-based diff would come back empty. Leave acceptance-criteria checkboxes (`- [ ]` / `- [x]`) in the spec or tickets to `/review-axes`, which syncs them after the Spec review based on what the code actually did.
+Invoke the /review-axes skill now, as a real Skill call. Since nothing here is committed, give it **the unstaged working tree** as its fixed point: a ref-based diff would come back empty. Also pass it the path of the spec or ticket file you were given as the spec argument, so it syncs the right checkboxes instead of searching for one. Leave acceptance-criteria checkboxes (`- [ ]` / `- [x]`) in the spec or tickets to `/review-axes`, which syncs them after the Spec review based on what the code actually did.
 
 Done when: `/review-axes` has returned its Standards and Spec reports in this run. Steps 1 and 2 passing is the input to this step, never a substitute for it: the Verdict below is built from the review's output, so it cannot be written until the review exists.
 

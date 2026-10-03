@@ -6,12 +6,12 @@
 
 **Blocked by:** 07 (mesmo prompt do `delegate-tickets` e mesma área do `implement`)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] `implement` invoca o `review-axes` passando o caminho da spec ou do ticket recebido
-- [ ] Prompt do `delegate-tickets` passa o caminho do ticket como spec do `review-axes`
-- [ ] `git add -N .` removido do prompt do `delegate-tickets`
-- [ ] Heurística de busca de spec do `review-axes` sem mudança
-- [ ] Docs de `implement` e `review-axes` atualizados se descreverem o fluxo
-- [ ] Linha 10 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] `implement` invoca o `review-axes` passando o caminho da spec ou do ticket recebido
+- [x] Prompt do `delegate-tickets` passa o caminho do ticket como spec do `review-axes`
+- [x] `git add -N .` removido do prompt do `delegate-tickets`
+- [x] Heurística de busca de spec do `review-axes` sem mudança
+- [x] Docs de `implement` e `review-axes` atualizados se descreverem o fluxo
+- [x] Linha 10 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

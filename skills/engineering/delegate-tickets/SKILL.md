@@ -103,9 +103,10 @@ The git index holds work from previous tickets that is NOT yours. Leave it
 alone: never run `git add`, `git commit`, `git reset`, `git stash`, or
 `git checkout` on it. Your work stays unstaged.
 
-Before `/review-axes` runs, execute `git add -N .` in the repository so new
-files you created appear in `git diff`. Then give `/review-axes` "the unstaged
-working tree" as its fixed point, so it reviews only your ticket's changes.
+When you invoke `/review-axes`, give it "the unstaged working tree" as its
+fixed point, so it reviews only your ticket's changes, and give it
+`<ticket-path>` as its spec argument, so it checks and ticks that ticket's
+checkboxes.
 
 Nobody is available to answer you. Any question you would ask the user (a
 missing spec, an effort gate, an ambiguity) is a blocker: stop and report the
