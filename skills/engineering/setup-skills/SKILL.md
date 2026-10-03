@@ -28,14 +28,13 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/agents/`: does this skill's prior output already exist?
 - `.scratch/`: sign that a local-markdown issue tracker convention is already in use
 - `.claude/settings.json`: does `permissions.deny` already list the destructive-git `Bash(git …)` rules?
-- Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - Monorepo signals: a `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or a populated `packages/*` with its own `src/`. Present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
 
 ### 2. Present findings and ask
 
 Summarise what's present and what's missing. Then take the sections in order. One section, one answer, then the next.
 
-Lead each section with the recommended answer so the user can accept it in a word. Give a one-line explainer only when the choice genuinely branches; skip the section entirely when exploration already settled it (Section B when `triage` isn't installed, Section C when there's no monorepo, Section D when the project deny list is already present).
+Lead each section with the recommended answer so the user can accept it in a word. Give a one-line explainer only when the choice genuinely branches; skip the section entirely when exploration already settled it (Section C when there's no monorepo, Section D when the project deny list is already present).
 
 **Section A: Issue tracker.**
 
@@ -52,9 +51,7 @@ Record the choice in `docs/agents/issue-tracker.md`. The GitHub and GitLab templ
 
 > Explainer: Open-source repos often receive feature requests as pull requests, not just issues, a PR is an issue with attached code. If you turn this on, external PRs are pulled into the same triage queue and run through the same labels and states as issues (collaborators' in-flight PRs are left alone). Leave it off if PRs aren't a request surface for you.
 
-**Section B: Triage labels.** Only if `triage` is installed.
-
-If it is installed, ask exactly one question:
+**Section B: Triage labels.** Always runs, whether or not a triage skill is installed: the labels are also how `to-spec`, `to-tickets` and `review-axes` record state. Ask exactly one question:
 
 > Do you want to keep the default triage labels? (recommended: **yes**)
 
@@ -77,7 +74,7 @@ If the user says **no**, omit the deny merge, `docs/agents/git-guardrails.md`, a
 Show the user a draft of:
 
 - The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
-- The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
+- The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md`
 - When Section D is yes: `docs/agents/git-guardrails.md` and the `permissions.deny` entries that will be merged into `.claude/settings.json`
 
 Let them edit before writing.
@@ -116,8 +113,6 @@ The block:
 Destructive git (`commit`, `push`, `reset`, …) is denied via `permissions.deny` in `.claude/settings.json`. See `docs/agents/git-guardrails.md`.
 ```
 
-Include the `### Triage labels` sub-block, and write `docs/agents/triage-labels.md`, only when `triage` is installed and Section B ran. When it isn't, both are omitted.
-
 Include the `### Git guardrails` sub-block and write `docs/agents/git-guardrails.md` only when Section D was **yes**. When Section D was **no**, omit them.
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
@@ -125,7 +120,7 @@ Then write the docs files using the seed templates in this skill folder as a sta
 - [issue-tracker-github.md](./issue-tracker-github.md): GitHub issue tracker
 - [issue-tracker-gitlab.md](./issue-tracker-gitlab.md): GitLab issue tracker
 - [issue-tracker-local.md](./issue-tracker-local.md): local-markdown issue tracker
-- [triage-labels.md](./triage-labels.md): label mapping (only if `triage` is installed)
+- [triage-labels.md](./triage-labels.md): label mapping
 - [domain.md](./domain.md): domain doc consumer rules + layout
 - [git-guardrails.md](./git-guardrails.md): documents the project deny list (only if Section D is yes)
 

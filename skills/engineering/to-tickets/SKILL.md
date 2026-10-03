@@ -94,7 +94,7 @@ Do NOT close or modify any parent issue.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
 
-**Status:** ready-for-agent
+Status: ready-for-agent
 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2

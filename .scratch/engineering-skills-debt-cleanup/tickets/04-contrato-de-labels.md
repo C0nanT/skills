@@ -6,14 +6,14 @@
 
 **Blocked by:** 03 (mexe nos mesmos templates do `setup-skills`)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Nenhuma menção a "if `triage` is installed" no `setup-skills`; a Seção B sempre roda
-- [ ] A lista de arquivos gerados sempre inclui `docs/agents/triage-labels.md`
-- [ ] A definição de `ready-for-human` no template de labels foi reescrita; o label não mudou de nome
-- [ ] Templates de GitHub e GitLab sem referência ao "triage step"
-- [ ] `to-tickets` emite `Status:` sem negrito, no template local e onde mais aparecer
-- [ ] Ledger de divergências registra a Seção B incondicional
-- [ ] Docs do `setup-skills` e do `to-tickets` atualizados
-- [ ] Linha 6 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] Nenhuma menção a "if `triage` is installed" no `setup-skills`; a Seção B sempre roda
+- [x] A lista de arquivos gerados sempre inclui `docs/agents/triage-labels.md`
+- [x] A definição de `ready-for-human` no template de labels foi reescrita; o label não mudou de nome
+- [x] Templates de GitHub e GitLab sem referência ao "triage step"
+- [x] `to-tickets` emite `Status:` sem negrito, no template local e onde mais aparecer
+- [x] Ledger de divergências registra a Seção B incondicional
+- [x] Docs do `setup-skills` e do `to-tickets` atualizados
+- [x] Linha 6 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

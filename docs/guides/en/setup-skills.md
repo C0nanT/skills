@@ -39,7 +39,7 @@ No arguments needed. The skill will explore the repo and guide the configuration
 - `needs-triage`: maintainer needs to evaluate
 - `needs-info`: waiting for more info from reporter
 - `ready-for-agent`: fully specified, ready for AFK agent
-- `ready-for-human`: needs human implementation
+- `ready-for-human`: needs a human to review the task, the code and whether the feature works
 - `wontfix`: will not be actioned
 
 If the repo already uses other strings (e.g. `bug:triage`), maps them here.

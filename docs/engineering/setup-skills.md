@@ -27,7 +27,7 @@ Reach for it **once per repo, before the first use of any other engineering skil
 It walks you through four choices, one at a time, each with a plain-language explainer (it assumes you don't already know the terms):
 
 - **Issue tracker**: where work is tracked, so `to-spec`/`to-tickets` know whether to call `gh`, `glab`, write markdown under `.scratch/`, or follow a workflow you describe. GitHub, GitLab, local markdown, or other.
-- **Triage labels**: the strings behind the five canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`), mapped to labels you've actually configured.
+- **Triage labels**: the strings behind the five canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`), mapped to labels you've actually configured. This section always runs; `ready-for-human` means a human has to review the task, the code and whether the feature works.
 - **Domain docs**: whether the repo has one `CONTEXT.md` or a multi-context map, so skills that read domain language look in the right place.
 - **Git guardrails**: whether to add `permissions.deny` rules to the project's `.claude/settings.json` so Claude Code refuses destructive git (`commit`, `push`, `reset`, `clean`, `rebase`, also through `git -C <dir>`, plus force deletes and discard-all commands). Recommended yes; no hooks are installed.
 

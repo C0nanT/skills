@@ -17,7 +17,7 @@ You invoke this by typing `/to-tickets`. The [agent](https://www.aihero.dev/ai-c
 | A [wayfinder](https://aihero.dev/skills-wayfinder) map has cleared | [to-spec](https://aihero.dev/skills-to-spec) first, to collapse the map, then `/to-tickets` |
 
 ## Prerequisites
-`to-tickets` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and its triage label vocabulary for this repo first. On a real tracker it applies the ready-for-agent label as it publishes.
+`to-tickets` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and its triage label vocabulary for this repo first. On a real tracker it applies the ready-for-agent label as it publishes. On the local markdown tracker that is a plain `Status: ready-for-agent` line (no bold) near the top of each ticket.
 
 ## Tracer bullets, not layers
 

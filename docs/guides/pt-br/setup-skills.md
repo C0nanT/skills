@@ -39,7 +39,7 @@ Não precisa de argumentos. A skill vai explorar o repo e conduzir a configuraç
 - `needs-triage`: maintainer precisa avaliar
 - `needs-info`: aguardando mais info do reporter
 - `ready-for-agent`: completamente especificado, pronto para agente AFK
-- `ready-for-human`: precisa de implementação humana
+- `ready-for-human`: precisa de um humano para revisar a tarefa, o código e se a feature funciona
 - `wontfix`: não será acionado
 
 Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
