@@ -4,7 +4,7 @@ One row per module, maintained by the `tech-debt-map` skill. The partition below
 
 | Module | Paths | Origin | Last review | Report | Open |
 | ------ | ----- | ------ | ----------- | ------ | ---- |
-| Engineering skills | `skills/engineering/**` | declared | 2026-10-03 | `.scratch/tech-debt-map/engineering-skills/2026-10-03.md` | 10 |
+| Engineering skills | `skills/engineering/**` | declared | 2026-10-03 | `.scratch/tech-debt-map/engineering-skills/2026-10-03.md` | 0 |
 | Docs | `docs/**` | proposed | never | | |
 | In-progress skills | `skills/in-progress/**` | declared | never | | |
 | Plugin and tooling | `scripts/**`, `.claude-plugin/**`, `.github/**`, `.changeset/**`, `*.sh` (repo root), `.agents/local-skills/**` | proposed | never | | |
@@ -23,16 +23,16 @@ Status of each finding across reviews, so the history survives a `.scratch/` wip
 
 | # | Finding | First seen | Status |
 | - | ------- | ---------- | ------ |
-| 1 | `setup-skills` deny-rule merge erases `.claude/settings.json` without `jq`; deny list misses `git -C` | 2026-10-03 | resolved (commit pending) |
-| 2 | Local tracker template lacks "Wayfinding operations"; `SPEC.md` vs `spec.md` | 2026-10-03 | resolved (commit pending) |
-| 3 | Invocation mode disagrees across `SKILL.md`, `openai.yaml` and README (`tdd`, `research`, `implement`, missing `openai.yaml`) | 2026-10-03 | resolved (commit pending) |
-| 4 | MR, issue and web text reach the shell and sub-agents with no data boundary | 2026-10-03 | resolved (commit pending) |
-| 5 | `delegate-tickets` spawns with no model or effort cap and no "no human, stop" rule | 2026-10-03 | resolved (commit pending) |
-| 6 | Triage label contract: Section B gated on the excluded `triage` skill; `ready-for-human` definition mismatch | 2026-10-03 | resolved (commit pending) |
-| 7 | `ask-skills` routes with stale facts (`issues/`, "before committing", `/diagnosing-bugs`) | 2026-10-03 | resolved (commit pending) |
-| 8 | `tech-debt-map` resolved-tracking lives only in `.scratch/` | 2026-10-03 | resolved (commit pending) |
-| 9 | `wizard` writes secrets to `.env` without checking `.gitignore` | 2026-10-03 | resolved (commit pending) |
-| 10 | `delegate-tickets` pass gate relies on `review-axes` spec-search heuristic | 2026-10-03 | resolved (commit pending) |
+| 1 | `setup-skills` deny-rule merge erases `.claude/settings.json` without `jq`; deny list misses `git -C` | 2026-10-03 | resolved (`ffbd903`) |
+| 2 | Local tracker template lacks "Wayfinding operations"; `SPEC.md` vs `spec.md` | 2026-10-03 | resolved (`fa02423`) |
+| 3 | Invocation mode disagrees across `SKILL.md`, `openai.yaml` and README (`tdd`, `research`, `implement`, missing `openai.yaml`) | 2026-10-03 | resolved (`9194a88`) |
+| 4 | MR, issue and web text reach the shell and sub-agents with no data boundary | 2026-10-03 | resolved (`bb774bb`) |
+| 5 | `delegate-tickets` spawns with no model or effort cap and no "no human, stop" rule | 2026-10-03 | resolved (`a6b2e71`) |
+| 6 | Triage label contract: Section B gated on the excluded `triage` skill; `ready-for-human` definition mismatch | 2026-10-03 | resolved (`385858e`) |
+| 7 | `ask-skills` routes with stale facts (`issues/`, "before committing", `/diagnosing-bugs`) | 2026-10-03 | resolved (`de7f506`) |
+| 8 | `tech-debt-map` resolved-tracking lives only in `.scratch/` | 2026-10-03 | resolved (`8448954`) |
+| 9 | `wizard` writes secrets to `.env` without checking `.gitignore` | 2026-10-03 | resolved (`1533a31`) |
+| 10 | `delegate-tickets` pass gate relies on `review-axes` spec-search heuristic | 2026-10-03 | resolved (`a543559`) |
 
 ## Guardrails
 
