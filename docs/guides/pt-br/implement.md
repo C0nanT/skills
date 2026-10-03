@@ -46,3 +46,4 @@ Issues marcadas como `ready-for-agent` no issue tracker também chegam aqui.
 - Uma issue por sessão mantém contexto limpo e focado.
 - Se o seam de teste não estiver claro, volte ao planejamento com `/tdd` antes de codar em massa.
 - `/implement` assume que a especificação já está pronta: não substitui `/grill-with-docs`.
+- Subagentes rodam em `effort: medium`; `high` ou mais pede o seu sim antes. Sem ninguém para responder (por exemplo, dentro de `/delegate-tickets`), a execução para e reporta a pergunta como bloqueio, nunca faz o trabalho inline.

@@ -11,7 +11,9 @@ Every subagent spawned during this run, whether you spawn it or a skill you invo
 
 `high` or above (`high`, `xhigh`, `max`) needs the user's explicit yes **before** the spawn: ask, name the subagent, the model, the effort and why medium is not enough, then wait. No answer is a no. One yes covers only the spawn it was asked for.
 
-Where the host cannot set effort per spawn and the subagent would inherit a `high` or higher level from this session, that inheritance counts as spawning at `high`: ask first, or do the work inline.
+Where the host cannot set effort per spawn and the subagent would inherit a `high` or higher level from this session, that inheritance counts as spawning at `high`: it needs the same yes first.
+
+If no human can answer (you run as a subagent, unattended, or the brief says nobody is around), stop and report the question as a blocker. Never fall back to doing the work inline. In an interactive session, keep asking and waiting for the yes as above. The same rule covers every other question this run would put to the user, such as where the spec is: unattended, it is a blocker, never a guess.
 
 ## 1. Build
 

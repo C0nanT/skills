@@ -77,7 +77,7 @@ Probably the ticket is too big rather than the skill being misused. A run does c
 
 **Why did it stop and ask before spawning a subagent?**
 
-This fork caps subagent effort. Any subagent spawned during a run, including the ones [review-axes](./review-axes.md) spawns for its two axes, runs at `effort: medium`, whatever model it uses and whatever effort you picked for your own session. Your session's effort stays yours: choosing `high` for the main model does not hand `high` to every spawn. A subagent at `high`, `xhigh` or `max` needs your explicit yes first, so the agent asks, names the model and effort, and says why medium is not enough. Silence is a no, and one yes covers only that one spawn.
+This fork caps subagent effort. Any subagent spawned during a run, including the ones [review-axes](./review-axes.md) spawns for its two axes, runs at `effort: medium`, whatever model it uses and whatever effort you picked for your own session. Your session's effort stays yours: choosing `high` for the main model does not hand `high` to every spawn. A subagent at `high`, `xhigh` or `max` needs your explicit yes first, so the agent asks, names the model and effort, and says why medium is not enough. Silence is a no, and one yes covers only that one spawn. When nobody is there to answer (the run is a subagent, for example one started by `/delegate-tickets`), the run stops and reports the question as a blocker instead of doing the work inline.
 
 **Why don't the comments and docs it writes link to the ticket or spec?**
 

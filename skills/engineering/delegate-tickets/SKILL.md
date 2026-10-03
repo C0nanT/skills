@@ -29,6 +29,18 @@ yourself:
 The user may pass a starting point ("start from ticket 04"): begin there and
 leave the earlier tickets alone.
 
+## Difficulty gate
+
+This skill only runs mid-level work unattended. Before starting, read the
+`Difficulty:` line of **every** ticket in the sequence, not just the next one,
+so a Heavy ticket stops the run before any work is staged.
+
+- **Standard** or **Light**: runs.
+- **Heavy**, or **no `Difficulty:` line**: stop the sequence before that ticket
+  and tell the user that ticket needs Opus and a human nearby, so it has to be
+  run by hand with `/implement`. A missing line is a blocker, never a default
+  tier. Tickets that come before it in the order may still run.
+
 ## Isolating each ticket's diff
 
 `/implement` never commits. Without this protocol every ticket's review would
@@ -60,7 +72,10 @@ For each ticket, in order:
 2. Report progress to the user: `Ticket <N>/<M>: <title>`.
 3. Start **one fresh subagent**, using the host's subagent mechanism: `Agent`
    on Claude Code, `Task` on Cursor, the equivalent on other hosts. Use a
-   general-purpose subagent with full tool access. If the host has no subagent
+   general-purpose subagent with full tool access, on **Sonnet** (or the host's
+   equivalent mid-level model) at **`effort: medium`**. If the host cannot set
+   the model or effort per spawn, say so to the user and stop rather than
+   spawning at whatever the session uses. If the host has no subagent
    mechanism, stop and tell the user this skill can't run here.
 4. Run it **synchronously**, never in the background, never in parallel with
    another ticket. Sequencing is the whole point of this skill; the staging
@@ -91,6 +106,10 @@ alone: never run `git add`, `git commit`, `git reset`, `git stash`, or
 Before `/review-axes` runs, execute `git add -N .` in the repository so new
 files you created appear in `git diff`. Then give `/review-axes` "the unstaged
 working tree" as its fixed point, so it reviews only your ticket's changes.
+
+Nobody is available to answer you. Any question you would ask the user (a
+missing spec, an effort gate, an ambiguity) is a blocker: stop and report the
+question. Never answer it yourself and never do that work inline.
 
 Report clear success or describe any failure, blocker, unresolved issue, or
 uncertainty. Include the commit message `/implement` generated.

@@ -6,15 +6,15 @@
 
 **Blocked by:** 02 (mexe no `implement`)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] `delegate-tickets` lê `Difficulty:` antes de cada ticket
-- [ ] Ticket Heavy para a sequência com mensagem explicando o motivo
-- [ ] Ticket sem `Difficulty:` para a sequência como bloqueio
-- [ ] Sub-agente de Standard e Light em Sonnet (ou equivalente) com `effort: medium`
-- [ ] Prompt do sub-agente: qualquer pergunta ao usuário vira bloqueio, nunca inline
-- [ ] `implement`: sem humano, o gate de esforço alto para e pergunta; "do the work inline" não é mais o fallback
-- [ ] `implement` interativo continua pedindo o sim antes de spawn em esforço alto
-- [ ] Docs de `implement` (e do `delegate-tickets` se houver) e guias atualizados
-- [ ] Linha 5 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] `delegate-tickets` lê `Difficulty:` antes de cada ticket
+- [x] Ticket Heavy para a sequência com mensagem explicando o motivo
+- [x] Ticket sem `Difficulty:` para a sequência como bloqueio
+- [x] Sub-agente de Standard e Light em Sonnet (ou equivalente) com `effort: medium`
+- [x] Prompt do sub-agente: qualquer pergunta ao usuário vira bloqueio, nunca inline
+- [x] `implement`: sem humano, o gate de esforço alto para e pergunta; "do the work inline" não é mais o fallback
+- [x] `implement` interativo continua pedindo o sim antes de spawn em esforço alto
+- [x] Docs de `implement` (e do `delegate-tickets` se houver) e guias atualizados
+- [x] Linha 5 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa
