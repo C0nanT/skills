@@ -29,6 +29,8 @@ The two ideas worth carrying away.
 
 **The index** is the memory. `docs/tech-debt/README.md` carries one row per module: its globs, whether the partition was declared or proposed, when it was last reviewed, and how many findings are still open. That row is why the skill can open with "nobody has audited billing in eight months, and it has taken 90 commits since", instead of asking you to remember. It is also the source of truth for the partition itself, so a later review measures the same module against the same boundary rather than redrawing the line and losing the history.
 
+The index also holds a **findings ledger**: per module, one line per finding with when it was first seen and whether it is open or resolved (with the commit that resolved it). The detailed reports stay in `.scratch/`, which gets wiped, so the ledger is what a fresh clone or a later review reads to know what moved. When the previous report is gone, the next review re-checks the open ledger rows against the code and marks the fixed ones resolved.
+
 Because the index is a project-wide document, the **guardrails** live there too: the lint rules and checks that stop a finding coming back are properties of the project, not of whichever module happened to surface them, and each review appends to that list instead of rewriting it.
 
 ## Evidence, cost, and the cap
@@ -67,7 +69,8 @@ No. It reads code and writes two markdown files. Turning rows into work is a sep
 - Phase 1 contains things you could actually ship this week.
 - The odd-looking business rules come back as questions to ask, not as verdicts.
 - The index tells you which module is most overdue before you have to think about it.
-- A re-run months later shows resolved rows against the commits that fixed them.
+- A re-run months later shows resolved rows against the commits that fixed them, even if `.scratch/` was wiped in between.
+- A colleague who just cloned the repo sees the same finding history as you, from the ledger in the index.
 
 ## Where it fits
 

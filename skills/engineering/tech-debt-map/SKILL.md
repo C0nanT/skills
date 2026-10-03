@@ -87,6 +87,8 @@ Before writing anything, put the `needs-validation` findings to the user in **on
 
 Read the newest existing map for **this module** first: a finding now fixed is marked **resolved** with the commit that did it, rather than dropped, so consecutive reports show what moved.
 
+**When there is no previous report** (`.scratch/` was wiped, or this is a fresh clone), read the module's **Findings ledger** in `docs/tech-debt/README.md` instead. Re-check every ledger row marked `open` against the code now, and mark the ones that are gone resolved, finding the commit with `git log` on the cited paths. Rows already resolved stay as they are. A module with neither a report nor a ledger is a first review: nothing to compare.
+
 Merge the four reports, dropping duplicates and anything whose cost you cannot state. Cap the map at **10 findings**: a list of every small thing is a list nobody acts on. Findings that miss the cut go in a single closing line, counted, not enumerated.
 
 Write to `.scratch/tech-debt-map/<module-slug>/<YYYY-MM-DD>.md`, a new file per review so two dates can be read side by side:
@@ -127,7 +129,22 @@ Update the review index at `docs/tech-debt/README.md`, creating it if it does no
 | ------ | ----- | ------ | ----------- | ------ | ---- |
 | Billing | `src/billing/**`, `src/invoices/**` | proposed | 2026-09-19 | `.scratch/tech-debt-map/billing/2026-09-19.md` | 7 |
 
-The index is committed on purpose: the reports are working material and live in `.scratch/`, normally gitignored, but "nobody has looked at billing in eight months" is something a team needs to see in review. Below the table, keep the **Guardrails** section, appended to across runs, never rewritten: add what this review learned, skip what is already there.
+The index is committed on purpose: the reports are working material and live in `.scratch/`, normally gitignored, but "nobody has looked at billing in eight months" is something a team needs to see in review.
+
+Below the table, keep the **Findings ledger**: one sub-table per module, so the history of each finding survives a `.scratch/` wipe and a fresh clone. Reports stay in `.scratch/`; only this summary is committed.
+
+```md
+### Billing
+
+| # | Finding | First seen | Status |
+| - | ------- | ---------- | ------ |
+| 1 | Discount rule duplicated in four handlers | 2026-09-19 | resolved (a1b2c3d) |
+| 2 | Invoice totals recomputed per line item | 2026-09-19 | open |
+```
+
+One row per finding, one line each (the detail stays in the report). `Status` is `open`, or `resolved (<commit>)` with the commit that fixed it. At the end of every review, update the module's ledger: add the new findings as `open` with today's date, set the status of the ones step 5 found fixed, and keep resolved rows. The `Open` column in the table above counts the ledger's `open` rows.
+
+Below the ledger, keep the **Guardrails** section, appended to across runs, never rewritten: add what this review learned, skip what is already there.
 
 **Say it before you write it the first time.** This skill advertises itself as changing nothing, and `docs/tech-debt/README.md` is a versioned file, so the first run tells the user it is about to create it, in one line. Later runs update it without asking.
 

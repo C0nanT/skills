@@ -6,12 +6,12 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Passo 7 descreve o Findings ledger como parte do índice
-- [ ] Passo 5 usa o ledger quando o relatório anterior não existe
-- [ ] Passo 7 atualiza status e commit dos achados ao final de cada revisão
-- [ ] Relatórios continuam em `.scratch/tech-debt-map/`
-- [ ] Docs do `tech-debt-map` atualizados
-- [ ] Linha 8 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] Passo 7 descreve o Findings ledger como parte do índice
+- [x] Passo 5 usa o ledger quando o relatório anterior não existe
+- [x] Passo 7 atualiza status e commit dos achados ao final de cada revisão
+- [x] Relatórios continuam em `.scratch/tech-debt-map/`
+- [x] Docs do `tech-debt-map` atualizados
+- [x] Linha 8 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa
