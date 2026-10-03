@@ -6,13 +6,13 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] O template do tracker local tem a seção "Wayfinding operations", portada do tracker doc deste repo
-- [ ] `frontend-handoff` lê `SPEC.md`
-- [ ] O tracker doc deste repo usa `SPEC.md`
-- [ ] O template do tracker local consta na linha de `tickets/` do ledger de divergências
-- [ ] `validate.sh` falha se `spec.md` minúsculo aparecer como nome de spec nas engineering skills ou no tracker doc
-- [ ] Docs do `setup-skills` e do `wayfinder` refletem o template completo
-- [ ] Linha 2 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] O template do tracker local tem a seção "Wayfinding operations", portada do tracker doc deste repo
+- [x] `frontend-handoff` lê `SPEC.md`
+- [x] O tracker doc deste repo usa `SPEC.md`
+- [x] O template do tracker local consta na linha de `tickets/` do ledger de divergências
+- [x] `validate.sh` falha se `spec.md` minúsculo aparecer como nome de spec nas engineering skills ou no tracker doc
+- [x] Docs do `setup-skills` e do `wayfinder` refletem o template completo
+- [x] Linha 2 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

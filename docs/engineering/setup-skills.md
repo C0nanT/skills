@@ -31,7 +31,7 @@ It walks you through four choices, one at a time, each with a plain-language exp
 - **Domain docs**: whether the repo has one `CONTEXT.md` or a multi-context map, so skills that read domain language look in the right place.
 - **Git guardrails**: whether to add `permissions.deny` rules to the project's `.claude/settings.json` so Claude Code refuses destructive git (`commit`, `push`, `reset`, `clean`, `rebase`, also through `git -C <dir>`, plus force deletes and discard-all commands). Recommended yes; no hooks are installed.
 
-The output is three files: `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`, `docs/agents/domain.md`, plus an `## Agent skills` block pointing to them in whichever of `CLAUDE.md` / `AGENTS.md` the repo already uses. Those files are the shared substrate the rest of the toolkit stands on. With guardrails on, it also writes `docs/agents/git-guardrails.md` and merges the deny rules into `.claude/settings.json`.
+The output is three files: `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`, `docs/agents/domain.md`, plus an `## Agent skills` block pointing to them in whichever of `CLAUDE.md` / `AGENTS.md` the repo already uses. The issue tracker file carries a "Wayfinding operations" section for every tracker you can pick, local markdown included (`.scratch/<effort>/map.md` plus `tickets/NN-<slug>.md`), so [wayfinder](./wayfinder.md) knows the map, claim, blocking and frontier format. Local specs are always `SPEC.md`. Those files are the shared substrate the rest of the toolkit stands on. With guardrails on, it also writes `docs/agents/git-guardrails.md` and merges the deny rules into `.claude/settings.json`.
 
 ## Common questions
 

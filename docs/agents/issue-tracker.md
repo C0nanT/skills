@@ -5,7 +5,7 @@ Tickets and specs (you may know a spec as a PRD) for this repo live as markdown 
 ## Conventions
 
 - One feature per directory: `.scratch/<feature-slug>/`
-- The spec is `.scratch/<feature-slug>/spec.md`
+- The spec is `.scratch/<feature-slug>/SPEC.md`
 - Implementation tickets are one file per ticket at `.scratch/<feature-slug>/tickets/<NN>-<slug>.md`, numbered from `01`, never a single combined tickets file
 - Triage state is recorded as a `Status:` line near the top of each issue file (see `triage-labels.md` for the role strings)
 - Comments and conversation history append to the bottom of the file under a `## Comments` heading

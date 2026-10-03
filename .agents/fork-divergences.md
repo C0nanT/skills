@@ -43,7 +43,7 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 | `to-spec` | **Questions allowed when genuinely blocked.** Upstream forbids them outright; here the default is still synthesis, but a gap that can't be closed from the thread, the codebase, `CONTEXT.md`, or the ADRs gets asked in one batch (best guess attached) instead of being invented | `Do NOT interview the user; just synthesize what you already know.` |
 | `to-spec`, `to-tickets` | **No hard setup precondition.** Destination is resolved silently (explicit user instruction → `docs/agents/issue-tracker.md` → local markdown); upstream instead blocks and tells the user to run its setup skill | `should have been provided to you. If not, tell the user to run` |
 | `to-tickets` | **No "does this look good?" pause** before publishing, and each ticket carries a **Difficulty / suggested-model** line | a `### 5. Show the breakdown` followed by `Does the granularity feel right?` |
-| `to-tickets`, `wayfinder`, `docs/agents/issue-tracker.md` | Local tickets live under `.scratch/<slug>/tickets/`, never upstream's `issues/` | `.scratch/<feature-slug>/issues/` |
+| `to-tickets`, `wayfinder`, `docs/agents/issue-tracker.md`, `setup-skills/issue-tracker-local.md` | Local tickets live under `.scratch/<slug>/tickets/`, never upstream's `issues/` | `.scratch/<feature-slug>/issues/` |
 
 ## Writing style
 

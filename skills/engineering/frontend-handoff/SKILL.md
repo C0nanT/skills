@@ -21,7 +21,7 @@ Context only. Frontend work is a separate task: the block describes what the fro
 
 The handoff needs both halves: the **intent** (what was meant to ship) and the **code** (what actually shipped). Expect a fresh session with no memory of the build, so read both from the repo.
 
-**Intent.** Take whatever the user passed: a feature folder, a spec path, a branch, a PR, commits, changed files, or a prose description. A feature folder is the richest form: read `spec.md` for the whole feature, then every `tickets/NN-*.md`, the ticket bodies say what behaviour was promised and the ticked acceptance criteria say what landed. If nothing was passed, ask **one** question naming those forms, then continue.
+**Intent.** Take whatever the user passed: a feature folder, a spec path, a branch, a PR, commits, changed files, or a prose description. A feature folder is the richest form: read `SPEC.md` for the whole feature, then every `tickets/NN-*.md`, the ticket bodies say what behaviour was promised and the ticked acceptance criteria say what landed. If nothing was passed, ask **one** question naming those forms, then continue.
 
 **Code.** Pin a fixed point and diff against it, the same way `/review-axes` does:
 
