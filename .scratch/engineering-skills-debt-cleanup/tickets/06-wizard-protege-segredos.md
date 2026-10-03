@@ -6,13 +6,13 @@
 
 **Blocked by:** 01 (mecanismo de extração de snippet no `validate.sh`)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Com arquivo de env fora do `.gitignore`, `write_env` não grava sem confirmação
-- [ ] Há a opção de incluir o arquivo no `.gitignore`
-- [ ] Com arquivo de env já ignorado, nenhuma pergunta extra
-- [ ] A checagem estática do passo 4 do `SKILL.md` inclui "ENV_FILE is gitignored"
-- [ ] `validate.sh` roda os dois cenários num repo git temporário e falha se algum quebrar
-- [ ] Docs do `wizard` atualizados
-- [ ] Linha 9 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] Com arquivo de env fora do `.gitignore`, `write_env` não grava sem confirmação
+- [x] Há a opção de incluir o arquivo no `.gitignore`
+- [x] Com arquivo de env já ignorado, nenhuma pergunta extra
+- [x] A checagem estática do passo 4 do `SKILL.md` inclui "ENV_FILE is gitignored"
+- [x] `validate.sh` roda os dois cenários num repo git temporário e falha se algum quebrar
+- [x] Docs do `wizard` atualizados
+- [x] Linha 9 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

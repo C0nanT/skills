@@ -41,9 +41,13 @@ For each captured value, scoping settles where it lands:
 
 ## The template already solves the UX
 
-The [template](https://github.com/mattpocock/skills/blob/main/skills/engineering/wizard/template.sh) ships the whole experience: progress with time remaining, confirmation gates, cross-platform URL opening including WSL, hidden entry for secrets, idempotent `.env` upserts, `gh secret` / `gh variable` writes, and a closing summary of everything it had to skip. Everything above the `STAGES` marker is a fixed library, identical in every wizard and never hand-edited. The consistency is the point. Your job is only to scope the procedure and author its stages.
+The [template](https://github.com/mattpocock/skills/blob/main/skills/engineering/wizard/template.sh) ships the whole experience: progress with time remaining, confirmation gates, cross-platform URL opening including WSL, hidden entry for secrets, idempotent `.env` upserts that first check the file is gitignored, `gh secret` / `gh variable` writes, and a closing summary of everything it had to skip. Everything above the `STAGES` marker is a fixed library, identical in every wizard and never hand-edited. The consistency is the point. Your job is only to scope the procedure and author its stages.
 
-The agent that writes a wizard never runs it end to end, because it opens browsers and waits for human input. It verifies statically instead: `bash -n`, `shellcheck` where available, and a trace that every value lands where scoping said it would, with every `set_secret` name matching a real `secrets.*` reference in CI. Set your expectations accordingly: the first run is yours, and that run is the test.
+The agent that writes a wizard never runs it end to end, because it opens browsers and waits for human input. It verifies statically instead: `bash -n`, `shellcheck` where available, and a trace that every value lands where scoping said it would, with every `set_secret` name matching a real `secrets.*` reference in CI, and that `ENV_FILE` is gitignored. Set your expectations accordingly: the first run is yours, and that run is the test.
+
+## Secrets never go to git by accident
+
+Before the first value is written, the wizard checks that the env file is in `.gitignore`. If it is, nothing changes and you are asked nothing. If it isn't, the wizard offers to add the file to `.gitignore`. Decline that and it asks once more whether to write to the file anyway; decline again and it exits without writing anything. Outside a git repo the check is skipped.
 
 ## Ephemeral by default
 
@@ -89,6 +93,7 @@ It did. It's now model-invoked, so the agent reaches for it unprompted when it h
 - You're shown an ordered list of stages, and the values each one produces, and asked to confirm, before any script exists.
 - Every URL is opened before the value from that page is asked for. You're never asked to paste something you haven't been sent to fetch.
 - Secrets are typed blind. Nothing sensitive echoes into your scrollback.
+- With your env file outside `.gitignore`, the wizard asks before writing the first value. With it already ignored, it asks nothing extra.
 - Each stage fits one screen. Nothing you still need has scrolled away.
 - Ctrl-C and re-run picks up where you left off, offering the values already saved as defaults.
 - The final screen lists what it wrote, and separately lists what it couldn't do and you have to finish by hand.

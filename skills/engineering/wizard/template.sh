@@ -125,10 +125,38 @@ ask_secret() {
   printf -v "$key" '%s' "$input"
 }
 
+# _ensure_env_ignored runs once, before the first value lands in ENV_FILE.
+# Inside a git repo where ENV_FILE is not ignored, it offers to add it to
+# .gitignore, else asks for explicit confirmation, else stops the wizard.
+# Silent when the file is already ignored or ENV_FILE is outside any repo.
+_ENV_IGNORE_CHECKED=0
+_ensure_env_ignored() {
+  (( _ENV_IGNORE_CHECKED )) && return 0
+  local rc=0 top abs entry
+  git check-ignore -q -- "$ENV_FILE" 2>/dev/null || rc=$?
+  if (( rc != 1 )); then _ENV_IGNORE_CHECKED=1; return 0; fi  # 0 ignored; 128 no repo
+  warn "$ENV_FILE is not in .gitignore, so the secrets saved there could be committed."
+  if confirm "Add $ENV_FILE to .gitignore?"; then
+    top=$(git rev-parse --show-toplevel)
+    abs="$(cd "$(dirname "$ENV_FILE")" && pwd)/$(basename "$ENV_FILE")"
+    entry="/${abs#"$top"/}"
+    if [[ -s "$top/.gitignore" && -n "$(tail -c 1 "$top/.gitignore")" ]]; then
+      printf '\n' >> "$top/.gitignore"  # keep the entry off the last line
+    fi
+    printf '%s\n' "$entry" >> "$top/.gitignore"
+    printf '  %s✓ added%s %s → %s/.gitignore\n' "$GREEN" "$RESET" "$entry" "$top"
+  elif ! confirm "Write secrets to $ENV_FILE anyway?"; then
+    printf '\n'; warn "stopped before writing anything to $ENV_FILE. Re-run when it is ignored."
+    exit 1
+  fi
+  _ENV_IGNORE_CHECKED=1
+}
+
 # write_env KEY VALUE upserts KEY=VALUE into ENV_FILE (creates it; replaces
-# any existing line). Idempotent.
+# any existing line). Idempotent. Checks ENV_FILE is gitignored first.
 write_env() {
   local key="$1" value="$2" tmp
+  _ensure_env_ignored
   touch "$ENV_FILE"
   tmp=$(mktemp)
   grep -vE "^${key}=" "$ENV_FILE" > "$tmp" || true

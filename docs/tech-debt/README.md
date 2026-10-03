@@ -31,7 +31,7 @@ Status of each finding across reviews, so the history survives a `.scratch/` wip
 | 6 | Triage label contract: Section B gated on the excluded `triage` skill; `ready-for-human` definition mismatch | 2026-10-03 | resolved (commit pending) |
 | 7 | `ask-skills` routes with stale facts (`issues/`, "before committing", `/diagnosing-bugs`) | 2026-10-03 | resolved (commit pending) |
 | 8 | `tech-debt-map` resolved-tracking lives only in `.scratch/` | 2026-10-03 | open |
-| 9 | `wizard` writes secrets to `.env` without checking `.gitignore` | 2026-10-03 | open |
+| 9 | `wizard` writes secrets to `.env` without checking `.gitignore` | 2026-10-03 | resolved (commit pending) |
 | 10 | `delegate-tickets` pass gate relies on `review-axes` spec-search heuristic | 2026-10-03 | open |
 
 ## Guardrails
