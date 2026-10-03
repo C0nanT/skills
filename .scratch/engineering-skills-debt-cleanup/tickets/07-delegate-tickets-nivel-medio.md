@@ -1,0 +1,20 @@
+# 07: `delegate-tickets` só nível médio e para sem humano
+
+> **Difficulty:** Standard: **suggested model:** Sonnet (Claude Code) / Sonnet (Cursor). Suggestion only, use whatever model you have to hand.
+
+**What to build:** o `/delegate-tickets` lê a linha `Difficulty:` de cada ticket antes de começar. Ticket Heavy, ou sem a linha, para a sequência com uma mensagem dizendo que aquele ticket precisa de Opus e de um humano por perto. Tickets Standard e Light rodam num sub-agente Sonnet (ou equivalente no host) com `effort: medium`. O prompt do sub-agente diz que qualquer pergunta ao usuário vira bloqueio reportado, nunca trabalho inline. No `/implement`, o fallback do gate de esforço alto, quando não há humano, passa a ser parar e perguntar; numa sessão interativa ele continua perguntando como hoje. É a linha 5 do mapa (spec, histórias 29 a 35).
+
+**Blocked by:** 02 (mexe no `implement`)
+
+Status: ready-for-agent
+
+- [ ] `delegate-tickets` lê `Difficulty:` antes de cada ticket
+- [ ] Ticket Heavy para a sequência com mensagem explicando o motivo
+- [ ] Ticket sem `Difficulty:` para a sequência como bloqueio
+- [ ] Sub-agente de Standard e Light em Sonnet (ou equivalente) com `effort: medium`
+- [ ] Prompt do sub-agente: qualquer pergunta ao usuário vira bloqueio, nunca inline
+- [ ] `implement`: sem humano, o gate de esforço alto para e pergunta; "do the work inline" não é mais o fallback
+- [ ] `implement` interativo continua pedindo o sim antes de spawn em esforço alto
+- [ ] Docs de `implement` (e do `delegate-tickets` se houver) e guias atualizados
+- [ ] Linha 5 marcada como resolvida no Findings ledger
+- [ ] `scripts/validate.sh` passa
