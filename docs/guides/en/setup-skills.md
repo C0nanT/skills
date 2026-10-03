@@ -75,3 +75,46 @@ If the repo already uses other strings (e.g. `bug:triage`), maps them here.
 - You can edit the files in `docs/agents/` manually afterwards: no need to re-run the skill for small changes
 - Re-running is only needed if you want to switch issue trackers or start from scratch
 - If the repo has `CLAUDE.md`, the block goes there. If it has `AGENTS.md`, it goes there. If neither exists, the skill asks which to create
+
+## Optional: archive finished features
+
+With the **Local Markdown** tracker, finished features pile up in `.scratch/<feature-slug>/`. To park the ones worth keeping (specs, tickets, `POST-DEPLOY.md`, frontend handoffs) outside `.scratch/`, paste this prompt into the agent after `/setup-skills` has run:
+
+````markdown
+This project tracks work as local markdown under `.scratch/<feature-slug>/` (specs, tickets, `POST-DEPLOY.md`, frontend handoffs). Finished features pile up there. Create a place to park them for later review, outside `.scratch/`.
+
+Do this:
+
+1. Create `docs/archive/` (use the repo's existing docs root if it isn't `docs/`).
+2. Create `docs/archive/README.md`, in English, with this content:
+
+   ```markdown
+   # Archive
+
+   Finished features moved out of `.scratch/` for later review: post-deploy checklists, frontend handoffs, specs and tickets worth keeping in the repo.
+
+   - One feature per directory: `docs/archive/<feature-slug>/`, same layout it had in `.scratch/` (`SPEC.md`, `tickets/`, `POST-DEPLOY.md`, handoffs…).
+   - Moved by the maintainer, as-is. Not a triage surface: nothing here is active work.
+   ```
+
+3. In `docs/agents/issue-tracker.md`, add this paragraph in the section about closing tickets / deleting feature folders:
+
+   > Finished feature folders the maintainer wants to keep for later review (post-deploy, frontend handoff…) move whole to `docs/archive/<feature-slug>/` (see `docs/archive/README.md`).
+
+4. In the `## Agent skills` block of `CLAUDE.md` / `AGENTS.md`, next to the line about `.scratch/`, add: `Finished work kept for review: docs/archive/<feature-slug>/.`
+
+Rules:
+- Do **not** move any folder yet. The maintainer decides what gets archived and when; an agent never archives on its own.
+- When a folder is moved later, keep its internal layout untouched (a plain `git mv`, so history is preserved).
+- Don't create other docs. Be concise. Match the language of the existing docs (technical docs in English, domain terms untranslated).
+````
+
+Result:
+
+```
+docs/
+├── agents/
+│   └── issue-tracker.md   ← points finished features to docs/archive/
+└── archive/
+    └── README.md          ← convention; one <feature-slug>/ per archived feature
+```
