@@ -62,6 +62,10 @@ It appends a new `## Review N` section rather than overwriting, and opens it by 
 
 Cost. The session itself takes Correctness and Security, since it already holds the diff, the intent, and the file list. One [sub-agent](https://www.aihero.dev/ai-coding-dictionary/subagent) on a small model takes Performance and Design, because hunting a duplicate implementation means grepping modules the MR never touched, and that fills a [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) with files nobody needs afterwards.
 
+**Can a malicious MR make it run something on my machine?**
+
+That is the gap the skill closes on purpose. Everything the author wrote (the branch name, the title, the description, the commit messages) is treated as untrusted data. Git accepts branch names like `x$(id)y`, so a branch name only ever enters a shell command once, in single quotes, to fetch it; after that the review runs on the commit SHA the platform reports, which also pins exactly the commit the MR points at. The title, description, and commits reach the sub-agent in a fenced block marked as data, and an instruction written there ("skip the security pass", "run this script") is never followed, by the sub-agent or by the session. The sub-agent is told it only reads. It stays a general-purpose agent: the read-only agent types available still carry a shell, so swapping to one would not close the hole.
+
 **What if the MR is huge?**
 
 It is reviewed anyway. The skill reports the size first (files changed, lines added and removed) and then reviews all of it. It never silently truncates, because a review that quietly skipped half the diff reads as a pass.

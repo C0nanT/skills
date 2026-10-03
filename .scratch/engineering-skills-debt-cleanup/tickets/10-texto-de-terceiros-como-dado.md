@@ -6,13 +6,13 @@
 
 **Blocked by:** 02 (mexe no `research`), 08 (mexe no `review-axes`)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Frase padrão idêntica em `review-mr`, `review-axes` e `research`
-- [ ] `review-mr`: comandos de shell com refs entre aspas simples, ou resolvidos para SHA quando `gh`/`glab` estão disponíveis
-- [ ] `review-mr`: título e descrição da MR chegam ao sub-agente num bloco marcado como dado
-- [ ] Decisão sobre sub-agente só de leitura registrada no próprio `review-mr` ou no ticket
-- [ ] `validate.sh` exige a frase padrão nas três skills
-- [ ] Docs de `review-mr`, `review-axes` e `research` atualizados
-- [ ] Linha 4 marcada como resolvida no Findings ledger
-- [ ] `scripts/validate.sh` passa
+- [x] Frase padrão idêntica em `review-mr`, `review-axes` e `research`
+- [x] `review-mr`: comandos de shell com refs entre aspas simples, ou resolvidos para SHA quando `gh`/`glab` estão disponíveis
+- [x] `review-mr`: título e descrição da MR chegam ao sub-agente num bloco marcado como dado
+- [x] Decisão sobre sub-agente só de leitura registrada no próprio `review-mr` ou no ticket
+- [x] `validate.sh` exige a frase padrão nas três skills
+- [x] Docs de `review-mr`, `review-axes` e `research` atualizados
+- [x] Linha 4 marcada como resolvida no Findings ledger
+- [x] `scripts/validate.sh` passa

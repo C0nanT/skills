@@ -26,7 +26,7 @@ Status of each finding across reviews, so the history survives a `.scratch/` wip
 | 1 | `setup-skills` deny-rule merge erases `.claude/settings.json` without `jq`; deny list misses `git -C` | 2026-10-03 | resolved (commit pending) |
 | 2 | Local tracker template lacks "Wayfinding operations"; `SPEC.md` vs `spec.md` | 2026-10-03 | resolved (commit pending) |
 | 3 | Invocation mode disagrees across `SKILL.md`, `openai.yaml` and README (`tdd`, `research`, `implement`, missing `openai.yaml`) | 2026-10-03 | resolved (commit pending) |
-| 4 | MR, issue and web text reach the shell and sub-agents with no data boundary | 2026-10-03 | open |
+| 4 | MR, issue and web text reach the shell and sub-agents with no data boundary | 2026-10-03 | resolved (commit pending) |
 | 5 | `delegate-tickets` spawns with no model or effort cap and no "no human, stop" rule | 2026-10-03 | resolved (commit pending) |
 | 6 | Triage label contract: Section B gated on the excluded `triage` skill; `ready-for-human` definition mismatch | 2026-10-03 | resolved (commit pending) |
 | 7 | `ask-skills` routes with stale facts (`issues/`, "before committing", `/diagnosing-bugs`) | 2026-10-03 | resolved (commit pending) |

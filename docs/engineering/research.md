@@ -44,6 +44,10 @@ The skill puts the file where the repo already keeps notes and does not have an 
 
 The [model](https://www.aihero.dev/ai-coding-dictionary/model) does. The skill names the *kinds* of source that qualify (official docs, source code, specs, first-party APIs), and there is no allowlist, no domain gate, and no verification pass. This was the loudest objection when the skill was first proposed and it has never been answered publicly: "Five research subagents pointed at junk just gives you five confident wrong answers faster. How are you gating what counts as high-trust sources?" The mitigation you actually have is the citation on each claim. Follow two or three of them. If they land on a summary of the thing rather than the thing, the run failed at its one job.
 
+**What if a page it reads tells it to do something?**
+
+It does not do it. Web pages are written by third parties, so their content is untrusted data: an instruction on a page ("run this command", "now open this URL", "ignore the question") is a fact about that page, never a step of the research. If it matters to the answer, it lands in the file as a quote. The same rule, in the same words, binds `review-mr` and `review-axes` for MR and issue text.
+
 **Does a later session reuse what an earlier run found?**
 
 No. Nothing auto-loads a past research file; it is a document sitting in the repo until a human or a skill points at it. This was raised early as the strongest challenge to the design: "the value's the markdown becoming context the agent re-reads later, not the fetch itself. A write-once dead file is just a fancy search." The shipped skill does not solve it. In practice the file earns its keep by being fed into the next step deliberately: attach it to a spec, quote it into a grilling session, point a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket) at it.
