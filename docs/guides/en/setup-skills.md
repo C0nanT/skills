@@ -35,12 +35,13 @@ No arguments needed. The skill will explore the repo and guide the configuration
 - Local Markdown (files in `.scratch/`: good for solo projects)
 - Other (Jira, Linear, etc.): describe the workflow
 
-**Section B: Triage labels**: Which strings do you use for the 5 canonical states?
+**Section B: Triage labels**: Which strings do you use for the 6 canonical states?
 - `needs-triage`: maintainer needs to evaluate
 - `needs-info`: waiting for more info from reporter
 - `ready-for-agent`: fully specified, ready for AFK agent
 - `ready-for-human`: needs a human to review the task, the code and whether the feature works
 - `wontfix`: will not be actioned
+- `done`: work finished and accepted; set by `archive-feature`
 
 If the repo already uses other strings (e.g. `bug:triage`), maps them here.
 
@@ -74,7 +75,7 @@ If the repo already uses other strings (e.g. `bug:triage`), maps them here.
 └── docs/
     └── agents/
         ├── issue-tracker.md   ← where issues live and how to create them
-        ├── triage-labels.md   ← mapping of the 5 canonical labels
+        ├── triage-labels.md   ← mapping of the 6 canonical labels
         ├── domain.md          ← where CONTEXT.md and ADRs are
         └── git-guardrails.md  ← the deny list (only when Section D is yes)
 ```

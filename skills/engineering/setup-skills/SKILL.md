@@ -9,7 +9,7 @@ disable-model-invocation: true
 Scaffold the per-repo configuration that the engineering skills assume:
 
 - **Issue tracker**: where issues live (Local markdown by default; GitHub / GitLab / other when you choose them here)
-- **Triage labels**: the strings used for the five canonical triage roles
+- **Triage labels**: the strings used for the six canonical triage roles
 - **Domain docs**: where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
 - **Git guardrails**: `permissions.deny` entries in this repo's `.claude/settings.json` that block destructive git (`commit`, `push`, `reset`, …). Do **not** install or register hooks, the user already has hooks globally if they want them.
 

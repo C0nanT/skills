@@ -11,10 +11,10 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] This repo's triage labels table has a `done` row with its meaning
-- [ ] The `setup-skills` triage labels template has the same row
-- [ ] No prose in the repo still says the vocabulary has five roles (grep for "five")
-- [ ] Docs page for `setup-skills` re-synced if it lists the roles
-- [ ] No em-dashes added
+- [x] This repo's triage labels table has a `done` row with its meaning
+- [x] The `setup-skills` triage labels template has the same row
+- [x] No prose in the repo still says the vocabulary has five roles (grep for "five")
+- [x] Docs page for `setup-skills` re-synced if it lists the roles
+- [x] No em-dashes added

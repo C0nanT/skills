@@ -35,12 +35,13 @@ Não precisa de argumentos. A skill vai explorar o repo e conduzir a configuraç
 - Markdown local (arquivos em `.scratch/`: bom para projetos solo)
 - Outro (Jira, Linear, etc.): descreva o workflow
 
-**Seção B: Labels de triage**: Quais strings você usa para os 5 estados canônicos?
+**Seção B: Labels de triage**: Quais strings você usa para os 6 estados canônicos?
 - `needs-triage`: maintainer precisa avaliar
 - `needs-info`: aguardando mais info do reporter
 - `ready-for-agent`: completamente especificado, pronto para agente AFK
 - `ready-for-human`: precisa de um humano para revisar a tarefa, o código e se a feature funciona
 - `wontfix`: não será acionado
+- `done`: trabalho concluído e aceito; definido por `archive-feature`
 
 Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
 
@@ -74,7 +75,7 @@ Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
 └── docs/
     └── agents/
         ├── issue-tracker.md   ← onde ficam as issues e como criar
-        ├── triage-labels.md   ← mapeamento das 5 labels canônicas
+        ├── triage-labels.md   ← mapeamento das 6 labels canônicas
         ├── domain.md          ← onde fica CONTEXT.md e ADRs
         └── git-guardrails.md  ← lista de deny (só se a Seção D foi sim)
 ```
