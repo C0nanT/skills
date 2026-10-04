@@ -90,6 +90,8 @@ Do NOT close or modify any parent issue.
 
 > **Difficulty:** Heavy | Standard | Light: **suggested model:** <model> (Claude Code) / <model> (Cursor). Suggestion only, use whatever model you have to hand.
 
+**Spec:** the path of the spec this ticket comes from, relative to this ticket file (with the default layout, `../SPEC.md`). Omit the line only when no spec file exists (the plan came from the conversation).
+
 **What to build:** the end-to-end behaviour this ticket makes work, from the user's perspective, not a layer-by-layer implementation list.
 
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".

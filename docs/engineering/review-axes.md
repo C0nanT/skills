@@ -27,11 +27,12 @@ The Standards axis needs nothing. It reads whatever the repo documents (`CODING_
 The Spec axis needs a spec to exist and be findable. It looks in this order:
 
 1. A path you pass in as an argument.
-2. A spec or ticket file under `.scratch/`, `docs/`, or `specs/` matching the branch or feature name: the default home for local-markdown specs.
-3. Issue references in the commit messages (`#123`, `Closes #45`, a GitLab `!67`), fetched through `docs/agents/issue-tracker.md`.
-4. Asking you.
+2. The `Spec:` line of the ticket being reviewed, a path relative to the ticket file. [to-tickets](./to-tickets.md) writes it on every local ticket.
+3. The `Parent` section of the ticket on a remote tracker, fetched through `docs/agents/issue-tracker.md`.
+4. A spec or ticket file under `.scratch/`, `docs/`, or `specs/` matching the branch or feature name, then issue references in the commit messages (`#123`, `Closes #45`, a GitLab `!67`): the heuristic for older tickets and standalone use.
+5. Asking you.
 
-Specs default to **local markdown**, which needs no setup. Step 3 is the only one that needs a remote tracker, and it depends on `docs/agents/issue-tracker.md`, which [setup-skills](./setup-skills.md) writes. With no spec at all, the Spec sub-agent is skipped and the report says "no spec available" rather than inventing requirements.
+Specs default to **local markdown**, which needs no setup. Steps 3 and 4 (issue references) are the only ones that needs a remote tracker, and it depends on `docs/agents/issue-tracker.md`, which [setup-skills](./setup-skills.md) writes. With no spec at all, the Spec sub-agent is skipped and the report says "no spec available" rather than inventing requirements.
 
 ## The two axes
 
@@ -88,7 +89,7 @@ They are not followed. When the spec comes from a remote tracker, the issue body
 
 **Does it tick the acceptance criteria off for me?**
 
-Yes, on a local markdown spec or ticket. After the Spec report it flips `- [ ]` → `- [x]` only for criteria the diff actually implements (and back the other way when one turns out missing or wrong), edits nothing but the checkbox characters, and advances a `Status:` line to `ready-for-human` once every box is checked. It does not commit those edits unless you ask. This is fork-only: upstream `code-review` reports and stops, which is the "nothing gets closed, so nothing becomes visibly unblocked" complaint people file against `implement`.
+Yes, on a local markdown spec or ticket. After the Spec report it flips `- [ ]` → `- [x]` only for criteria the diff actually implements (and back the other way when one turns out missing or wrong), edits nothing but the checkbox characters, on the ticket file when you passed a ticket (never on the spec its `Spec:` line points to), and advances a `Status:` line to `ready-for-human` once every box is checked. It does not commit those edits unless you ask. This is fork-only: upstream `code-review` reports and stops, which is the "nothing gets closed, so nothing becomes visibly unblocked" complaint people file against `implement`.
 
 ## It's working if
 

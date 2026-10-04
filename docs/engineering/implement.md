@@ -26,7 +26,7 @@ The same-session case is worth naming because the skill's own first line doesn't
 
 Upstream `implement` commits to the branch you are on. This fork never commits: it only generates a Conventional Commits message (`type(scope): …` plus a short why-body, capped at 300 characters) for you to paste. Check you are on the branch you want the work on before you start, so the diff lands where you intend when you commit it yourself.
 
-If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the tracker they live on was configured by [setup-skills](./setup-skills.md). `review-axes` reads the same configuration to find the originating spec at close-out.
+If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the tracker they live on was configured by [setup-skills](./setup-skills.md). `review-axes` reads the same configuration to find the originating spec at close-out. Local tickets carry a `Spec:` line, and `implement` passes the ticket path along, so inside this chain the review does not depend on search.
 
 ## What one run does
 
@@ -36,7 +36,7 @@ A run is six beats, in order:
 2. Drive [tdd](https://aihero.dev/skills-tdd) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Run [review-axes](./review-axes.md) against the unstaged working tree, passing it the path of the spec or ticket you gave `implement` so it ticks the right checkboxes. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
+5. Run [review-axes](./review-axes.md) against the unstaged working tree, passing it the ticket path (or the spec path when there is no ticket) so it never has to search for the spec and ticks the right checkboxes. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
 6. Give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message: no `git commit`.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, you commit from the message it wrote, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.

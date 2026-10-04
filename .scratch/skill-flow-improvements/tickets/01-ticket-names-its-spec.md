@@ -8,14 +8,14 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] `to-tickets` local ticket template has a `**Spec:**` line, explained as the spec path relative to the ticket file
-- [ ] `review-axes` spec search lists the new five-step order, with the ticket's `Spec:` line second
-- [ ] `review-axes` step 6 states that checkbox sync targets the ticket file, not the spec it points to, when a ticket was passed
-- [ ] `implement` Review step passes the ticket path (or spec path with no ticket) alongside "the unstaged working tree"
-- [ ] `delegate-tickets` re-read; its instruction about invoking `review-axes` is consistent with `implement` passing the ticket path (edited only if it contradicts)
-- [ ] Fork divergence ledger: `to-tickets` row for the `Spec:` field added; existing `review-axes` "local-markdown first" row updated to the new order, each with a grep phrase
-- [ ] Docs pages for `to-tickets`, `review-axes` and `implement` re-synced for this behaviour
-- [ ] Tech-debt ledger finding #10 marked resolved
-- [ ] No em-dashes in touched prose; `scripts/validate.sh` passes
+- [x] `to-tickets` local ticket template has a `**Spec:**` line, explained as the spec path relative to the ticket file
+- [x] `review-axes` spec search lists the new five-step order, with the ticket's `Spec:` line second
+- [x] `review-axes` step 6 states that checkbox sync targets the ticket file, not the spec it points to, when a ticket was passed
+- [x] `implement` Review step passes the ticket path (or spec path with no ticket) alongside "the unstaged working tree"
+- [x] `delegate-tickets` re-read; its instruction about invoking `review-axes` is consistent with `implement` passing the ticket path (edited only if it contradicts)
+- [x] Fork divergence ledger: `to-tickets` row for the `Spec:` field added; existing `review-axes` "local-markdown first" row updated to the new order, each with a grep phrase
+- [x] Docs pages for `to-tickets`, `review-axes` and `implement` re-synced for this behaviour
+- [x] Tech-debt ledger finding #10 marked resolved
+- [x] No em-dashes in touched prose; `scripts/validate.sh` passes
