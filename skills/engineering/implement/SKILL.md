@@ -3,7 +3,7 @@ name: implement
 description: "Implement a piece of work based on a spec or set of tickets. Use when the user wants a ready spec, ticket, or agreed plan built, or says to implement it."
 ---
 
-Implement the work described by the user in the spec or tickets, in four steps. Each step is done only when its completion criterion holds.
+Implement the work described by the user in the spec or tickets, in five steps. Each step is done only when its completion criterion holds.
 
 ## Subagent effort
 
@@ -29,13 +29,25 @@ Run the full test suite once.
 
 Done when: the suite has run and you know its result.
 
-## 3. Review
+## 3. Refactor
+
+One cleanup pass over the code this run wrote, only while the suite is green.
+
+- **Precondition:** the full suite was green after Test. If it was not, skip this step and say so in the Verdict.
+- **Scope:** only code the run's diff created or changed (in working-tree mode, the working tree vs. the index, so under `/delegate-tickets` exactly the current ticket). A worthwhile refactor you see outside the diff is never applied: note it for the Verdict.
+- **Rule:** no behaviour change. Never edit a test to make a refactor pass.
+- **Snapshot first, without committing or touching the index.** Allowed: `git stash create` (records the state, changes no ref, index or working tree) or copying the diff's files aside. Never `git add` (beyond the `git add -N .` that `/review-axes` already does), `git reset`, `git stash push` or a commit: earlier tickets' staged work under `/delegate-tickets` must stay exactly as it was.
+- **After refactoring, run the full suite.** Green: keep the refactor. Red: restore the snapshot so the working tree is exactly the pre-refactor green state (for a `git stash create` snapshot, `git restore --source=<snapshot> --worktree -- <files>`, never anything that moves the index; also delete any file the refactor created and recreate any it deleted, since a snapshot does not cover them), then carry on to Review.
+
+Done when: the refactor is either kept with a green suite, or undone back to the green snapshot, or skipped because the suite was red.
+
+## 4. Review
 
 Invoke the /review-axes skill now, as a real Skill call. Since nothing here is committed, give it **the unstaged working tree** as its fixed point: a ref-based diff would come back empty. Alongside it, pass the path of the ticket you were given, or the spec path when there is no ticket, as the spec argument, so it never has to search for the spec and syncs the right checkboxes. Leave acceptance-criteria checkboxes (`- [ ]` / `- [x]`) in the spec or tickets to `/review-axes`, which syncs them after the Spec review based on what the code actually did.
 
-Done when: `/review-axes` has returned its Standards and Spec reports in this run. Steps 1 and 2 passing is the input to this step, never a substitute for it: the Verdict below is built from the review's output, so it cannot be written until the review exists.
+Done when: `/review-axes` has returned its Standards and Spec reports in this run. Steps 1 to 3 passing is the input to this step, never a substitute for it: the Verdict below is built from the review's output, so it cannot be written until the review exists.
 
-## 4. Report
+## 5. Report
 
 Never make a commit. End with a **Verdict** section, then the commit message.
 
@@ -44,7 +56,7 @@ Never make a commit. End with a **Verdict** section, then the commit message.
 One line: the emoji, then a short reason. 🟢 is the emoji **alone**, with no text after it.
 
 - 🟢 Everything went as planned: fully implemented, nothing deviated from the spec or tickets, `/review-axes` raised nothing that needs action, no user action needed. Print the emoji and nothing else.
-- 🟡 Implemented, but something had to be adjusted mid-flight: planned logic changed, an approach was swapped, a spec detail was interpreted, or `/review-axes` raised findings worth a look. Say what changed and why.
+- 🟡 Implemented, but something had to be adjusted mid-flight: planned logic changed, an approach was swapped, a spec detail was interpreted, or `/review-axes` raised findings worth a look. Also 🟡: the refactor was undone because the suite went red after it (one-line reason), or a worthwhile refactor was seen outside the diff (suggest a prefactor ticket, never apply it). A refactor that was kept has no effect on the colour. A refactor skipped because the suite was red is stated in the Verdict, and the red suite itself sets the colour as it does today. Say what changed and why.
 - 🔴 Something did not land, or the user has to act before moving on: a piece was not implemented, `/review-axes` found a spec gap, a decision needs their call, a credential/migration/manual step is required, anything that breaks their "just start the next ticket" flow. Say what it is and what they need to do.
 
 Pick the worst applicable colour: any red condition makes the verdict 🔴 even if the rest went fine.

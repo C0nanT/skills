@@ -8,12 +8,12 @@
 
 **Blocked by:** 01 (edits `implement`'s Review step), 02 (edits `tdd`)
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] `implement` has a Refactor section between Test and Review with precondition, scope, no-behaviour-change rule and a "Done when" line
-- [ ] Snapshot and restore rules spelled out, including the forbidden git operations, so `delegate-tickets`' staged earlier work is never disturbed
-- [ ] Verdict section covers: refactor skipped (suite red), refactor undone, out-of-diff refactor suggested
-- [ ] `tdd` "Refactoring is not part of the loop" rule kept, pointer updated to `implement`'s Refactor step
-- [ ] Fork divergence ledger: `implement` row for the Refactor step, noting that upstream moved refactoring out of `tdd` (commit `80e9dcc`), with a grep phrase
-- [ ] Docs pages for `implement` and `tdd` re-synced for this behaviour
-- [ ] No em-dashes in touched prose; `scripts/validate.sh` passes
+- [x] `implement` has a Refactor section between Test and Review with precondition, scope, no-behaviour-change rule and a "Done when" line
+- [x] Snapshot and restore rules spelled out, including the forbidden git operations, so `delegate-tickets`' staged earlier work is never disturbed
+- [x] Verdict section covers: refactor skipped (suite red), refactor undone, out-of-diff refactor suggested
+- [x] `tdd` "Refactoring is not part of the loop" rule kept, pointer updated to `implement`'s Refactor step
+- [x] Fork divergence ledger: `implement` row for the Refactor step, noting that upstream moved refactoring out of `tdd` (commit `80e9dcc`), with a grep phrase
+- [x] Docs pages for `implement` and `tdd` re-synced for this behaviour
+- [x] No em-dashes in touched prose; `scripts/validate.sh` passes

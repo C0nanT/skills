@@ -27,7 +27,7 @@ None: the skill is [stateless](https://www.aihero.dev/ai-coding-dictionary/state
 
 Three words carry this skill.
 
-**Red-green.** Write the failing test, then only enough code to pass it. No anticipating the test after next. There is no refactor phase: it was dropped in June 2026 because agents essentially never performed it, and because review and implementation work better as separate sessions. Refactoring belongs to [review-axes](./review-axes.md).
+**Red-green.** Write the failing test, then only enough code to pass it. No anticipating the test after next. There is no refactor phase: it was dropped in June 2026 because agents essentially never performed it, and because review and implementation work better as separate sessions. Refactoring belongs to the Refactor step of [implement](./implement.md).
 
 **Vertical slice.** One seam, one test, one minimal implementation, then repeat, the first cycle being a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Bulk tests verify *imagined* behaviour, they check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
@@ -47,7 +47,7 @@ Mocks are for system boundaries only: external APIs, time, randomness, sometimes
 
 **Why doesn't it refactor? The description says "red-green-refactor".**
 
-Because the refactor step was removed and the description was not. The removal was deliberate: agents essentially never did it, and keeping implementation and review in separate sessions works better. Whether the result still counts as TDD by the book matters less than whether the loop produces better code. The mismatch between the trigger phrase and the body is filed as [issue #589](https://github.com/mattpocock/skills/issues/589) and is still open, so "red-green-refactor" continues to work as a phrase that fires the skill. What you get is red → green, and refactoring in [review-axes](./review-axes.md).
+Because the refactor step was removed and the description was not. The removal was deliberate: agents essentially never did it, and keeping implementation and review in separate sessions works better. Whether the result still counts as TDD by the book matters less than whether the loop produces better code. The mismatch between the trigger phrase and the body is filed as [issue #589](https://github.com/mattpocock/skills/issues/589) and is still open, so "red-green-refactor" continues to work as a phrase that fires the skill. What you get is red → green, and refactoring in [implement](./implement.md)'s Refactor step.
 
 **It asked me to choose a test seam and I had no idea which to pick.**
 
@@ -67,7 +67,7 @@ No. `/tdd` documents the methodology; `/implement` is a very simple work→feedb
 
 **Where did the deep-modules and interface-design guidance go?**
 
-Upstream generalised it into a shared `codebase-design` skill; this fork doesn't carry that skill, so `tdd` no longer leans on outside vocabulary for interface shape: agree the seams directly with the user. `refactoring.md` left `tdd` at the same time upstream; refactoring is now [review-axes](./review-axes.md)'s job, and that skill carries the Fowler smell baseline.
+Upstream generalised it into a shared `codebase-design` skill; this fork doesn't carry that skill, so `tdd` no longer leans on outside vocabulary for interface shape: agree the seams directly with the user. `refactoring.md` left `tdd` at the same time upstream; refactoring is now the Refactor step of [implement](./implement.md), while [review-axes](./review-axes.md) carries the Fowler smell baseline.
 
 **Does it know about my other tickets?**
 
@@ -91,4 +91,4 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 grill-with-docs → to-spec → to-tickets → implement → review-axes
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams once up front and [to-tickets](./to-tickets.md) carries them into each ticket, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [review-axes](./review-axes.md) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-skills](./ask-skills.md) routes you.
+[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams once up front and [to-tickets](./to-tickets.md) carries them into each ticket, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [review-axes](./review-axes.md) checks afterwards that only the agreed seams were used, and `implement`'s Refactor step does the refactoring `tdd` no longer does. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-skills](./ask-skills.md) routes you.

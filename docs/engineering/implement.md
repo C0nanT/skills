@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, runs [review-axes](./review-axes.md) at the end, and hands you a one-line verdict plus a Conventional Commits message: it does **not** commit.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, refactors its own diff once the suite is green, runs [review-axes](./review-axes.md) at the end, and hands you a one-line verdict plus a Conventional Commits message: it does **not** commit.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a ready-to-commit diff plus a message. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which will happily redesign the work while it builds it.
 
@@ -30,14 +30,15 @@ If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the
 
 ## What one run does
 
-A run is six beats, in order:
+A run is seven beats, in order:
 
 1. Read the ticket or spec and work out the seams.
 2. Drive [tdd](https://aihero.dev/skills-tdd) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Run [review-axes](./review-axes.md) against the unstaged working tree, passing it the ticket path (or the spec path when there is no ticket) so it never has to search for the spec and ticks the right checkboxes. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
-6. Give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message: no `git commit`.
+5. Refactor the run's own diff, only if the suite is green: no behaviour change, no test edits, snapshot first (without committing or touching the index), rerun the suite, and restore the snapshot if it went red.
+6. Run [review-axes](./review-axes.md) against the unstaged working tree, passing it the ticket path (or the spec path when there is no ticket) so it never has to search for the spec and ticks the right checkboxes. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
+7. Give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message: no `git commit`.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, you commit from the message it wrote, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
@@ -56,6 +57,10 @@ Half expected. `implement` has no completion step: it ends at a commit *message*
 **What do the coloured circles at the end mean?**
 
 That is the verdict, a fork addition that sits directly above the Conventional Commits message. 🟢 is printed bare, with no text after it: the run went exactly as planned and you can commit and move to the next ticket. 🟡 means it is implemented but something was adjusted mid-flight, a planned piece of logic changed or a spec detail was interpreted, and the reason is on the same line. 🔴 means either something did not land or you have to act before moving on, for example a decision only you can make, a migration, or a credential. The worst applicable colour wins, so one red condition makes the whole run 🔴. It is a signal to read, not a gate: nothing stops you committing a 🔴 run.
+
+**What does the refactor step do, and what if it breaks something?**
+
+After the full suite is green, `implement` makes one cleanup pass over the code its own diff created or changed, never beyond it. It changes no behaviour and edits no tests. Before starting it snapshots the working tree with `git stash create` (or copies the files aside), which never commits and never touches the index, so staged work from earlier tickets under `/delegate-tickets` is undisturbed. It then reruns the full suite: green keeps the refactor, red restores the snapshot exactly and the run carries on. The verdict is 🟡 when the refactor was skipped (suite red), undone, or when a worthwhile refactor was spotted outside the diff, in which case it suggests a prefactor ticket and never applies it.
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
@@ -91,7 +96,7 @@ On purpose. Tickets and specs live under `.scratch/`, which gets wiped from time
 
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
 - You can see an actual `/tdd` invocation in the trace, not just tests appearing in the diff.
-- Typechecks and single test files run repeatedly during the run, and the full suite runs once near the end.
+- Typechecks and single test files run repeatedly during the run, and the full suite runs once near the end (and once more after a refactor).
 - The run ends with a verdict line and a Conventional Commits message (`type(scope): …` plus a short why-body), and no `git commit` of its own.
 - The verdict colour matches what actually happened: a bare 🟢 when nothing deviated, 🟡 with the adjustment named, 🔴 with the thing you have to do spelled out.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.
