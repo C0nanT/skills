@@ -8,8 +8,8 @@
 
 **Blocked by:** 01, 02, 03
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] `ask-skills` re-read; any stale description of seams, refactoring or spec lookup updated (or confirmed none exists)
-- [ ] `BACKLOG.md` items 1, 2 and 3 marked done; 4 to 13 untouched
-- [ ] Final `scripts/validate.sh` run passes
+- [x] `ask-skills` re-read; any stale description of seams, refactoring or spec lookup updated (or confirmed none exists)
+- [x] `BACKLOG.md` items 1, 2 and 3 marked done; 4 to 13 untouched
+- [x] Final `scripts/validate.sh` run passes

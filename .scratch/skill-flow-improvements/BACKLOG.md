@@ -3,11 +3,11 @@
 Pontos levantados na análise do fluxo grill-me → to-spec → to-tickets → implement (tdd + review-axes), em 2026-10-03.
 Cada item vira insumo para `/to-spec` depois de decidido.
 
-Status: 🧭 em decisão · 📋 decidido, aguardando spec · 📝 spec escrito · ⏳ depois
+Status: 🧭 em decisão · 📋 decidido, aguardando spec · 📝 spec escrito · ✅ feito · ⏳ depois
 
 ## Furos no fluxo
 
-### 1. Ninguém refatora 📝 (SPEC.md)
+### 1. Ninguém refatora ✅ feito (SPEC.md)
 - **Decidido:** passo novo **Refactor** no `implement`, entre Test e Review: uma passada sobre o diff, só com a suíte verde, sem mudar comportamento, rodando a suíte de novo no fim. `tdd` fica como no upstream. Divergência registrada só para o `implement`.
 - **Decidido (escopo):** o refactor mexe só no código que o diff criou ou alterou. Algo que valha a pena fora do diff vira 🟡 no Verdict, com sugestão de ticket de prefactor.
 - **Decidido (falha):** antes de começar, grava um snapshot sem commit (`git stash create` ou cópia dos arquivos do diff). Se a suíte ficar vermelha depois do refactor, desfaz o refactor inteiro, segue para o Review com o código verde anterior e registra 🟡 no Verdict.
@@ -15,13 +15,13 @@ Status: 🧭 em decisão · 📋 decidido, aguardando spec · 📝 spec escrito 
 - Origem: upstream (commit `80e9dcc`, upstream aponta para `code-review`). Mudar aqui é divergência nova: registrar em `.agents/fork-divergences.md`.
 - Opções: (a) refactor de volta no `tdd` com limite (só no verde, sem mudar comportamento); (b) passo de correção no `implement` após o review (ver item 4).
 
-### 2. Seams confirmadas 2 a 3 vezes 📝 (SPEC.md)
+### 2. Seams confirmadas 2 a 3 vezes ✅ feito (SPEC.md)
 - **Decidido:** `to-tickets` preenche `Seams:` em cada ticket a partir do spec; `tdd` usa o ticket, ou o spec quando não houver ticket, e só pergunta se precisar de uma seam fora da lista. `to-spec` pergunta sobre as seams uma vez, dentro do lote único, já com proposta; sem outras dúvidas, faz uma pergunta curta só sobre elas.
 - `to-spec` passo 3 pergunta ao usuário (e contradiz a regra de perguntar em um lote único).
 - `tdd` exige confirmar de novo antes de cada teste, inclusive dentro do `implement`, ticket a ticket.
 - Ideia: `to-spec` inclui as seams no lote único; `tdd` aceita como acordadas as seams de **Testing Decisions** do spec ou de um campo `Seams:` no ticket.
 
-### 3. Ticket local não aponta para o spec 📝 (SPEC.md)
+### 3. Ticket local não aponta para o spec ✅ feito (SPEC.md)
 - **Decidido:** linha `**Spec:** ../SPEC.md` no template local (caminho relativo ao ticket). Ordem de busca do `review-axes`: argumento passado → campo `Spec:` do ticket → `Parent` (tracker remoto) → heurística atual. `implement` passa o caminho do ticket ou do spec explicitamente ao `review-axes`. Resolve o finding #10.
 - O template de ticket local do `to-tickets` não tem campo de origem; `review-axes` adivinha pelo nome do branch ou da feature.
 - Mesmo problema do finding #10 em `docs/tech-debt/README.md`.

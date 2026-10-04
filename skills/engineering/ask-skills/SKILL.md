@@ -24,7 +24,7 @@ The route most work travels. You have an idea and want it built.
 
    - **No** → **`/implement`** right here, in the same context window.
 
-   Either way, **`/implement`** builds each ticket by driving **`/tdd`** internally: one red-green slice at a time, then closes out by running **`/review-axes`**, a two-axis review (Standards + Spec) of the diff, and ends by handing you a commit message. `/implement` never commits: you do. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/review-axes`** on its own whenever you want to review a branch against a fixed point. `/review-axes` is for **your own** work, it judges the diff against the standards you follow and the spec you were given. Reviewing **someone else's** merge request is a different job: see `/review-mr` under Standalone.
+   Either way, **`/implement`** builds each ticket by driving **`/tdd`** internally: one red-green slice at a time, runs the full suite, makes one refactor pass over its own diff (undone if the suite goes red), then closes out by running **`/review-axes`**, a two-axis review (Standards + Spec) of the diff, and ends by handing you a commit message. `/implement` never commits: you do. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/review-axes`** on its own whenever you want to review a branch against a fixed point. `/review-axes` is for **your own** work, it judges the diff against the standards you follow and the spec you were given. Reviewing **someone else's** merge request is a different job: see `/review-mr` under Standalone.
 
 ### Context hygiene
 
