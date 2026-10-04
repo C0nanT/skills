@@ -28,3 +28,7 @@ Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 - **Frontier**: scan `.scratch/<effort>/tickets/` for files that are open, unblocked, and unclaimed; first by number wins.
 - **Claim**: set `Status: claimed` and save before any work.
 - **Resolve**: append the answer under an `## Answer` heading, set `Status: resolved`, then append a context pointer (gist + link) to the map's Decisions-so-far in `map.md`.
+
+## Finished features
+
+A finished feature folder moves whole to `docs/archive/<feature-slug>/` (see `docs/archive/README.md`). Run `/archive-feature` to get there: it sets the spec and tickets to `done` and does the `git mv`, and never commits.

@@ -8,6 +8,7 @@
   },
 
   "skills": [
+    "./skills/engineering/archive-feature",
     "./skills/engineering/ask-skills",
     "./skills/engineering/delegate-tickets",
     "./skills/engineering/frontend-handoff",

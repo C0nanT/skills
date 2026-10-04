@@ -111,15 +111,17 @@ Do this:
 
 3. In `docs/agents/issue-tracker.md`, add this paragraph in the section about closing tickets / deleting feature folders:
 
-   > Finished feature folders the maintainer wants to keep for later review (post-deploy, frontend handoff…) move whole to `docs/archive/<feature-slug>/` (see `docs/archive/README.md`).
+   > Finished feature folders the maintainer wants to keep for later review (post-deploy, frontend handoff…) move whole to `docs/archive/<feature-slug>/` (see `docs/archive/README.md`) via `/archive-feature`.
 
 4. In the `## Agent skills` block of `CLAUDE.md` / `AGENTS.md`, next to the line about `.scratch/`, add: `Finished work kept for review: docs/archive/<feature-slug>/.`
 
 Rules:
-- Do **not** move any folder yet. The maintainer decides what gets archived and when; an agent never archives on its own.
+- Do **not** move any folder yet. The maintainer decides what gets archived and when, by typing `/archive-feature`; an agent never archives on its own.
 - When a folder is moved later, keep its internal layout untouched (a plain `git mv`, so history is preserved).
 - Don't create other docs. Be concise. Match the language of the existing docs (technical docs in English, domain terms untranslated).
 ````
+
+Once the folder exists, `/archive-feature` does the moving: it checks that a feature is finished, sets its spec and tickets to `done`, and runs `git mv` into `docs/archive/<feature-slug>/`. It creates `docs/archive/` and its README itself when they are missing, so this prompt is only needed to put the pointer in your docs up front.
 
 Result:
 

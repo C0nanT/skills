@@ -56,6 +56,10 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 | `to-tickets` | **No "does this look good?" pause** before publishing, and each ticket carries a **Difficulty / suggested-model** line | a `### 5. Show the breakdown` followed by `Does the granularity feel right?` |
 | `to-tickets`, `wayfinder`, `docs/agents/issue-tracker.md`, `setup-skills/issue-tracker-local.md` | Local tickets live under `.scratch/<slug>/tickets/`, never upstream's `issues/` | `\.scratch/<[a-z-]*>/issues/` (grep -E; any placeholder spelling) |
 
+## Fork-only: `archive-feature`
+
+`archive-feature` (`skills/engineering/archive-feature/`) closes a finished feature: sets its spec and tickets to the `done` triage role and moves the folder with `git mv` from `.scratch/` to `docs/archive/<feature-slug>/`. User-invoked, local markdown only, never commits. It is promoted (`plugin.json`, root README, `skills/engineering/README.md`, `docs/engineering/archive-feature.md`, routed by `ask-skills`). The `done` role it depends on lives in `skills/engineering/setup-skills/triage-labels.md` and `docs/agents/triage-labels.md`, and the local tracker docs point finished features to it. Upstream has none of this, so a merge never conflicts but can drop the wiring. Sweep: `grep -rn "archive-feature" .claude-plugin README.md skills/engineering/README.md skills/engineering/ask-skills docs/agents`.
+
 ## Writing style
 
 - **No em-dashes: upstream's rule, adopted here.** Upstream banned them repo-wide in commit `3216582`; this fork carried them everywhere, which made every sync conflict on essentially every prose file for no semantic reason. The 2026-08 sync converted all 1023 of them (comma, colon, semicolon, period, or parentheses, matching upstream's own distribution) and wrote the rule into `CLAUDE.md`. **This is no longer a divergence**, and that is the point: punctuation should never show up in a merge conflict again. Keep it that way when writing new prose.
@@ -71,7 +75,7 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 
 ## Fork-only skills
 
-Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `tech-debt-map`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
+Upstream has never seen these, so they never conflict, but they do go stale when an upstream skill they reference is renamed or rewritten: `archive-feature`, `ask-skills`, `caveman`, `delegate-tickets`, `frontend-handoff`, `review-mr`, `setup-skills`, `setup-solid`, `tech-debt-map`, `reset-agent-env`, `setup-statusline`, `setup-devcontainer`.
 
 Every fork-only skill carries an `agents/openai.yaml`; the user-invoked ones carry `allow_implicit_invocation: false`. `scripts/validate.sh` enforces both.
 

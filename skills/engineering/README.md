@@ -6,6 +6,7 @@ Skills I use daily for code work.
 
 Reachable only when you type them (Claude Code: `disable-model-invocation: true`; Codex: `policy.allow_implicit_invocation: false` in `agents/openai.yaml`).
 
+- **[archive-feature](./archive-feature/SKILL.md)**: Close finished features (spec and tickets set to `done`) and move each whole from `.scratch/` to `docs/archive/`, one named or all at once. Never commits.
 - **[ask-skills](./ask-skills/SKILL.md)**: Ask which skill or flow fits your situation. A router over the skills in this repo.
 - **[frontend-handoff](./frontend-handoff/SKILL.md)**: Turn a shipped backend change into a pasteable block for the frontend team: verdict first (must change / should change / nothing required), then contract table, payload examples, and checklist.
 - **[delegate-tickets](./delegate-tickets/SKILL.md)**: Orchestrate sequential ticket implementation through fresh subagents, one ticket at a time, each required to use the `implement` skill.

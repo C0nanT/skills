@@ -11,13 +11,13 @@
 
 **Blocked by:** 03 (the docs page and router describe the final behaviour)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Entry under **User-invoked** in the top-level `README.md` and in the `engineering/` bucket `README.md`
-- [ ] Entry in `.claude-plugin/plugin.json`'s `skills` array; `claude plugin validate . --strict` passes
-- [ ] Docs page `docs/engineering/archive-feature.md` with the four sections from `.agents/writing-docs.md`
-- [ ] `ask-skills` re-read and updated so the flow ends grill-me → to-spec → to-tickets → implement → archive-feature
-- [ ] This repo's `docs/agents/issue-tracker.md` and the `setup-skills` local tracker template point finished features to `docs/archive/<feature-slug>/` via `archive-feature`
-- [ ] The `setup-skills` guide's "Optional: archive finished features" section mentions `archive-feature` (English and pt-br guides)
-- [ ] Row in `.agents/fork-divergences.md` for the new skill, with a grep phrase
-- [ ] No em-dashes
+- [x] Entry under **User-invoked** in the top-level `README.md` and in the `engineering/` bucket `README.md`
+- [x] Entry in `.claude-plugin/plugin.json`'s `skills` array; `claude plugin validate . --strict` passes
+- [x] Docs page `docs/engineering/archive-feature.md` with the four sections from `.agents/writing-docs.md`
+- [x] `ask-skills` re-read and updated so the flow ends grill-me → to-spec → to-tickets → implement → archive-feature
+- [x] This repo's `docs/agents/issue-tracker.md` and the `setup-skills` local tracker template point finished features to `docs/archive/<feature-slug>/` via `archive-feature`
+- [x] The `setup-skills` guide's "Optional: archive finished features" section mentions `archive-feature` (English and pt-br guides)
+- [x] Row in `.agents/fork-divergences.md` for the new skill, with a grep phrase
+- [x] No em-dashes

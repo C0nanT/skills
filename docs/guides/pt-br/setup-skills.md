@@ -87,3 +87,7 @@ Com a Seção D, também muda `.claude/settings.json` (só `permissions.deny` ga
 - Você pode editar os arquivos em `docs/agents/` manualmente depois: não precisa re-rodar a skill para pequenas mudanças
 - Re-rodar é necessário só se quiser trocar de issue tracker ou recomeçar do zero
 - Se o repo tem `CLAUDE.md`, o bloco vai lá. Se tem `AGENTS.md`, vai lá. Se nenhum existe, a skill pergunta qual criar
+
+## Opcional: arquivar features concluídas
+
+Com o tracker **Markdown local**, as features concluídas ficam acumuladas em `.scratch/<feature-slug>/`. Para guardar as que valem a pena (specs, tickets, `POST-DEPLOY.md`, handoffs de frontend) fora de `.scratch/`, use `/archive-feature`. Ela confere pelos arquivos se a feature está completa, marca a spec e os tickets como `done` e move a pasta inteira com `git mv` para `docs/archive/<feature-slug>/`. Cria `docs/archive/` e o README quando faltam. Nunca marca checkbox e nunca faz commit. Passe o nome da feature, o caminho da spec, ou nada para varrer tudo em `.scratch/`.

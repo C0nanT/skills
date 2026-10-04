@@ -24,7 +24,7 @@ Reach for it whenever you're unsure which skill or flow a situation calls for: y
 
 ## Flows, not just skills
 
-The idea `ask-skills` gives you to think with is the **flow**: a path *through* the skills rather than a single one. Most work runs along one **main flow** (idea → ship: grill → spec → tickets → implement → review), an **on-ramp** merges onto it (a foggy effort → wayfinder → spec), and everything else is a **standalone** you reach for on its own. Ask a question and you get placed on the right flow, at the right step, not just handed a tool.
+The idea `ask-skills` gives you to think with is the **flow**: a path *through* the skills rather than a single one. Most work runs along one **main flow** (idea → ship: grill → spec → tickets → implement → archive), an **on-ramp** merges onto it (a foggy effort → wayfinder → spec), and everything else is a **standalone** you reach for on its own. Ask a question and you get placed on the right flow, at the right step, not just handed a tool.
 
 ## Where it fits
 
