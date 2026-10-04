@@ -8,13 +8,13 @@
 
 **Blocked by:** 01 (both edit the `to-tickets` ticket template)
 
-**Status:** ready-for-agent
+**Status:** ready-for-human
 
-- [ ] `to-spec` has no separate "check with the user" seams step; seams are part of the one-batch question rule, including the seams-only short question case
-- [ ] `to-spec` template's Testing Decisions asks for the agreed seams, one per bullet
-- [ ] `to-tickets` local template has a `**Seams:**` line; remote issue template has an equivalent section; both say to state "none" explicitly
-- [ ] `tdd` defines the agreed-seam source order (ticket `Seams:` → spec Testing Decisions → none) and only asks for unlisted seams
-- [ ] `tdd` standalone behaviour (no ticket, no spec) unchanged
-- [ ] Fork divergence ledger: rows for `to-spec` (seams in the single batch), `to-tickets` (`Seams:` field) and `tdd` (agreed seams from ticket or spec), each with a grep phrase
-- [ ] Docs pages for `to-spec`, `to-tickets` and `tdd` re-synced for this behaviour
-- [ ] No em-dashes in touched prose; `scripts/validate.sh` passes
+- [x] `to-spec` has no separate "check with the user" seams step; seams are part of the one-batch question rule, including the seams-only short question case
+- [x] `to-spec` template's Testing Decisions asks for the agreed seams, one per bullet
+- [x] `to-tickets` local template has a `**Seams:**` line; remote issue template has an equivalent section; both say to state "none" explicitly
+- [x] `tdd` defines the agreed-seam source order (ticket `Seams:` → spec Testing Decisions → none) and only asks for unlisted seams
+- [x] `tdd` standalone behaviour (no ticket, no spec) unchanged
+- [x] Fork divergence ledger: rows for `to-spec` (seams in the single batch), `to-tickets` (`Seams:` field) and `tdd` (agreed seams from ticket or spec), each with a grep phrase
+- [x] Docs pages for `to-spec`, `to-tickets` and `tdd` re-synced for this behaviour
+- [x] No em-dashes in touched prose; `scripts/validate.sh` passes

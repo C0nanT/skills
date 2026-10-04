@@ -17,9 +17,17 @@ Tests verify behavior through public interfaces, not implementation details. Cod
 
 A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
 
-**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+**Test only at pre-agreed seams.** No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
 
-Ask: "What's the public interface, and which seams should we test?"
+Seams may already be agreed. Take them from the first source that exists:
+
+1. The ticket's `Seams:` line (or `Seams` section on a remote ticket).
+2. The spec's Testing Decisions.
+3. None.
+
+Seams from a source count as confirmed: write tests at them without asking. Ask the user only about a seam that is not on the list, and add it to the list once agreed.
+
+With no source (standalone use, no ticket or spec), write down the seams under test and confirm them with the user before writing any test. Ask: "What's the public interface, and which seams should we test?"
 
 When the shape of that interface is itself in question: how deep the module is, where the seam belongs, what the interface should expose: resolve that first, then agree the seams.
 

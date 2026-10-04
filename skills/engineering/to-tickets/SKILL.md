@@ -94,6 +94,8 @@ Do NOT close or modify any parent issue.
 
 **What to build:** the end-to-end behaviour this ticket makes work, from the user's perspective, not a layer-by-layer implementation list.
 
+**Seams:** the seams from the spec's Testing Decisions that this ticket exercises, one per bullet. If the ticket tests no seam (for example a pure config change), write "None" explicitly. Never leave the line out.
+
 **Blocked by:** the numbers/titles of the tickets that gate this one, or "None (can start immediately)".
 
 Status: ready-for-agent
@@ -117,6 +119,10 @@ A reference to the parent issue on the tracker (if the source was an existing is
 ## What to build
 
 The end-to-end behaviour this ticket makes work, from the user's perspective, not layer-by-layer implementation.
+
+## Seams
+
+The seams from the spec's Testing Decisions that this ticket exercises, one per bullet. If the ticket tests no seam, write "None" explicitly. Never omit the section.
 
 ## Acceptance criteria
 

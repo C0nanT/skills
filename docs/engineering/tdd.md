@@ -2,7 +2,7 @@
 
 `tdd` builds a feature or fixes a bug test-first: one failing test, then just enough code to pass it, then the next behaviour. It carries the standards that make that loop produce tests worth keeping: what a good test is, where tests go, what mocks are for, and the three anti-patterns that quietly ruin a suite.
 
-It writes no test at a seam you have not agreed to first. Before any test exists, it names the public boundaries it intends to test at and stops for your confirmation, because testing effort is finite and this is where you spend it on the critical paths instead of on every edge case. The other thing to know is that `tdd` is a **reference**, not a driver. It holds the rules of the loop, and something else (you, or [implement](https://aihero.dev/skills-implement)) runs the [session](https://www.aihero.dev/ai-coding-dictionary/session) that applies them.
+It writes no test at a seam you have not agreed to first. Before any test exists, the public boundaries it tests at have to be agreed, because testing effort is finite and this is where you spend it on the critical paths instead of on every edge case. When a ticket or spec already lists the seams, those count as agreed and it does not ask again; it asks only about a seam that is not on the list, or, run standalone with no ticket or spec, it names its seams and waits for your confirmation. The other thing to know is that `tdd` is a **reference**, not a driver. It holds the rules of the loop, and something else (you, or [implement](https://aihero.dev/skills-implement)) runs the [session](https://www.aihero.dev/ai-coding-dictionary/session) that applies them.
 
 ## When to reach for it
 
@@ -31,7 +31,7 @@ Three words carry this skill.
 
 **Vertical slice.** One seam, one test, one minimal implementation, then repeat, the first cycle being a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Bulk tests verify *imagined* behaviour, they check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
-**Pre-agreed seam.** A seam is the public boundary you observe behaviour at without reaching inside. The rule is absolute: no test at an unconfirmed seam. In the full chain the seams are agreed earlier, during [to-spec](https://aihero.dev/skills-to-spec), "`/tdd` is told to only work at pre-agreed test seams, `/review-axes` checks that only agreed-upon test seams were used." Invoked on its own, `tdd` asks you directly.
+**Pre-agreed seam.** A seam is the public boundary you observe behaviour at without reaching inside. The rule is absolute: no test at an unconfirmed seam. In the full chain the seams are agreed once, during [to-spec](https://aihero.dev/skills-to-spec), and copied into each ticket by [to-tickets](./to-tickets.md). `tdd` takes them from the ticket's `Seams:` line, else the spec's Testing Decisions, else none, and asks only about a seam not on that list. `/review-axes` checks that only agreed-upon test seams were used. Invoked on its own with no ticket or spec, `tdd` asks you directly.
 
 The three anti-patterns it is written to prevent:
 
@@ -75,7 +75,7 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 
 ## It's working if
 
-- It stops and names the seams it intends to test at, and waits, before any test file exists.
+- Seams from the ticket or spec are used without a repeat question; standalone, it stops and names the seams it intends to test at, and waits, before any test file exists. Either way it asks about any seam not on the agreed list.
 - One test appears, goes red, gets just enough code to pass, and only then does the next test appear, not a batch of tests followed by a batch of code.
 - Test names read as capabilities ("user can checkout with valid cart"), not as internals ("checkout calls paymentService.process").
 - Expected values in assertions are literals you can trace to the spec, not values recomputed the way the code computes them.
@@ -91,4 +91,4 @@ No. Run against one ticket, it will happily propose work that belongs to a sibli
 grill-with-docs → to-spec → to-tickets → implement → review-axes
 ```
 
-[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams up front, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [review-axes](./review-axes.md) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-skills](./ask-skills.md) routes you.
+[to-spec](https://aihero.dev/skills-to-spec) agrees the test seams once up front and [to-tickets](./to-tickets.md) carries them into each ticket, [implement](https://aihero.dev/skills-implement) drives `tdd` per ticket, and [review-axes](./review-axes.md) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-skills](./ask-skills.md) routes you.

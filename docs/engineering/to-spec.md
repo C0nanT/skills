@@ -4,7 +4,7 @@
 
 It does not interview you. By the time you reach for it the deciding is already done, so it synthesises what is known (from the thread, from the codebase, from your `CONTEXT.md` and ADRs) rather than opening a fresh round of questions. The spec is a record of decisions already made, not a place where new ones get made.
 
-What it will do, in this fork, is ask about a gap it cannot close on its own: something the thread never settled and the codebase does not answer, where writing the spec anyway would mean inventing a decision you never made. Those come as one short batch before the spec is written, each with the answer it would otherwise have assumed, so confirming is usually enough. If nothing clears that bar you get the spec with no questions at all.
+What it will do, in this fork, is ask about a gap it cannot close on its own: something the thread never settled and the codebase does not answer, where writing the spec anyway would mean inventing a decision you never made. Those come as one short batch before the spec is written, each with the answer it would otherwise have assumed, so confirming is usually enough. If nothing clears that bar you get the spec with no questions at all, apart from the test seams: those are always confirmed, either as one question in that batch or, when nothing else needs asking, as one short question about the seams alone.
 
 ## When to reach for it
 
@@ -31,9 +31,9 @@ So it does not validate anything, and it does not decide anything. It captures w
 
 ## Seams before prose
 
-Before it writes a word, `to-spec` sketches the **seams** the feature will be tested at, and checks them with you. It prefers seams that already exist to new ones, and takes the highest seam it can: the ideal number across a change is one.
+Before it writes a word, `to-spec` sketches the **seams** the feature will be tested at, and confirms them with you once, inside its single batch of questions (the proposal is the best guess, so confirming is enough). There is no separate seams interview. It prefers seams that already exist to new ones, and takes the highest seam it can: the ideal number across a change is one.
 
-Those agreed seams then travel. [tdd](https://aihero.dev/skills-tdd) works only at pre-agreed seams, and [review-axes](./review-axes.md) reviews the diff against the spec, so a seam nobody agreed to shows up as a review finding. The binding is indirect (it runs through this document) which is exactly why the seam conversation is worth taking seriously here rather than deferring it to implementation.
+The agreed seams are written into the spec's Testing Decisions, one per bullet, and then they travel: [to-tickets](./to-tickets.md) copies the ones each ticket exercises into the ticket, and [tdd](https://aihero.dev/skills-tdd) works only at those agreed seams without asking again, and [review-axes](./review-axes.md) reviews the diff against the spec, so a seam nobody agreed to shows up as a review finding. The binding is indirect (it runs through this document) which is exactly why the seam conversation is worth taking seriously here rather than deferring it to implementation.
 
 ## Common questions
 

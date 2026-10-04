@@ -12,9 +12,10 @@ This skill takes the current conversation context and codebase understanding and
 - Ask in one batch, before writing the spec, not question by question.
 - Keep it to the few that actually change what the spec says.
 - Carry your best guess with each one, so the user can answer by confirming.
+- The seams (step 3) are one of those questions: put your proposed seams in the batch as the best guess. If nothing else clears the bar, ask one short question about the seams only.
 - Then write the spec. Never stall waiting on answers you could have assumed and flagged.
 
-If nothing clears that bar, write the spec without asking anything.
+If nothing clears that bar, write the spec without asking anything, except the seams: those are always confirmed, in the batch or as the one short seams-only question.
 
 ## Process
 
@@ -30,7 +31,7 @@ If nothing clears that bar, write the spec without asking anything.
 
 3. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
-   Check with the user that these seams match their expectations.
+   Do not confirm them separately: they go to the user in the single batch described above, and the agreed seams are written into the spec's Testing Decisions.
 
 4. Write the spec using the template below, then publish it to the destination resolved in step 1. Apply the `ready-for-agent` triage label: no need for additional triage. (For **Local markdown**, "applying a label" means writing a `Status: ready-for-agent` line near the top of the file instead.)
 
@@ -85,6 +86,7 @@ Exception: if a prototype produced a snippet that encodes a decision more precis
 A list of testing decisions that were made. Include:
 
 - A description of what makes a good test (only test external behavior, not implementation details)
+- The agreed seams, one per bullet, so `/to-tickets` and `/tdd` can pick them up
 - Which modules will be tested
 - Prior art for the tests (i.e. similar types of tests in the codebase)
 

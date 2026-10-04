@@ -19,6 +19,8 @@ You invoke this by typing `/to-tickets`. The [agent](https://www.aihero.dev/ai-c
 ## Prerequisites
 `to-tickets` publishes into your issue tracker, so [setup-skills](./setup-skills.md) must have configured the tracker and its triage label vocabulary for this repo first. On a real tracker it applies the ready-for-agent label as it publishes. On the local markdown tracker that is a plain `Status: ready-for-agent` line (no bold) near the top of each ticket, next to a `**Spec:**` line giving the spec's path relative to the ticket file (`../SPEC.md` in the default layout), which is how [review-axes](./review-axes.md) finds the spec without guessing.
 
+Each ticket also carries the **seams** it tests, copied from the spec's Testing Decisions: a `**Seams:**` line locally, a `Seams` section on a real tracker. A ticket that tests no seam (a pure config change, say) says "None" rather than leaving the field out. [tdd](./tdd.md) reads these as already agreed, so you are not asked to confirm them again per ticket.
+
 ## Tracer bullets, not layers
 
 A **horizontal** slice ships one layer of the change. Nothing works until every layer has landed, and each ticket's acceptance criteria have to reach into work that another ticket owns. A **vertical** slice (the tracer bullet) ships one thin path through all the layers at once, so it is verifiable alone and owns everything it grades.
@@ -100,6 +102,7 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 - Every ticket has an answer to "what can I demo when this is done?", and the answer is behaviour, not a layer.
 - The list comes back to you numbered, with a "Blocked by" line on each, before anything is published.
 - The ticket at the top has no blockers and can be started immediately.
+- Each ticket lists the seams it exercises, or says "None" explicitly.
 - Each ticket opens with a difficulty tier and a model suggestion, and most of them read Standard.
 - Nothing in a ticket body is a file path or a line number, except a snippet a prototype produced.
 - Each ticket reads like something a fresh session could finish without you in the room.
