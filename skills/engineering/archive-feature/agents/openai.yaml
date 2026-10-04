@@ -1,0 +1,5 @@
+interface:
+  display_name: "Archive Feature"
+  short_description: "Close a finished feature and move it to docs/archive"
+policy:
+  allow_implicit_invocation: false

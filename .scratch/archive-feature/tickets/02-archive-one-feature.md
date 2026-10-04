@@ -11,17 +11,31 @@
 
 **Blocked by:** 01 (the skill writes the `done` role)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] `SKILL.md` exists under `engineering/archive-feature/` with user-invoked frontmatter (`disable-model-invocation: true`) and `agents/openai.yaml` with `policy.allow_implicit_invocation: false`, per `.agents/invocation.md`
-- [ ] Accepts a folder name or a spec path
-- [ ] Ready feature with tickets: spec and tickets set to `done`, folder moved with `git mv`, layout untouched
-- [ ] Ticket still `ready-for-agent` or with an unchecked box: listed as missing, user asked; on "archive anyway", dated `## Comments` note in the spec, incomplete tickets keep their status
-- [ ] Feature without tickets: the skill asks whether it was implemented before closing
-- [ ] No checkbox changed in any case
-- [ ] Missing `docs/archive/` and README are created with the convention content
-- [ ] Existing `docs/archive/<feature-slug>/`: skipped with a warning, nothing overwritten or merged
-- [ ] Remote tracker configured: the skill says it does not apply and stops
-- [ ] Nothing is committed; final report lists archived and skipped features with reasons
-- [ ] Fixture run covering the cases above done and its result noted under `## Comments` in this ticket
-- [ ] No em-dashes
+- [x] `SKILL.md` exists under `engineering/archive-feature/` with user-invoked frontmatter (`disable-model-invocation: true`) and `agents/openai.yaml` with `policy.allow_implicit_invocation: false`, per `.agents/invocation.md`
+- [x] Accepts a folder name or a spec path
+- [x] Ready feature with tickets: spec and tickets set to `done`, folder moved with `git mv`, layout untouched
+- [x] Ticket still `ready-for-agent` or with an unchecked box: listed as missing, user asked; on "archive anyway", dated `## Comments` note in the spec, incomplete tickets keep their status
+- [x] Feature without tickets: the skill asks whether it was implemented before closing
+- [x] No checkbox changed in any case
+- [x] Missing `docs/archive/` and README are created with the convention content
+- [x] Existing `docs/archive/<feature-slug>/`: skipped with a warning, nothing overwritten or merged
+- [x] Remote tracker configured: the skill says it does not apply and stops
+- [x] Nothing is committed; final report lists archived and skipped features with reasons
+- [x] Fixture run covering the cases above done and its result noted under `## Comments` in this ticket
+- [x] No em-dashes
+
+## Comments
+
+### 2026-10-04: fixture run
+
+Throwaway repos with fixtures staged and never committed (the git-guardrails hook blocks commits here, and `git mv` only needs the index). The procedure in `SKILL.md` was followed step by step inline, not by a separate model invocation. Results read from disk:
+
+- Ready feature, no `docs/archive/`: spec and both tickets `done`, folder moved with `git mv`, `docs/archive/README.md` created with the convention text, checkboxes identical before and after.
+- Incomplete feature (one ticket `ready-for-agent`, unchecked boxes), archive anyway: spec `done`, only the ready ticket `done`, the other two kept their status, dated `## Comments` entry appended, checkboxes untouched.
+- No tickets, user answers "implemented": spec `done`, moved.
+- Destination `docs/archive/dup/` exists: skipped with a warning, `.scratch/dup` and the old archive left as they were.
+- Folder without `SPEC.md`: not a feature, stopped.
+- Remote tracker in `docs/agents/issue-tracker.md`: skill says it does not apply and stops, nothing touched.
+- No commit created in any repo. Observed: the created README is left untracked (not staged).
