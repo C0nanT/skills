@@ -1,16 +1,19 @@
 ---
 name: archive-feature
-description: Close a finished feature (spec and tickets set to done) and move it whole from .scratch/ to docs/archive/.
+description: Close finished features (spec and tickets set to done) and move each whole from .scratch/ to docs/archive/, one named or all at once.
 disable-model-invocation: true
 ---
 
 # Archive Feature
 
-Close one finished feature and move it out of `.scratch/` so it survives the periodic wipe. Works from the files only. Never ticks a checkbox, never edits ticket content other than the `Status:` line, never commits.
+Close finished features and move them out of `.scratch/` so they survive the periodic wipe. Works from the files only. Never ticks a checkbox, never edits ticket content other than the `Status:` line, never commits.
 
 ## Input
 
-One feature, as either a folder name (`.scratch/<feature-slug>/`) or a path to its `SPEC.md`. Resolve both to the feature folder. If the user passed nothing, ask which feature to archive. If the folder has no `SPEC.md`, it is not a feature: say so and stop.
+Optional. Either one feature, as a folder name (`.scratch/<feature-slug>/`) or a path to its `SPEC.md` (resolve both to the feature folder), or nothing.
+
+- **One feature**: if the folder has no `SPEC.md`, it is not a feature: say so and stop. Then run steps 1 to 7 for it.
+- **No argument**: run the [no-argument run](#no-argument-run) after step 1. Do not ask which feature to archive.
 
 ## 1. Tracker check
 
@@ -54,8 +57,21 @@ Never tick or untick a checkbox, in any case.
    - Moved by the maintainer, as-is. Not a triage surface: nothing here is active work.
    ```
 
-2. Run `git mv .scratch/<feature-slug> docs/archive/<feature-slug>`. The whole folder moves, layout untouched. If the folder is untracked, `git mv` fails: report it and stop rather than falling back to `mv`.
+2. Run `git mv .scratch/<feature-slug> docs/archive/<feature-slug>`. The whole folder moves, layout untouched. If the folder is untracked, `git mv` fails: report it and stop rather than falling back to `mv`. In a no-argument run, this skips that feature and the run goes on.
+
+## No-argument run
+
+Steps 2 to 6 above are the same ones a single-feature run uses, applied per feature.
+
+- **Scan.** List every folder directly under `.scratch/`. A folder with `SPEC.md` is a feature. A folder without it is listed as `ignored (no SPEC.md)` and left in place. Folders already archived are not here: they left `.scratch/`. If there are no features, say so and stop.
+- **Check readiness** of each feature with step 2. A feature without tickets cannot be judged from the files: mark it `no tickets, will ask`.
+- **Show one summary table**, one row per feature: the feature, then `ready`, or what is missing (each ticket with the wrong status, each unchecked box), or `no tickets, will ask`. Add the ignored folders. Mark a feature whose `docs/archive/<feature-slug>/` already exists as `destination exists, will be skipped`, whatever its readiness.
+- **Resolve the no-ticket features.** Ask, for each, whether it was implemented. Yes moves it to the ready set, no moves it to the incomplete set.
+- **Confirm once.** Ask a single confirmation to archive every ready feature, naming them. Declining archives none of them.
+- **Incomplete features** are archived only when the user names them. Offer the choice once after the table, listing the incomplete features. Naming one is the "archive anyway" decision, so do not ask again: show its missing list in the report and run step 5's incomplete branch for it. An unnamed one is left untouched.
+- **Archive each chosen feature**, one at a time, in this order: step 4 (destination check) first, then step 5, then step 6. A collision skips that feature with a warning before anything is edited, and the run continues with the others. Do not stop the run on one feature's failure: note it and go on.
+- **Report.** Then run step 7 with the results of the whole run.
 
 ## 7. Report
 
-Never commit. End with a report: the feature archived and its new path, which tickets were set to `done`, which were left as they were and why, and whether a `## Comments` note was added. If the run stopped (remote tracker, destination exists, user chose to stop, no spec), say why. Remind the user the moved and edited files are staged or modified but uncommitted.
+Never commit. End with a report. For a no-argument run, one entry per feature, plus the ignored folders. Per feature: the feature archived and its new path, which tickets were set to `done`, which were left as they were and why, and whether a `## Comments` note was added. If a feature or the run stopped (remote tracker, destination exists, user chose to stop or left it out, no spec, `git mv` failed), say why. Remind the user the moved and edited files are staged or modified but uncommitted.
