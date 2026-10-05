@@ -6,7 +6,7 @@ It is **[stateless](https://www.aihero.dev/ai-coding-dictionary/stateless)**. It
 
 ## When to reach for it
 
-You invoke this by typing `/grill-me`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Start it in a **fresh conversation**, not on top of a plan you already had an agent write.
+You can invoke this by typing `/grill-me`, and the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) can also reach for it on its own when you ask to be grilled. Start it in a **fresh conversation**, not on top of a plan you already had an agent write.
 
 Reach for it as soon as you have an idea worth taking seriously (a feature, a product direction, a business call, a piece of writing), and long before you have worked out what it involves. Vagueness is not a reason to wait; it is the thing the session eats. If you can already specify the thing precisely, you don't need to grill it.
 
@@ -73,6 +73,6 @@ More than for most skills. Grilling leans on the [model](https://www.aihero.dev/
 
 `grill-me` is a **standalone you can run anywhere, on anything**. Being stateless is what makes it portable: no repo, no workspace, no setup, and no assumption that the idea is even about software. People point it at business decisions, at writing, at what to do next: anything that won't sit still in their head.
 
-That portability is the whole difference from [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which runs the same interview but reads a codebase to align against and records what it learns as `CONTEXT.md` and ADRs. Both sit on the [grilling](https://aihero.dev/skills-grilling) primitive; `grill-me` is the user-invoked front door that carries nothing with it.
+That portability is the whole difference from [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which runs the same interview but reads a codebase to align against and records what it learns as `CONTEXT.md` and ADRs. Both sit on the [grilling](https://aihero.dev/skills-grilling) primitive; `grill-me` is the model-invoked front door that carries nothing with it.
 
 If what you grilled does turn out to be software, you can hand the same conversation to [to-spec](https://aihero.dev/skills-to-spec) and carry on into the build flow: an option, not the point of the skill. When you're unsure which flow fits, [ask-skills](../engineering/ask-skills.md) routes you.

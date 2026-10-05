@@ -2,7 +2,6 @@
 
 name: to-spec
 description: "Turn the current conversation into a spec and publish it to the project issue tracker: synthesis of what you've already discussed, asking only about the gaps you genuinely can't fill."
-disable-model-invocation: true
 ---
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Default to synthesizing what you already know: by the time this skill runs, the deciding is usually done, so do not reopen it as an interview.

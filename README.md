@@ -156,7 +156,7 @@ Fundamentos de engenharia de software importam mais do que nunca. Estas skills c
 
 Algumas skills dependem de outras por baixo dos panos (ex.: `grill-me` chama `grilling`). Antes de instalar seletivamente, veja o [mapa de dependências](./docs/guides/pt-br/mapa-dependencias.md).
 
-These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
+These split on one axis: who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-with-docs`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
 
 ### Engineering
 
@@ -173,13 +173,13 @@ Skills I use daily for code work.
 - **[tech-debt-map](./skills/engineering/tech-debt-map/SKILL.md)**: Audit one module of a codebase that grew organically and produce a ranked map of its worst technical debt, plus an incremental cleanup plan. Tracks when each module was last reviewed so nothing rots unwatched. Diagnosis only, it changes no code.
 - **[setup-skills](./skills/engineering/setup-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, `.claude` deny rules for destructive git). Run once per repo before using the other engineering skills.
 - **[setup-solid](./skills/engineering/setup-solid/SKILL.md)**: Write an architecture-level, language-agnostic SOLID section into the repo's `CLAUDE.md`, scoped by the boy scout rule: new code and the code each change already touches, never a repo-wide refactor.
-- **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. Synthesizes what you've already discussed, asking only about gaps it can't fill.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
 - **[review-mr](./skills/engineering/review-mr/SKILL.md)**: Review someone else's merge request (GitLab, GitHub, or two local branches) for bugs, security, performance and design, check it against the task's acceptance criteria, and write a verdict plus the findings to a local markdown file.
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)**: Plan a huge chunk of work, more than one agent session can hold, as a shared map of decision tickets on the issue tracker: resolve them one at a time until the way to the destination is clear.
 
 **Model-invoked**
 
+- **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. Synthesizes what you've already discussed, asking only about gaps it can't fill.
 - **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. Never commits: it delivers a verdict and a Conventional Commits message for you to use.
 - **[prototype](./skills/engineering/prototype/SKILL.md)**: Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic questions, or several radically different UI variations toggleable from one route.
 - **[research](./skills/engineering/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
@@ -194,13 +194,13 @@ General workflow tools, not code-specific.
 
 **User-invoked**
 
-- **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[handoff](./skills/productivity/handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject.
 - **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Fire this the moment a message doesn't land. The agent re-pitches it with the context you're missing, in plain English, using your `CONTEXT.md` vocabulary.
 
 **Model-invoked**
 
+- **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[caveman](./skills/productivity/caveman/SKILL.md)**: Ultra-compressed communication mode: drops articles, filler, and pleasantries while keeping full technical accuracy (~75% fewer tokens). Optionally auto-activated each session via the claude-hooks SessionStart hook.
 - **[grilling](./skills/productivity/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `wayfinder` and `improve-codebase-architecture`.
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**: Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.

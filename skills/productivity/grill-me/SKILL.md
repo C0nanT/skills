@@ -1,7 +1,6 @@
 ---
 name: grill-me
-description: A relentless interview to sharpen a plan or design.
-disable-model-invocation: true
+description: A relentless interview to sharpen a plan or design. Use when the user wants to be grilled on a plan, idea or design with no codebase involved, or says "grill me".
 ---
 
 Call the Skill tool with "grilling".

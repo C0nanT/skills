@@ -2,7 +2,7 @@
 
 ## O que é
 
-Uma skill user-invoked que inicia uma sessão **`/grilling`**: entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `CONTEXT.md` nem ADRs.
+Uma skill model-invoked que inicia uma sessão **`/grilling`**: entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `CONTEXT.md` nem ADRs.
 
 ## Para que serve
 

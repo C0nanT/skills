@@ -8,7 +8,7 @@ What it will do, in this fork, is ask about a gap it cannot close on its own: so
 
 ## When to reach for it
 
-You invoke this by typing `/to-spec`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.
+You can invoke this by typing `/to-spec`, and the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) can also reach for it on its own once the deciding is done and a spec is what's wanted.
 
 Reach for it when the build is too big for one agent [session](https://www.aihero.dev/ai-coding-dictionary/session) and has to survive being split across several. That is the whole trigger:
 
