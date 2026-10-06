@@ -29,7 +29,7 @@ It walks you through four choices, one at a time, each with a plain-language exp
 - **Issue tracker**: where work is tracked, so `to-spec`/`to-tickets` know whether to call `gh`, `glab`, write markdown under `.scratch/`, or follow a workflow you describe. GitHub, GitLab, local markdown, or other.
 - **Triage labels**: the strings behind the six canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`, `done`), mapped to labels you've actually configured. This section always runs; `ready-for-human` means a human has to review the task, the code and whether the feature works.
 - **Domain docs**: whether the repo has one `CONTEXT.md` or a multi-context map, so skills that read domain language look in the right place.
-- **Git guardrails**: whether to add `permissions.deny` rules to the project's `.claude/settings.json` so Claude Code refuses destructive git (`commit`, `push`, `reset`, `clean`, `rebase`, also through `git -C <dir>`, plus force deletes and discard-all commands). Recommended yes; no hooks are installed.
+- **Git guardrails**: whether to add `permissions.deny` rules to the project's `.claude/settings.json` so Claude Code refuses destructive git (`push`, `reset`, `clean`, `rebase`, also through `git -C <dir>`, plus force deletes and discard-all commands). Recommended yes; no hooks are installed.
 
 The output is three files: `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`, `docs/agents/domain.md`, plus an `## Agent skills` block pointing to them in whichever of `CLAUDE.md` / `AGENTS.md` the repo already uses. The issue tracker file carries a "Wayfinding operations" section for every tracker you can pick, local markdown included (`.scratch/<effort>/map.md` plus `tickets/NN-<slug>.md`), so [wayfinder](./wayfinder.md) knows the map, claim, blocking and frontier format. Local specs are always `SPEC.md`. Those files are the shared substrate the rest of the toolkit stands on. With guardrails on, it also writes `docs/agents/git-guardrails.md` and merges the deny rules into `.claude/settings.json`.
 
@@ -48,7 +48,7 @@ Yes. A second run finds the rules already present and leaves the file, and the b
 - Three files land under `docs/agents/`, and an `## Agent skills` section appears in your `CLAUDE.md` or `AGENTS.md`.
 - The tracker it proposes matches your real `git remote`, and the labels match strings that already exist in your repo.
 - Afterwards, `to-tickets` acts on the right place with the right labels instead of asking or guessing.
-- With guardrails on, the agent's `git commit` (or `git -C <dir> commit`) is refused by Claude Code, while your earlier `.claude/settings.json` entries are still there.
+- With guardrails on, the agent's `git push` (or `git -C <dir> push`) is refused by Claude Code, while your earlier `.claude/settings.json` entries are still there.
 
 ## Where it fits
 

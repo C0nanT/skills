@@ -11,12 +11,12 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] The seed list (text block and jq array) no longer contains `Bash(git commit *)`, `Bash(git -C * commit)` or `Bash(git -C * commit *)`
-- [ ] The `git-guardrails.md` template no longer lists any commit rule
-- [ ] The Section D explainer and the `### Git guardrails` sub-block no longer mention commit; the sub-block's example list starts with another command (e.g. `push`)
-- [ ] The "Skip when the deny rules already exist" detection stays consistent with the new list
-- [ ] The `setup-skills` docs page (re-synced per `.agents/writing-docs.md`) and the `setup-skills` guides (en and pt-br) no longer say commit is refused
-- [ ] No text tells the agent to commit
-- [ ] No em-dashes in the edited prose
+- [x] The seed list (text block and jq array) no longer contains `Bash(git commit *)`, `Bash(git -C * commit)` or `Bash(git -C * commit *)`
+- [x] The `git-guardrails.md` template no longer lists any commit rule
+- [x] The Section D explainer and the `### Git guardrails` sub-block no longer mention commit; the sub-block's example list starts with another command (e.g. `push`)
+- [x] The "Skip when the deny rules already exist" detection stays consistent with the new list
+- [x] The `setup-skills` docs page (re-synced per `.agents/writing-docs.md`) and the `setup-skills` guides (en and pt-br) no longer say commit is refused
+- [x] No text tells the agent to commit
+- [x] No em-dashes in the edited prose

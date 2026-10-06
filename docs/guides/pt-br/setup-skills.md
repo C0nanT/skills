@@ -50,7 +50,7 @@ Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
 - Multi-contexto: `CONTEXT-MAP.md` apontando para contextos por módulo (monorepos)
 
 **Seção D: Git guardrails**: Bloquear git destrutivo no Claude Code deste repo? (recomendado: sim)
-- Acrescenta regras em `permissions.deny` do `.claude/settings.json` do projeto: `commit`, `push`, `reset`, `clean`, `rebase` (também na forma `git -C <dir> …`), delete forçado de branch e tag, `checkout .`/`restore .`, `stash drop`/`clear`
+- Acrescenta regras em `permissions.deny` do `.claude/settings.json` do projeto: `push`, `reset`, `clean`, `rebase` (também na forma `git -C <dir> …`), delete forçado de branch e tag, `checkout .`/`restore .`, `stash drop`/`clear`
 - Precisa de `jq`. Sem `jq`, o setup para e avisa, e o arquivo não é tocado
 - Com `settings.json` inválido, para e mostra o erro do `jq`; você corrige e roda de novo
 - Com arquivo válido, só acrescenta as regras que faltam: allow rules, hooks, env e deny já existentes continuam lá. Antes de substituir, grava um backup ao lado (`settings.json.bak-<timestamp>`)

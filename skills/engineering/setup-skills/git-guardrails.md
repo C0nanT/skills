@@ -5,14 +5,11 @@ Destructive git is denied for Claude Code in this repo via `permissions.deny` in
 ## Denied prefixes
 
 - `Bash(git push *)`
-- `Bash(git commit *)`
 - `Bash(git reset *)`
 - `Bash(git clean *)`
 - `Bash(git rebase *)`
 - `Bash(git -C * push)`
 - `Bash(git -C * push *)`
-- `Bash(git -C * commit)`
-- `Bash(git -C * commit *)`
 - `Bash(git -C * reset)`
 - `Bash(git -C * reset *)`
 - `Bash(git -C * clean)`

@@ -11,7 +11,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 - **Issue tracker**: where issues live (Local markdown by default; GitHub / GitLab / other when you choose them here)
 - **Triage labels**: the strings used for the six canonical triage roles
 - **Domain docs**: where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
-- **Git guardrails**: `permissions.deny` entries in this repo's `.claude/settings.json` that block destructive git (`commit`, `push`, `reset`, …). Do **not** install or register hooks, the user already has hooks globally if they want them.
+- **Git guardrails**: `permissions.deny` entries in this repo's `.claude/settings.json` that block destructive git (`push`, `reset`, …). Do **not** install or register hooks, the user already has hooks globally if they want them.
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
 
@@ -65,7 +65,7 @@ Offer **multi-context** (a root `CONTEXT-MAP.md` pointing to per-context `CONTEX
 
 > Add project `permissions.deny` rules that block destructive git in Claude Code? (recommended: **yes**)
 
-> Explainer: Merges deny rules into **this repo's** `.claude/settings.json` only, no hooks, no scripts. Claude Code refuses `git commit`, `git push`, `git reset`, `git clean`, `git rebase` (also in the `git -C <dir> …` form), force branch deletes, discard-all checkouts/restores, stash drop/clear, and force-delete tags. Read-only git still works. Your existing settings (allow rules, hooks, env) are kept, a timestamped backup is written before the file is replaced, and the merge stops without touching anything if `jq` is missing or the file is not valid JSON. Your existing global hooks stay untouched. Say **no** only if you want the agent free to mutate git history in this repo.
+> Explainer: Merges deny rules into **this repo's** `.claude/settings.json` only, no hooks, no scripts. Claude Code refuses `git push`, `git reset`, `git clean`, `git rebase` (also in the `git -C <dir> …` form), force branch deletes, discard-all checkouts/restores, stash drop/clear, and force-delete tags. Read-only git still works. Your existing settings (allow rules, hooks, env) are kept, a timestamped backup is written before the file is replaced, and the merge stops without touching anything if `jq` is missing or the file is not valid JSON. Your existing global hooks stay untouched. Say **no** only if you want the agent free to mutate git history in this repo.
 
 If the user says **no**, omit the deny merge, `docs/agents/git-guardrails.md`, and the `### Git guardrails` sub-block. Do not remove existing deny rules when they say no.
 
@@ -110,7 +110,7 @@ The block:
 
 ### Git guardrails
 
-Destructive git (`commit`, `push`, `reset`, …) is denied via `permissions.deny` in `.claude/settings.json`. See `docs/agents/git-guardrails.md`.
+Destructive git (`push`, `reset`, …) is denied via `permissions.deny` in `.claude/settings.json`. See `docs/agents/git-guardrails.md`.
 ```
 
 Include the `### Git guardrails` sub-block and write `docs/agents/git-guardrails.md` only when Section D was **yes**. When Section D was **no**, omit them.
@@ -138,14 +138,11 @@ Seed deny list (merge these strings into `permissions.deny`; keep any existing e
 
 ```text
 Bash(git push *)
-Bash(git commit *)
 Bash(git reset *)
 Bash(git clean *)
 Bash(git rebase *)
 Bash(git -C * push)
 Bash(git -C * push *)
-Bash(git -C * commit)
-Bash(git -C * commit *)
 Bash(git -C * reset)
 Bash(git -C * reset *)
 Bash(git -C * clean)
@@ -189,14 +186,11 @@ if ! jq --indent 2 '
   | reduce (
       [
         "Bash(git push *)",
-        "Bash(git commit *)",
         "Bash(git reset *)",
         "Bash(git clean *)",
         "Bash(git rebase *)",
         "Bash(git -C * push)",
         "Bash(git -C * push *)",
-        "Bash(git -C * commit)",
-        "Bash(git -C * commit *)",
         "Bash(git -C * reset)",
         "Bash(git -C * reset *)",
         "Bash(git -C * clean)",
