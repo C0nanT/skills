@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Archive Feature
 
-Close finished features and move them out of `.scratch/` so they survive the periodic wipe. Works from the files only. Never ticks a checkbox, never edits ticket content other than the `Status:` line, never commits.
+Close finished features and move them out of `.scratch/` so they survive the periodic wipe. Works from the files only. Never ticks a checkbox, never edits ticket content other than the `Status:` line.
 
 ## Input
 
@@ -74,4 +74,4 @@ Steps 2 to 6 above are the same ones a single-feature run uses, applied per feat
 
 ## 7. Report
 
-Never commit. End with a report. For a no-argument run, one entry per feature, plus the ignored folders. Per feature: the feature archived and its new path, which tickets were set to `done`, which were left as they were and why, and whether a `## Comments` note was added. If a feature or the run stopped (remote tracker, destination exists, user chose to stop or left it out, no spec, `git mv` failed), say why. Remind the user the moved and edited files are staged or modified but uncommitted.
+End with a report. For a no-argument run, one entry per feature, plus the ignored folders. Per feature: the feature archived and its new path, which tickets were set to `done`, which were left as they were and why, and whether a `## Comments` note was added. If a feature or the run stopped (remote tracker, destination exists, user chose to stop or left it out, no spec, `git mv` failed), say why. Remind the user the moved and edited files are staged or modified but uncommitted.

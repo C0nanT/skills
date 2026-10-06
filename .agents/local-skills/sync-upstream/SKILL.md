@@ -74,4 +74,4 @@ Upstream skills newly promoted into a shipped bucket are a **decision, not a fix
 
 Every divergence you had to defend, and every new one you discovered, goes into the ledger: that is what makes the next sync cheaper than this one. Add anything upstream now does that made a ledger entry obsolete, too, and delete the entry.
 
-Report, grouped: conflicts resolved and which way each went; silent clobbers caught and fixed; invariants checked and what failed; decisions left to the human. **Do not commit.** The merge stays open for the human to review unless they ask you to finish it.
+Report, grouped: conflicts resolved and which way each went; silent clobbers caught and fixed; invariants checked and what failed; decisions left to the human. The merge stays open for the human to review unless they ask you to finish it.

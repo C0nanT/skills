@@ -21,7 +21,7 @@ Pass the MR as a URL, a number (`!123`, `#456`, or bare `123`), or nothing at al
 
 A **local clone of the repo the MR belongs to**, in all three modes. The review deliberately reads whole files and the callers around them, not just the diff, so a working copy has to exist. Half of what the skill is looking for is invisible in an isolated hunk: a function identical to one three modules away, a contract broken in a caller the MR never touched, a null now reachable because a guard disappeared upstream.
 
-Beyond that: `glab` for GitLab mode, `gh` for GitHub mode, neither for local mode. The skill never touches your git state, no `stash`, `checkout`, `reset`, or `commit`, so a dirty working tree is reported and then ignored.
+Beyond that: `glab` for GitLab mode, `gh` for GitHub mode, neither for local mode. The skill never touches your git state, no `stash`, `checkout`, or `reset`, so a dirty working tree is reported and then ignored.
 
 ## Declared intent, and the questions the diff cannot answer
 

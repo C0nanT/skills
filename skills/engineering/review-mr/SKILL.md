@@ -56,7 +56,7 @@ The diff is always three-dot against the merge-base: `git diff <merge-base>...<h
 
 Before going further, confirm the diff is non-empty and report its size (files changed, lines added/removed). **A large MR is reviewed anyway**: say how big it is, then review all of it. Never silently truncate; a review that quietly skipped half the diff reads as a pass.
 
-**Leave the user's git state alone.** If the working tree is dirty, say so and carry on, never `stash`, `checkout`, `reset`, or `commit`. Everything here reads through `git diff` and `git show` against refs.
+**Leave the user's git state alone.** If the working tree is dirty, say so and carry on, never `stash`, `checkout`, or `reset`. Everything here reads through `git diff` and `git show` against refs.
 
 ### 2. Gather the declared intent
 

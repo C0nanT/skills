@@ -31,4 +31,4 @@ Used by `/wayfinder`. The **map** is a file with one **child** file per ticket.
 
 ## Finished features
 
-A finished feature folder moves whole to `docs/archive/<feature-slug>/` (see `docs/archive/README.md`). Run `/archive-feature` to get there: it sets the spec and tickets to `done` and does the `git mv`, and never commits.
+A finished feature folder moves whole to `docs/archive/<feature-slug>/` (see `docs/archive/README.md`). Run `/archive-feature` to get there: it sets the spec and tickets to `done` and does the `git mv`.

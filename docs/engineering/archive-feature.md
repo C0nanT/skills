@@ -2,7 +2,7 @@
 
 `archive-feature` closes a finished feature. It reads the feature's spec and tickets, checks from the files alone that the work is really done, and after one confirmation sets the spec and tickets to `done` and moves the whole folder with `git mv` from `.scratch/<feature-slug>/` to `docs/archive/<feature-slug>/`. `.scratch/` is wiped from time to time, so the archive is where a finished feature survives until the deploy.
 
-It never ticks a checkbox, never edits a ticket beyond its `Status:` line, and never commits. The archive shows exactly what was done, not what the closing step assumed, and you review the moved files before they enter history.
+It never ticks a checkbox, never edits a ticket beyond its `Status:` line. The archive shows exactly what was done, not what the closing step assumed.
 
 ## When to reach for it
 

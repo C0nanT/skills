@@ -58,7 +58,7 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 
 ## Fork-only: `archive-feature`
 
-`archive-feature` (`skills/engineering/archive-feature/`) closes a finished feature: sets its spec and tickets to the `done` triage role and moves the folder with `git mv` from `.scratch/` to `docs/archive/<feature-slug>/`. User-invoked, local markdown only, never commits. It is promoted (`plugin.json`, root README, `skills/engineering/README.md`, `docs/engineering/archive-feature.md`, routed by `ask-skills`). The `done` role it depends on lives in `skills/engineering/setup-skills/triage-labels.md` and `docs/agents/triage-labels.md`, and the local tracker docs point finished features to it. Upstream has none of this, so a merge never conflicts but can drop the wiring. Sweep: `grep -rn "archive-feature" .claude-plugin README.md skills/engineering/README.md skills/engineering/ask-skills docs/agents`.
+`archive-feature` (`skills/engineering/archive-feature/`) closes a finished feature: sets its spec and tickets to the `done` triage role and moves the folder with `git mv` from `.scratch/` to `docs/archive/<feature-slug>/`. User-invoked, local markdown only. It is promoted (`plugin.json`, root README, `skills/engineering/README.md`, `docs/engineering/archive-feature.md`, routed by `ask-skills`). The `done` role it depends on lives in `skills/engineering/setup-skills/triage-labels.md` and `docs/agents/triage-labels.md`, and the local tracker docs point finished features to it. Upstream has none of this, so a merge never conflicts but can drop the wiring. Sweep: `grep -rn "archive-feature" .claude-plugin README.md skills/engineering/README.md skills/engineering/ask-skills docs/agents`.
 
 ## Writing style
 

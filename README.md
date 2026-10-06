@@ -164,7 +164,7 @@ Skills I use daily for code work.
 
 **User-invoked**
 
-- **[archive-feature](./skills/engineering/archive-feature/SKILL.md)**: Close finished features (spec and tickets set to `done`) and move each whole from `.scratch/` to `docs/archive/`, one named or all at once. Never commits.
+- **[archive-feature](./skills/engineering/archive-feature/SKILL.md)**: Close finished features (spec and tickets set to `done`) and move each whole from `.scratch/` to `docs/archive/`, one named or all at once.
 - **[ask-skills](./skills/engineering/ask-skills/SKILL.md)**: Ask which skill or flow fits your situation. A router over the skills in this repo.
 - **[frontend-handoff](./skills/engineering/frontend-handoff/SKILL.md)**: Turn a shipped backend change into a pasteable block for the frontend team: verdict first (must change / should change / nothing required), then contract table, payload examples, and checklist.
 - **[delegate-tickets](./skills/engineering/delegate-tickets/SKILL.md)**: Orchestrate sequential ticket implementation through fresh subagents, one ticket at a time, each required to use the `implement` skill.
@@ -180,7 +180,7 @@ Skills I use daily for code work.
 **Model-invoked**
 
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. Synthesizes what you've already discussed, asking only about gaps it can't fill.
-- **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. Never commits: it delivers a verdict and a Conventional Commits message for you to use.
+- **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. It delivers a verdict and a Conventional Commits message for you to use.
 - **[prototype](./skills/engineering/prototype/SKILL.md)**: Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic questions, or several radically different UI variations toggleable from one route.
 - **[research](./skills/engineering/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
 - **[tdd](./skills/engineering/tdd/SKILL.md)**: Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
