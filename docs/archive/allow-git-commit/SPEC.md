@@ -1,6 +1,6 @@
 # Allow agents to commit (remove every commit restriction)
 
-Status: ready-for-agent
+Status: done
 
 ## Problem Statement
 
@@ -90,3 +90,9 @@ Remove every restriction on `git commit` from the hooks and the skills, without 
 - **Accepted risk in `delegate-tickets`:** without the bans on subagents, a subagent that runs `git add`, `git commit`, `git reset` or `git stash` can mix or hide earlier tickets' work, and the next ticket's review (via unstaged tree) can come back empty or see someone else's diff. The user chose to loosen anyway; the orchestrator's baseline protocol keeps working when nobody touches the index. Likewise, if `implement` commits before Review, the unstaged-tree diff comes back empty; since no skill instructs committing, that only happens by the agent's choice.
 - The `git -C * commit` rules in `setup-skills` exist in pairs (bare and with args): remove both.
 - When the hook is reinstalled, searches like a `grep` that mention the pattern stop needing string splitting.
+
+## Comments
+
+2026-10-06: archived with one item left out.
+
+- Ticket 01 (`01-hook-allows-commit.md`, status left as `ready-for-agent`): unchecked "The final report reminds the user to reinstall the hook after the release to update the copy in `~/.claude/hooks-lib/`".

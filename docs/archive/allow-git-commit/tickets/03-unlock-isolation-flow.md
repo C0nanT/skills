@@ -11,7 +11,7 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-human
+Status: done
 
 - [x] `implement`: Report step without "Never make a commit"; refactor step without "without committing" and without the ban list; Review step passes the unstaged tree without asserting that nothing was committed
 - [x] `implement`: Verdict and Conventional Commits message kept; no instruction to commit

@@ -11,7 +11,7 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-human
+Status: done
 
 - [x] `archive-feature`: intro and report step without "never commits" / "Never commit."; report unchanged
 - [x] `review-mr`: only `commit` removed from the list of commands never run (skill and docs page)

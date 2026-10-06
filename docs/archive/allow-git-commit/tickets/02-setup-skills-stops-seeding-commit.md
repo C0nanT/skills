@@ -11,7 +11,7 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-human
+Status: done
 
 - [x] The seed list (text block and jq array) no longer contains `Bash(git commit *)`, `Bash(git -C * commit)` or `Bash(git -C * commit *)`
 - [x] The `git-guardrails.md` template no longer lists any commit rule

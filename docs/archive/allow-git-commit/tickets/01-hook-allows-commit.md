@@ -20,4 +20,4 @@ Status: ready-for-agent
 - [x] push, reset --hard, rm, `-C dir push`, `--no-pager reset --hard` and `--git-dir push` stay `assert_blocked`
 - [x] `bash test/run.sh` passes
 - [x] The `claude-hooks` README (hooks table) and the hooks table in the `skills` README describe exactly the patterns still blocked
-- [ ] The final report reminds the user to reinstall the hook after the release to update the copy in `~/.claude/hooks-lib/`
+- [x] The final report reminds the user to reinstall the hook after the release to update the copy in `~/.claude/hooks-lib/`

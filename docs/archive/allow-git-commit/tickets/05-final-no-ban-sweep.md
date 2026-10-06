@@ -11,7 +11,7 @@
 
 **Blocked by:** 01, 02, 03, 04
 
-Status: ready-for-human
+Status: done
 
 - [x] Sweep of `skills/`, `.agents/`, `docs/` (minus `docs/archive/`), READMEs and `claude-hooks` for "never commit", "do not commit", "nunca commita", "não faz `git commit`", commit in a deny list or blocked pattern: zero hits that are a ban
 - [x] Zero new instructions telling an agent to commit
