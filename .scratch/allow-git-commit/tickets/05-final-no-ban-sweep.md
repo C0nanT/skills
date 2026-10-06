@@ -11,10 +11,10 @@
 
 **Blocked by:** 01, 02, 03, 04
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] Sweep of `skills/`, `.agents/`, `docs/` (minus `docs/archive/`), READMEs and `claude-hooks` for "never commit", "do not commit", "nunca commita", "não faz `git commit`", commit in a deny list or blocked pattern: zero hits that are a ban
-- [ ] Zero new instructions telling an agent to commit
-- [ ] `scripts/validate.sh` passes in `skills`
-- [ ] `bash test/run.sh` passes in `claude-hooks`
-- [ ] No em-dashes in prose edited by tickets 01 to 04
+- [x] Sweep of `skills/`, `.agents/`, `docs/` (minus `docs/archive/`), READMEs and `claude-hooks` for "never commit", "do not commit", "nunca commita", "não faz `git commit`", commit in a deny list or blocked pattern: zero hits that are a ban
+- [x] Zero new instructions telling an agent to commit
+- [x] `scripts/validate.sh` passes in `skills`
+- [x] `bash test/run.sh` passes in `claude-hooks`
+- [x] No em-dashes in prose edited by tickets 01 to 04
