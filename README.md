@@ -21,7 +21,7 @@ Instala estes hooks no `~/.claude/settings.json`:
 | Hook | Evento | O que faz |
 | ------ | -------- | ----------- |
 | **caveman** | `SessionStart` | Modo caveman automático em toda sessão (requer a skill `caveman` instalada) |
-| **git-guardrails** | `PreToolUse/Bash` | Bloqueia git destrutivo antes de executar (`push`, `reset --hard`, `clean -f`, etc.) |
+| **git-guardrails** | `PreToolUse/Bash` | Bloqueia git destrutivo antes de executar (`push`, `push --force`, `reset --hard`, `clean -f`, `branch -D`, `checkout .`, `restore .`, `rm`) |
 | **protect-dotenv** | `PreToolUse` | Bloqueia leitura/edição de `.env` (permite `.env.example`, `.env.sample`, etc.) |
 | **notify-attention** | `Notification` | Notificação desktop + som quando o agente precisa de input |
 | **notify-done** | `Stop` | Notificação desktop + som quando o agente termina a resposta |
