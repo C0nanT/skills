@@ -1,6 +1,6 @@
 # Skill flow improvements: refactor step, seams handoff, ticket-to-spec link
 
-Status: ready-for-agent
+Status: done
 
 Covers backlog items 1, 2 and 3 in `BACKLOG.md` (same folder). The other items stay in the backlog for later specs.
 

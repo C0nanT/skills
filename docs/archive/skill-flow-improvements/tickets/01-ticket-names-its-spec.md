@@ -8,7 +8,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-human
+**Status:** done
 
 - [x] `to-tickets` local ticket template has a `**Spec:**` line, explained as the spec path relative to the ticket file
 - [x] `review-axes` spec search lists the new five-step order, with the ticket's `Spec:` line second

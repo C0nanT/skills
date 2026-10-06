@@ -11,7 +11,7 @@
 
 **Blocked by:** 02 (reuses its readiness check, closing and move)
 
-Status: ready-for-human
+Status: done
 
 - [x] No argument reads every folder under `.scratch/`
 - [x] Folders without `SPEC.md` appear as ignored and are left in place

@@ -8,7 +8,7 @@
 
 **Blocked by:** 01 (edits `implement`'s Review step), 02 (edits `tdd`)
 
-**Status:** ready-for-human
+**Status:** done
 
 - [x] `implement` has a Refactor section between Test and Review with precondition, scope, no-behaviour-change rule and a "Done when" line
 - [x] Snapshot and restore rules spelled out, including the forbidden git operations, so `delegate-tickets`' staged earlier work is never disturbed

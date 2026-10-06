@@ -1,6 +1,6 @@
 # archive-feature: close a finished feature and move it to the archive
 
-Status: ready-for-agent
+Status: done
 
 ## Problem Statement
 

@@ -8,7 +8,7 @@
 
 **Blocked by:** 01, 02, 03
 
-**Status:** ready-for-human
+**Status:** done
 
 - [x] `ask-skills` re-read; any stale description of seams, refactoring or spec lookup updated (or confirmed none exists)
 - [x] `BACKLOG.md` items 1, 2 and 3 marked done; 4 to 13 untouched

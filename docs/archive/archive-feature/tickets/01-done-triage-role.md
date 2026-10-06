@@ -11,7 +11,7 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-human
+Status: done
 
 - [x] This repo's triage labels table has a `done` row with its meaning
 - [x] The `setup-skills` triage labels template has the same row

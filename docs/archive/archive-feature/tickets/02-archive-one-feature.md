@@ -11,7 +11,7 @@
 
 **Blocked by:** 01 (the skill writes the `done` role)
 
-Status: ready-for-human
+Status: done
 
 - [x] `SKILL.md` exists under `engineering/archive-feature/` with user-invoked frontmatter (`disable-model-invocation: true`) and `agents/openai.yaml` with `policy.allow_implicit_invocation: false`, per `.agents/invocation.md`
 - [x] Accepts a folder name or a spec path

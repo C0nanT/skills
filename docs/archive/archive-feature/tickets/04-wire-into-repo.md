@@ -11,7 +11,7 @@
 
 **Blocked by:** 03 (the docs page and router describe the final behaviour)
 
-Status: ready-for-human
+Status: done
 
 - [x] Entry under **User-invoked** in the top-level `README.md` and in the `engineering/` bucket `README.md`
 - [x] Entry in `.claude-plugin/plugin.json`'s `skills` array; `claude plugin validate . --strict` passes

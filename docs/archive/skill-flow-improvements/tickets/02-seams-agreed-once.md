@@ -8,7 +8,7 @@
 
 **Blocked by:** 01 (both edit the `to-tickets` ticket template)
 
-**Status:** ready-for-human
+**Status:** done
 
 - [x] `to-spec` has no separate "check with the user" seams step; seams are part of the one-batch question rule, including the seams-only short question case
 - [x] `to-spec` template's Testing Decisions asks for the agreed seams, one per bullet
