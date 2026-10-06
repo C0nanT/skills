@@ -28,7 +28,7 @@ O caminho que a maior parte do trabalho percorre:
    - `/prototype` para responder com código descartável,
    - `/handoff` de volta com o que aprendeu.
 3. **Branch: build multi-sessão?**
-   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada ticket, **limpe o contexto**: sessão nova por ticket e **`/implement`** com o spec + o ticket. O `/implement` nunca commita: ele entrega a mensagem de commit e você commita.
+   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada ticket, **limpe o contexto**: sessão nova por ticket e **`/implement`** com o spec + o ticket. O `/implement` entrega a mensagem de commit para você usar quando commitar.
    - **Não** → **`/implement`** na mesma janela de contexto.
 
 ### Higiene de contexto

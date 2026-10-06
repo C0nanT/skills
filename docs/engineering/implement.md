@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, refactors its own diff once the suite is green, runs [review-axes](./review-axes.md) at the end, and hands you a one-line verdict plus a Conventional Commits message: it does **not** commit.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://aihero.dev/skills-tdd) at the seams, typechecks as it goes, refactors its own diff once the suite is green, runs [review-axes](./review-axes.md) at the end, and hands you a one-line verdict plus a Conventional Commits message for you to use when you commit.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a ready-to-commit diff plus a message. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which will happily redesign the work while it builds it.
 
@@ -24,7 +24,7 @@ The same-session case is worth naming because the skill's own first line doesn't
 
 ## Prerequisites
 
-Upstream `implement` commits to the branch you are on. This fork never commits: it only generates a Conventional Commits message (`type(scope): …` plus a short why-body, capped at 300 characters) for you to paste. Check you are on the branch you want the work on before you start, so the diff lands where you intend when you commit it yourself.
+Upstream `implement` is told to commit to the branch you are on. This fork neither instructs nor forbids it: it generates a Conventional Commits message (`type(scope): …` plus a short why-body, capped at 300 characters) for you to use. Check you are on the branch you want the work on before you start, so the diff lands where you intend.
 
 If the tickets came from [to-tickets](https://aihero.dev/skills-to-tickets), the tracker they live on was configured by [setup-skills](./setup-skills.md). `review-axes` reads the same configuration to find the originating spec at close-out. Local tickets carry a `Spec:` line, and `implement` passes the ticket path along, so inside this chain the review does not depend on search.
 
@@ -36,9 +36,9 @@ A run is seven beats, in order:
 2. Drive [tdd](https://aihero.dev/skills-tdd) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Refactor the run's own diff, only if the suite is green: no behaviour change, no test edits, snapshot first (without committing or touching the index), rerun the suite, and restore the snapshot if it went red.
+5. Refactor the run's own diff, only if the suite is green: no behaviour change, no test edits, snapshot first (with `git stash create`, which leaves the index alone), rerun the suite, and restore the snapshot if it went red.
 6. Run [review-axes](./review-axes.md) against the unstaged working tree, passing it the ticket path (or the spec path when there is no ticket) so it never has to search for the spec and ticks the right checkboxes. This is a gate, not a suggestion: the verdict is built from its Standards and Spec reports, so a run that skipped it has nothing to base the verdict on.
-7. Give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message: no `git commit`.
+7. Give a verdict (🟢 / 🟡 / 🔴) and generate a Conventional Commits message. Committing is not a step.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, you commit from the message it wrote, clear again. Each ticket is self-contained, which is what makes the previous ticket's context disposable.
 
@@ -60,7 +60,7 @@ That is the verdict, a fork addition that sits directly above the Conventional C
 
 **What does the refactor step do, and what if it breaks something?**
 
-After the full suite is green, `implement` makes one cleanup pass over the code its own diff created or changed, never beyond it. It changes no behaviour and edits no tests. Before starting it snapshots the working tree with `git stash create` (or copies the files aside), which never commits and never touches the index, so staged work from earlier tickets under `/delegate-tickets` is undisturbed. It then reruns the full suite: green keeps the refactor, red restores the snapshot exactly and the run carries on. The verdict is 🟡 when the refactor was skipped (suite red), undone, or when a worthwhile refactor was spotted outside the diff, in which case it suggests a prefactor ticket and never applies it.
+After the full suite is green, `implement` makes one cleanup pass over the code its own diff created or changed, never beyond it. It changes no behaviour and edits no tests. Before starting it snapshots the working tree with `git stash create` (or copies the files aside), which records the state without changing any ref, the index or the working tree, so staged work from earlier tickets under `/delegate-tickets` is undisturbed. It then reruns the full suite: green keeps the refactor, red restores the snapshot exactly and the run carries on. The verdict is 🟡 when the refactor was skipped (suite red), undone, or when a worthwhile refactor was spotted outside the diff, in which case it suggests a prefactor ticket and never applies it.
 
 **Can I point it at all my tickets at once, or run several in parallel?**
 
@@ -68,7 +68,7 @@ No. One invocation, one ticket. Batch dispatch across a ticket queue and [subage
 
 **Can it open a pull request instead of committing?**
 
-Not built in. This fork already refuses to commit: it only writes the message, so the eager-commit complaint from upstream does not apply here. There is still no PR mode; open one yourself after you commit.
+Not built in. This fork does not instruct a commit: it writes the message, so the eager-commit complaint from upstream does not apply here. There is still no PR mode; open one yourself after you commit.
 
 **`review-axes` says it cannot see my changes.**
 
@@ -97,7 +97,7 @@ On purpose. Tickets and specs live under `.scratch/`, which gets wiped from time
 - The session opens by reading the ticket or spec and restating what it will build, rather than asking you what to build.
 - You can see an actual `/tdd` invocation in the trace, not just tests appearing in the diff.
 - Typechecks and single test files run repeatedly during the run, and the full suite runs once near the end (and once more after a refactor).
-- The run ends with a verdict line and a Conventional Commits message (`type(scope): …` plus a short why-body), and no `git commit` of its own.
+- The run ends with a verdict line and a Conventional Commits message (`type(scope): …` plus a short why-body), and no commit step of its own.
 - The verdict colour matches what actually happened: a bare 🟢 when nothing deviated, 🟡 with the adjustment named, 🔴 with the thing you have to do spelled out.
 - The diff is one ticket's worth of change: a vertical slice through every layer, not several tickets swept together.
 

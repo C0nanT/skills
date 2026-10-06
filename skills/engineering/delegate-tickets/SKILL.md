@@ -43,7 +43,7 @@ so a Heavy ticket stops the run before any work is staged.
 
 ## Isolating each ticket's diff
 
-`/implement` never commits. Without this protocol every ticket's review would
+`/implement` leaves its work uncommitted. Without this protocol every ticket's review would
 see the accumulated work of all previous tickets. So the **git index is the
 baseline**: completed tickets live staged, and the unstaged working tree is
 always exactly the current ticket's work.
@@ -60,8 +60,8 @@ always exactly the current ticket's work.
 **After each ticket passes**, run `git add -A` to fold that ticket's work into
 the baseline, so the next subagent starts from a clean unstaged tree.
 
-Nothing is ever committed. At the end the whole sequence sits staged, with the
-per-ticket commit messages collected for the user.
+The orchestrator itself makes no commit. At the end the whole sequence sits
+staged, with the per-ticket commit messages collected for the user.
 
 ## Workflow
 
@@ -100,8 +100,7 @@ Use a new subagent for every ticket. Never reuse a previous ticket's session.
 Implement `<ticket-path>` in `<repository-path>` using the `implement` skill.
 
 The git index holds work from previous tickets that is NOT yours. Leave it
-alone: never run `git add`, `git commit`, `git reset`, `git stash`, or
-`git checkout` on it. Your work stays unstaged.
+alone, so your work stays unstaged and the index keeps exactly what it holds.
 
 When you invoke `/review-axes`, give it "the unstaged working tree" as its
 fixed point, so it reviews only your ticket's changes, and give it
@@ -120,7 +119,7 @@ uncertainty. Include the commit message `/implement` generated.
 
 When all tickets succeed, list the completed tickets with their subagent
 sessions and collected commit messages, and remind the user that everything is
-staged but uncommitted.
+staged and awaiting your commit.
 
 If the sequence stops, identify the failed ticket, its problem, and note that
 its work is the only thing left unstaged.

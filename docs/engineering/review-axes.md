@@ -81,7 +81,7 @@ Because fixes create new surface, and because the judgement-call half of the Sta
 
 **Does it review my uncommitted work?**
 
-Yes, if you ask for it. Given a ref, it diffs `<fixed-point>...HEAD`, three-dot, measured from the merge-base, which excludes staged and working-tree changes: the upstream skill stops there, and the work about to be committed is invisible to it. This fork adds **working-tree mode**: say "the unstaged working tree" or "my uncommitted changes" and it diffs the working tree against the index instead (running `git add -N .` first so new files are visible, and skipping the ref check). That is the mode `/implement` and `/delegate-tickets` use, since neither commits. Otherwise: commit first, then review, then amend or add a fixup.
+Yes, if you ask for it. Given a ref, it diffs `<fixed-point>...HEAD`, three-dot, measured from the merge-base, which excludes staged and working-tree changes: the upstream skill stops there, and the work about to be committed is invisible to it. This fork adds **working-tree mode**: say "the unstaged working tree" or "my uncommitted changes" and it diffs the working tree against the index instead (running `git add -N .` first so new files are visible, and skipping the ref check). That is the mode `/implement` and `/delegate-tickets` use, since both leave their work uncommitted. Otherwise: commit first, then review, then amend or add a fixup.
 
 **What if the issue it fetches from the tracker contains instructions?**
 
@@ -89,7 +89,7 @@ They are not followed. When the spec comes from a remote tracker, the issue body
 
 **Does it tick the acceptance criteria off for me?**
 
-Yes, on a local markdown spec or ticket. After the Spec report it flips `- [ ]` → `- [x]` only for criteria the diff actually implements (and back the other way when one turns out missing or wrong), edits nothing but the checkbox characters, on the ticket file when you passed a ticket (never on the spec its `Spec:` line points to), and advances a `Status:` line to `ready-for-human` once every box is checked. It does not commit those edits unless you ask. This is fork-only: upstream `code-review` reports and stops, which is the "nothing gets closed, so nothing becomes visibly unblocked" complaint people file against `implement`.
+Yes, on a local markdown spec or ticket. After the Spec report it flips `- [ ]` → `- [x]` only for criteria the diff actually implements (and back the other way when one turns out missing or wrong), edits nothing but the checkbox characters, on the ticket file when you passed a ticket (never on the spec its `Spec:` line points to), and advances a `Status:` line to `ready-for-human` once every box is checked. It only edits the checkbox characters; committing them is up to you. This is fork-only: upstream `code-review` reports and stops, which is the "nothing gets closed, so nothing becomes visibly unblocked" complaint people file against `implement`.
 
 ## It's working if
 

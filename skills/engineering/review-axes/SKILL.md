@@ -22,13 +22,13 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 
 Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside two parallel sub-agents.
 
-**Working-tree mode.** When the fixed point is given as the *unstaged working tree* (the caller says "the unstaged working tree", "my uncommitted changes", or similar) the changes under review were never committed, so no ref can name them:
+**Working-tree mode.** When the fixed point is given as the *unstaged working tree* (the caller says "the unstaged working tree", "my uncommitted changes", or similar) the changes under review are not in any commit, so no ref can name them:
 
 - The diff command is plain `git diff` (working tree vs. index). There is no commit list.
 - Skip the `git rev-parse` check; there's no ref to resolve. Still fail on an empty diff.
 - Run `git add -N .` first so newly created files show up in `git diff`, without it they are invisible and the review silently passes over whole new files.
 
-This is the mode `/implement` and `/delegate-tickets` use, since neither commits. In `/delegate-tickets` the index deliberately holds earlier tickets' work, so `git diff` isolates exactly the current ticket. Never run `git add`, `git commit`, or `git reset` in this mode beyond the `git add -N .` above.
+This is the mode `/implement` and `/delegate-tickets` use, since both leave their work uncommitted. In `/delegate-tickets` the index deliberately holds earlier tickets' work, so `git diff` isolates exactly the current ticket.
 
 ### 2. Identify the spec source
 
@@ -119,7 +119,6 @@ After the Spec report, update the **local markdown** spec/ticket source (the fil
 - Leave `- [ ]` (or flip `- [x]` → `- [ ]`) when the criterion is missing, partial, or wrong per Spec.
 - Edit existing checkbox lines only: do not add, delete, or rewrite criterion text.
 - Skip this step when there is no local markdown spec, the spec has no checkboxes, or the Spec axis was skipped.
-- Do **not** commit these markdown edits unless the user asks.
 
 If the spec/ticket file has a `Status:` line (see `docs/agents/triage-labels.md`) and, after the flip above, **every** acceptance-criteria checkbox is `- [x]`, advance `Status:` to `ready-for-human`: implementation is done and the work now needs human review before it merges. Leave `Status:` untouched when any checkbox remains unchecked, or when the file has no `Status:` line.
 

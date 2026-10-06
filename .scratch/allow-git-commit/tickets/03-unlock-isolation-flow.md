@@ -11,13 +11,13 @@
 
 **Blocked by:** None (can start immediately)
 
-Status: ready-for-agent
+Status: ready-for-human
 
-- [ ] `implement`: Report step without "Never make a commit"; refactor step without "without committing" and without the ban list; Review step passes the unstaged tree without asserting that nothing was committed
-- [ ] `implement`: Verdict and Conventional Commits message kept; no instruction to commit
-- [ ] `review-axes`: working-tree mode without the "Never run `git add`, `git commit`, or `git reset`" sentence (the `git add -N .` stays as a step); "since neither commits" neutralized; "Do not commit these markdown edits unless the user asks" removed
-- [ ] `delegate-tickets`: subagent prompt without the ban list, keeping the context about the index holding earlier tickets' work and the review over the unstaged tree; "never commits" / "Nothing is ever committed" neutralized; orchestrator baseline protocol intact
-- [ ] Docs pages for `implement` and `review-axes` re-synced per `.agents/writing-docs.md` (FAQs and "It's working if" stop promising no commit)
-- [ ] `ask-skills` (router) and the `implement` / `ask-skills` guides (en and pt-br) without "never commits" / "não faz `git commit`"
-- [ ] `fork-divergences.md`: the "`implement` Never commits" and "Refactor step" rows rewritten (upstream instructs commit; the fork neither instructs nor forbids it)
-- [ ] No em-dashes in the edited prose
+- [x] `implement`: Report step without "Never make a commit"; refactor step without "without committing" and without the ban list; Review step passes the unstaged tree without asserting that nothing was committed
+- [x] `implement`: Verdict and Conventional Commits message kept; no instruction to commit
+- [x] `review-axes`: working-tree mode without the "Never run `git add`, `git commit`, or `git reset`" sentence (the `git add -N .` stays as a step); "since neither commits" neutralized; "Do not commit these markdown edits unless the user asks" removed
+- [x] `delegate-tickets`: subagent prompt without the ban list, keeping the context about the index holding earlier tickets' work and the review over the unstaged tree; "never commits" / "Nothing is ever committed" neutralized; orchestrator baseline protocol intact
+- [x] Docs pages for `implement` and `review-axes` re-synced per `.agents/writing-docs.md` (FAQs and "It's working if" stop promising no commit)
+- [x] `ask-skills` (router) and the `implement` / `ask-skills` guides (en and pt-br) without "never commits" / "não faz `git commit`"
+- [x] `fork-divergences.md`: the "`implement` Never commits" and "Refactor step" rows rewritten (upstream instructs commit; the fork neither instructs nor forbids it)
+- [x] No em-dashes in the edited prose

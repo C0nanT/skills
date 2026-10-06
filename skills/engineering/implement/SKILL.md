@@ -36,20 +36,20 @@ One cleanup pass over the code this run wrote, only while the suite is green.
 - **Precondition:** the full suite was green after Test. If it was not, skip this step and say so in the Verdict.
 - **Scope:** only code the run's diff created or changed (in working-tree mode, the working tree vs. the index, so under `/delegate-tickets` exactly the current ticket). A worthwhile refactor you see outside the diff is never applied: note it for the Verdict.
 - **Rule:** no behaviour change. Never edit a test to make a refactor pass.
-- **Snapshot first, without committing or touching the index.** Allowed: `git stash create` (records the state, changes no ref, index or working tree) or copying the diff's files aside. Never `git add` (beyond the `git add -N .` that `/review-axes` already does), `git reset`, `git stash push` or a commit: earlier tickets' staged work under `/delegate-tickets` must stay exactly as it was.
-- **After refactoring, run the full suite.** Green: keep the refactor. Red: restore the snapshot so the working tree is exactly the pre-refactor green state (for a `git stash create` snapshot, `git restore --source=<snapshot> --worktree -- <files>`, never anything that moves the index; also delete any file the refactor created and recreate any it deleted, since a snapshot does not cover them), then carry on to Review.
+- **Snapshot first.** Use `git stash create` (records the state, changes no ref, index or working tree) or copy the diff's files aside. Earlier tickets' staged work under `/delegate-tickets` sits in the index and must stay exactly as it was, so the snapshot and the restore below leave the index alone.
+- **After refactoring, run the full suite.** Green: keep the refactor. Red: restore the snapshot so the working tree is exactly the pre-refactor green state (for a `git stash create` snapshot, `git restore --source=<snapshot> --worktree -- <files>`, which leaves the index alone; also delete any file the refactor created and recreate any it deleted, since a snapshot does not cover them), then carry on to Review.
 
 Done when: the refactor is either kept with a green suite, or undone back to the green snapshot, or skipped because the suite was red.
 
 ## 4. Review
 
-Invoke the /review-axes skill now, as a real Skill call. Since nothing here is committed, give it **the unstaged working tree** as its fixed point: a ref-based diff would come back empty. Alongside it, pass the path of the ticket you were given, or the spec path when there is no ticket, as the spec argument, so it never has to search for the spec and syncs the right checkboxes. Leave acceptance-criteria checkboxes (`- [ ]` / `- [x]`) in the spec or tickets to `/review-axes`, which syncs them after the Spec review based on what the code actually did.
+Invoke the /review-axes skill now, as a real Skill call. Give it **the unstaged working tree** as its fixed point: the changes are not in any commit yet, so a ref-based diff would come back empty. Alongside it, pass the path of the ticket you were given, or the spec path when there is no ticket, as the spec argument, so it never has to search for the spec and syncs the right checkboxes. Leave acceptance-criteria checkboxes (`- [ ]` / `- [x]`) in the spec or tickets to `/review-axes`, which syncs them after the Spec review based on what the code actually did.
 
 Done when: `/review-axes` has returned its Standards and Spec reports in this run. Steps 1 to 3 passing is the input to this step, never a substitute for it: the Verdict below is built from the review's output, so it cannot be written until the review exists.
 
 ## 5. Report
 
-Never make a commit. End with a **Verdict** section, then the commit message.
+End with a **Verdict** section, then the commit message.
 
 ### Verdict
 
