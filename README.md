@@ -12,7 +12,7 @@ npx skills@latest add C0nanT/skills
 
 Os hooks vêm do plugin `conan-mods`, do projeto separado [claude-hooks](https://github.com/C0nanT/claude-hooks). Dentro do Claude Code:
 
-```
+```text
 /plugin install conan-mods --marketplace C0nanT/claude-hooks
 ```
 
@@ -29,7 +29,7 @@ O plugin traz quatro funções:
 
 Ligar/desligar uma função, valendo na hora e para todas as sessões do PC:
 
-```
+```text
 /conan-mods                  # lista cada função com on/off
 /conan-mods git-guard off
 /conan-mods git-guard on
