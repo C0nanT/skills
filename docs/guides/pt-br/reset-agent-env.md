@@ -12,7 +12,7 @@ seria removido e não muda nada até você escolher um modo.
 
 ## Para que serve
 
-- Simular um PC novo para verificar se `npx skills add` / `npx @c0nant/claude-hooks install` funcionam de ponta a ponta
+- Simular um PC novo para verificar se `npx skills add` / `/plugin install conan-mods` funcionam de ponta a ponta
 - Limpar resíduo cross-tool deixado por desinstalações parciais
 - Entregar um ambiente limpo
 
@@ -70,5 +70,6 @@ bash ~/.claude/skills/reset-agent-env/scripts/reset-agent-env.sh --hard --agent 
 - Reinstale para verificar um setup limpo:
   ```bash
   npx skills@latest add C0nanT/skills
-  npx @c0nant/claude-hooks install
+  # dentro do Claude Code:
+  /plugin install conan-mods --marketplace C0nanT/claude-hooks
   ```
