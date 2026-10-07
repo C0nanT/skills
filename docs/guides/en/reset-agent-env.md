@@ -11,7 +11,7 @@ would be removed and changes nothing until you pick a mode.
 
 ## What it's for
 
-- Simulating a fresh PC to verify that `npx skills add` / `npx @c0nant/claude-hooks install` work end to end
+- Simulating a fresh PC to verify that `npx skills add` / `/plugin install conan-mods` work end to end
 - Clearing cross-tool residue left behind by partial uninstalls
 - Handing off a clean environment
 
@@ -70,5 +70,6 @@ bash ~/.claude/skills/reset-agent-env/scripts/reset-agent-env.sh --hard --agent 
 - Reinstall to verify a clean setup:
   ```bash
   npx skills@latest add C0nanT/skills
-  npx @c0nant/claude-hooks install
+  # inside Claude Code:
+  /plugin install conan-mods --marketplace C0nanT/claude-hooks
   ```

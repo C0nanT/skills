@@ -10,31 +10,32 @@ npx skills@latest add C0nanT/skills
 
 ### Hooks
 
-Os hooks são gerenciados pelo projeto separado [claude-hooks](https://github.com/C0nanT/claude-hooks):
+Os hooks vêm do plugin `conan-mods`, do projeto separado [claude-hooks](https://github.com/C0nanT/claude-hooks). Dentro do Claude Code:
 
-```bash
-npx @c0nant/claude-hooks install
+```
+/plugin install conan-mods --marketplace C0nanT/claude-hooks
 ```
 
-Instala estes hooks no `~/.claude/settings.json`:
+Atualizar: `claude plugin update conan-mods` e depois `/reload-plugins`.
 
-| Hook | Evento | O que faz |
-| ------ | -------- | ----------- |
-| **caveman** | `SessionStart` | Modo caveman automático em toda sessão (requer a skill `caveman` instalada) |
-| **git-guardrails** | `PreToolUse/Bash` | Bloqueia git destrutivo antes de executar (`push`, `push --force`, `reset --hard`, `clean -f`, `branch -D`, `checkout .`, `restore .`, `rm`) |
-| **protect-dotenv** | `PreToolUse` | Bloqueia leitura/edição de `.env` (permite `.env.example`, `.env.sample`, etc.) |
-| **notify-attention** | `Notification` | Notificação desktop + som quando o agente precisa de input |
-| **notify-done** | `Stop` | Notificação desktop + som quando o agente termina a resposta |
+O plugin traz quatro funções:
 
-`caveman` no-op se a skill estiver ausente. Os demais são autossuficientes (scripts em `~/.claude/hooks-lib/`).
+| Função | O que faz |
+| ------ | --------- |
+| **caveman** | Modo caveman automático em toda sessão (lê a skill `caveman` instalada; avisa uma vez por sessão se faltar) |
+| **git-guard** | Bloqueia git destrutivo antes de executar (`push`, `reset --hard`, `clean -f`, `branch -D`, `checkout .`, `restore .`, `rm`) |
+| **dotenv-guard** | Bloqueia leitura/edição de `.env` (permite `.env.example`, `.env.sample`, etc.) |
+| **sound** | Toca um som quando o agente termina a tarefa, sem notificação visual |
 
-Instalar/remover um hook só:
+Ligar/desligar uma função, valendo na hora e para todas as sessões do PC:
 
-```bash
-npx @c0nant/claude-hooks install protect-dotenv
-npx @c0nant/claude-hooks uninstall notify-done
-npx @c0nant/claude-hooks list
 ```
+/conan-mods                  # lista cada função com on/off
+/conan-mods git-guard off
+/conan-mods git-guard on
+```
+
+Vindo dos hooks antigos via npm? Rode a limpeza antes, veja o [MIGRATING.md](https://github.com/C0nanT/claude-hooks/blob/main/MIGRATING.md).
 
 ## Desinstalar
 
@@ -48,11 +49,7 @@ npx skills@latest remove --all -g     # todas (escopo global)
 
 Sem `-g`, o comando age no projeto atual. Com `-g`, em `~/.agents/skills/` (e nos symlinks de cada agente).
 
-Hooks:
-
-```bash
-npx @c0nant/claude-hooks uninstall
-```
+Hooks: `/plugin uninstall conan-mods`.
 
 ## Por que estas skills existem
 
@@ -201,7 +198,7 @@ General workflow tools, not code-specific.
 **Model-invoked**
 
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
-- **[caveman](./skills/productivity/caveman/SKILL.md)**: Ultra-compressed communication mode: drops articles, filler, and pleasantries while keeping full technical accuracy (~75% fewer tokens). Optionally auto-activated each session via the claude-hooks SessionStart hook.
+- **[caveman](./skills/productivity/caveman/SKILL.md)**: Ultra-compressed communication mode: drops articles, filler, and pleasantries while keeping full technical accuracy (~75% fewer tokens). Optionally auto-activated each session via the `conan-mods` plugin.
 - **[grilling](./skills/productivity/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `wayfinder` and `improve-codebase-architecture`.
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**: Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.
 
