@@ -1,127 +1,66 @@
 ---
 name: setup-statusline
-description: Install a Claude Code status line
+description: Replace the old shell status line with the conan-mods plugin
 disable-model-invocation: true
 ---
 
 # Setup Status Line
 
-One-time install. Copies the bundled script and wires it into `~/.claude/settings.json`.
+The status line now lives in the `conan-mods` plugin (`statusline` function): model, effort, context usage, session duration, rate limit and git branch, with no bash script, `jq` or baseline file. This skill no longer installs anything. It removes the old shell-based model from the machine and points to the plugin.
 
-## Fields (left to right)
+## What gets removed
 
-| Field | Source | Color |
-| --- | --- | --- |
-| Model name | `model.display_name` | bold cyan |
-| Effort level | `effort.level` | dim cyan, shown in parens when present |
-| Context usage | `context_window.used_percentage` + `total_input_tokens` | bold yellow, e.g. `ctx:14% 28k` |
-| Session duration | `cost.total_duration_ms` | green, e.g. `23m` or `1h05m` |
-| Rate limit | `rate_limits.five_hour.used_percentage` | green/yellow/red by threshold, e.g. `limit:42% ↺ 14:30` |
-| Git branch | git | bold magenta, omitted outside git repos |
+- `statusLine` in `~/.claude/settings.json`, only when its command points to `statusline-command.sh`.
+- Hook entries carrying the marker `claude-hook:statusline-reset` under `SessionStart`, `SessionEnd` and `UserPromptSubmit`.
+- `~/.claude/statusline-command.sh`, `~/.claude/statusline-reset-hook.sh` and `~/.claude/statusline-baseline.json`.
 
-Rate limit color: green < 50%, yellow 50–79%, red ≥ 80%. Omitted when `rate_limits` absent.
-
-### Reset-time timezone
-
-Claude Code sends `rate_limits.five_hour.resets_at` as an **ISO 8601 string** (`2026-08-07T18:30:00.000Z`); older builds sent epoch seconds. The script normalizes ISO strings, epoch seconds, and epoch milliseconds to one epoch before formatting: an ISO string with no zone designator is read as UTC, which is what the server means.
-
-The reset clock (`↺ 10:00`) is then shown in the **machine's local timezone**, never Claude's injected `TZ=UTC` (which otherwise shifts Brazil by +3h). Resolution order:
-
-1. `$STATUSLINE_TZ` override (IANA name, e.g. `America/Sao_Paulo`)
-2. Host zone via `timedatectl`, `/etc/timezone`, or `/etc/localtime` symlink (skips bare `UTC`)
-3. `env -u TZ date` so libc reads `/etc/localtime`
-4. On WSL/Windows, when Linux still reports UTC: PowerShell `LocalDateTime`
-
-Set `STATUSLINE_TZ` in `~/.claude/settings.json` `env` only if auto-detect is wrong.
+Everything else in `settings.json` stays untouched.
 
 ## Prerequisites
 
-- `jq` installed
-- `bash` (Linux: uses `date -d @EPOCH` for reset time)
+- `jq` installed (used only for this cleanup)
 
 ## Steps
 
-### 1. Copy the script
-
-```bash
-SRC="$HOME/.claude/skills/setup-statusline/scripts/statusline-command.sh"
-# Running from repo clone instead?
-#   SRC="$PWD/skills/misc/setup-statusline/scripts/statusline-command.sh"
-
-[ -f "$SRC" ] || { echo "source script not found: $SRC"; exit 1; }
-cp "$SRC" "$HOME/.claude/statusline-command.sh"
-chmod +x "$HOME/.claude/statusline-command.sh"
-
-test -x "$HOME/.claude/statusline-command.sh" \
-  || { echo "copy failed"; exit 1; }
-```
-
-### 2. Copy the reset hook
-
-```bash
-SRC_RESET="$HOME/.claude/skills/setup-statusline/scripts/statusline-reset-hook.sh"
-# Running from repo clone instead?
-#   SRC_RESET="$PWD/skills/misc/setup-statusline/scripts/statusline-reset-hook.sh"
-
-[ -f "$SRC_RESET" ] || { echo "source script not found: $SRC_RESET"; exit 1; }
-cp "$SRC_RESET" "$HOME/.claude/statusline-reset-hook.sh"
-chmod +x "$HOME/.claude/statusline-reset-hook.sh"
-```
-
-### 3. Register in settings.json
+### 1. Clean the old setup
 
 ```bash
 SETTINGS="$HOME/.claude/settings.json"
-mkdir -p "$(dirname "$SETTINGS")"
-[ -s "$SETTINGS" ] && jq -e . "$SETTINGS" >/dev/null 2>&1 || echo '{}' > "$SETTINGS"
 
-HOOK_CMD='# claude-hook:statusline-reset
-f="$HOME/.claude/statusline-reset-hook.sh"; [ -f "$f" ] && exec bash "$f"; exit 0'
+if [ -s "$SETTINGS" ] && jq -e . "$SETTINGS" >/dev/null 2>&1; then
+  jq '
+    (if ((.statusLine.command // "") | test("statusline-command\\.sh")) then del(.statusLine) else . end)
+    | reduce ("SessionStart","SessionEnd","UserPromptSubmit") as $ev (.;
+        if .hooks[$ev] then
+          .hooks[$ev] |= map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
+          | if (.hooks[$ev] | length) == 0 then del(.hooks[$ev]) else . end
+        else . end)
+    | if (.hooks // null) == {} then del(.hooks) else . end
+  ' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
+else
+  echo "settings.json missing or not valid JSON: nothing to clean"
+fi
 
-jq --arg cmd "$HOOK_CMD" '
-  .statusLine = {"type":"command","command":"bash ~/.claude/statusline-command.sh"}
-  # Drop the old UserPromptSubmit-based reset: /clear never fires that event
-  | .hooks.UserPromptSubmit = (
-      (.hooks.UserPromptSubmit // [])
-      | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
-    )
-  | if (.hooks.UserPromptSubmit | length) == 0 then del(.hooks.UserPromptSubmit) else . end
-  # /clear fires SessionEnd (reason=clear) and sometimes SessionStart (source=clear)
-  | .hooks.SessionEnd = (
-      ((.hooks.SessionEnd // [])
-        | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
-      ) + [{"matcher":"clear","hooks":[{"type":"command","command":$cmd}]}]
-    )
-  | .hooks.SessionStart = (
-      ((.hooks.SessionStart // [])
-        | map(select((.hooks // []) | map(.command // "") | any(test("claude-hook:statusline-reset")) | not))
-      ) + [{"matcher":"clear","hooks":[{"type":"command","command":$cmd}]}]
-    )
-' "$SETTINGS" > "$SETTINGS.tmp" && mv "$SETTINGS.tmp" "$SETTINGS"
+rm -f "$HOME/.claude/statusline-command.sh" \
+      "$HOME/.claude/statusline-reset-hook.sh" \
+      "$HOME/.claude/statusline-baseline.json"
 ```
 
-### 4. Verify
+### 2. Install the plugin
 
-```bash
-# Should print the formatted status line (model only populated when run inside Claude):
-echo '{"model":{"display_name":"Claude Sonnet 4.6"},"context_window":{"used_percentage":14}}' \
-  | bash "$HOME/.claude/statusline-command.sh"
+Tell the user to run, inside Claude Code:
 
-# Reset clock: TZ=UTC mimics how Claude invokes the script. In GMT-3 this must
-# print `↺ 15:30`, not `↺ 18:30`.
-echo '{"rate_limits":{"five_hour":{"used_percentage":42,"resets_at":"2026-08-07T18:30:00.000Z"}}}' \
-  | TZ=UTC bash "$HOME/.claude/statusline-command.sh"
+```text
+/plugin install conan-mods --marketplace C0nanT/claude-hooks
 ```
 
-Takes effect at next Claude Code session start (no restart needed for mid-session updates).
+Already installed: `claude plugin update conan-mods`, then `/reload-plugins`.
 
-## /clear behaviour
+### 3. Toggle
 
-Running `/clear` resets the duration counter in the status line. `/clear` is a client-local slash command (it does **not** fire `UserPromptSubmit`) so reset uses:
+```text
+/conan-mods statusline off
+/conan-mods statusline on
+```
 
-1. `SessionEnd` / `SessionStart` hooks with matcher `clear`: snapshot raw cost/duration into `~/.claude/statusline-baseline.json` (cost is tracked only as a `/clear` signal; it is not displayed)
-2. Fallback inside the statusline script: when `session_id` changes but cost barely moved (&lt; $0.05), treat as `/clear` and snapshot the baseline automatically
-3. The statusline subtracts the duration baseline from every subsequent reading
-4. If a new Claude process starts (raw cost drops below baseline), the baseline auto-clears
-
-Context `%` + tokens come from the live window and reset naturally after `/clear`.
+The reset clock uses the machine's local timezone. If auto-detect is wrong, set `STATUSLINE_TZ` (IANA name, e.g. `America/Sao_Paulo`) in `~/.claude/settings.json` `env`.

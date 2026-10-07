@@ -18,14 +18,17 @@ Os hooks vêm do plugin `conan-mods`, do projeto separado [claude-hooks](https:/
 
 Atualizar: `claude plugin update conan-mods` e depois `/reload-plugins`.
 
-O plugin traz quatro funções:
+O plugin traz sete funções:
 
 | Função | O que faz |
 | ------ | --------- |
 | **caveman** | Modo caveman automático em toda sessão (lê a skill `caveman` instalada; avisa uma vez por sessão se faltar) |
 | **git-guard** | Bloqueia git destrutivo antes de executar (`push`, `reset --hard`, `clean -f`, `branch -D`, `checkout .`, `restore .`, `rm`) |
 | **dotenv-guard** | Bloqueia leitura/edição de `.env` (permite `.env.example`, `.env.sample`, etc.) |
+| **secret-guard** | Bloqueia leitura de arquivos de segredo (chaves, credenciais) |
+| **rm-guard** | Bloqueia `rm` perigoso antes de executar |
 | **sound** | Toca um som quando o agente termina a tarefa, sem notificação visual |
+| **statusline** | Linha de status: modelo, effort, contexto, duração, rate limit e branch git |
 
 Ligar/desligar uma função, valendo na hora e para todas as sessões do PC:
 
@@ -204,7 +207,7 @@ General workflow tools, not code-specific.
 
 ### Misc
 
-- **[setup-statusline](./skills/misc/setup-statusline/SKILL.md)**: Install a Claude Code status line showing model, context usage (% + tokens), rate limits, and git branch.
+- **[setup-statusline](./skills/misc/setup-statusline/SKILL.md)**: Remove the old shell status line from `~/.claude` and point to the `conan-mods` plugin, which now draws it.
 
 ## Dev local
 

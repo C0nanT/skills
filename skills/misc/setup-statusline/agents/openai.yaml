@@ -1,5 +1,5 @@
 interface:
   display_name: "Setup Statusline"
-  short_description: "Install a Claude Code status line"
+  short_description: "Replace the old shell status line with conan-mods"
 policy:
   allow_implicit_invocation: false
