@@ -11,7 +11,7 @@ Skills for daily code work.
 | Skill | What it does |
 |-------|-------------|
 | [diagnose](./diagnose.md) | Disciplined bug diagnosis: builds feedback loop → reproduces → hypothesises → instruments → fixes → regression test |
-| [grill-with-docs](./grill-with-docs.md) | Interviews you about a plan, checking against the project glossary (`CONTEXT.md`) and ADRs. Updates docs inline |
+| [grill-with-docs](./grill-with-docs.md) | Interviews you about a plan, checking against the project glossary (`GLOSSARY.md`) and ADRs. Updates docs inline |
 | [improve-codebase-architecture](./improve-codebase-architecture.md) | Analyses the codebase for shallow modules to deepen. Generates a visual HTML report with refactoring candidates |
 | [prototype](./prototype.md) | Builds a throwaway prototype: terminal app for logic/state, or side-by-side UI variations |
 | [setup-skills](./setup-skills.md) | Configures the repo to use the engineering skills (issue tracker, triage labels, docs layout). Run once per repo |

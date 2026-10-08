@@ -25,7 +25,7 @@ Não precisa de argumentos. A skill vai explorar o repo e conduzir a configuraç
 **1. Exploração**: o agente lê o repositório para entender o estado atual:
 - Verifica `git remote` para identificar se é GitHub, GitLab, ou outro
 - Procura `CLAUDE.md` e `AGENTS.md` para ver se já existe configuração
-- Procura `CONTEXT.md`, `CONTEXT-MAP.md`, `docs/adr/`, `.scratch/`
+- Procura `GLOSSARY.md`, `GLOSSARY-MAP.md`, `docs/adr/`, `.scratch/`
 
 **2. Apresenta e pergunta**: resume o que encontrou e faz três perguntas, uma por vez, com explicação de cada uma:
 
@@ -45,9 +45,9 @@ Não precisa de argumentos. A skill vai explorar o repo e conduzir a configuraç
 
 Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
 
-**Seção C: Docs de domínio**: Layout do `CONTEXT.md` e ADRs:
-- Contexto único: um `CONTEXT.md` + `docs/adr/` na raiz
-- Multi-contexto: `CONTEXT-MAP.md` apontando para contextos por módulo (monorepos)
+**Seção C: Docs de domínio**: Layout do `GLOSSARY.md` e ADRs:
+- Contexto único: um `GLOSSARY.md` + `docs/adr/` na raiz
+- Multi-contexto: `GLOSSARY-MAP.md` apontando para contextos por módulo (monorepos)
 
 **Seção D: Git guardrails**: Bloquear git destrutivo no Claude Code deste repo? (recomendado: sim)
 - Acrescenta regras em `permissions.deny` do `.claude/settings.json` do projeto: `push`, `reset`, `clean`, `rebase` (também na forma `git -C <dir> …`), delete forçado de branch e tag, `checkout .`/`restore .`, `stash drop`/`clear`
@@ -76,7 +76,7 @@ Se o repo já usa outras strings (ex: `bug:triage`), mapeia aqui.
     └── agents/
         ├── issue-tracker.md   ← onde ficam as issues e como criar
         ├── triage-labels.md   ← mapeamento das 6 labels canônicas
-        ├── domain.md          ← onde fica CONTEXT.md e ADRs
+        ├── domain.md          ← onde fica GLOSSARY.md e ADRs
         └── git-guardrails.md  ← lista de deny (só se a Seção D foi sim)
 ```
 

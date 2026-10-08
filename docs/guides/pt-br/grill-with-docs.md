@@ -2,12 +2,12 @@
 
 ## O que é
 
-A versão engenharia-focada de `/grill-me`. Inicia **`/grilling`** e, em paralelo, lê e atualiza `CONTEXT.md` e ADRs conforme as decisões são tomadas.
+A versão engenharia-focada de `/grill-me`. Inicia **`/grilling`** e, em paralelo, lê e atualiza `GLOSSARY.md` e ADRs conforme as decisões são tomadas.
 
 ## Para que serve
 
 - Antes de implementar uma feature em um projeto que já tem documentação de domínio
-- Para construir ou expandir o glossário de termos do projeto (`CONTEXT.md`)
+- Para construir ou expandir o glossário de termos do projeto (`GLOSSARY.md`)
 - Para verificar se o plano bate com as decisões arquiteturais já registradas (ADRs)
 - Para registrar novas decisões arquiteturais que surgem durante a conversa
 - Para garantir que novos conceitos sejam nomeados consistentemente com a linguagem do projeto
@@ -24,7 +24,7 @@ Descreva o que você quer fazer. A skill vai explorar a codebase e a documentaç
 
 ### Durante a sessão, o agente:
 
-**Desafia contra o glossário**: se você usa um termo que conflita com o `CONTEXT.md`, ele chama atenção na hora: *"Seu glossário define 'cancelamento' como X, mas você parece querer dizer Y, qual é?"*
+**Desafia contra o glossário**: se você usa um termo que conflita com o `GLOSSARY.md`, ele chama atenção na hora: *"Seu glossário define 'cancelamento' como X, mas você parece querer dizer Y, qual é?"*
 
 **Afina linguagem vaga**: quando você usa termos ambíguos ou sobrecarregados, propõe um termo canônico preciso: *"Você está dizendo 'conta', você quer dizer Customer ou User? São coisas diferentes."*
 
@@ -32,7 +32,7 @@ Descreva o que você quer fazer. A skill vai explorar a codebase e a documentaç
 
 **Cruza com o código**: quando você afirma como algo funciona, verifica se o código concorda. Se encontrar contradição, expõe: *"Seu código cancela Orders inteiras, mas você acabou de dizer que cancelamento parcial é possível, qual é o correto?"*
 
-**Atualiza `CONTEXT.md` inline**: quando um termo é resolvido, atualiza o glossário imediatamente, sem acumular.
+**Atualiza `GLOSSARY.md` inline**: quando um termo é resolvido, atualiza o glossário imediatamente, sem acumular.
 
 **Oferece ADRs com parcimônia**: só propõe criar um ADR quando a decisão é: difícil de reverter, surpreendente sem contexto, e resultado de um trade-off real entre alternativas reais.
 
@@ -42,14 +42,14 @@ O agente procura pela documentação aqui:
 
 ```
 /
-├── CONTEXT.md          ← glossário do domínio
+├── GLOSSARY.md          ← glossário do domínio
 └── docs/
     └── adr/
         ├── 0001-...md  ← decisões arquiteturais
         └── 0002-...md
 ```
 
-Para monorepos com múltiplos contextos, cria um `CONTEXT-MAP.md` na raiz apontando para os contextos de cada módulo.
+Para monorepos com múltiplos contextos, cria um `GLOSSARY-MAP.md` na raiz apontando para os contextos de cada módulo.
 
 Os arquivos são criados de forma lazy: só quando há algo para escrever.
 
@@ -67,7 +67,7 @@ Quero adicionar um sistema de permissões baseado em roles ao projeto. Usuários
 /grill-with-docs
 ```
 
-O agente vai primeiro ler `CONTEXT.md` para ver se "Role", "Permission", "User" já estão definidos, ler os ADRs para ver se já houve decisões sobre autenticação/autorização, e então começar a entrevistar: atualizando o glossário a cada termo novo que for resolvido.
+O agente vai primeiro ler `GLOSSARY.md` para ver se "Role", "Permission", "User" já estão definidos, ler os ADRs para ver se já houve decisões sobre autenticação/autorização, e então começar a entrevistar: atualizando o glossário a cada termo novo que for resolvido.
 
 ## Por que usar
 

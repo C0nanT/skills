@@ -19,7 +19,7 @@ Leia o repositório antes de rascunhar. Não presuma:
 - Linguagens e como o código é agrupado: pacotes, pastas, serviços. Quais pastas guardam **policy** (domínio / regras de negócio) e quais guardam **details** (banco, HTTP, SDKs, filesystem)?
 - `CLAUDE.md` e `AGENTS.md` na raiz: algum deles existe? Um é symlink do outro? Já há uma seção SOLID (em qualquer nível de heading ou caixa), ou uma seção de arquitetura / padrões de código que se sobreponha a ela?
 - Sinais de monorepo: `pnpm-workspace.yaml`, um campo `workspaces` no `package.json`, um `packages/*` populado com `CLAUDE.md` por pacote. Só importa se os pacotes têm layouts de camada *genuinamente diferentes*; senão o arquivo da raiz cobre todos.
-- `CONTEXT.md`: o vocabulário de domínio que a seção deve usar para os conceitos deste repo.
+- `GLOSSARY.md`: o vocabulário de domínio que a seção deve usar para os conceitos deste repo.
 - ADRs (`.agents/adr/`, `docs/adr/`): decisões de arquitetura que a seção não pode contradizer.
 - Como as dependências já são injetadas hoje (argumentos de construtor, parâmetros de função, um container, imports de módulo) e como os testes já as substituem: a seção deve descrever a convenção que existe, não importar uma nova.
 
@@ -84,10 +84,10 @@ When applying a principle would require reshaping modules outside the current fl
 
 - When a new flow crosses an IO boundary, define the interface from the policy side and inject the implementation.
 - One production implementation is enough **when a test substitutes it**: the test double is the second implementation, and the interface is the test surface. An adapter behind an interface with a single caller and no substitution is a hypothetical seam: drop the interface until something real needs it.
-- Use this repo's domain vocabulary (`CONTEXT.md`) when naming modules and interfaces.
+- Use this repo's domain vocabulary (`GLOSSARY.md`) when naming modules and interfaces.
 ```
 
-Preencha `[POLICY PATHS]`, `[DETAILS PATHS]`, `[INJECTION CONVENTION]` e `[TEST SUBSTITUTION CONVENTION]` com os caminhos e convenções reais deste repo, vindos da etapa 1: globs concretos (`src/domain/**`), não categorias. Remova a linha do `CONTEXT.md` quando o repo não tiver esse arquivo. Onde um ADR sobrepõe um princípio, mantenha o bullet e acrescente a exceção inline, citando o ADR.
+Preencha `[POLICY PATHS]`, `[DETAILS PATHS]`, `[INJECTION CONVENTION]` e `[TEST SUBSTITUTION CONVENTION]` com os caminhos e convenções reais deste repo, vindos da etapa 1: globs concretos (`src/domain/**`), não categorias. Remova a linha do `GLOSSARY.md` quando o repo não tiver esse arquivo. Onde um ADR sobrepõe um princípio, mantenha o bullet e acrescente a exceção inline, citando o ADR.
 
 Depois releia o que você escreveu e confira: nenhum `[PLACEHOLDER]` sobreviveu, e existe exatamente uma seção SOLID no arquivo. Um marcador esquecido vira ruído permanente para toda skill que ler esse arquivo depois.
 

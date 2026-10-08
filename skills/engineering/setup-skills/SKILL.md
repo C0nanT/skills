@@ -10,7 +10,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 
 - **Issue tracker**: where issues live (Local markdown by default; GitHub / GitLab / other when you choose them here)
 - **Triage labels**: the strings used for the six canonical triage roles
-- **Domain docs**: where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
+- **Domain docs**: where `GLOSSARY.md` and ADRs live, and the consumer rules for reading them
 - **Git guardrails**: `permissions.deny` entries in this repo's `.claude/settings.json` that block destructive git (`push`, `reset`, …). Do **not** install or register hooks, the user already has hooks globally if they want them.
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
@@ -23,7 +23,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 
 - `git remote -v` and `.git/config`: is this a GitHub repo? Which one?
 - `AGENTS.md` and `CLAUDE.md` at the repo root: does either exist? Is there already an `## Agent skills` section in either?
-- `CONTEXT.md` and `CONTEXT-MAP.md` at the repo root
+- `GLOSSARY.md` and `GLOSSARY-MAP.md` at the repo root
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
 - `.scratch/`: sign that a local-markdown issue tracker convention is already in use
@@ -57,9 +57,9 @@ Record the choice in `docs/agents/issue-tracker.md`. The GitHub and GitLab templ
 
 > Explainer: When an incoming issue is triaged, it moves through a state machine: needs evaluation, waiting on reporter, ready for an AFK agent to pick up, ready for a human, or won't fix. To do that, the engineering skills apply labels (or the equivalent in your issue tracker) that match strings *you've actually configured*. If your repo already uses different label names (e.g. `bug:triage` instead of `needs-triage`), map them here so the right ones are applied instead of creating duplicates.
 
-**Section C: Domain docs.** Default to **single-context** (one `CONTEXT.md` + `docs/adr/` at the repo root). This fits almost every repo; write it without asking.
+**Section C: Domain docs.** Default to **single-context** (one `GLOSSARY.md` + `docs/adr/` at the repo root). This fits almost every repo; write it without asking.
 
-Offer **multi-context** (a root `CONTEXT-MAP.md` pointing to per-context `CONTEXT.md` files) only when exploration found monorepo signals. Then confirm which layout they want.
+Offer **multi-context** (a root `GLOSSARY-MAP.md` pointing to per-context `GLOSSARY.md` files) only when exploration found monorepo signals. Then confirm which layout they want.
 
 **Section D: Git guardrails.** Recommended: **yes**. Skip when `.claude/settings.json` already contains the deny rules from the seed list below (all of them, or a clear superset the user customized).
 
@@ -114,6 +114,8 @@ Destructive git (`push`, `reset`, …) is denied via `permissions.deny` in `.cla
 ```
 
 Include the `### Git guardrails` sub-block and write `docs/agents/git-guardrails.md` only when Section D was **yes**. When Section D was **no**, omit them.
+
+On GitHub or GitLab, create each configured label the tracker lacks (`gh label create` / `glab label create`).
 
 Then write the docs files using the seed templates in this skill folder as a starting point:
 

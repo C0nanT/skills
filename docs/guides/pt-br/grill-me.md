@@ -2,7 +2,7 @@
 
 ## O que é
 
-Uma skill model-invoked que inicia uma sessão **`/grilling`**: entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `CONTEXT.md` nem ADRs.
+Uma skill model-invoked que inicia uma sessão **`/grilling`**: entrevista intensa sobre um plano ou design, resolvendo cada ramificação da árvore de decisões uma por uma. Stateless: não grava `GLOSSARY.md` nem ADRs.
 
 ## Para que serve
 
@@ -40,7 +40,7 @@ Ambas delegam a **`/grilling`** por baixo.
 
 `/grill-me` é genérico: qualquer plano, com ou sem codebase. Não persiste documentação.
 
-`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas também trabalha os docs de domínio, lê e atualiza `CONTEXT.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
+`/grill-with-docs` é para engenharia com codebase: a mesma entrevista, mas também trabalha os docs de domínio, lê e atualiza `GLOSSARY.md`, verifica ADRs, oferece criar ADRs quando o trade-off justifica.
 
 ## Exemplo de uso
 

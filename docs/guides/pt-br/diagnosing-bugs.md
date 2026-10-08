@@ -85,5 +85,5 @@ O agente vai priorizar construir um loop (ex.: replay de trace de produção) an
 ## Dicas
 
 - Não pule a Fase 1. Loop de 2 segundos é superpoder.
-- Leia `CONTEXT.md` e ADRs da área ao explorar o código.
+- Leia `GLOSSARY.md` e ADRs da área ao explorar o código.
 - Hipótese antes de loop red-capable é o failure mode exato que esta skill previne.

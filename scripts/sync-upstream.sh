@@ -24,6 +24,17 @@ EXCLUDED_PATHS=(
   "docs/engineering/domain-modeling.md"
   "docs/engineering/codebase-design.md"
   "docs/productivity/teach.md"
+  # Upstream's own repo governance and release tooling (issue policy, triage
+  # workflows, changesets release). This fork has no release pipeline.
+  "SCOPE.md"
+  ".out-of-scope"
+  ".github/ISSUE_TEMPLATE"
+  ".github/workflows/needs-info.yml"
+  ".github/workflows/triage-label.yml"
+  "CHANGELOG.md"
+  "package.json"
+  # Deleted upstream; upstream keeps an archived docs page, this fork does not.
+  "docs/engineering/resolving-merge-conflicts.md"
 )
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
@@ -42,6 +53,16 @@ for path in "${EXCLUDED_PATHS[@]}"; do
     echo "  removed: $path"
   fi
 done
+
+echo
+echo "Removing changesets upstream added (this fork cuts no release)..."
+# Only files the merge added: the fork's own changesets are already in HEAD,
+# and upstream's deletions of changesets it consumed are kept.
+while IFS= read -r path; do
+  [ -n "$path" ] || continue
+  rm -f "$path"
+  echo "  removed: $path"
+done < <(git diff --cached --name-only --diff-filter=A HEAD -- .changeset/)
 
 cat <<'EOF'
 

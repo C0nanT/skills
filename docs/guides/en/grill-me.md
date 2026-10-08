@@ -38,7 +38,7 @@ The process continues until *all* branches of the decision tree are resolved and
 
 `/grill-me` is generic: works for any plan, inside or outside code.
 
-`/grill-with-docs` is the engineering version: does everything `/grill-me` does, but also reads the project's `CONTEXT.md` (domain glossary), checks ADRs, updates the glossary inline as terms are resolved, and offers to create ADRs for important architectural decisions.
+`/grill-with-docs` is the engineering version: does everything `/grill-me` does, but also reads the project's `GLOSSARY.md` (domain glossary), checks ADRs, updates the glossary inline as terms are resolved, and offers to create ADRs for important architectural decisions.
 
 ## Usage example
 

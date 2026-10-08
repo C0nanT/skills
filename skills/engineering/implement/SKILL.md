@@ -3,7 +3,9 @@ name: implement
 description: "Implement a piece of work based on a spec or set of tickets. Use when the user wants a ready spec, ticket, or agreed plan built, or says to implement it."
 ---
 
-Implement the work described by the user in the spec or tickets, in five steps. Each step is done only when its completion criterion holds.
+Implement the work described by the user in the spec or tickets, in six steps. Each step is done only when its completion criterion holds.
+
+If the user passes a ticket reference, fetch it from the issue tracker and state its title before starting. If the reference is ambiguous, ask.
 
 ## Subagent effort
 
@@ -34,9 +36,9 @@ Done when: the suite has run and you know its result.
 One cleanup pass over the code this run wrote, only while the suite is green.
 
 - **Precondition:** the full suite was green after Test. If it was not, skip this step and say so in the Verdict.
-- **Scope:** only code the run's diff created or changed (in working-tree mode, the working tree vs. the index, so under `/delegate-tickets` exactly the current ticket). A worthwhile refactor you see outside the diff is never applied: note it for the Verdict.
+- **Scope:** only code the run's diff created or changed (the uncommitted working tree, so under `/delegate-tickets` exactly the current ticket). A worthwhile refactor you see outside the diff is never applied: note it for the Verdict.
 - **Rule:** no behaviour change. Never edit a test to make a refactor pass.
-- **Snapshot first.** Use `git stash create` (records the state, changes no ref, index or working tree) or copy the diff's files aside. Earlier tickets' staged work under `/delegate-tickets` sits in the index and must stay exactly as it was, so the snapshot and the restore below leave the index alone.
+- **Snapshot first.** Use `git stash create` (records the state, changes no ref, index or working tree) or copy the diff's files aside.
 - **After refactoring, run the full suite.** Green: keep the refactor. Red: restore the snapshot so the working tree is exactly the pre-refactor green state (for a `git stash create` snapshot, `git restore --source=<snapshot> --worktree -- <files>`, which leaves the index alone; also delete any file the refactor created and recreate any it deleted, since a snapshot does not cover them), then carry on to Review.
 
 Done when: the refactor is either kept with a green suite, or undone back to the green snapshot, or skipped because the suite was red.
@@ -47,9 +49,15 @@ Invoke the /review-axes skill now, as a real Skill call. Give it **the unstaged 
 
 Done when: `/review-axes` has returned its Standards and Spec reports in this run. Steps 1 to 3 passing is the input to this step, never a substitute for it: the Verdict below is built from the review's output, so it cannot be written until the review exists.
 
-## 5. Report
+## 5. Commit
 
-End with a **Verdict** section, then the commit message.
+Commit your work to the current branch.
+
+Done when: the run's changes are in a commit on the current branch.
+
+## 6. Report
+
+End with a **Verdict** section.
 
 ### Verdict
 
@@ -60,7 +68,3 @@ One line: the emoji, then a short reason. 🟢 is the emoji **alone**, with no t
 - 🔴 Something did not land, or the user has to act before moving on: a piece was not implemented, `/review-axes` found a spec gap, a decision needs their call, a credential/migration/manual step is required, anything that breaks their "just start the next ticket" flow. Say what it is and what they need to do.
 
 Pick the worst applicable colour: any red condition makes the verdict 🔴 even if the rest went fine.
-
-### Commit message
-
-Generate a Conventional Commits message ≤300 chars for the user: `type(scope): imperative summary` + blank line + short why-body.

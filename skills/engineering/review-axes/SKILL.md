@@ -42,7 +42,7 @@ Look for the originating spec, in this order:
 
 ### 3. Identify the standards sources
 
-Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md` or `CONTRIBUTING.md`.
+Search the repo for every file that documents how code should be written. When `CODING_STANDARDS.md` or `CONTRIBUTING.md` exists, it must be on the list.
 
 On top of whatever the repo documents, the Standards axis always carries two fixed baselines below, which apply even when a repo documents nothing: the **smell baseline** (Fowler code smells, *Refactoring*, ch.3) and the **performance baseline** (repeated-work patterns, N+1 chief among them). Two rules bind both:
 
@@ -81,7 +81,7 @@ Each finding must name where the multiplier comes from: which collection is iter
 
 ### 4. Spawn both sub-agents in parallel
 
-Send a single message with two parallel sub-agent calls (`Agent` in Claude Code, `Task` in Cursor). Use the `general-purpose` / `generalPurpose` subagent for both.
+Send a single message with two parallel sub-agent calls (`Agent` in Claude Code, `Task` in Cursor). Use the `general-purpose` / `generalPurpose` subagent for both. Run both in the foreground, not the background, and aggregate the reports they return.
 
 **Pick the model by host** (keep this review cheap):
 

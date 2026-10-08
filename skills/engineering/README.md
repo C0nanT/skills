@@ -10,24 +10,26 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 - **[ask-skills](./ask-skills/SKILL.md)**: Ask which skill or flow fits your situation. A router over the skills in this repo.
 - **[frontend-handoff](./frontend-handoff/SKILL.md)**: Turn a shipped backend change into a pasteable block for the frontend team: verdict first (must change / should change / nothing required), then contract table, payload examples, and checklist.
 - **[delegate-tickets](./delegate-tickets/SKILL.md)**: Orchestrate sequential ticket implementation through fresh subagents, one ticket at a time, each required to use the `implement` skill.
-- **[grill-with-docs](./grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
+- **[grill-with-docs](./grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **[tech-debt-map](./tech-debt-map/SKILL.md)**: Audit one module of a codebase that grew organically and produce a ranked map of its worst technical debt, plus an incremental cleanup plan. Tracks when each module was last reviewed so nothing rots unwatched. Diagnosis only, it changes no code.
 - **[setup-skills](./setup-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, `.claude` deny rules for destructive git). Run once per repo.
 - **[setup-solid](./setup-solid/SKILL.md)**: Write an architecture-level, language-agnostic SOLID section into the repo's `CLAUDE.md`, scoped by the boy scout rule: new code and the code each change already touches, never a repo-wide refactor.
 - **[to-tickets](./to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges: text in a local file, or native blocking links on a real tracker.
 - **[review-mr](./review-mr/SKILL.md)**: Review someone else's merge request (GitLab, GitHub, or two local branches) for bugs, security, performance and design, check it against the task's acceptance criteria, and write a verdict plus the findings to a local markdown file.
+- **[implement-spec](./implement-spec/SKILL.md)**: Implement a whole spec on one integration branch. Works the tickets as a task graph, running implementer subagents across the ready frontier for maximum concurrency, then closes out with `/review-axes`.
 - **[wayfinder](./wayfinder/SKILL.md)**: Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
+- **[retro](./retro/SKILL.md)**: Suggest improvements to the coding agent's environment (navigation, automated checks, coding standards, steering files, tooling) after a session, most severe first.
 
 ## Model-invoked
 
 Model- or user-reachable (rich trigger phrasing so the model can reach for them).
 
 - **[to-spec](./to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker.
-- **[implement](./implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. It delivers a verdict and a Conventional Commits message for you to use.
+- **[implement](./implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. It commits the work and delivers a verdict.
 - **[prototype](./prototype/SKILL.md)**: Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic, or several toggleable UI variations.
 - **[research](./research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
 - **[tdd](./tdd/SKILL.md)**: Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
 - **[review-axes](./review-axes/SKILL.md)**: Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus baselines for Fowler smells, duplicated code, and N+1 or repeated work?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents.
-- **[resolving-merge-conflicts](./resolving-merge-conflicts/SKILL.md)**: Work through an in-progress git merge or rebase conflict hunk by hunk, resolving by intent traced to each side's primary source, then finish the operation, never `--abort`.
+- **[pr](./pr/SKILL.md)**: The shape a pull request body should take: a summary as the smallest visual that makes the change clear, before/after evidence that it works, and a merge-danger call (one-way or two-way door, plus blast radius).
 - **[wizard](./wizard/SKILL.md)**: Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover.

@@ -26,7 +26,7 @@ It's a direct instruction to the agent:
 > "I don't know this area of the code well. Step up one abstraction level. Give me a map of all the relevant modules and callers, using the project's domain glossary vocabulary."
 
 The agent then:
-1. Reads `CONTEXT.md` to use the correct domain language
+1. Reads `GLOSSARY.md` to use the correct domain language
 2. Maps the modules involved in the area in question
 3. Shows who calls what, the dependencies, the general flow
 4. Uses domain terms (not internal file names or generic technical jargon)

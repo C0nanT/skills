@@ -13,7 +13,7 @@ Skills para trabalho diário de código.
 | Skill | O que faz |
 |-------|-----------|
 | [ask-skills](./ask-skills.md) | Roteador: indica qual skill ou fluxo usar para a sua situação |
-| [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `CONTEXT.md` e ADRs |
+| [grill-with-docs](./grill-with-docs.md) | Entrevista sobre um plano + atualiza `GLOSSARY.md` e ADRs |
 | [improve-codebase-architecture](./improve-codebase-architecture.md) | Analisa codebase em busca de módulos rasos; relatório HTML + grilling |
 | [setup-skills](./setup-skills.md) | Configura issue tracker, labels de triage e layout de docs. Uma vez por repo |
 | [setup-solid](./setup-solid.md) | Escreve uma seção SOLID no `CLAUDE.md`: nível de arquitetura, agnóstica de linguagem, só em código novo e no que a mudança já toca. Uma vez por repo |
@@ -28,7 +28,6 @@ Skills para trabalho diário de código.
 | Skill | O que faz |
 |-------|-----------|
 | [tdd](./tdd.md) | TDD red-green-refactor; fatias verticais; sem mock de internals |
-| [resolving-merge-conflicts](./resolving-merge-conflicts.md) | Resolve conflitos de merge/rebase preservando intenção |
 
 ## Productivity
 

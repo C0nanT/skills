@@ -22,13 +22,13 @@ Descreva o que você quer fazer na mesma mensagem ou na conversa anterior.
 
 O caminho que a maior parte do trabalho percorre:
 
-1. **`/grill-with-docs`**: afia a ideia por entrevista. Comece aqui quando **há codebase** (persiste em `CONTEXT.md` e ADRs). Sem codebase? Use **`/grill-me`** (standalone).
+1. **`/grill-with-docs`**: afia a ideia por entrevista. Comece aqui quando **há codebase** (persiste em `GLOSSARY.md` e ADRs). Sem codebase? Use **`/grill-me`** (standalone).
 2. **Branch: dá para resolver tudo na conversa?** Se alguma pergunta precisa de código executável (estado, lógica, UI), desvie para **`/prototype`**, usando **`/handoff`** nos dois sentidos:
    - `/handoff` para sair, abrir sessão nova referenciando o arquivo,
    - `/prototype` para responder com código descartável,
    - `/handoff` de volta com o que aprendeu.
 3. **Branch: build multi-sessão?**
-   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada ticket, **limpe o contexto**: sessão nova por ticket e **`/implement`** com o spec + o ticket. O `/implement` entrega a mensagem de commit para você usar quando commitar.
+   - **Sim** → **`/to-spec`** → **`/to-tickets`**. Entre cada ticket, **limpe o contexto**: sessão nova por ticket e **`/implement`** com o spec + o ticket. O `/implement` faz commit do trabalho na branch atual.
    - **Não** → **`/implement`** na mesma janela de contexto.
 
 ### Higiene de contexto
@@ -50,7 +50,7 @@ Se a sessão se aproximar da [smart zone](https://www.aihero.dev/ai-coding-dicti
 
 Fora do fluxo principal:
 
-- **`/grill-me`**: mesma entrevista que `/grill-with-docs`, sem codebase. Não grava `CONTEXT.md`.
+- **`/grill-me`**: mesma entrevista que `/grill-with-docs`, sem codebase. Não grava `GLOSSARY.md`.
 - **`/writing-great-skills`**: referência para escrever e editar skills bem.
 
 ## Pré-requisito
