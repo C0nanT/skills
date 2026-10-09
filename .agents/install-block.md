@@ -1,47 +1,27 @@
 # The canonical install block
 
-One install story, one wording. `README.md`, `.changeset/*`, and every page under `docs/` must say **this** and nothing else. Change it here first, then propagate.
+One install story, one wording. `README.md` and every page under `docs/` must say **this** and nothing else. Change it here first, then propagate. `README.md` carries it in Portuguese; the commands stay verbatim.
 
-`mattpocock-skills` is listed in **Claude Code's official marketplace** (configured name `claude-plugins-official`, source repo `anthropics/claude-plugins-official`), which every Claude Code install has out of the box. There is no marketplace to add first. Official Anthropic marketplaces have auto-update enabled by default ([discover-plugins](https://code.claude.com/docs/en/discover-plugins)), so "updates arrive automatically" is a true claim, not a hope.
+## skills.sh first
 
-## Claude Code: the plugin
+The documented route is skills.sh: it copies the skills into `~/.agents/skills/<skill>/` and symlinks each into every agent's skills directory (`~/.claude/skills/<skill>` on Claude Code). The files are yours to edit. Hooks and configs that point at a skill asset at runtime reference that install location, never this clone (see `CLAUDE.md`).
 
-<canonical-block name="claude-code">
+<canonical-block name="skills-sh">
 
 ```bash
-claude plugins install mattpocock-skills
+npx skills@latest add C0nanT/skills
 ```
 
-Or, from inside a session:
-
-```
-/plugin install mattpocock-skills
-```
-
-It's in Claude Code's official marketplace, so there's nothing to add first, and updates arrive automatically.
+When the installer asks which skills to take, include `setup-skills`. To update, run `npx skills@latest update`, and re-run `add` to pick up new skills.
 
 </canonical-block>
 
-## Codex, and other agents: skills.sh
-
-The plugin is Claude Code only. Everywhere else, [skills.sh](https://skills.sh/mattpocock/skills) copies editable skill files into the project. Use the whole-set form on `README.md`:
-
-<canonical-block name="skills-sh-whole-set">
-
-```bash
-npx skills@latest add mattpocock/skills
-```
-
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-matt-pocock-skills` is one of them.**
-
-</canonical-block>
-
-…and the single-skill form wherever one skill is named on its own. Note that **`docs/` pages are not a consumer of this block**: ai-hero renders the install widget above the body, so a page that writes the commands out duplicates it. See [writing-docs.md](./writing-docs.md).
+Use the single-skill form wherever one skill is named on its own, including the unpromoted ones in `misc/` and `in-progress/`. `docs/` pages don't use this block. See [writing-docs.md](./writing-docs.md).
 
 <canonical-block name="skills-sh-one-skill">
 
 ```bash
-npx skills@latest add mattpocock/skills --skill=<name>
+npx skills@latest add C0nanT/skills --skill=<name>
 ```
 
 ```bash
@@ -50,12 +30,49 @@ npx skills@latest update <name>
 
 </canonical-block>
 
-`skills@latest` is the pinned spelling in all three. The pages under `docs/` used to carry their own copy of these commands; those blocks are now deleted rather than corrected, because the site renders the install commands itself.
+<canonical-block name="skills-sh-remove">
+
+```bash
+npx skills@latest remove              # interactive menu
+npx skills@latest remove <name>       # one skill
+npx skills@latest remove --all -g     # all of them (global scope)
+```
+
+Without `-g` the command acts on the current project; with `-g`, on `~/.agents/skills/` and each agent's symlinks.
+
+</canonical-block>
+
+`skills@latest` is the pinned spelling everywhere.
+
+## Claude Code plugin (fallback)
+
+`.claude-plugin/marketplace.json` makes this repo its own single-plugin marketplace, shipping exactly the promoted set listed in `.claude-plugin/plugin.json`. It is a fallback for people who want a read-only bundle, not the documented route.
+
+<canonical-block name="claude-code-plugin">
+
+```text
+/plugin marketplace add C0nanT/skills
+/plugin install conan-skills@conan-skills
+```
+
+Update with `claude plugin update conan-skills`, then `/reload-plugins`.
+
+</canonical-block>
 
 ## The two routes are exclusive
 
-The plugin is a managed, read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice: always say "pick one".
+The plugin is a read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice: always say "pick one".
 
-## Not the install story
+## Hooks
 
-`.claude-plugin/marketplace.json` makes the repo its own single-plugin marketplace (`/plugin marketplace add mattpocock/skills`, then `/plugin install mattpocock-skills@mattpocock`). The official listing supersedes it. It is kept as a fallback for installing the repo directly (an unreleased commit, or a fork), and is **not** documented to users.
+Hooks are not part of this repo. They ship as the `conan-mods` plugin from [C0nanT/claude-hooks](https://github.com/C0nanT/claude-hooks), installed separately on either route.
+
+<canonical-block name="hooks">
+
+```text
+/plugin install conan-mods --marketplace C0nanT/claude-hooks
+```
+
+Update with `claude plugin update conan-mods`, then `/reload-plugins`. Remove with `/plugin uninstall conan-mods`.
+
+</canonical-block>

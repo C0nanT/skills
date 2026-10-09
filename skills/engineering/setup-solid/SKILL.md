@@ -23,7 +23,7 @@ Read the repo before drafting. Don't assume:
 - Languages and how code is grouped: packages, folders, services. Which folders hold **policy** (domain / business rules) and which hold **details** (DB, HTTP, SDKs, filesystem)?
 - `CLAUDE.md` and `AGENTS.md` at the root: does either exist? Is one a symlink to the other? Is there already a SOLID section (at any heading level or casing), or an architecture / coding-standards section that overlaps it?
 - Monorepo signals: `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, a populated `packages/*` with per-package `CLAUDE.md` files. Only relevant if the packages have *genuinely different* layer layouts; otherwise the root file covers them.
-- `CONTEXT.md`: the domain vocabulary the section should use for this repo's concepts.
+- `GLOSSARY.md`: the domain vocabulary the section should use for this repo's concepts.
 - ADRs (`.agents/adr/`, `docs/adr/`): architecture decisions the section must not contradict.
 - How dependencies already get injected (constructor args, function params, a container, module imports) and how tests already substitute them: the section should describe the convention that exists, not import a new one.
 
@@ -88,10 +88,10 @@ When applying a principle would require reshaping modules outside the current fl
 
 - When a new flow crosses an IO boundary, define the interface from the policy side and inject the implementation.
 - One production implementation is enough **when a test substitutes it**: the test double is the second implementation, and the interface is the test surface. An adapter behind an interface with a single caller and no substitution is a hypothetical seam: drop the interface until something real needs it.
-- Use this repo's domain vocabulary (`CONTEXT.md`) when naming modules and interfaces.
+- Use this repo's domain vocabulary (`GLOSSARY.md`) when naming modules and interfaces.
 ```
 
-Fill `[POLICY PATHS]`, `[DETAILS PATHS]`, `[INJECTION CONVENTION]`, and `[TEST SUBSTITUTION CONVENTION]` with this repo's real paths and conventions from step 1: concrete globs (`src/domain/**`), not categories. Drop the `CONTEXT.md` line when the repo has no such file. Where an ADR overrides a principle, keep the bullet and add the exception inline, citing the ADR.
+Fill `[POLICY PATHS]`, `[DETAILS PATHS]`, `[INJECTION CONVENTION]`, and `[TEST SUBSTITUTION CONVENTION]` with this repo's real paths and conventions from step 1: concrete globs (`src/domain/**`), not categories. Drop the `GLOSSARY.md` line when the repo has no such file. Where an ADR overrides a principle, keep the bullet and add the exception inline, citing the ADR.
 
 Then re-read what you wrote and check: no `[PLACEHOLDER]` survived, and there's exactly one SOLID section in the file. A leftover placeholder becomes permanent noise for every skill that reads this file afterwards.
 

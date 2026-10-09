@@ -26,7 +26,7 @@ Não precisa de argumentos adicionais. A skill diz ao agente exatamente o que fa
 > "Não conheço bem esta área do código. Sobe um nível de abstração. Me dá um mapa de todos os módulos relevantes e callers, usando o vocabulário do glossário de domínio do projeto."
 
 O agente então:
-1. Lê o `CONTEXT.md` para usar a linguagem correta do domínio
+1. Lê o `GLOSSARY.md` para usar a linguagem correta do domínio
 2. Mapeia os módulos envolvidos na área em questão
 3. Mostra quem chama o quê, as dependências, o fluxo geral
 4. Usa os termos do domínio (não nomes de arquivos internos ou jargão técnico genérico)

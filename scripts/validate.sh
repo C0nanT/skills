@@ -435,7 +435,7 @@ else
   # b. Not ignored, accepts adding it: ignored, then written.
   d="$_wiz_tmp/add"; new_repo "$d"
   if run_wizard "$d" $'y\n' && git -C "$d" check-ignore -q .env \
-      && grep -qx 'API_KEY=s3cret' "$d/.env"; then
+      && grep -qx "API_KEY='s3cret'" "$d/.env"; then
     pass "wizard: unignored .env, accepted: added to .gitignore then written"
   else
     fail "wizard: accepting the .gitignore offer did not ignore and write .env"
@@ -452,7 +452,7 @@ else
 
   # c. Not ignored, declines the offer but confirms writing anyway.
   d="$_wiz_tmp/anyway"; new_repo "$d"
-  if run_wizard "$d" $'n\ny\n' && grep -qx 'API_KEY=s3cret' "$d/.env" \
+  if run_wizard "$d" $'n\ny\n' && grep -qx "API_KEY='s3cret'" "$d/.env" \
       && ! git -C "$d" check-ignore -q .env; then
     pass "wizard: unignored .env, confirmed writing anyway: written, .gitignore untouched"
   else
@@ -461,7 +461,7 @@ else
 
   # d. Already ignored: no question at all (empty stdin would answer "no").
   d="$_wiz_tmp/ignored"; new_repo "$d"; echo '.env' > "$d/.gitignore"
-  if run_wizard "$d" '' && grep -qx 'API_KEY=s3cret' "$d/.env" \
+  if run_wizard "$d" '' && grep -qx "API_KEY='s3cret'" "$d/.env" \
       && ! grep -q '\[y/N\]' "$d/out.log"; then
     pass "wizard: already-ignored .env: written with no extra question"
   else

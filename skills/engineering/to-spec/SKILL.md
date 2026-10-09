@@ -6,7 +6,7 @@ description: "Turn the current conversation into a spec and publish it to the pr
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Default to synthesizing what you already know: by the time this skill runs, the deciding is usually done, so do not reopen it as an interview.
 
-**You may ask questions when you genuinely need to.** The bar is a gap you cannot close from the conversation, the codebase, `CONTEXT.md`, or the ADRs, and that would otherwise force you to invent a decision the user never made. When you hit that bar:
+**You may ask questions when you genuinely need to.** The bar is a gap you cannot close from the conversation, the codebase, `GLOSSARY.md`, or the ADRs, and that would otherwise force you to invent a decision the user never made. When you hit that bar:
 
 - Ask in one batch, before writing the spec, not question by question.
 - Keep it to the few that actually change what the spec says.

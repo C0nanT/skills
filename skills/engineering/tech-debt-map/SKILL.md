@@ -24,9 +24,9 @@ Detect in this order, stopping at the first that yields a real partition:
 
 1. **Declared**: build manifests and project files. Workspace members (`pnpm-workspace.yaml`, `package.json` workspaces, Cargo, Go), `apps/` and `packages/` and `services/` trees, `.csproj` under a solution, Maven or Gradle modules, Django apps.
 2. **Source layout**: the top-level directories under the source root, when they carry meaning (`src/billing/`, `src/auth/`) rather than technical layers only.
-3. **Domain**: a partition you propose from the vocabulary in `CONTEXT.md` and the names in the code, ignoring which folder the code sits in.
+3. **Domain**: a partition you propose from the vocabulary in `GLOSSARY.md` and the names in the code, ignoring which folder the code sits in.
 
-Read `CONTEXT.md` (domain vocabulary), any ADRs, and `CLAUDE.md`/`AGENTS.md` (the standards the repo already committed to). A decision recorded in an ADR is settled, not a finding. Leave out what the team does not own: vendored code, generated files, lockfiles, build output, migrations already applied.
+Read `GLOSSARY.md` (domain vocabulary), any ADRs, and `CLAUDE.md`/`AGENTS.md` (the standards the repo already committed to). A decision recorded in an ADR is settled, not a finding. Leave out what the team does not own: vendored code, generated files, lockfiles, build output, migrations already applied.
 
 Each module gets a name, a set of path globs, and an **origin**: `declared` or `proposed`. When the origin is `proposed`, say so out loud: "this project declares no modules, so the partition below is mine, correct it if it cuts the wrong way." The boundary of a proposed module is a hypothesis, not a fact about the repo, and the user is the only one who can confirm it.
 

@@ -19,7 +19,7 @@ You invoke this by typing `/tech-debt-map`, and the agent won't reach for it on 
 
 ## Prerequisites
 
-None to install, but know what it writes. Reports go to `.scratch/tech-debt-map/<module>/<date>.md`, one file per review so two dates can be read side by side. The **review index** goes to `docs/tech-debt/README.md`, which is a versioned file: the skill tells you before creating it the first time. It reads `CONTEXT.md`, `CLAUDE.md` and any ADRs where they exist.
+None to install, but know what it writes. Reports go to `.scratch/tech-debt-map/<module>/<date>.md`, one file per review so two dates can be read side by side. The **review index** goes to `docs/tech-debt/README.md`, which is a versioned file: the skill tells you before creating it the first time. It reads `GLOSSARY.md`, `CLAUDE.md` and any ADRs where they exist.
 
 ## The module, and the index
 

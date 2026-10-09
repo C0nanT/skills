@@ -33,7 +33,7 @@ leave the earlier tickets alone.
 
 This skill only runs mid-level work unattended. Before starting, read the
 `Difficulty:` line of **every** ticket in the sequence, not just the next one,
-so a Heavy ticket stops the run before any work is staged.
+so a Heavy ticket stops the run before any work is done.
 
 - **Standard** or **Light**: runs.
 - **Heavy**, or **no `Difficulty:` line**: stop the sequence before that ticket
@@ -43,25 +43,15 @@ so a Heavy ticket stops the run before any work is staged.
 
 ## Isolating each ticket's diff
 
-`/implement` leaves its work uncommitted. Without this protocol every ticket's review would
-see the accumulated work of all previous tickets. So the **git index is the
-baseline**: completed tickets live staged, and the unstaged working tree is
-always exactly the current ticket's work.
+`/implement` commits its work to the current branch when it finishes, so **each
+ticket is one commit** and the uncommitted working tree is always exactly the
+current ticket's work while it runs.
 
 **Before the first ticket:**
 
 1. Run `git status --short` in the repository.
-2. If anything is pending, show it to the user and explain that you'll run
-   `git add -A` to fix it as the baseline: this collapses any staged/unstaged
-   split they may have built by hand. **Wait for confirmation.** If they
-   decline, stop; they can commit or stash first.
-3. On confirmation, run `git add -A`.
-
-**After each ticket passes**, run `git add -A` to fold that ticket's work into
-the baseline, so the next subagent starts from a clean unstaged tree.
-
-The orchestrator itself makes no commit. At the end the whole sequence sits
-staged, with the per-ticket commit messages collected for the user.
+2. If anything is pending, show it to the user and stop: they commit or stash
+   it first, so the first ticket's commit carries only that ticket's work.
 
 ## Workflow
 
@@ -78,19 +68,20 @@ For each ticket, in order:
    spawning at whatever the session uses. If the host has no subagent
    mechanism, stop and tell the user this skill can't run here.
 4. Run it **synchronously**, never in the background, never in parallel with
-   another ticket. Sequencing is the whole point of this skill; the staging
-   baseline is only correct if exactly one ticket is in flight.
+   another ticket. Sequencing is the whole point of this skill; each commit
+   holds one ticket only if exactly one ticket is in flight.
 5. Wait until it finishes, then **verify** before continuing: the subagent
-   reported clear, complete success **and** every acceptance-criteria checkbox
-   in the ticket file is now `- [x]` (`/review-axes` syncs those from the code
+   reported clear, complete success, its work is committed (`git status
+   --short` is clean), **and** every acceptance-criteria checkbox in the
+   ticket file is now `- [x]` (`/review-axes` syncs those from the code
    at the end of `/implement`). A success report with unchecked criteria is a
    failure: the code didn't do what the ticket asked.
-6. On pass, run `git add -A`, record the commit message the subagent produced,
-   and start the next ticket.
+6. On pass, record the ticket's commit (`git log -1 --oneline`) and start the
+   next ticket.
 7. On any failure, blocker, unresolved issue, uncertain result, or unchecked
-   criterion: **stop immediately**. Do not stage that ticket's work; leave it
-   unstaged so the user can see exactly what it changed. Do not start another
-   ticket. Report the problem and wait for instructions.
+   criterion: **stop immediately**. Leave that ticket's work as it is (its
+   commit, or whatever it left uncommitted) so the user can see exactly what it
+   changed. Do not start another ticket. Report the problem and wait for instructions.
 
 Use a new subagent for every ticket. Never reuse a previous ticket's session.
 
@@ -98,9 +89,6 @@ Use a new subagent for every ticket. Never reuse a previous ticket's session.
 
 ```text
 Implement `<ticket-path>` in `<repository-path>` using the `implement` skill.
-
-The git index holds work from previous tickets that is NOT yours. Leave it
-alone, so your work stays unstaged and the index keeps exactly what it holds.
 
 When you invoke `/review-axes`, give it "the unstaged working tree" as its
 fixed point, so it reviews only your ticket's changes, and give it
@@ -112,14 +100,13 @@ missing spec, an effort gate, an ambiguity) is a blocker: stop and report the
 question. Never answer it yourself and never do that work inline.
 
 Report clear success or describe any failure, blocker, unresolved issue, or
-uncertainty. Include the commit message `/implement` generated.
+uncertainty. Include the hash of the commit `/implement` made.
 ```
 
 ## Final report
 
 When all tickets succeed, list the completed tickets with their subagent
-sessions and collected commit messages, and remind the user that everything is
-staged and awaiting your commit.
+sessions and commits.
 
-If the sequence stops, identify the failed ticket, its problem, and note that
-its work is the only thing left unstaged.
+If the sequence stops, identify the failed ticket, its problem, and where its
+work is (its commit, or the uncommitted working tree).

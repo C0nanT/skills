@@ -49,7 +49,7 @@ CERTO (vertical):
 ### Processo
 
 **1. Planejamento**: antes de escrever qualquer código:
-- Lê `CONTEXT.md` (se existir) e ADRs da área para alinhar nomes de teste ao vocabulário do domínio
+- Lê `GLOSSARY.md` (se existir) e ADRs da área para alinhar nomes de teste ao vocabulário do domínio
 - Confirma com o usuário quais mudanças de interface são necessárias
 - Confirma quais comportamentos testar (prioriza): você não consegue testar tudo
 - Identifica oportunidades de módulos profundos: use o vocabulário de módulos profundos e checagens de testabilidade

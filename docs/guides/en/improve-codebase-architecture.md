@@ -35,7 +35,7 @@ The skill uses specific, consistent terminology:
 
 **1. Exploration**
 
-Reads `CONTEXT.md` and ADRs first. Then navigates the codebase organically, looking for:
+Reads `GLOSSARY.md` and ADRs first. Then navigates the codebase organically, looking for:
 - Where understanding a concept requires jumping across many small modules?
 - Where modules are shallow (the interface is almost as complex as the implementation)?
 - Where code is hard to test?
@@ -58,7 +58,7 @@ The report ends with a "Top recommendation" section, which candidate to tackle f
 When you choose a candidate, the skill enters interview mode to work through the design: constraints, dependencies, shape of the deepened module, what goes behind the seam, which tests survive.
 
 Side effects during grilling:
-- New terms are added to `CONTEXT.md` inline
+- New terms are added to `GLOSSARY.md` inline
 - Rejection decisions with strong rationale generate an ADR offer
 
 ## Usage example

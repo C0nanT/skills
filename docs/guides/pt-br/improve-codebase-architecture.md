@@ -35,7 +35,7 @@ A skill usa terminologia específica e consistente:
 
 **1. Exploração**
 
-Lê o `CONTEXT.md` e ADRs primeiro. Depois navega a codebase organicamente, procurando por:
+Lê o `GLOSSARY.md` e ADRs primeiro. Depois navega a codebase organicamente, procurando por:
 - Onde entender um conceito exige pular entre muitos módulos pequenos?
 - Onde módulos são rasos (a interface é quase tão complexa quanto a implementação)?
 - Onde o código é difícil de testar?
@@ -58,7 +58,7 @@ O relatório termina com uma seção "Top recommendation": qual candidato atacar
 Quando você escolhe um candidato, a skill entra em modo de entrevista para trabalhar o design: constraints, dependências, forma do módulo aprofundado, o que fica atrás do seam, que testes sobrevivem.
 
 Efeitos colaterais durante o grilling:
-- Novos termos são adicionados ao `CONTEXT.md` inline
+- Novos termos são adicionados ao `GLOSSARY.md` inline
 - Decisões de rejeição com motivo forte geram oferta de ADR
 
 ## Exemplo de uso

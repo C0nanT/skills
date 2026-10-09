@@ -8,6 +8,15 @@ Coleção de agent skills (comandos `/slash`) para Claude Code. Fork do [reposit
 npx skills@latest add C0nanT/skills
 ```
 
+Quando o instalador perguntar quais skills levar, inclua `setup-skills`. Para atualizar, rode `npx skills@latest update`, e rode o `add` de novo para pegar skills novas.
+
+Prefere um bundle só-leitura no Claude Code? Use o plugin (escolha um dos dois, nunca ambos, senão cada skill aparece duas vezes):
+
+```text
+/plugin marketplace add C0nanT/skills
+/plugin install conan-skills@conan-skills
+```
+
 ### Hooks
 
 Os hooks vêm do plugin `conan-mods`, do projeto separado [claude-hooks](https://github.com/C0nanT/claude-hooks). Dentro do Claude Code:
@@ -92,7 +101,7 @@ A mesma tensão aparece com agentes. Eles entram num projeto e precisam decifrar
 Exemplo
 </summary>
 
-Veja um exemplo em [`CONTEXT.md`](./CONTEXT.md). Qual é mais fácil de ler?
+Veja um exemplo em [`GLOSSARY.md`](./GLOSSARY.md). Qual é mais fácil de ler?
 
 - **ANTES**: "There's a problem when a lesson inside a section of a course is made 'real' (i.e. given a spot in the file system)"
 - **DEPOIS**: "There's a problem with the materialization cascade"
@@ -168,7 +177,7 @@ Skills I use daily for code work.
 - **[ask-skills](./skills/engineering/ask-skills/SKILL.md)**: Ask which skill or flow fits your situation. A router over the skills in this repo.
 - **[frontend-handoff](./skills/engineering/frontend-handoff/SKILL.md)**: Turn a shipped backend change into a pasteable block for the frontend team: verdict first (must change / should change / nothing required), then contract table, payload examples, and checklist.
 - **[delegate-tickets](./skills/engineering/delegate-tickets/SKILL.md)**: Orchestrate sequential ticket implementation through fresh subagents, one ticket at a time, each required to use the `implement` skill.
-- **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
+- **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **[tech-debt-map](./skills/engineering/tech-debt-map/SKILL.md)**: Audit one module of a codebase that grew organically and produce a ranked map of its worst technical debt, plus an incremental cleanup plan. Tracks when each module was last reviewed so nothing rots unwatched. Diagnosis only, it changes no code.
 - **[setup-skills](./skills/engineering/setup-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, `.claude` deny rules for destructive git). Run once per repo before using the other engineering skills.
@@ -176,16 +185,18 @@ Skills I use daily for code work.
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
 - **[review-mr](./skills/engineering/review-mr/SKILL.md)**: Review someone else's merge request (GitLab, GitHub, or two local branches) for bugs, security, performance and design, check it against the task's acceptance criteria, and write a verdict plus the findings to a local markdown file.
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)**: Plan a huge chunk of work, more than one agent session can hold, as a shared map of decision tickets on the issue tracker: resolve them one at a time until the way to the destination is clear.
+- **[implement-spec](./skills/engineering/implement-spec/SKILL.md)**: Implement a whole spec on one integration branch. Works the tickets as a task graph, running implementer subagents across the ready frontier for maximum concurrency, then closes out with `/review-axes`.
+- **[retro](./skills/engineering/retro/SKILL.md)**: Suggest improvements to the coding agent's environment (navigation, automated checks, coding standards, steering files, tooling) after a session, most severe first.
 
 **Model-invoked**
 
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. Synthesizes what you've already discussed, asking only about gaps it can't fill.
-- **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. It delivers a verdict and a Conventional Commits message for you to use.
+- **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, calling the `tdd` skill at pre-agreed seams and closing out with `/review-axes`. It commits the work and delivers a verdict.
 - **[prototype](./skills/engineering/prototype/SKILL.md)**: Build a throwaway prototype to answer a design question: a single shareable HTML file for state/logic questions, or several radically different UI variations toggleable from one route.
 - **[research](./skills/engineering/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
 - **[tdd](./skills/engineering/tdd/SKILL.md)**: Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
-- **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)**: Use when you need to resolve an in-progress git merge/rebase conflict.
 - **[review-axes](./skills/engineering/review-axes/SKILL.md)**: Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus baselines for Fowler smells, duplicated code, and N+1 or repeated work?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents so neither pollutes the other.
+- **[pr](./skills/engineering/pr/SKILL.md)**: The shape a pull request body should take: a summary as the smallest visual that makes the change clear, before/after evidence that it works, and a merge-danger call (one-way or two-way door, plus blast radius).
 - **[wizard](./skills/engineering/wizard/SKILL.md)**: Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover.
 
 ### Productivity
@@ -196,7 +207,7 @@ General workflow tools, not code-specific.
 
 - **[handoff](./skills/productivity/handoff/SKILL.md)**: Compact the current conversation into a handoff document so another agent can continue the work.
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject.
-- **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Fire this the moment a message doesn't land. The agent re-pitches it with the context you're missing, in plain English, using your `CONTEXT.md` vocabulary.
+- **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Fire this the moment a message doesn't land. The agent re-pitches it with the context you're missing, in plain English, using your `GLOSSARY.md` vocabulary.
 
 **Model-invoked**
 

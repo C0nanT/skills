@@ -36,7 +36,7 @@ Done when every ticket is accounted for against the diff: each one's shipped beh
 
 ### 2. Learn this repo's envelope
 
-Contract judgements are only as good as your model of the response shape. Read `CONTEXT.md` and `CLAUDE.md` for the project's domain language, then the serializers/resources and one passing feature test to fix:
+Contract judgements are only as good as your model of the response shape. Read `GLOSSARY.md` and `CLAUDE.md` for the project's domain language, then the serializers/resources and one passing feature test to fix:
 
 - the standard success envelope (wrapper keys, pagination/meta placement)
 - where derived state lives (fields computed from other systems or aggregates, and which sub-objects carry their own status)

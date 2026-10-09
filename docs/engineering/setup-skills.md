@@ -14,7 +14,7 @@ npx skills update setup-skills
 
 `setup-skills` teaches one repo how the engineering skills should behave in it (where issues live, what the triage labels are called, and where the domain docs sit) and records those answers as **config** the other skills read.
 
-It writes config, it does not hard-code behaviour. The engineering chain assumes three files under `docs/agents/` exist; this skill is the one-time bootstrap that produces them, discovered from your actual repo (`git remote`, existing labels, existing `CONTEXT.md`) and confirmed with you rather than guessed. It is prompt-driven (explore, present what it found, confirm, then write) not a deterministic scaffold.
+It writes config, it does not hard-code behaviour. The engineering chain assumes three files under `docs/agents/` exist; this skill is the one-time bootstrap that produces them, discovered from your actual repo (`git remote`, existing labels, existing `GLOSSARY.md`) and confirmed with you rather than guessed. It is prompt-driven (explore, present what it found, confirm, then write) not a deterministic scaffold.
 
 ## When to reach for it
 
@@ -27,8 +27,8 @@ Reach for it **once per repo, before the first use of any other engineering skil
 It walks you through four choices, one at a time, each with a plain-language explainer (it assumes you don't already know the terms):
 
 - **Issue tracker**: where work is tracked, so `to-spec`/`to-tickets` know whether to call `gh`, `glab`, write markdown under `.scratch/`, or follow a workflow you describe. GitHub, GitLab, local markdown, or other.
-- **Triage labels**: the strings behind the six canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`, `done`), mapped to labels you've actually configured. This section always runs; `ready-for-human` means a human has to review the task, the code and whether the feature works.
-- **Domain docs**: whether the repo has one `CONTEXT.md` or a multi-context map, so skills that read domain language look in the right place.
+- **Triage labels**: the strings behind the six canonical roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`, `done`), mapped to labels you've actually configured. On GitHub or GitLab it creates any configured label the tracker lacks. This section always runs; `ready-for-human` means a human has to review the task, the code and whether the feature works.
+- **Domain docs**: whether the repo has one `GLOSSARY.md` or a multi-context map, so skills that read domain language look in the right place.
 - **Git guardrails**: whether to add `permissions.deny` rules to the project's `.claude/settings.json` so Claude Code refuses destructive git (`push`, `reset`, `clean`, `rebase`, also through `git -C <dir>`, plus force deletes and discard-all commands). Recommended yes; no hooks are installed.
 
 The output is three files: `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`, `docs/agents/domain.md`, plus an `## Agent skills` block pointing to them in whichever of `CLAUDE.md` / `AGENTS.md` the repo already uses. The issue tracker file carries a "Wayfinding operations" section for every tracker you can pick, local markdown included (`.scratch/<effort>/map.md` plus `tickets/NN-<slug>.md`), so [wayfinder](./wayfinder.md) knows the map, claim, blocking and frontier format. Local specs are always `SPEC.md`. Those files are the shared substrate the rest of the toolkit stands on. With guardrails on, it also writes `docs/agents/git-guardrails.md` and merges the deny rules into `.claude/settings.json`.

@@ -9,7 +9,7 @@ One row per module, maintained by the `tech-debt-map` skill. The partition below
 | In-progress skills | `skills/in-progress/**` | declared | never | | |
 | Plugin and tooling | `scripts/**`, `.claude-plugin/**`, `.github/**`, `.changeset/**`, `*.sh` (repo root), `.agents/local-skills/**` | proposed | never | | |
 | Productivity skills | `skills/productivity/**` | declared | never | | |
-| Agent standards | `.agents/*.md`, `.agents/adr/**`, `CLAUDE.md`, `CONTEXT.md`, `AGENTS.md` | proposed | never | | |
+| Agent standards | `.agents/*.md`, `.agents/adr/**`, `CLAUDE.md`, `GLOSSARY.md`, `AGENTS.md` | proposed | never | | |
 | Misc skills | `skills/misc/**` | declared | never | | |
 | Deprecated | `skills/deprecated/**` | declared | never | | |
 
