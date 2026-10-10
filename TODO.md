@@ -1,0 +1,2 @@
+- [ ] Corrigir o git guardrails para não atrapalhar as skills
+- [ ] Levar as documentações de linguagem para uma pasta ao invés de arquivos soltos

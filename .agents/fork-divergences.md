@@ -64,6 +64,16 @@ Each of these is a fork feature that an upstream rewrite would delete without co
 
 `archive-feature` (`skills/engineering/archive-feature/`) closes a finished feature: sets its spec and tickets to the `done` triage role and moves the folder with `git mv` from `.scratch/` to `docs/archive/<feature-slug>/`. User-invoked, local markdown only. It is promoted (`plugin.json`, root README, `skills/engineering/README.md`, `docs/engineering/archive-feature.md`, routed by `ask-skills`). The `done` role it depends on lives in `skills/engineering/setup-skills/triage-labels.md` and `docs/agents/triage-labels.md`, and the local tracker docs point finished features to it. Upstream has none of this, so a merge never conflicts but can drop the wiring. Sweep: `grep -rn "archive-feature" .claude-plugin README.md skills/engineering/README.md skills/engineering/ask-skills docs/agents`.
 
+## Portuguese translations
+
+Every skill under `skills/` carries two pt-BR files that upstream does not have. `TRADUCAO.pt-BR.md` is a full translation of its `SKILL.md`, with the frontmatter shown as a `yaml` block. `RESUMO.md` is a short pt-BR summary: what the skill does, when to use it, how it is invoked, and which files it ships with. Each English supporting `.md` a skill links to (`LOGIC.md`, `UI.md`, `HTML-REPORT.md`, `PHASE-BOUNDARIES.md`, `AXES.md`, `REFERENCE.md`, `SKILL-MECHANICS.md`, and the `setup-skills/*.md` templates) gets a `<name>.pt-BR.md` twin, and the pt-BR files link to one another by those names. `CREDITS.md` and the `.sh` scripts stay in English. Only prose is translated: code blocks, commands, paths, frontmatter keys, skill names, quoted trigger phrases, and label strings stay byte-identical.
+
+These files are fork-only, so a merge never conflicts on them, and it never updates them either. That is the risk this entry records:
+
+- `SKILL.md` and its English supporting files stay the source of truth. When a sync changes one of them, rewrite its pt-BR twin in the same pass, then check that the code-fence and heading counts still match the English original. A mismatch means something was summarised or dropped.
+- A skill that upstream adds, or that is created here, needs both files before the sync is done. A removed skill takes its two files with it. A renamed skill keeps the same folder layout.
+- Sweep for a skill without its pair: `for d in $(find skills -name SKILL.md -exec dirname {} \;); do [ -f "$d/TRADUCAO.pt-BR.md" ] && [ -f "$d/RESUMO.md" ] || echo "$d"; done`.
+
 ## Writing style
 
 - **No em-dashes: upstream's rule, adopted here.** Upstream banned them repo-wide in commit `3216582`; this fork carried them everywhere, which made every sync conflict on essentially every prose file for no semantic reason. The 2026-08 sync converted all 1023 of them (comma, colon, semicolon, period, or parentheses, matching upstream's own distribution) and wrote the rule into `CLAUDE.md`. **This is no longer a divergence**, and that is the point: punctuation should never show up in a merge conflict again. Keep it that way when writing new prose.
