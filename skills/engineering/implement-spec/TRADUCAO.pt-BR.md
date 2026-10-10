@@ -26,16 +26,18 @@ Os **subagentes implementadores** devem rodar em segundo plano sempre que possí
 
 4. Use **subagentes implementadores** para implementar cada ticket, cada um em seu próprio worktree e em seu próprio branch. Cada subagente implementador:
    - confirma que seu worktree está baseado no branch de integração antes de começar, e faz reset para ele se não estiver;
-   - chama a ferramenta Skill com `tdd` para construir o ticket;
+   - chama a ferramenta Skill com `tdd` para construir o ticket, rodando apenas **testes isolados** (unitários e de lógica pura, nada que toque estado compartilhado). Ele escreve os **testes de estado compartilhado** que o ticket exige (banco de dados, API, e2e, qualquer coisa em porta, arquivo, fila ou serviço externo compartilhado), mas não os executa;
    - faz merge da ponta do branch de integração no próprio branch antes de reportar que terminou
 
 5. Assim que um **subagente implementador** terminar, faça merge do trabalho dele no branch de integração com um **subagente de merge**.
 
 6. Se isso alterar a **fronteira** de tickets disponíveis, dispare mais **subagentes implementadores** para trabalhar nos novos tickets. Isso permite máxima concorrência.
 
-7. Quando todos os tickets estiverem concluídos, chame a ferramenta Skill com `review-axes` no branch de integração, passando o caminho da especificação como argumento de spec. Corrija todos os problemas levantados pela revisão em um único **subagente implementador**.
+7. Quando todos os tickets estiverem concluídos e mesclados, rode os **testes de estado compartilhado** uma única vez, em série, no branch de integração (sem nenhum outro subagente rodando). Implementadores em paralelo compartilham o mesmo banco, portas e serviços, então esses testes corromperiam os dados uns dos outros se rodassem durante os passos 4 a 6. Corrija todas as falhas em um único **subagente implementador** e rode de novo apenas os testes que falharam.
 
-8. Se existir um PR em rascunho, marque-o como pronto para revisão. Caso contrário, resolva cada ticket da forma como o issue tracker encerra o trabalho e informe o branch de integração.
+8. Chame a ferramenta Skill com `review-axes` no branch de integração, passando o caminho da especificação como argumento de spec. Corrija todos os problemas levantados pela revisão em um único **subagente implementador**. Se as correções tocarem código coberto por testes de estado compartilhado, rode esses testes de novo, em série, depois.
+
+9. Se existir um PR em rascunho, marque-o como pronto para revisão. Caso contrário, resolva cada ticket da forma como o issue tracker encerra o trabalho e informe o branch de integração.
    Em um tracker local em markdown, resolver um ticket significa marcar o arquivo dele no checkout principal (não em um worktree): troque cada critério de aceitação que o branch de integração implementa para `- [x]`, com base no relatório de Spec do passo 7 e no trabalho mesclado do ticket, deixe os não atendidos como `- [ ]` e defina `Status: ready-for-human` quando todas as caixas estiverem marcadas. Um ticket com alguma caixa desmarcada mantém o status e é listado no relatório. É isso que o `/archive-feature` verifica antes de arquivar a funcionalidade.
 
-9. Limpe todos os worktrees dos **subagentes implementadores**.
+10. Limpe todos os worktrees dos **subagentes implementadores**.

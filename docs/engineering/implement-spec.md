@@ -63,6 +63,10 @@ This is a known problem on GitHub. The tracker's blocked-by count only drops whe
 
 No. People ask because the skills now reach into implementation: "is Sandcastle still relevant? Your skills now seem to be able to handle implementation as well." `implement-spec` puts an agent in charge of orchestration inside one harness session, which needs no infrastructure and lets you watch and steer. For work that is truly [AFK](https://www.aihero.dev/ai-coding-dictionary/afk), a deterministic loop ([Sandcastle](https://github.com/mattpocock/sandcastle), a shell script, a CI job) is faster, cheaper, and more reliable, because no agent makes the orchestration decisions.
 
+**Parallel implementers broke each other's database or API tests.**
+
+Worktrees isolate files, not the database, ports, or external services the tests hit. Two implementers running DB, API, or e2e tests at once can overwrite each other's data and fail for reasons unrelated to their code. So implementers run only isolated tests (unit and pure logic). They still write the shared-state tests their ticket needs, but the orchestrator runs those once, serially, on the integration branch after the last merge, and one fix subagent handles any failure.
+
 **A ticket's key test was skipped inside its worktree, and it reported green.**
 
 A worktree holds only what git tracks. Tests that read gitignored fixtures, local databases, or credentials can silently skip there. For a ticket whose verification depends on untracked material, tell the orchestrator to run it in the main checkout instead.
