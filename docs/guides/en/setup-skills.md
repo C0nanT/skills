@@ -50,7 +50,7 @@ If the repo already uses other strings (e.g. `bug:triage`), maps them here.
 - Multi-context: `GLOSSARY-MAP.md` pointing to per-module contexts (monorepos)
 
 **Section D: Git guardrails**: Block destructive git for Claude Code in this repo? (recommended: yes)
-- Appends rules to `permissions.deny` in the project's `.claude/settings.json`: `push`, `reset`, `clean`, `rebase` (also in the `git -C <dir> …` form), force branch and tag deletes, `checkout .`/`restore .`, `stash drop`/`clear`
+- Appends rules to `permissions.deny` in the project's `.claude/settings.json`: `push`, `reset --hard`, `clean` (also in the `git -C <dir> …` form), force branch and tag deletes, `checkout .`/`restore .`, `stash drop`/`clear`
 - Needs `jq`. Without it, setup stops and says so, and the file is not touched
 - With an invalid `settings.json`, it stops and shows the `jq` error; you fix the file and re-run
 - With a valid file, it only appends the missing rules: existing allow rules, hooks, env and deny entries stay. Before replacing the file it writes a backup next to it (`settings.json.bak-<timestamp>`)

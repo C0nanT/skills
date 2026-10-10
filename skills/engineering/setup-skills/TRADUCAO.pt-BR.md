@@ -65,7 +65,9 @@ Ofereça o **multi-contexto** (um `GLOSSARY-MAP.md` na raiz apontando para arqui
 
 > Adicionar regras `permissions.deny` do projeto que bloqueiam git destrutivo no Claude Code? (recomendado: **sim**)
 
-> Explicação: Mescla regras de negação apenas no `.claude/settings.json` **deste repositório**, sem hooks e sem scripts. O Claude Code recusa `git push`, `git reset`, `git clean`, `git rebase` (também na forma `git -C <dir> …`), deleção forçada de branches, checkouts e restores que descartam tudo, `stash drop`/`clear` e deleção forçada de tags. O git somente leitura continua funcionando. Suas configurações existentes (regras de permissão, hooks, env) são mantidas, um backup com carimbo de data e hora é gravado antes de o arquivo ser substituído, e a mesclagem para sem tocar em nada se o `jq` estiver ausente ou se o arquivo não for um JSON válido. Seus hooks globais existentes continuam intactos. Diga **não** apenas se quiser que o agente possa alterar o histórico do git neste repositório.
+> Explicação: Mescla regras de negação apenas no `.claude/settings.json` **deste repositório**, sem hooks e sem scripts. O Claude Code recusa `git push`, `git reset --hard`, `git clean` (também na forma `git -C <dir> …`), deleção forçada de branches, checkouts e restores que descartam tudo, `stash drop`/`clear` e deleção forçada de tags. O git do dia a dia (`add`, `commit`, `merge`, `rebase`, `switch`, `worktree`, `reset` soft) continua funcionando, então skills como `/implement`, `/delegate-tickets` e `/implement-spec` seguem rodando. Suas configurações existentes (regras de permissão, hooks, env) são mantidas, um backup com carimbo de data e hora é gravado antes de o arquivo ser substituído, e a mesclagem para sem tocar em nada se o `jq` estiver ausente ou se o arquivo não for um JSON válido. Seus hooks globais existentes continuam intactos. Diga **não** apenas se quiser que o agente possa alterar o histórico do git neste repositório.
+
+Quando a lista de negações existente trouxer as regras amplas antigas (`Bash(git reset *)`, `Bash(git rebase *)` ou suas formas `git -C`), mantenha-as e avise o usuário de que elas bloqueiam resets soft e rebases de que o `/implement-spec` e a resolução de conflitos podem precisar, e de que apagá-las à mão é seguro. Nunca as remova você mesmo.
 
 Se o usuário disser **não**, omita a mesclagem de negações, o `docs/agents/git-guardrails.md` e o sub-bloco `### Git guardrails`. Não remova regras de negação existentes quando ele disser não.
 
@@ -110,7 +112,7 @@ O bloco:
 
 ### Git guardrails
 
-Destructive git (`push`, `reset`, …) is denied via `permissions.deny` in `.claude/settings.json`. See `docs/agents/git-guardrails.md`.
+Destructive git (`push`, `reset --hard`, …) is denied via `permissions.deny` in `.claude/settings.json`. A denied command is a stop signal: report it, never route around it. See `docs/agents/git-guardrails.md`.
 ```
 
 Inclua o sub-bloco `### Git guardrails` e escreva `docs/agents/git-guardrails.md` somente quando a Seção D tiver sido **sim**. Quando a Seção D tiver sido **não**, omita-os.
@@ -140,17 +142,14 @@ Lista-semente de negações (mescle estas strings em `permissions.deny`; mantenh
 
 ```text
 Bash(git push *)
-Bash(git reset *)
+Bash(git reset --hard *)
 Bash(git clean *)
-Bash(git rebase *)
 Bash(git -C * push)
 Bash(git -C * push *)
-Bash(git -C * reset)
-Bash(git -C * reset *)
+Bash(git -C * reset --hard)
+Bash(git -C * reset --hard *)
 Bash(git -C * clean)
 Bash(git -C * clean *)
-Bash(git -C * rebase)
-Bash(git -C * rebase *)
 Bash(git branch -D *)
 Bash(git branch --delete --force *)
 Bash(git checkout . *)
@@ -188,17 +187,14 @@ if ! jq --indent 2 '
   | reduce (
       [
         "Bash(git push *)",
-        "Bash(git reset *)",
+        "Bash(git reset --hard *)",
         "Bash(git clean *)",
-        "Bash(git rebase *)",
         "Bash(git -C * push)",
         "Bash(git -C * push *)",
-        "Bash(git -C * reset)",
-        "Bash(git -C * reset *)",
+        "Bash(git -C * reset --hard)",
+        "Bash(git -C * reset --hard *)",
         "Bash(git -C * clean)",
         "Bash(git -C * clean *)",
-        "Bash(git -C * rebase)",
-        "Bash(git -C * rebase *)",
         "Bash(git branch -D *)",
         "Bash(git branch --delete --force *)",
         "Bash(git checkout . *)",

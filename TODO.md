@@ -1,2 +1,3 @@
-- [ ] Corrigir o git guardrails para não atrapalhar as skills
+- [x] Corrigir o git guardrails para não atrapalhar as skills
 - [ ] Levar as documentações de linguagem para uma pasta ao invés de arquivos soltos
+- [ ] Se estiver desenvolvendo no frontend com o implement-spec, não rodar testes e2e ou qualquer um que acesse o backend, para não atrapalhar agentes em paralelo mudando os dados no banco, testa só oq não afeta a API e no final de implementar tudo, deixa pendente de rodar testes e2e com tudo de uma vez 

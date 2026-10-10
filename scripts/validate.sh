@@ -298,8 +298,8 @@ elif [[ ! -s "$_merge_tmp/deny-list.txt" ]]; then
   fail "setup-skills: deny list text block not found before the merge snippet"
 else
   bash_bin="$(command -v bash)"
-  # Every `git <cmd> *` rule for these four must have both -C shapes.
-  for cmd in push reset clean rebase; do
+  # Every `git <cmd> *` rule for these three must have both -C shapes.
+  for cmd in push "reset --hard" clean; do
     for rule in "Bash(git -C * $cmd)" "Bash(git -C * $cmd *)"; do
       if grep -qxF "$rule" "$_merge_tmp/deny-list.txt"; then
         pass "setup-skills deny list has $rule"
